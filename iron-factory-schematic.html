@@ -623,11 +623,15 @@ function buildBelts(){
     points:[[cmx(1),cy(0)+5],[cmx(1),pA]],label:'铁板 40/m'});
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'40/m',
     points:[[cmx(1),pA],[cmx(1),pB]],label:''});
+  // 40 → splitter at cmx(0.5) (horizontal left)
+  B.push({floor:2,material:'plate',color:'var(--plate)',rate:'40/m',
+    points:[[cmx(1),pB],[cmx(0.5),pB]],label:''});
+  // 30 → RIP (from splitter, straight down)
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'30/m',
-    points:[[cmx(1),pB],[cmx(0.5),pB],[cmx(0.5),cy(4)+C.h*0.3]],label:'板30→RIP'});
-  // 10 → storage (L: left → down → right)
+    points:[[cmx(0.5),pB],[cmx(0.5),cy(4)+C.h*0.3]],label:'板30→RIP'});
+  // 10 → storage (from splitter, continue left then down)
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'10/m',
-    points:[[cmx(1),pB],[cmx(0),pB],[cmx(0),cmy(6.3)]],label:'余板10→储存'});
+    points:[[cmx(0.5),pB],[cmx(0),pB],[cmx(0),cmy(6.3)]],label:'余板10→储存'});
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'10/m',
     points:[[cmx(0),cmy(6.3)],[cmx(1),cmy(6.3)]],label:''});
 
@@ -673,7 +677,7 @@ const SPLITTERS = [
   {floor:2,type:'split',x:cmx(1.5),y:cy(3)+38,label:'分流 80→60+20'},
   {floor:2,type:'merge',x:cmx(4.5),y:cy(3)+38,label:'合流 20+80→100'},
   // Floor 2 — plate split
-  {floor:2,type:'split',x:cmx(1),y:cy(0)+45,label:'分流 40→30+10'},
+  {floor:2,type:'split',x:cmx(0.5),y:cy(0)+45,label:'分流 40→30+10'},
 ];
 
 // ============================
