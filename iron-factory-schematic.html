@@ -477,18 +477,10 @@ const POLES = {
 function buildBelts(){
   const B = [];
   // ===== FLOOR 1 BELTS =====
-  // Ore input — inverted-T layout: main belt at y1, branches at y2 (no overlap)
-  const oreA1=cy(0)+15, oreA2=cy(0)+35, oreB1=cy(0)+45, oreB2=cy(0)+60;
-  // Ore A: main belt → splitter trunk → two branches
-  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
-    points:[[cx(0),oreA1],[cmx(1.5),oreA1]],label:'矿石A 60/m'});
-  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
-    points:[[cmx(1.5),oreA1],[cmx(1.5),oreA2]],label:''});
-  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'30/m',
-    points:[[cmx(1.5),oreA2],[cmx(1),oreA2],[cmx(1),cy(1)]],label:'30/m'});
-  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'30/m',
-    points:[[cmx(1.5),oreA2],[cmx(2),oreA2],[cmx(2),cy(1)]],label:'30/m'});
-  // Ore B: main belt → splitter trunk → two branches
+  // Ore input — separated Y levels: B on top (right smelters), A below (left smelters)
+  // Avoids B's long horizontal belt crossing A's vertical branches
+  const oreB1=cy(0)+10, oreB2=cy(0)+25, oreA1=cy(0)+42, oreA2=cy(0)+57;
+  // Ore B (smelters 3&4): main belt → splitter trunk → two branches
   B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
     points:[[cx(0),oreB1],[cmx(4.5),oreB1]],label:'矿石B 60/m'});
   B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
@@ -497,6 +489,15 @@ function buildBelts(){
     points:[[cmx(4.5),oreB2],[cmx(4),oreB2],[cmx(4),cy(1)]],label:'30/m'});
   B.push({floor:1,material:'ore',color:'var(--ore)',rate:'30/m',
     points:[[cmx(4.5),oreB2],[cmx(5),oreB2],[cmx(5),cy(1)]],label:'30/m'});
+  // Ore A (smelters 1&2): main belt → splitter trunk → two branches
+  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
+    points:[[cx(0),oreA1],[cmx(1.5),oreA1]],label:'矿石A 60/m'});
+  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'60/m',
+    points:[[cmx(1.5),oreA1],[cmx(1.5),oreA2]],label:''});
+  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'30/m',
+    points:[[cmx(1.5),oreA2],[cmx(1),oreA2],[cmx(1),cy(1)]],label:'30/m'});
+  B.push({floor:1,material:'ore',color:'var(--ore)',rate:'30/m',
+    points:[[cmx(1.5),oreA2],[cmx(2),oreA2],[cmx(2),cy(1)]],label:'30/m'});
 
   // Smelter 1 → plate 1 (direct, straight down)
   B.push({floor:1,material:'ingot',color:'var(--smelter)',rate:'30/m',
@@ -626,9 +627,11 @@ function buildBelts(){
   // 40 → splitter at cmx(0.5) (horizontal left)
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'40/m',
     points:[[cmx(1),pB],[cmx(0.5),pB]],label:''});
-  // 30 → RIP (from splitter, straight down)
+  // 30 → RIP (from splitter, down then right-angle entry into left face)
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'30/m',
-    points:[[cmx(0.5),pB],[cmx(0.5),cy(4)+C.h*0.3]],label:'板30→RIP'});
+    points:[[cmx(0.5),pB],[cmx(0.5),cy(4)-10]],label:'板30→RIP'});
+  B.push({floor:2,material:'plate',color:'var(--plate)',rate:'30/m',
+    points:[[cmx(0.5),cy(4)-10],[cmx(0.5),cy(4)+C.h*0.3],[cx(1)+C.w*0.2,cy(4)+C.h*0.3]],label:''});
   // 10 → storage (from splitter, continue left then down)
   B.push({floor:2,material:'plate',color:'var(--plate)',rate:'10/m',
     points:[[cmx(0.5),pB],[cmx(0),pB],[cmx(0),cmy(6.3)]],label:'余板10→储存'});
@@ -655,9 +658,9 @@ const LIFTS = [
 ];
 
 const SPLITTERS = [
-  // Floor 1 — ore input (inverted-T split)
-  {floor:1,type:'split',x:cmx(1.5),y:cy(0)+35,label:'分流'},
-  {floor:1,type:'split',x:cmx(4.5),y:cy(0)+60,label:'分流'},
+  // Floor 1 — ore input (separated Y levels)
+  {floor:1,type:'split',x:cmx(1.5),y:cy(0)+57,label:'分流'},
+  {floor:1,type:'split',x:cmx(4.5),y:cy(0)+25,label:'分流'},
   // Floor 1 — ingot corridor (rod side, direct split)
   {floor:1,type:'split',x:cmx(4),y:cmy(3),label:'分流'},
   {floor:1,type:'split',x:cmx(6.5),y:cmy(3.2),label:'分流'},
@@ -810,13 +813,13 @@ function renderFloor(floor){
     content += svgEl('text',{x:cmx(3),y:cmy(3)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'铁锭分流走廊');
     content += svgEl('rect',{x:cx(3)+2,y:cy(1)+2,width:C.w-4,height:C.h*2-4,rx:4,fill:'none',stroke:'var(--border)','stroke-dasharray':'4,3'});
     content += svgEl('text',{x:cmx(3),y:cmy(1.5)+4,fill:'#2a2a3a',style:'font:10px Noto Sans SC;text-anchor:middle'},'走道');
-    content += svgEl('text',{x:cmx(3.5),y:cmy(6.5)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'升降机 · 输出');
+    content += svgEl('text',{x:cmx(3),y:cmy(6.5)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'升降机 · 输出');
   } else if(floor==='2'){
     content += svgEl('text',{x:cmx(3),y:cmy(0.2),fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'升降机到达 · 铁棒分流');
     content += svgEl('text',{x:cmx(3),y:cmy(3.3)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'螺丝分流走廊');
     content += svgEl('rect',{x:cx(3)+2,y:cy(1)+2,width:C.w-4,height:C.h*2-4,rx:4,fill:'none',stroke:'var(--border)','stroke-dasharray':'4,3'});
     content += svgEl('text',{x:cmx(3),y:cmy(1.5)+4,fill:'#2a2a3a',style:'font:10px Noto Sans SC;text-anchor:middle'},'走道');
-    content += svgEl('text',{x:cmx(3.5),y:cmy(6.3)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'储存 · 产出');
+    content += svgEl('text',{x:cmx(3),y:cmy(6.3)+4,fill:'var(--dim)',style:'font:9px Noto Sans SC;text-anchor:middle;letter-spacing:2px'},'储存 · 产出');
   }
 
   // Power lines (behind everything)
