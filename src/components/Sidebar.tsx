@@ -14,8 +14,9 @@ function CrossSectionMini() {
       <text x={115} y={98} fill="var(--smelter)" style={{ font: 'bold 11px Noto Sans SC', textAnchor: 'middle' }}>1F 冶炼 + 基础加工</text>
       <text x={115} y={114} fill="var(--dim)" style={{ font: '10px JetBrains Mono', textAnchor: 'middle' }}>10台 · 40MW</text>
       <rect x={10} y={20} width={210} height={45} rx={4} fill="var(--bg3)" stroke="var(--screw)" strokeOpacity={0.4} strokeWidth={1} />
+      <rect x={22} y={64} width={186} height={10} rx={3} fill="rgba(255,183,77,0.12)" stroke="rgba(255,183,77,0.35)" strokeWidth={1} strokeDasharray="3,2" />
       <text x={115} y={38} fill="var(--screw)" style={{ font: 'bold 11px Noto Sans SC', textAnchor: 'middle' }}>2F 组件 + 组装</text>
-      <text x={115} y={54} fill="var(--dim)" style={{ font: '10px JetBrains Mono', textAnchor: 'middle' }}>6台+4箱 · 46MW</text>
+      <text x={115} y={54} fill="var(--dim)" style={{ font: '10px JetBrains Mono', textAnchor: 'middle' }}>6台+4箱 · 46MW · 南扩前场</text>
       <line x1={60} y1={65} x2={60} y2={80} stroke="var(--plate)" strokeWidth={2} strokeDasharray="3,3" />
       <text x={60} y={75} fill="var(--plate)" style={{ font: '7px Orbitron', textAnchor: 'middle' }}>板↑</text>
       <line x1={160} y1={65} x2={160} y2={80} stroke="var(--rod)" strokeWidth={2} strokeDasharray="3,3" />
@@ -76,6 +77,13 @@ function BuildListPanel() {
   );
 }
 
+const ZONE_RULES = [
+  ['主物流带', '只放主干带、升降机到达和一级分流'],
+  ['维护走道', '保持贯通，不塞生产机'],
+  ['扩产预留', '未来终端件优先吃这里'],
+  ['前场缓冲', '只放储存、出货和备用接口'],
+];
+
 const LEGEND_ITEMS = [
   { label: '冶炼炉', color: 'var(--smelter)' },
   { label: '铁板机', color: 'var(--plate)' },
@@ -109,6 +117,16 @@ export default function Sidebar({ floor: _floor, layers: _layers }: SidebarProps
       <div className="panel">
         <div className="panel-title">建造清单</div>
         <BuildListPanel />
+      </div>
+
+      <div className="panel">
+        <div className="panel-title">空地规划</div>
+        {ZONE_RULES.map(([name, note]) => (
+          <div key={name} className="build-row">
+            <span className="name">{name}</span>
+            <span className="count">{note}</span>
+          </div>
+        ))}
       </div>
 
       <div className="panel">

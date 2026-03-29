@@ -189,12 +189,14 @@ main {
 .build-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
   font-size: 12px;
   padding: 2px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 .build-row .name { color: var(--text); }
-.build-row .count { font-family: 'JetBrains Mono', monospace; color: var(--dim); }
+.build-row .count { font-family: 'JetBrains Mono', monospace; color: var(--dim); text-align: right; line-height: 1.35; }
 
 /* ====== LEGEND ====== */
 .legend-grid {
@@ -218,6 +220,46 @@ main {
 
 /* ====== SVG ELEMENTS ====== */
 .grid-line { stroke: #151530; stroke-width: 0.5; }
+.layout-zone-fill {
+  opacity: 0.12;
+}
+.layout-zone-border {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 6, 6;
+  opacity: 0.5;
+}
+.layout-zone-label {
+  font: 500 8px 'JetBrains Mono', monospace;
+  fill: rgba(255, 255, 255, 0.52);
+  pointer-events: none;
+  letter-spacing: 0.4px;
+}
+.layout-zone-trunk .layout-zone-fill { fill: rgba(0, 229, 200, 0.16); }
+.layout-zone-trunk .layout-zone-border { stroke: rgba(0, 229, 200, 0.45); }
+.layout-zone-maintenance .layout-zone-fill { fill: rgba(137, 168, 219, 0.12); }
+.layout-zone-maintenance .layout-zone-border { stroke: rgba(137, 168, 219, 0.36); }
+.layout-zone-reserve .layout-zone-fill { fill: rgba(206, 147, 216, 0.12); }
+.layout-zone-reserve .layout-zone-border { stroke: rgba(206, 147, 216, 0.34); }
+.layout-zone-front .layout-zone-fill { fill: rgba(255, 183, 77, 0.12); }
+.layout-zone-front .layout-zone-border { stroke: rgba(255, 183, 77, 0.4); }
+.label-chip-bg {
+  fill: rgba(7, 10, 18, 0.9);
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+.label-chip-text {
+  font: 500 8px 'JetBrains Mono', monospace;
+  fill: rgba(245, 248, 255, 0.92);
+  letter-spacing: 0.2px;
+  pointer-events: none;
+}
+.label-chip-zone .label-chip-bg {
+  fill: rgba(9, 12, 22, 0.86);
+}
+.label-chip-zone .label-chip-text {
+  fill: rgba(229, 235, 247, 0.74);
+}
 .machine-label {
   font: 500 10px 'Noto Sans SC', sans-serif;
   fill: #fff;
@@ -235,8 +277,23 @@ main {
   pointer-events: none;
 }
 .machine-group { cursor: pointer; }
+.machine-hitbox {
+  fill: transparent;
+  pointer-events: all;
+}
+.machine-footprint {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 4, 4;
+}
+.storage-footprint {
+  fill: rgba(141, 110, 99, 0.08);
+  stroke: rgba(141, 110, 99, 0.3);
+}
 .machine-group:hover .machine-body { filter: brightness(1.3); }
-.machine-group:hover .machine-glow { opacity: 0.15 !important; }
+.machine-group:hover .machine-glow { opacity: 0.18 !important; }
+.machine-group:hover .machine-footprint { stroke: rgba(255, 255, 255, 0.26); }
 .storage-body { stroke-dasharray: 4, 3; }
 
 @keyframes beltFlow {
@@ -294,6 +351,10 @@ main {
   stroke-width: 1;
   stroke-dasharray: 4, 3;
   rx: 4;
+}
+.lift-box-spare {
+  stroke: rgba(255, 183, 77, 0.85);
+  fill: rgba(255, 183, 77, 0.08);
 }
 .lift-label {
   font: 500 9px 'Noto Sans SC', sans-serif;

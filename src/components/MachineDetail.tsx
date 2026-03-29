@@ -30,6 +30,7 @@ export default function MachineDetail({ machine, onClose }: Props) {
   if (!machine) return <dialog ref={dialogRef} className="detail-popup" />;
 
   const m = machine;
+  const footprint = `${m.footprint.w.toFixed(2).replace(/\.00$/, '')} × ${m.footprint.h.toFixed(2).replace(/\.00$/, '')} 格`;
   return (
     <dialog ref={dialogRef} className="detail-popup">
       <div className="popup-card">
@@ -73,6 +74,10 @@ export default function MachineDetail({ machine, onClose }: Props) {
 
         <div className="popup-section">
           <h3>状态</h3>
+          <div className="popup-row">
+            <span className="label">预留占地</span>
+            <span className="value">{footprint}</span>
+          </div>
           <div className="popup-row">
             <span className="label">功耗</span>
             <span className="value">{m.power} MW</span>
