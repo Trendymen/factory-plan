@@ -243,6 +243,14 @@ main {
   from { stroke-dashoffset: 16; }
   to { stroke-dashoffset: 0; }
 }
+@keyframes powerFlow {
+  from { stroke-dashoffset: 12; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes powerLineFlow {
+  from { stroke-dashoffset: 6; }
+  to { stroke-dashoffset: 0; }
+}
 .belt-line {
   stroke-width: 2;
   stroke-dasharray: 8, 8;
@@ -262,7 +270,7 @@ main {
   stroke-width: 2;
   stroke-dasharray: 6, 6;
   stroke-opacity: 0.4;
-  animation: beltFlow 2s linear infinite;
+  animation: powerFlow 2s linear infinite;
 }
 .power-line {
   stroke: var(--power);

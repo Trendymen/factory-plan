@@ -42,8 +42,12 @@ export interface Belt {
   rate: string;
   points: number[][];
   label: string;
+  labelDx?: number;
+  labelDy?: number;
   mk2?: boolean;
   mk2id?: string;
+  mk2Dx?: number;
+  mk2Dy?: number;
 }
 
 export interface Lift {
@@ -189,19 +193,19 @@ export function buildBelts(): Belt[] {
   B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '15/m', points: [[cmx(5), cy(6)], [cmx(5), cmy(6.15)], [cmx(4.5), cmy(6.15)]], label: '' });
   B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '15/m', points: [[cmx(6), cy(6)], [cmx(6), cmy(6.25)], [cmx(6.5), cmy(6.25)]], label: '' });
   B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '15/m', points: [[cmx(7), cy(6)], [cmx(7), cmy(6.25)], [cmx(6.5), cmy(6.25)]], label: '' });
-  B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '30/m', points: [[cmx(4.5), cmy(6.15)], [cmx(4.5), cmy(6.4)], [cmx(5.5), cmy(6.4)]], label: '30' });
-  B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '30/m', points: [[cmx(6.5), cmy(6.25)], [cmx(6.5), cmy(6.4)], [cmx(5.5), cmy(6.4)]], label: '30' });
+  B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '30/m', points: [[cmx(4.5), cmy(6.15)], [cmx(4.5), cmy(6.4)], [cmx(5.5), cmy(6.4)]], label: '30', labelDx: 50, labelDy: -10 });
+  B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '30/m', points: [[cmx(6.5), cmy(6.25)], [cmx(6.5), cmy(6.4)], [cmx(5.5), cmy(6.4)]], label: '30', labelDx: -50, labelDy: 10 });
   B.push({ floor: 1, material: 'rod', color: 'var(--rod)', rate: '60/m', points: [[cmx(5.5), cmy(6.4)], [cmx(5.5), cmy(6.6)]], label: '铁棒 60/m' });
 
   // ===== FLOOR 2 BELTS =====
   const r1 = cy(0) + 15, r2 = cy(0) + 35, r3 = cy(0) + 55;
 
   // Rod distribution
-  B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '60/m', points: [[cmx(4), cy(0) + 5], [cmx(4), r1]], label: '铁棒 60/m' });
+  B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '60/m', points: [[cmx(4), cy(0) + 5], [cmx(4), r1]], label: '铁棒 60/m', labelDx: -60 });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '40/m', points: [[cmx(4), r1], [cmx(3), r1], [cmx(3), r2]], label: '40→螺丝线' });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '20/m', points: [[cmx(4), r1], [cmx(7), r1], [cmx(7), cy(4) + C.h * 0.3]], label: '20→转子' });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '20/m', points: [[cmx(3), r2], [cmx(1.5), r2], [cmx(1.5), r3]], label: '20' });
-  B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '20/m', points: [[cmx(3), r2], [cmx(4.5), r2], [cmx(4.5), r3]], label: '20' });
+  B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '20/m', points: [[cmx(3), r2], [cmx(4.5), r2], [cmx(4.5), r3]], label: '20', labelDx: -30, labelDy: 8 });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '10/m', points: [[cmx(1.5), r3], [cmx(1), r3], [cmx(1), cy(1)]], label: '10' });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '10/m', points: [[cmx(1.5), r3], [cmx(2), r3], [cmx(2), cy(1)]], label: '10' });
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '10/m', points: [[cmx(4.5), r3], [cmx(4), r3], [cmx(4), cy(1)]], label: '10' });
@@ -211,29 +215,29 @@ export function buildBelts(): Belt[] {
   const sM = cy(3) + 15, sS = cy(3) + 38;
   B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '40/m', points: [[cmx(1), cy(3)], [cmx(1), sM], [cmx(1.5), sM]], label: '' });
   B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '40/m', points: [[cmx(2), cy(3)], [cmx(2), sM], [cmx(1.5), sM]], label: '' });
-  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '80/m', mk2: true, mk2id: '①', points: [[cmx(1.5), sM], [cmx(1.5), sS]], label: '80/m ⚠' });
+  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '80/m', mk2: true, mk2id: '①', points: [[cmx(1.5), sM], [cmx(1.5), sS]], label: '80/m ⚠', labelDx: -45 });
   B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '60/m', points: [[cmx(1.5), sS], [cmx(1.5), cy(4)]], label: '螺丝60→RIP' });
-  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '20/m', points: [[cmx(1.5), sS], [cmx(4.5), sS]], label: '20→' });
+  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '20/m', points: [[cmx(1.5), sS], [cmx(4.5), sS]], label: '20→', labelDy: -25 });
   B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '40/m', points: [[cmx(4), cy(3)], [cmx(4), sM], [cmx(4.5), sM]], label: '' });
   B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '40/m', points: [[cmx(5), cy(3)], [cmx(5), sM], [cmx(4.5), sM]], label: '' });
-  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '80/m', mk2: true, mk2id: '②', points: [[cmx(4.5), sM], [cmx(4.5), sS]], label: '80/m ⚠' });
-  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '100/m', mk2: true, mk2id: '③', points: [[cmx(4.5), sS], [cmx(4.5), cy(4)]], label: '螺丝100→转子 ⚠' });
+  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '80/m', mk2: true, mk2id: '②', points: [[cmx(4.5), sM], [cmx(4.5), sS]], label: '80/m ⚠', labelDx: -45 });
+  B.push({ floor: 2, material: 'screw', color: 'var(--screw)', rate: '100/m', mk2: true, mk2id: '③', points: [[cmx(4.5), sS], [cmx(4.5), cy(4)]], label: '螺丝100→转子 ⚠', labelDx: 20, mk2Dx: -25 });
 
   // Rod to rotor
   B.push({ floor: 2, material: 'rod', color: 'var(--rod)', rate: '20/m', points: [[cmx(7), cy(4) + C.h * 0.3], [cx(6), cy(4) + C.h * 0.3]], label: '棒20→转子' });
 
   // Plate distribution
   const pA = cy(0) + 25, pB = cy(0) + 45;
-  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '40/m', points: [[cmx(1), cy(0) + 5], [cmx(1), pA]], label: '铁板 40/m' });
+  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '40/m', points: [[cmx(1), cy(0) + 5], [cmx(1), pA]], label: '铁板 40/m', labelDx: 50 });
   B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '40/m', points: [[cmx(1), pA], [cmx(1), pB]], label: '' });
   B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '40/m', points: [[cmx(1), pB], [cmx(0.5), pB]], label: '' });
-  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '30/m', points: [[cmx(0.5), pB], [cmx(0.5), cy(4) + C.h * 0.3]], label: '板30→RIP' });
-  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '10/m', points: [[cmx(0.5), pB], [cmx(0), pB], [cmx(0), cmy(6.3)]], label: '余板10→储存' });
+  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '30/m', points: [[cmx(0.5), pB], [cmx(0.5), cy(4) + C.h * 0.3]], label: '板30→RIP', labelDx: -55 });
+  B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '10/m', points: [[cmx(0.5), pB], [cmx(0), pB], [cmx(0), cmy(6.3)]], label: '余板10→储存', labelDx: -60, labelDy: -15 });
   B.push({ floor: 2, material: 'plate', color: 'var(--plate)', rate: '10/m', points: [[cmx(0), cmy(6.3)], [cmx(1), cmy(6.3)]], label: '' });
 
   // Assembly outputs → storage
-  B.push({ floor: 2, material: 'rip', color: 'var(--assembly)', rate: '5/m', points: [[cmx(2), cy(6)], [cmx(2), cmy(6.3)]], label: '强化铁板 5/m' });
-  B.push({ floor: 2, material: 'rotor', color: 'var(--assembly)', rate: '2.4/m', points: [[cmx(5), cy(6)], [cmx(5), cmy(6.3)], [cmx(4), cmy(6.3)]], label: '转子 2.4/m' });
+  B.push({ floor: 2, material: 'rip', color: 'var(--assembly)', rate: '5/m', points: [[cmx(2), cy(6)], [cmx(2), cmy(6.3)]], label: '强化铁板 5/m', labelDx: -75, labelDy: -20 });
+  B.push({ floor: 2, material: 'rotor', color: 'var(--assembly)', rate: '2.4/m', points: [[cmx(5), cy(6)], [cmx(5), cmy(6.3)], [cmx(4), cmy(6.3)]], label: '转子 2.4/m', labelDx: 50 });
 
   return B;
 }

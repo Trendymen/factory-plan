@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { useFloating, offset, flip, shift, autoUpdate } from '@floating-ui/react';
 import { AnimatePresence, motion } from 'motion/react';
 import MachineTooltip from './MachineTooltip';
@@ -82,13 +82,14 @@ function BeltLine({ belt }: { belt: Belt }) {
     <g>
       <polyline points={pts} className={`belt-line${belt.mk2 ? ' mk2-upgrade' : ''}`} stroke={col} fill="none" />
       {arrow}
-      {belt.label && <text x={mid[0] + 5} y={mid[1] - 5} className="belt-rate-label">{belt.label}</text>}
+      {belt.label && <text x={mid[0] + (belt.labelDx ?? 5)} y={mid[1] + (belt.labelDy ?? -5)} className="belt-rate-label">{belt.label}</text>}
       {belt.mk2 && belt.mk2id && (() => {
         const last = belt.points[belt.points.length - 1];
+        const bx = last[0] + (belt.mk2Dx ?? 15), by = last[1] + (belt.mk2Dy ?? -10);
         return (
           <g>
-            <circle cx={last[0] + 15} cy={last[1] - 10} r={9} fill="var(--mk2)" opacity={0.9} />
-            <text x={last[0] + 15} y={last[1] - 6} fill="#000" style={{ font: 'bold 9px Orbitron', textAnchor: 'middle' }}>{belt.mk2id}</text>
+            <circle cx={bx} cy={by} r={9} fill="var(--mk2)" opacity={0.9} />
+            <text x={bx} y={by + 4} fill="#000" style={{ font: 'bold 9px Orbitron', textAnchor: 'middle' }}>{belt.mk2id}</text>
           </g>
         );
       })()}
@@ -189,7 +190,7 @@ interface FloorContentProps {
   showGrid?: boolean;
 }
 
-function FloorContent({ floor, layers, onMachineHover, onMachineLeave, onMachineClick, showGrid = true }: FloorContentProps) {
+const FloorContent = memo(function FloorContent({ floor, layers, onMachineHover, onMachineLeave, onMachineClick, showGrid = true }: FloorContentProps) {
   const f = String(floor);
   const machines = Object.values(MACHINES).filter(m => String(m.floor) === f);
   const belts = BELTS.filter(b => String(b.floor) === f);
@@ -217,13 +218,17 @@ function FloorContent({ floor, layers, onMachineHover, onMachineLeave, onMachine
       )}
     </>
   );
-}
+}, (prev, next) =>
+  prev.floor === next.floor &&
+  prev.layers === next.layers &&
+  prev.showGrid === next.showGrid
+);
 
 // ============================
 // SECTION VIEW (both floors)
 // ============================
 
-function SectionContent({ layers, onMachineHover, onMachineLeave, onMachineClick }: Omit<FloorContentProps, 'floor' | 'showGrid'>) {
+const SectionContent = memo(function SectionContent({ layers, onMachineHover, onMachineLeave, onMachineClick }: Omit<FloorContentProps, 'floor' | 'showGrid'>) {
   const floorOffset = C.h * 7 + PAD.y + 40;
   return (
     <>
@@ -270,7 +275,7 @@ function SectionContent({ layers, onMachineHover, onMachineLeave, onMachineClick
       })()}
     </>
   );
-}
+}, (prev, next) => prev.layers === next.layers);
 
 // ============================
 // MAIN FLOOR VIEW
@@ -302,17 +307,23 @@ export default function FloorView({ floor, layers, onMachineClick }: FloorViewPr
     setHoveredMachine(null);
   }, []);
 
-  // ViewBox zoom/pan
+  // ViewBox zoom/pan — use ref to avoid re-renders
   const isSection = floor === 'section';
-  const baseW = VIEW_W;
-  const baseH = isSection ? C.h * 7 * 2 + PAD.y * 3 + 60 : VIEW_H;
-  const [viewBox, setViewBox] = useState({ x: 0, y: 0, w: baseW, h: baseH });
+  const viewBoxRef = useRef({ x: 0, y: 0, w: VIEW_W, h: isSection ? C.h * 7 * 2 + PAD.y * 3 + 60 : VIEW_H });
+
+  const updateSvgViewBox = useCallback(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const vb = viewBoxRef.current;
+    svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+  }, []);
 
   // Reset viewBox on floor change
   useEffect(() => {
     const h = floor === 'section' ? C.h * 7 * 2 + PAD.y * 3 + 60 : VIEW_H;
-    setViewBox({ x: 0, y: 0, w: VIEW_W, h });
-  }, [floor]);
+    viewBoxRef.current = { x: 0, y: 0, w: VIEW_W, h };
+    updateSvgViewBox();
+  }, [floor, updateSvgViewBox]);
 
   // Wheel zoom (non-passive)
   useEffect(() => {
@@ -323,45 +334,51 @@ export default function FloorView({ floor, layers, onMachineClick }: FloorViewPr
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const rect = svg.getBoundingClientRect();
-      setViewBox(prev => {
-        const mx = prev.x + (e.clientX - rect.left) / rect.width * prev.w;
-        const my = prev.y + (e.clientY - rect.top) / rect.height * prev.h;
-        const scale = e.deltaY > 0 ? 1.1 : 1 / 1.1;
-        const nw = prev.w * scale;
-        const nh = prev.h * scale;
-        if (nw < minW || nw > maxW) return prev;
-        return { x: mx - (mx - prev.x) * scale, y: my - (my - prev.y) * scale, w: nw, h: nh };
-      });
+      const prev = viewBoxRef.current;
+      const mx = prev.x + (e.clientX - rect.left) / rect.width * prev.w;
+      const my = prev.y + (e.clientY - rect.top) / rect.height * prev.h;
+      const scale = e.deltaY > 0 ? 1.1 : 1 / 1.1;
+      const nw = prev.w * scale;
+      const nh = prev.h * scale;
+      if (nw < minW || nw > maxW) return;
+      viewBoxRef.current = { x: mx - (mx - prev.x) * scale, y: my - (my - prev.y) * scale, w: nw, h: nh };
+      updateSvgViewBox();
     };
     svg.addEventListener('wheel', handleWheel, { passive: false });
     return () => svg.removeEventListener('wheel', handleWheel);
-  }, []);
+  }, [updateSvgViewBox]);
 
   // Mouse drag to pan
   const panRef = useRef<{ active: boolean; sx: number; sy: number; vx: number; vy: number }>({ active: false, sx: 0, sy: 0, vx: 0, vy: 0 });
 
   const onMouseDown = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     if (e.button !== 0) return;
-    panRef.current = { active: true, sx: e.clientX, sy: e.clientY, vx: viewBox.x, vy: viewBox.y };
-  }, [viewBox.x, viewBox.y]);
+    const vb = viewBoxRef.current;
+    panRef.current = { active: true, sx: e.clientX, sy: e.clientY, vx: vb.x, vy: vb.y };
+  }, []);
 
   const onMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     if (!panRef.current.active) return;
     const svg = svgRef.current;
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
-    const dx = (e.clientX - panRef.current.sx) / rect.width * viewBox.w;
-    const dy = (e.clientY - panRef.current.sy) / rect.height * viewBox.h;
-    setViewBox(prev => ({ ...prev, x: panRef.current.vx - dx, y: panRef.current.vy - dy }));
-  }, [viewBox.w, viewBox.h]);
+    const vb = viewBoxRef.current;
+    const dx = (e.clientX - panRef.current.sx) / rect.width * vb.w;
+    const dy = (e.clientY - panRef.current.sy) / rect.height * vb.h;
+    viewBoxRef.current = { ...vb, x: panRef.current.vx - dx, y: panRef.current.vy - dy };
+    updateSvgViewBox();
+  }, [updateSvgViewBox]);
 
   const onMouseUp = useCallback(() => { panRef.current.active = false; }, []);
+
+  // Initial viewBox
+  const initVb = viewBoxRef.current;
 
   return (
     <div className="canvas-area">
       <svg
         ref={svgRef}
-        viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`}
+        viewBox={`${initVb.x} ${initVb.y} ${initVb.w} ${initVb.h}`}
         xmlns="http://www.w3.org/2000/svg"
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
