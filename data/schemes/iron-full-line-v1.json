@@ -1,0 +1,1810 @@
+{
+  "id": "iron-full-line-v1",
+  "name": "铁矿全产线 v1",
+  "version": "1.0.0",
+  "category": "iron",
+  "description": "铁矿石→铁锭→铁板/铁棒→螺丝→强化铁板+转子 全产线，2层工厂，Mk.1传送带",
+  "designPrinciples": {
+    "preferWallOutlets": false,
+    "preferWallHoles": false,
+    "preferCeilingMounts": false,
+    "keepFloorClear": false
+  },
+  "floors": [
+    {
+      "id": 1,
+      "label": "1F 冶炼 & 制造",
+      "heightM": 4,
+      "gridSize": {
+        "cols": 8,
+        "rows": 7
+      }
+    },
+    {
+      "id": 2,
+      "label": "2F 组装 & 成品",
+      "heightM": 4,
+      "gridSize": {
+        "cols": 8,
+        "rows": 8
+      }
+    }
+  ],
+  "machines": [
+    {
+      "id": "smelter1",
+      "type": "smelter",
+      "pos": {
+        "col": 1,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁矿→铁锭",
+      "clockSpeed": 1,
+      "label": "冶炼炉 #1"
+    },
+    {
+      "id": "smelter2",
+      "type": "smelter",
+      "pos": {
+        "col": 2,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁矿→铁锭",
+      "clockSpeed": 1,
+      "label": "冶炼炉 #2"
+    },
+    {
+      "id": "smelter3",
+      "type": "smelter",
+      "pos": {
+        "col": 4,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁矿→铁锭",
+      "clockSpeed": 1,
+      "label": "冶炼炉 #3"
+    },
+    {
+      "id": "smelter4",
+      "type": "smelter",
+      "pos": {
+        "col": 5,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁矿→铁锭",
+      "clockSpeed": 1,
+      "label": "冶炼炉 #4"
+    },
+    {
+      "id": "plate1",
+      "type": "constructor",
+      "pos": {
+        "col": 1,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×3→铁板×2",
+      "clockSpeed": 1,
+      "label": "铁板制造机 #1"
+    },
+    {
+      "id": "plate2",
+      "type": "constructor",
+      "pos": {
+        "col": 2,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×3→铁板×2",
+      "clockSpeed": 1,
+      "label": "铁板制造机 #2"
+    },
+    {
+      "id": "rod1",
+      "type": "constructor",
+      "pos": {
+        "col": 4,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×1→铁棒×1",
+      "clockSpeed": 1,
+      "label": "铁棒制造机 #1"
+    },
+    {
+      "id": "rod2",
+      "type": "constructor",
+      "pos": {
+        "col": 5,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×1→铁棒×1",
+      "clockSpeed": 1,
+      "label": "铁棒制造机 #2"
+    },
+    {
+      "id": "rod3",
+      "type": "constructor",
+      "pos": {
+        "col": 6,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×1→铁棒×1",
+      "clockSpeed": 1,
+      "label": "铁棒制造机 #3"
+    },
+    {
+      "id": "rod4",
+      "type": "constructor",
+      "pos": {
+        "col": 7,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "铁锭×1→铁棒×1",
+      "clockSpeed": 1,
+      "label": "铁棒制造机 #4"
+    },
+    {
+      "id": "screw1",
+      "type": "constructor",
+      "pos": {
+        "col": 1,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁棒×1→螺丝×4",
+      "clockSpeed": 0.75,
+      "label": "螺丝制造机 #1"
+    },
+    {
+      "id": "screw2",
+      "type": "constructor",
+      "pos": {
+        "col": 2,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁棒×1→螺丝×4",
+      "clockSpeed": 0.75,
+      "label": "螺丝制造机 #2"
+    },
+    {
+      "id": "screw3",
+      "type": "constructor",
+      "pos": {
+        "col": 4,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁棒×1→螺丝×4",
+      "clockSpeed": 0.75,
+      "label": "螺丝制造机 #3"
+    },
+    {
+      "id": "screw4",
+      "type": "constructor",
+      "pos": {
+        "col": 5,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁棒×1→螺丝×4",
+      "clockSpeed": 0.75,
+      "label": "螺丝制造机 #4"
+    },
+    {
+      "id": "rip",
+      "type": "assembler",
+      "pos": {
+        "col": 1,
+        "row": 4.05
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁板×6+螺丝×12→强化铁板×1",
+      "clockSpeed": 1,
+      "label": "强化铁板 组装机"
+    },
+    {
+      "id": "rotor",
+      "type": "assembler",
+      "pos": {
+        "col": 4.15,
+        "row": 4.05
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "铁棒×5+螺丝×25→转子×1",
+      "clockSpeed": 0.6,
+      "label": "转子 组装机"
+    },
+    {
+      "id": "store_plate",
+      "type": "storage",
+      "pos": {
+        "col": 1,
+        "row": 7.12
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "成品前场缓冲",
+      "clockSpeed": 1,
+      "label": "铁板 储存箱"
+    },
+    {
+      "id": "store_rip",
+      "type": "storage",
+      "pos": {
+        "col": 2.15,
+        "row": 7.12
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "成品前场缓冲",
+      "clockSpeed": 1,
+      "label": "强化铁板 储存箱"
+    },
+    {
+      "id": "store_rotor",
+      "type": "storage",
+      "pos": {
+        "col": 4.2,
+        "row": 7.12
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "成品前场缓冲",
+      "clockSpeed": 1,
+      "label": "转子 储存箱"
+    },
+    {
+      "id": "store_screw",
+      "type": "storage",
+      "pos": {
+        "col": 5.35,
+        "row": 7.12
+      },
+      "facing": "south",
+      "floor": 2,
+      "recipe": "前场备用接口",
+      "clockSpeed": 1,
+      "label": "螺丝溢出 储存箱"
+    },
+    {
+      "id": "splitter_1",
+      "type": "splitter",
+      "pos": {
+        "col": 2,
+        "row": 0.45
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "分流"
+    },
+    {
+      "id": "splitter_2",
+      "type": "splitter",
+      "pos": {
+        "col": 5,
+        "row": 0.77
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "分流"
+    },
+    {
+      "id": "splitter_3",
+      "type": "splitter",
+      "pos": {
+        "col": 4.5,
+        "row": 3.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "分流"
+    },
+    {
+      "id": "splitter_4",
+      "type": "splitter",
+      "pos": {
+        "col": 7,
+        "row": 3.7
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "分流"
+    },
+    {
+      "id": "merger_5",
+      "type": "merger",
+      "pos": {
+        "col": 2,
+        "row": 6.65
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "合流"
+    },
+    {
+      "id": "merger_6",
+      "type": "merger",
+      "pos": {
+        "col": 5,
+        "row": 6.62
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "合流"
+    },
+    {
+      "id": "merger_7",
+      "type": "merger",
+      "pos": {
+        "col": 7,
+        "row": 6.7
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "合流"
+    },
+    {
+      "id": "merger_8",
+      "type": "merger",
+      "pos": {
+        "col": 6,
+        "row": 6.9
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "合流"
+    },
+    {
+      "id": "splitter_9",
+      "type": "splitter",
+      "pos": {
+        "col": 4.5,
+        "row": 0.19
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流 60→40+20"
+    },
+    {
+      "id": "splitter_10",
+      "type": "splitter",
+      "pos": {
+        "col": 3.5,
+        "row": 0.45
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流 40→20+20"
+    },
+    {
+      "id": "splitter_11",
+      "type": "splitter",
+      "pos": {
+        "col": 2,
+        "row": 0.71
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流"
+    },
+    {
+      "id": "splitter_12",
+      "type": "splitter",
+      "pos": {
+        "col": 5,
+        "row": 0.71
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流"
+    },
+    {
+      "id": "merger_13",
+      "type": "merger",
+      "pos": {
+        "col": 2,
+        "row": 3.19
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "合流"
+    },
+    {
+      "id": "merger_14",
+      "type": "merger",
+      "pos": {
+        "col": 5,
+        "row": 3.19
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "合流"
+    },
+    {
+      "id": "splitter_15",
+      "type": "splitter",
+      "pos": {
+        "col": 2,
+        "row": 3.49
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流 80→60+20"
+    },
+    {
+      "id": "merger_16",
+      "type": "merger",
+      "pos": {
+        "col": 5,
+        "row": 3.49
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "合流 20+80→100"
+    },
+    {
+      "id": "splitter_17",
+      "type": "splitter",
+      "pos": {
+        "col": 1,
+        "row": 0.58
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "分流 40→30+10"
+    }
+  ],
+  "belts": [
+    {
+      "id": "belt_1",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 0,
+          "row": 0.19
+        },
+        {
+          "col": 2,
+          "row": 0.19
+        }
+      ]
+    },
+    {
+      "id": "belt_2",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 2,
+          "row": 0.19
+        },
+        {
+          "col": 2,
+          "row": 0.45
+        }
+      ]
+    },
+    {
+      "id": "belt_3",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 2,
+          "row": 0.45
+        },
+        {
+          "col": 1.5,
+          "row": 0.45
+        },
+        {
+          "col": 1.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_4",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 2,
+          "row": 0.45
+        },
+        {
+          "col": 2.5,
+          "row": 0.45
+        },
+        {
+          "col": 2.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_5",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 0,
+          "row": 0.58
+        },
+        {
+          "col": 5,
+          "row": 0.58
+        }
+      ]
+    },
+    {
+      "id": "belt_6",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 5,
+          "row": 0.58
+        },
+        {
+          "col": 5,
+          "row": 0.77
+        }
+      ]
+    },
+    {
+      "id": "belt_7",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 5,
+          "row": 0.77
+        },
+        {
+          "col": 4.5,
+          "row": 0.77
+        },
+        {
+          "col": 4.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_8",
+      "floor": 1,
+      "mark": 1,
+      "material": "ore",
+      "path": [
+        {
+          "col": 5,
+          "row": 0.77
+        },
+        {
+          "col": 5.5,
+          "row": 0.77
+        },
+        {
+          "col": 5.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_9",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 2.55
+        },
+        {
+          "col": 1.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_10",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 2.5,
+          "row": 2.55
+        },
+        {
+          "col": 2.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_11",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 2.55
+        },
+        {
+          "col": 4.5,
+          "row": 3.5
+        }
+      ]
+    },
+    {
+      "id": "belt_12",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 3.5
+        },
+        {
+          "col": 4.5,
+          "row": 3.5
+        },
+        {
+          "col": 4.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_13",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 3.5
+        },
+        {
+          "col": 5.5,
+          "row": 3.5
+        },
+        {
+          "col": 5.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_14",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 2.55
+        },
+        {
+          "col": 5.5,
+          "row": 3.19
+        }
+      ]
+    },
+    {
+      "id": "belt_15",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 3.19
+        },
+        {
+          "col": 7,
+          "row": 3.19
+        },
+        {
+          "col": 7,
+          "row": 3.7
+        }
+      ]
+    },
+    {
+      "id": "belt_16",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 7,
+          "row": 3.7
+        },
+        {
+          "col": 6.5,
+          "row": 3.7
+        },
+        {
+          "col": 6.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_17",
+      "floor": 1,
+      "mark": 1,
+      "material": "ingot",
+      "path": [
+        {
+          "col": 7,
+          "row": 3.7
+        },
+        {
+          "col": 7.5,
+          "row": 3.7
+        },
+        {
+          "col": 7.5,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_18",
+      "floor": 1,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 5.55
+        },
+        {
+          "col": 1.5,
+          "row": 6.65
+        },
+        {
+          "col": 2,
+          "row": 6.65
+        }
+      ]
+    },
+    {
+      "id": "belt_19",
+      "floor": 1,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 2.5,
+          "row": 5.55
+        },
+        {
+          "col": 2.5,
+          "row": 6.65
+        },
+        {
+          "col": 2,
+          "row": 6.65
+        }
+      ]
+    },
+    {
+      "id": "belt_20",
+      "floor": 1,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 2,
+          "row": 6.65
+        },
+        {
+          "col": 2,
+          "row": 7.12
+        }
+      ]
+    },
+    {
+      "id": "belt_21",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 5.55
+        },
+        {
+          "col": 4.5,
+          "row": 6.62
+        },
+        {
+          "col": 5,
+          "row": 6.62
+        }
+      ]
+    },
+    {
+      "id": "belt_22",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 5.55
+        },
+        {
+          "col": 5.5,
+          "row": 6.62
+        },
+        {
+          "col": 5,
+          "row": 6.62
+        }
+      ]
+    },
+    {
+      "id": "belt_23",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 6.5,
+          "row": 5.55
+        },
+        {
+          "col": 6.5,
+          "row": 6.7
+        },
+        {
+          "col": 7,
+          "row": 6.7
+        }
+      ]
+    },
+    {
+      "id": "belt_24",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 7.5,
+          "row": 5.55
+        },
+        {
+          "col": 7.5,
+          "row": 6.7
+        },
+        {
+          "col": 7,
+          "row": 6.7
+        }
+      ]
+    },
+    {
+      "id": "belt_25",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 5,
+          "row": 6.62
+        },
+        {
+          "col": 5,
+          "row": 6.9
+        },
+        {
+          "col": 6,
+          "row": 6.9
+        }
+      ]
+    },
+    {
+      "id": "belt_26",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 7,
+          "row": 6.7
+        },
+        {
+          "col": 7,
+          "row": 6.9
+        },
+        {
+          "col": 6,
+          "row": 6.9
+        }
+      ]
+    },
+    {
+      "id": "belt_27",
+      "floor": 1,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 6,
+          "row": 6.9
+        },
+        {
+          "col": 6,
+          "row": 7.12
+        }
+      ]
+    },
+    {
+      "id": "belt_28",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 0.06
+        },
+        {
+          "col": 4.5,
+          "row": 0.19
+        }
+      ]
+    },
+    {
+      "id": "belt_29",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 0.19
+        },
+        {
+          "col": 3.5,
+          "row": 0.19
+        },
+        {
+          "col": 3.5,
+          "row": 0.45
+        }
+      ]
+    },
+    {
+      "id": "belt_30",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 0.19
+        },
+        {
+          "col": 7.5,
+          "row": 0.19
+        },
+        {
+          "col": 7.5,
+          "row": 5.07
+        }
+      ]
+    },
+    {
+      "id": "belt_31",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 3.5,
+          "row": 0.45
+        },
+        {
+          "col": 2,
+          "row": 0.45
+        },
+        {
+          "col": 2,
+          "row": 0.71
+        }
+      ]
+    },
+    {
+      "id": "belt_32",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 3.5,
+          "row": 0.45
+        },
+        {
+          "col": 5,
+          "row": 0.45
+        },
+        {
+          "col": 5,
+          "row": 0.71
+        }
+      ]
+    },
+    {
+      "id": "belt_33",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 2,
+          "row": 0.71
+        },
+        {
+          "col": 1.5,
+          "row": 0.71
+        },
+        {
+          "col": 1.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_34",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 2,
+          "row": 0.71
+        },
+        {
+          "col": 2.5,
+          "row": 0.71
+        },
+        {
+          "col": 2.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_35",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 5,
+          "row": 0.71
+        },
+        {
+          "col": 4.5,
+          "row": 0.71
+        },
+        {
+          "col": 4.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_36",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 5,
+          "row": 0.71
+        },
+        {
+          "col": 5.5,
+          "row": 0.71
+        },
+        {
+          "col": 5.5,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "belt_37",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 2.55
+        },
+        {
+          "col": 1.5,
+          "row": 3.19
+        },
+        {
+          "col": 2,
+          "row": 3.19
+        }
+      ]
+    },
+    {
+      "id": "belt_38",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 2.5,
+          "row": 2.55
+        },
+        {
+          "col": 2.5,
+          "row": 3.19
+        },
+        {
+          "col": 2,
+          "row": 3.19
+        }
+      ]
+    },
+    {
+      "id": "belt_39",
+      "floor": 2,
+      "mark": 2,
+      "material": "screw",
+      "path": [
+        {
+          "col": 2,
+          "row": 3.19
+        },
+        {
+          "col": 2,
+          "row": 3.49
+        }
+      ]
+    },
+    {
+      "id": "belt_40",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 2,
+          "row": 3.49
+        },
+        {
+          "col": 1.82,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_41",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 2,
+          "row": 3.49
+        },
+        {
+          "col": 5,
+          "row": 3.49
+        }
+      ]
+    },
+    {
+      "id": "belt_42",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 2.55
+        },
+        {
+          "col": 4.5,
+          "row": 3.19
+        },
+        {
+          "col": 5,
+          "row": 3.19
+        }
+      ]
+    },
+    {
+      "id": "belt_43",
+      "floor": 2,
+      "mark": 1,
+      "material": "screw",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 2.55
+        },
+        {
+          "col": 5.5,
+          "row": 3.19
+        },
+        {
+          "col": 5,
+          "row": 3.19
+        }
+      ]
+    },
+    {
+      "id": "belt_44",
+      "floor": 2,
+      "mark": 2,
+      "material": "screw",
+      "path": [
+        {
+          "col": 5,
+          "row": 3.19
+        },
+        {
+          "col": 5,
+          "row": 3.49
+        }
+      ]
+    },
+    {
+      "id": "belt_45",
+      "floor": 2,
+      "mark": 2,
+      "material": "screw",
+      "path": [
+        {
+          "col": 5,
+          "row": 3.49
+        },
+        {
+          "col": 4.97,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "belt_46",
+      "floor": 2,
+      "mark": 1,
+      "material": "rod",
+      "path": [
+        {
+          "col": 7.5,
+          "row": 5.07
+        },
+        {
+          "col": 4.15,
+          "row": 5.07
+        }
+      ]
+    },
+    {
+      "id": "belt_47",
+      "floor": 2,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 0.06
+        },
+        {
+          "col": 1.5,
+          "row": 0.32
+        }
+      ]
+    },
+    {
+      "id": "belt_48",
+      "floor": 2,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 0.32
+        },
+        {
+          "col": 1.5,
+          "row": 0.58
+        }
+      ]
+    },
+    {
+      "id": "belt_49",
+      "floor": 2,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 0.58
+        },
+        {
+          "col": 1,
+          "row": 0.58
+        }
+      ]
+    },
+    {
+      "id": "belt_50",
+      "floor": 2,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1,
+          "row": 0.58
+        },
+        {
+          "col": 1,
+          "row": 5.07
+        },
+        {
+          "col": 1,
+          "row": 5.07
+        }
+      ]
+    },
+    {
+      "id": "belt_51",
+      "floor": 2,
+      "mark": 1,
+      "material": "plate",
+      "path": [
+        {
+          "col": 1,
+          "row": 0.58
+        },
+        {
+          "col": 0,
+          "row": 0.58
+        },
+        {
+          "col": 0,
+          "row": 7.48
+        },
+        {
+          "col": 1,
+          "row": 7.48
+        }
+      ]
+    },
+    {
+      "id": "belt_52",
+      "floor": 2,
+      "mark": 1,
+      "material": "rip",
+      "path": [
+        {
+          "col": 1.82,
+          "row": 5.8
+        },
+        {
+          "col": 1.82,
+          "row": 7.1
+        },
+        {
+          "col": 2.62,
+          "row": 7.12
+        }
+      ]
+    },
+    {
+      "id": "belt_53",
+      "floor": 2,
+      "mark": 1,
+      "material": "rotor",
+      "path": [
+        {
+          "col": 4.97,
+          "row": 5.8
+        },
+        {
+          "col": 4.97,
+          "row": 7.1
+        },
+        {
+          "col": 4.67,
+          "row": 7.1
+        },
+        {
+          "col": 4.67,
+          "row": 7.12
+        }
+      ]
+    }
+  ],
+  "lifts": [
+    {
+      "id": "lift_plate",
+      "pos": {
+        "col": 1.2,
+        "row": 6.5
+      },
+      "mark": 1,
+      "fromFloor": 1,
+      "toFloor": 2,
+      "material": "plate",
+      "connectedBelts": [
+        "belt_21",
+        "belt_52"
+      ]
+    },
+    {
+      "id": "lift_rod",
+      "pos": {
+        "col": 4.7,
+        "row": 6.5
+      },
+      "mark": 1,
+      "fromFloor": 1,
+      "toFloor": 2,
+      "material": "rod",
+      "connectedBelts": [
+        "belt_29",
+        "belt_30"
+      ]
+    },
+    {
+      "id": "lift_spare",
+      "pos": {
+        "col": 6.5,
+        "row": 7.18
+      },
+      "mark": 1,
+      "fromFloor": 2,
+      "toFloor": 2,
+      "material": "rod"
+    }
+  ],
+  "power": {
+    "poles": [
+      {
+        "id": "pole_A",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 0,
+          "row": 6.2
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_B",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 1.5,
+          "row": 0.3
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_C",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 4.5,
+          "row": 0.3
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_D",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 1.5,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_E",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 5,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_F",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 7,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_G",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 3,
+          "row": 0.3
+        },
+        "floor": 2
+      },
+      {
+        "id": "pole_H",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 6,
+          "row": 2
+        },
+        "floor": 2
+      },
+      {
+        "id": "pole_I",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 3,
+          "row": 5
+        },
+        "floor": 2
+      }
+    ],
+    "connections": [
+      {
+        "from": "pole_A",
+        "to": "pole_B"
+      },
+      {
+        "from": "pole_A",
+        "to": "pole_C"
+      },
+      {
+        "from": "pole_B",
+        "to": "pole_D"
+      },
+      {
+        "from": "pole_C",
+        "to": "pole_E"
+      },
+      {
+        "from": "pole_E",
+        "to": "pole_F"
+      },
+      {
+        "from": "pole_G",
+        "to": "pole_H"
+      },
+      {
+        "from": "pole_H",
+        "to": "pole_I"
+      }
+    ]
+  },
+  "structures": [],
+  "zones": [
+    {
+      "id": "f1-feed",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 矿石输入"
+    },
+    {
+      "id": "f1-walk",
+      "floor": 1,
+      "pos": {
+        "col": 3,
+        "row": 1
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "maintenance",
+      "label": "维护走道"
+    },
+    {
+      "id": "f1-left-buffer",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 4
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "电力 / 缓冲"
+    },
+    {
+      "id": "f1-right-reserve",
+      "floor": 1,
+      "pos": {
+        "col": 6,
+        "row": 1
+      },
+      "size": {
+        "w": 2,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "扩产预留"
+    },
+    {
+      "id": "f1-front",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 6
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "前场缓冲 · 升降机/出货"
+    },
+    {
+      "id": "f2-arrival",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 升降机到达"
+    },
+    {
+      "id": "f2-walk",
+      "floor": 2,
+      "pos": {
+        "col": 3,
+        "row": 1
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "maintenance",
+      "label": "维护走道"
+    },
+    {
+      "id": "f2-screw-lane",
+      "floor": 2,
+      "pos": {
+        "col": 1,
+        "row": 3
+      },
+      "size": {
+        "w": 5,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 螺丝走廊"
+    },
+    {
+      "id": "f2-right-reserve",
+      "floor": 2,
+      "pos": {
+        "col": 6,
+        "row": 4
+      },
+      "size": {
+        "w": 2,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "扩产预留 · 终端件"
+    },
+    {
+      "id": "f2-front",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 6
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "成品前场 · 储存/接口"
+    },
+    {
+      "id": "f2-apron",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 7
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "南扩前场 · 出货缓冲"
+    }
+  ],
+  "stats": {
+    "totalPowerMW": 86,
+    "inputs": [
+      {
+        "material": "铁矿石",
+        "rate": 120
+      }
+    ],
+    "outputs": [
+      {
+        "material": "铁板",
+        "rate": 10
+      },
+      {
+        "material": "强化铁板",
+        "rate": 5
+      },
+      {
+        "material": "转子",
+        "rate": 2.4
+      }
+    ]
+  }
+}
