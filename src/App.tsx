@@ -9,6 +9,8 @@ import { MachineTooltip } from './ui/MachineTooltip';
 import { MachineDetail } from './ui/MachineDetail';
 import { BottomBar } from './ui/BottomBar';
 import { FloorPlanView } from './views/FloorPlanView';
+import { LinkedFloorView } from './views/LinkedFloorView';
+import { CrossSectionView } from './views/CrossSectionView';
 
 const schemeModules = import.meta.glob<Scheme>('/data/schemes/*.json', { eager: false });
 
@@ -89,13 +91,10 @@ export default function App() {
           <FloorPlanView scheme={currentScheme} floorId={currentFloor} />
         )}
         {currentScheme && viewMode === 'linked' && (
-          <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-            {currentScheme.floors.map((f, i) => (
-              <div key={f.id} style={{ flex: 1, borderRight: i < currentScheme.floors.length - 1 ? '1px solid var(--border)' : 'none' }}>
-                <FloorPlanView scheme={currentScheme} floorId={f.id} />
-              </div>
-            ))}
-          </div>
+          <LinkedFloorView scheme={currentScheme} />
+        )}
+        {currentScheme && viewMode === 'section' && (
+          <CrossSectionView scheme={currentScheme} />
         )}
         {!currentScheme && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
