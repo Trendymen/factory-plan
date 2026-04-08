@@ -4,6 +4,53 @@ import type {
   Scheme, SchemeIndex, ViewMode, Viewport, SectionCut, Layers,
 } from '../core/types';
 
+function traceChain(scheme: Scheme, beltId: string): string[] {
+  const ids = new Set<string>();
+  const belt = scheme.belts.find(b => b.id === beltId);
+  if (!belt) return [];
+
+  ids.add(beltId);
+  const material = belt.material;
+
+  function traceUp(fromPort: string | undefined) {
+    if (!fromPort) return;
+    const machineId = fromPort.split(':')[0];
+    ids.add(machineId);
+    for (const b of scheme.belts) {
+      if (b.toPort?.startsWith(machineId + ':') && !ids.has(b.id)) {
+        ids.add(b.id);
+        traceUp(b.fromPort);
+      }
+    }
+    for (const l of scheme.lifts) {
+      if (l.material === material && !ids.has(l.id)) {
+        if (l.connectedBelts?.some(bid => ids.has(bid))) ids.add(l.id);
+      }
+    }
+  }
+
+  function traceDown(toPort: string | undefined) {
+    if (!toPort) return;
+    const machineId = toPort.split(':')[0];
+    ids.add(machineId);
+    for (const b of scheme.belts) {
+      if (b.fromPort?.startsWith(machineId + ':') && !ids.has(b.id)) {
+        ids.add(b.id);
+        traceDown(b.toPort);
+      }
+    }
+    for (const l of scheme.lifts) {
+      if (l.material === material && !ids.has(l.id)) {
+        if (l.connectedBelts?.some(bid => ids.has(bid))) ids.add(l.id);
+      }
+    }
+  }
+
+  traceUp(belt.fromPort);
+  traceDown(belt.toPort);
+  return [...ids];
+}
+
 interface AppState {
   schemes: SchemeIndex[];
   currentSchemeId: string | null;
@@ -73,7 +120,15 @@ export const useAppStore = create<AppState>((set) => ({
   resetViewport: () => set({ viewport: { ...DEFAULT_VIEWPORT } }),
   toggleLayer: (key) => set((s) => ({ layers: { ...s.layers, [key]: !s.layers[key] } })),
   hover: (hoveredId) => set({ hoveredId }),
-  select: (selectedId) => set({ selectedId }),
+  select: (selectedId) => set((s) => {
+    if (!selectedId || !s.currentScheme) return { selectedId, highlightChain: [] };
+    const isBelt = s.currentScheme.belts.some(b => b.id === selectedId);
+    if (isBelt) {
+      const chain = traceChain(s.currentScheme, selectedId);
+      return { selectedId, highlightChain: chain };
+    }
+    return { selectedId, highlightChain: [] };
+  }),
   setHighlightChain: (highlightChain) => set({ highlightChain }),
   clearHighlight: () => set({ highlightChain: [], selectedId: null }),
 }));

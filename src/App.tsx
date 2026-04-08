@@ -51,6 +51,23 @@ export default function App() {
   }, [setSchemes, loadScheme]);
 
   useEffect(() => {
+    (window as any).__factoryPlan = {
+      importScheme: (json: string | object) => {
+        const data: Scheme = typeof json === 'string' ? JSON.parse(json) : json;
+        const warnings = validateScheme(data);
+        if (warnings.length > 0) console.warn('Import warnings:', warnings);
+        const idx = buildSchemeIndex(data, `runtime://${data.id}`);
+        useAppStore.getState().setSchemes([...useAppStore.getState().schemes, idx]);
+        useAppStore.getState().loadScheme(data);
+      },
+      getSchemes: () => useAppStore.getState().schemes,
+      switchScheme: (id: string) => {
+        window.dispatchEvent(new CustomEvent('scheme-change', { detail: id }));
+      },
+    };
+  }, []);
+
+  useEffect(() => {
     const handler = async (e: Event) => {
       const id = (e as CustomEvent).detail;
       const idx = schemes.find(s => s.id === id);
