@@ -1,5 +1,5 @@
 // src/core/registry.ts
-import type { BuildingMetadata, BuildingType, PortDef } from './types';
+import type { BuildingMetadata, BuildingType, BuildingCategory, PortDef } from './types';
 
 function port(id: string, kind: PortDef['kind'], side: PortDef['side'], offset: number, height = 1): PortDef {
   return { id, kind, side, offsetAlongEdge: offset, heightM: height, direction: 'outward' };
@@ -19,7 +19,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     color: '--foundry', powerUsage: 16, stackable: false, wallMounted: false,
   },
   constructor: {
-    type: 'constructor', category: 'production', displayName: '建造机',
+    type: 'constructor' as BuildingType, category: 'production' as BuildingCategory, displayName: '建造机',
     dimensions: { width: 8, length: 10, height: 8 }, clearanceHeight: 8,
     ports: [port('in-0', 'belt-in', 'back', 4), port('out-0', 'belt-out', 'front', 4)],
     color: '--constructor', powerUsage: 4, stackable: false, wallMounted: false,

@@ -1,6 +1,6 @@
 // src/__tests__/registry.test.ts
 import { describe, it, expect } from 'vitest';
-import { BUILDING_REGISTRY, MATERIAL_COLORS, getBuildingMeta } from '../core/registry';
+import { MATERIAL_COLORS, getBuildingMeta } from '../core/registry';
 
 describe('registry', () => {
   it('has metadata for all production machines', () => {

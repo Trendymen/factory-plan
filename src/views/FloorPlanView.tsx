@@ -22,7 +22,6 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
 
   const viewport = useAppStore(s => s.viewport);
   const layers = useAppStore(s => s.layers);
-  const hoveredId = useAppStore(s => s.hoveredId);
   const highlightChain = useAppStore(s => s.highlightChain);
   const setViewport = useAppStore(s => s.setViewport);
   const hover = useAppStore(s => s.hover);
