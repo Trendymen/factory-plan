@@ -16,46 +16,80 @@ export function RightPanel() {
     return sum + meta.powerUsage * ((m.clockSpeed ?? 100) / 100);
   }, 0);
 
+  // Only show materials that actually appear in belts
+  const usedMaterials = new Set(scheme.belts.map(b => b.material));
+
   return (
     <>
+      {/* Outputs */}
       <div className="panel-section">
-        <div className="panel-section-title">产出</div>
-        {scheme.stats.outputs.map(o => (
-          <div key={o.material} className="stat-row">
-            <span style={{ color: MATERIAL_RAW_COLORS[o.material] ?? '#888' }}>{o.material}</span>
-            <span className="stat-value">{o.rate}/min</span>
-          </div>
-        ))}
-      </div>
-      <div className="panel-section">
-        <div className="panel-section-title">输入</div>
-        {scheme.stats.inputs.map(i => (
-          <div key={i.material} className="stat-row">
-            <span style={{ color: MATERIAL_RAW_COLORS[i.material] ?? '#888' }}>{i.material}</span>
-            <span className="stat-value">{i.rate}/min</span>
-          </div>
-        ))}
-      </div>
-      <div className="panel-section">
-        <div className="panel-section-title">电力</div>
-        <div className="stat-row">
-          <span>总功耗</span>
-          <span className="stat-value" style={{ color: 'var(--power)' }}>{totalPower.toFixed(0)} MW</span>
+        <div className="panel-section-title">
+          <span>产出</span>
+          <span className="section-badge">{scheme.stats.outputs.length}</span>
+        </div>
+        <div className="stat-list">
+          {scheme.stats.outputs.map(o => (
+            <div key={o.material} className="stat-row">
+              <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[o.material] ?? '#888' }} />
+              <span className="stat-label">{o.material}</span>
+              <span className="stat-value">{o.rate}<span className="stat-unit">/min</span></span>
+            </div>
+          ))}
         </div>
       </div>
+
       <div className="panel-section">
-        <div className="panel-section-title">建造清单</div>
-        {[...machineCounts.entries()].map(([name, count]) => (
-          <div key={name} className="stat-row"><span>{name}</span><span className="stat-value">x{count}</span></div>
-        ))}
+        <div className="panel-section-title">
+          <span>输入</span>
+          <span className="section-badge">{scheme.stats.inputs.length}</span>
+        </div>
+        <div className="stat-list">
+          {scheme.stats.inputs.map(i => (
+            <div key={i.material} className="stat-row">
+              <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[i.material] ?? '#888' }} />
+              <span className="stat-label">{i.material}</span>
+              <span className="stat-value">{i.rate}<span className="stat-unit">/min</span></span>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Power */}
+      <div className="panel-section">
+        <div className="panel-section-title">电力</div>
+        <div className="power-stat">
+          <span className="power-value">{totalPower.toFixed(0)}</span>
+          <span className="power-unit">MW</span>
+        </div>
+      </div>
+
+      {/* Build list */}
+      <div className="panel-section">
+        <div className="panel-section-title">
+          <span>建造清单</span>
+          <span className="section-badge">{machineCounts.size}</span>
+        </div>
+        <div className="stat-list">
+          {[...machineCounts.entries()].map(([name, count]) => (
+            <div key={name} className="stat-row">
+              <span className="stat-label">{name}</span>
+              <span className="stat-value">x{count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Legend */}
       <div className="panel-section">
         <div className="panel-section-title">图例</div>
-        {Object.entries(MATERIAL_RAW_COLORS).map(([name, color]) => (
-          <div key={name} className="legend-item">
-            <span className="legend-swatch" style={{ background: color }} /><span>{name}</span>
-          </div>
-        ))}
+        <div className="legend-grid">
+          {[...usedMaterials].map(name => (
+            <div key={name} className="legend-chip">
+              <span className="legend-swatch" style={{ background: MATERIAL_RAW_COLORS[name] ?? '#888' }} />
+              <span className="legend-text">{name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
