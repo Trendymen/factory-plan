@@ -12,17 +12,17 @@
 
 /* 2. CSS Variables */
 :root {
-  /* Base palette */
-  --bg-primary: #0f1419;
-  --bg-secondary: #151c28;
-  --bg-canvas: #0a0e14;
-  --bg-hover: rgba(36, 48, 68, 0.6);
-  --bg-active: rgba(0, 188, 212, 0.08);
-  --border: #1e2d3d;
-  --border-subtle: #182436;
-  --text-primary: #d8e2ec;
-  --text-secondary: #7eb8da;
-  --text-muted: #445566;
+  /* Base palette — 对比度校准：muted 在 bg-secondary 上至少 4.5:1 */
+  --bg-primary: #0c1017;
+  --bg-secondary: #121a25;
+  --bg-canvas: #080c12;
+  --bg-hover: rgba(40, 56, 80, 0.5);
+  --bg-active: rgba(0, 188, 212, 0.1);
+  --border: #293a4d;
+  --border-subtle: #1f3044;
+  --text-primary: #e4ecf4;
+  --text-secondary: #90c8e8;
+  --text-muted: #6b8299;
   --accent: #00bcd4;
 
   /* Machine colors */
@@ -284,10 +284,10 @@ body {
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0 14px 8px;
   position: relative;
@@ -298,7 +298,8 @@ body {
   display: block;
   width: 3px;
   height: 12px;
-  background: rgba(0, 188, 212, 0.3);
+  background: var(--accent);
+  opacity: 0.5;
   border-radius: 1px;
   flex-shrink: 0;
 }
@@ -307,8 +308,8 @@ body {
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.06);
   padding: 1px 5px;
   border-radius: 3px;
   margin-left: auto;
@@ -333,7 +334,7 @@ body {
   background: none;
   border: none;
   border-radius: 4px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 11px;
   cursor: pointer;
@@ -420,12 +421,14 @@ body {
 .layer-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-muted);
-  transition: color 0.12s;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  transition: color 0.12s, opacity 0.12s;
 }
 
 .layer-toggle[data-active] .layer-label {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  opacity: 1;
 }
 
 /* ============================================================
@@ -701,7 +704,8 @@ body {
 .tooltip-key {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  opacity: 0.8;
 }
 
 .tooltip-val {
@@ -800,7 +804,8 @@ body {
 .detail-key {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  opacity: 0.8;
 }
 
 .detail-val {
@@ -861,7 +866,8 @@ body {
 }
 
 .bottom-label {
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  opacity: 0.7;
   font-size: 10px;
 }
 
