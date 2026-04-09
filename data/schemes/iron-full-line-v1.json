@@ -15,822 +15,1815 @@
       "id": 1,
       "label": "1F 冶炼 & 制造",
       "heightM": 4,
-      "gridSize": { "cols": 8, "rows": 7 }
+      "gridSize": {
+        "cols": 8,
+        "rows": 7
+      }
     },
     {
       "id": 2,
       "label": "2F 组装 & 成品",
       "heightM": 4,
-      "gridSize": { "cols": 8, "rows": 8 }
+      "gridSize": {
+        "cols": 8,
+        "rows": 8
+      }
     }
   ],
   "machines": [
     {
-      "id": "smelter1", "type": "smelter",
-      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 1
+      "id": "smelter1",
+      "type": "smelter",
+      "pos": {
+        "col": 1,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #1",
+      "recipe": "铁矿石→铁锭"
     },
     {
-      "id": "smelter2", "type": "smelter",
-      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 1
+      "id": "smelter2",
+      "type": "smelter",
+      "pos": {
+        "col": 2,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #2",
+      "recipe": "铁矿石→铁锭"
     },
     {
-      "id": "smelter3", "type": "smelter",
-      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 1
+      "id": "smelter3",
+      "type": "smelter",
+      "pos": {
+        "col": 4,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #3",
+      "recipe": "铁矿石→铁锭"
     },
     {
-      "id": "smelter4", "type": "smelter",
-      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 1
+      "id": "smelter4",
+      "type": "smelter",
+      "pos": {
+        "col": 5,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #4",
+      "recipe": "铁矿石→铁锭"
     },
     {
-      "id": "plate1", "type": "constructor",
-      "pos": { "col": 1, "row": 3 }, "facing": "south", "floor": 1
+      "id": "plate1",
+      "type": "constructor",
+      "pos": {
+        "col": 1,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁板机 #1",
+      "recipe": "铁锭×3→铁板×2"
     },
     {
-      "id": "plate2", "type": "constructor",
-      "pos": { "col": 2, "row": 3 }, "facing": "south", "floor": 1
+      "id": "plate2",
+      "type": "constructor",
+      "pos": {
+        "col": 2,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁板机 #2",
+      "recipe": "铁锭×3→铁板×2"
     },
     {
-      "id": "rod1", "type": "constructor",
-      "pos": { "col": 4, "row": 3 }, "facing": "south", "floor": 1
+      "id": "rod1",
+      "type": "constructor",
+      "pos": {
+        "col": 4,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #1",
+      "recipe": "铁锭→铁棒"
     },
     {
-      "id": "rod2", "type": "constructor",
-      "pos": { "col": 5, "row": 3 }, "facing": "south", "floor": 1
+      "id": "rod2",
+      "type": "constructor",
+      "pos": {
+        "col": 5,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #2",
+      "recipe": "铁锭→铁棒"
     },
     {
-      "id": "rod3", "type": "constructor",
-      "pos": { "col": 6, "row": 3 }, "facing": "south", "floor": 1
+      "id": "rod3",
+      "type": "constructor",
+      "pos": {
+        "col": 6,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #3",
+      "recipe": "铁锭→铁棒"
     },
     {
-      "id": "rod4", "type": "constructor",
-      "pos": { "col": 7, "row": 3 }, "facing": "south", "floor": 1
-    },
-
-    {
-      "id": "screw1", "type": "constructor",
-      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 2
-    },
-    {
-      "id": "screw2", "type": "constructor",
-      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 2
-    },
-    {
-      "id": "screw3", "type": "constructor",
-      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 2
+      "id": "rod4",
+      "type": "constructor",
+      "pos": {
+        "col": 7,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #4",
+      "recipe": "铁锭→铁棒"
     },
     {
-      "id": "screw4", "type": "constructor",
-      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 2
+      "id": "screw1",
+      "type": "constructor",
+      "pos": {
+        "col": 1,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝机 #1",
+      "recipe": "铁棒→螺丝×4"
     },
     {
-      "id": "rip", "type": "assembler",
-      "pos": { "col": 1, "row": 4 }, "facing": "south", "floor": 2
+      "id": "screw2",
+      "type": "constructor",
+      "pos": {
+        "col": 2,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝机 #2",
+      "recipe": "铁棒→螺丝×4"
     },
     {
-      "id": "rotor", "type": "assembler",
-      "pos": { "col": 4, "row": 4 }, "facing": "south", "floor": 2
+      "id": "screw3",
+      "type": "constructor",
+      "pos": {
+        "col": 4,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝机 #3",
+      "recipe": "铁棒→螺丝×4"
     },
     {
-      "id": "store_plate", "type": "storage",
-      "pos": { "col": 1, "row": 7 }, "facing": "south", "floor": 2
+      "id": "screw4",
+      "type": "constructor",
+      "pos": {
+        "col": 5,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝机 #4",
+      "recipe": "铁棒→螺丝×4"
     },
     {
-      "id": "store_rip", "type": "storage",
-      "pos": { "col": 2, "row": 7 }, "facing": "south", "floor": 2
+      "id": "rip",
+      "type": "assembler",
+      "pos": {
+        "col": 1,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "强化铁板 组装机",
+      "recipe": "铁板×6+螺丝×12→强化铁板"
     },
     {
-      "id": "store_rotor", "type": "storage",
-      "pos": { "col": 4, "row": 7 }, "facing": "south", "floor": 2
+      "id": "rotor",
+      "type": "assembler",
+      "pos": {
+        "col": 4,
+        "row": 4
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "转子 组装机",
+      "recipe": "铁棒×5+螺丝×25→转子"
     },
     {
-      "id": "store_screw", "type": "storage",
-      "pos": { "col": 5.5, "row": 7 }, "facing": "south", "floor": 2
+      "id": "store_plate",
+      "type": "storage",
+      "pos": {
+        "col": 1,
+        "row": 7
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "铁板 储存箱"
     },
-
     {
-      "id": "sp_ore1", "type": "splitter",
-      "pos": { "col": 2, "row": 0.25 }, "facing": "south", "floor": 1,
+      "id": "store_rip",
+      "type": "storage",
+      "pos": {
+        "col": 2,
+        "row": 7
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "强化铁板 储存箱"
+    },
+    {
+      "id": "store_rotor",
+      "type": "storage",
+      "pos": {
+        "col": 4,
+        "row": 7
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "转子 储存箱"
+    },
+    {
+      "id": "store_screw",
+      "type": "storage",
+      "pos": {
+        "col": 5.5,
+        "row": 7
+      },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝 储存箱"
+    },
+    {
+      "id": "sp_ore1",
+      "type": "splitter",
+      "pos": {
+        "col": 2,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "矿石分流 左组"
     },
     {
-      "id": "sp_ore2", "type": "splitter",
-      "pos": { "col": 4.75, "row": 0.25 }, "facing": "south", "floor": 1,
+      "id": "sp_ore2",
+      "type": "splitter",
+      "pos": {
+        "col": 4.75,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "矿石分流 右组"
     },
     {
-      "id": "sp_ingot1", "type": "splitter",
-      "pos": { "col": 4.25, "row": 2.5 }, "facing": "south", "floor": 1,
+      "id": "sp_ingot1",
+      "type": "splitter",
+      "pos": {
+        "col": 4.25,
+        "row": 2.5
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁锭分流 棒1-2"
     },
     {
-      "id": "sp_ingot2", "type": "splitter",
-      "pos": { "col": 6.25, "row": 2.5 }, "facing": "south", "floor": 1,
+      "id": "sp_ingot2",
+      "type": "splitter",
+      "pos": {
+        "col": 6.25,
+        "row": 2.5
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁锭分流 棒3-4"
     },
     {
-      "id": "mg_plate", "type": "merger",
-      "pos": { "col": 1.25, "row": 5.5 }, "facing": "south", "floor": 1,
+      "id": "mg_plate",
+      "type": "merger",
+      "pos": {
+        "col": 1.75,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁板合流"
     },
     {
-      "id": "mg_rod1", "type": "merger",
-      "pos": { "col": 4.25, "row": 5.5 }, "facing": "south", "floor": 1,
+      "id": "mg_rod1",
+      "type": "merger",
+      "pos": {
+        "col": 4.25,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁棒合流 1-2"
     },
     {
-      "id": "mg_rod2", "type": "merger",
-      "pos": { "col": 6.25, "row": 5.5 }, "facing": "south", "floor": 1,
+      "id": "mg_rod2",
+      "type": "merger",
+      "pos": {
+        "col": 6.25,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁棒合流 3-4"
     },
     {
-      "id": "mg_rod_final", "type": "merger",
-      "pos": { "col": 5.25, "row": 6 }, "facing": "south", "floor": 1,
+      "id": "mg_rod_final",
+      "type": "merger",
+      "pos": {
+        "col": 5.25,
+        "row": 6
+      },
+      "facing": "south",
+      "floor": 1,
       "label": "铁棒总合流"
     },
-
     {
-      "id": "sp_rod_2f_1", "type": "splitter",
-      "pos": { "col": 3.75, "row": 0.25 }, "facing": "south", "floor": 2,
+      "id": "sp_rod_2f_1",
+      "type": "splitter",
+      "pos": {
+        "col": 3.75,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "铁棒分流 60→40+20"
     },
     {
-      "id": "sp_rod_2f_2", "type": "splitter",
-      "pos": { "col": 1.75, "row": 0.25 }, "facing": "south", "floor": 2,
+      "id": "sp_rod_2f_2",
+      "type": "splitter",
+      "pos": {
+        "col": 1.75,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "铁棒分流 左组"
     },
     {
-      "id": "sp_rod_2f_3", "type": "splitter",
-      "pos": { "col": 4.75, "row": 0.25 }, "facing": "south", "floor": 2,
+      "id": "sp_rod_2f_3",
+      "type": "splitter",
+      "pos": {
+        "col": 4.75,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "铁棒分流 右组"
     },
     {
-      "id": "mg_screw_l", "type": "merger",
-      "pos": { "col": 1.75, "row": 2.75 }, "facing": "south", "floor": 2,
+      "id": "mg_screw_l",
+      "type": "merger",
+      "pos": {
+        "col": 1.75,
+        "row": 2.75
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "螺丝合流 左"
     },
     {
-      "id": "mg_screw_r", "type": "merger",
-      "pos": { "col": 4.75, "row": 2.75 }, "facing": "south", "floor": 2,
+      "id": "mg_screw_r",
+      "type": "merger",
+      "pos": {
+        "col": 4.75,
+        "row": 2.75
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "螺丝合流 右"
     },
     {
-      "id": "sp_screw_route", "type": "splitter",
-      "pos": { "col": 1.75, "row": 3.25 }, "facing": "south", "floor": 2,
+      "id": "sp_screw_route",
+      "type": "splitter",
+      "pos": {
+        "col": 1.75,
+        "row": 3.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "螺丝分流 →组装+溢出"
     },
     {
-      "id": "mg_screw_rip", "type": "merger",
-      "pos": { "col": 4.75, "row": 3.25 }, "facing": "south", "floor": 2,
+      "id": "mg_screw_rip",
+      "type": "merger",
+      "pos": {
+        "col": 4.75,
+        "row": 3.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "螺丝合流 →转子"
     },
     {
-      "id": "sp_plate_2f", "type": "splitter",
-      "pos": { "col": 0.75, "row": 0.25 }, "facing": "south", "floor": 2,
+      "id": "sp_plate_2f",
+      "type": "splitter",
+      "pos": {
+        "col": 0.75,
+        "row": 0.25
+      },
+      "facing": "south",
+      "floor": 2,
       "label": "铁板分流 →组装+储存"
     }
   ],
-
   "belts": [
     {
       "id": "b_ore_in",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 0, "row": 0.5 },
-        { "col": 2.25, "row": 0.5 },
-        { "col": 2.25, "row": 0.25 }
+        {
+          "col": 0,
+          "row": 0.5
+        },
+        {
+          "col": 2.25,
+          "row": 0.5
+        },
+        {
+          "col": 2.25,
+          "row": 0.25
+        }
       ],
       "toPort": "sp_ore1:in-0"
     },
     {
       "id": "b_ore_l1",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 2, "row": 0.5 },
-        { "col": 1.375, "row": 0.5 },
-        { "col": 1.375, "row": 1 }
+        {
+          "col": 2,
+          "row": 0.5
+        },
+        {
+          "col": 1.375,
+          "row": 0.5
+        },
+        {
+          "col": 1.375,
+          "row": 1
+        }
       ],
       "fromPort": "sp_ore1:out-2",
       "toPort": "smelter1:in-0"
     },
     {
       "id": "b_ore_l2",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 2.5, "row": 0.5 },
-        { "col": 2.375, "row": 0.5 },
-        { "col": 2.375, "row": 1 }
+        {
+          "col": 2.5,
+          "row": 0.5
+        },
+        {
+          "col": 2.375,
+          "row": 0.5
+        },
+        {
+          "col": 2.375,
+          "row": 1
+        }
       ],
       "fromPort": "sp_ore1:out-1",
       "toPort": "smelter2:in-0"
     },
     {
       "id": "b_ore_cross",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 2.25, "row": 0.75 },
-        { "col": 5, "row": 0.75 },
-        { "col": 5, "row": 0.25 }
+        {
+          "col": 2.25,
+          "row": 0.75
+        },
+        {
+          "col": 5,
+          "row": 0.75
+        },
+        {
+          "col": 5,
+          "row": 0.25
+        }
       ],
       "fromPort": "sp_ore1:out-0",
       "toPort": "sp_ore2:in-0"
     },
     {
       "id": "b_ore_r1",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 4.75, "row": 0.5 },
-        { "col": 4.375, "row": 0.5 },
-        { "col": 4.375, "row": 1 }
+        {
+          "col": 4.75,
+          "row": 0.5
+        },
+        {
+          "col": 4.375,
+          "row": 0.5
+        },
+        {
+          "col": 4.375,
+          "row": 1
+        }
       ],
       "fromPort": "sp_ore2:out-2",
       "toPort": "smelter3:in-0"
     },
     {
       "id": "b_ore_r2",
-      "floor": 1, "mark": 1, "material": "铁矿石",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
       "path": [
-        { "col": 5.25, "row": 0.5 },
-        { "col": 5.375, "row": 0.5 },
-        { "col": 5.375, "row": 1 }
+        {
+          "col": 5.25,
+          "row": 0.5
+        },
+        {
+          "col": 5.375,
+          "row": 0.5
+        },
+        {
+          "col": 5.375,
+          "row": 1
+        }
       ],
       "fromPort": "sp_ore2:out-1",
       "toPort": "smelter4:in-0"
     },
-
     {
       "id": "b_ingot_s1",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 1.375, "row": 2.125 },
-        { "col": 1.375, "row": 2.75 },
-        { "col": 1.5, "row": 2.75 },
-        { "col": 1.5, "row": 3 }
+        {
+          "col": 1.375,
+          "row": 2.125
+        },
+        {
+          "col": 1.375,
+          "row": 2.75
+        },
+        {
+          "col": 1.5,
+          "row": 2.75
+        },
+        {
+          "col": 1.5,
+          "row": 3
+        }
       ],
       "fromPort": "smelter1:out-0",
       "toPort": "plate1:in-0"
     },
     {
       "id": "b_ingot_s2",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 2.375, "row": 2.125 },
-        { "col": 2.375, "row": 2.75 },
-        { "col": 2.5, "row": 2.75 },
-        { "col": 2.5, "row": 3 }
+        {
+          "col": 2.375,
+          "row": 2.125
+        },
+        {
+          "col": 2.375,
+          "row": 2.75
+        },
+        {
+          "col": 2.5,
+          "row": 2.75
+        },
+        {
+          "col": 2.5,
+          "row": 3
+        }
       ],
       "fromPort": "smelter2:out-0",
       "toPort": "plate2:in-0"
     },
     {
       "id": "b_ingot_s3",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 4.375, "row": 2.125 },
-        { "col": 4.375, "row": 2.5 }
+        {
+          "col": 4.375,
+          "row": 2.125
+        },
+        {
+          "col": 4.375,
+          "row": 2.5
+        }
       ],
       "fromPort": "smelter3:out-0",
       "toPort": "sp_ingot1:in-0"
     },
     {
       "id": "b_ingot_sp1_l",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 4.25, "row": 2.75 },
-        { "col": 4.5, "row": 2.75 },
-        { "col": 4.5, "row": 3 }
+        {
+          "col": 4.25,
+          "row": 2.75
+        },
+        {
+          "col": 4.5,
+          "row": 2.75
+        },
+        {
+          "col": 4.5,
+          "row": 3
+        }
       ],
       "fromPort": "sp_ingot1:out-2",
       "toPort": "rod1:in-0"
     },
     {
       "id": "b_ingot_sp1_r",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 4.75, "row": 2.75 },
-        { "col": 5.5, "row": 2.75 },
-        { "col": 5.5, "row": 3 }
+        {
+          "col": 4.75,
+          "row": 2.75
+        },
+        {
+          "col": 5.5,
+          "row": 2.75
+        },
+        {
+          "col": 5.5,
+          "row": 3
+        }
       ],
       "fromPort": "sp_ingot1:out-1",
       "toPort": "rod2:in-0"
     },
     {
       "id": "b_ingot_s4",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 5.375, "row": 2.125 },
-        { "col": 5.375, "row": 2.25 },
-        { "col": 6.5, "row": 2.25 },
-        { "col": 6.5, "row": 2.5 }
+        {
+          "col": 5.375,
+          "row": 2.125
+        },
+        {
+          "col": 5.375,
+          "row": 2.25
+        },
+        {
+          "col": 6.5,
+          "row": 2.25
+        },
+        {
+          "col": 6.5,
+          "row": 2.5
+        }
       ],
       "fromPort": "smelter4:out-0",
       "toPort": "sp_ingot2:in-0"
     },
     {
       "id": "b_ingot_sp2_l",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 6.25, "row": 2.75 },
-        { "col": 6.5, "row": 2.75 },
-        { "col": 6.5, "row": 3 }
+        {
+          "col": 6.25,
+          "row": 2.75
+        },
+        {
+          "col": 6.5,
+          "row": 2.75
+        },
+        {
+          "col": 6.5,
+          "row": 3
+        }
       ],
       "fromPort": "sp_ingot2:out-2",
       "toPort": "rod3:in-0"
     },
     {
       "id": "b_ingot_sp2_r",
-      "floor": 1, "mark": 1, "material": "铁锭",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
       "path": [
-        { "col": 6.75, "row": 2.75 },
-        { "col": 7.5, "row": 2.75 },
-        { "col": 7.5, "row": 3 }
+        {
+          "col": 6.75,
+          "row": 2.75
+        },
+        {
+          "col": 7.5,
+          "row": 2.75
+        },
+        {
+          "col": 7.5,
+          "row": 3
+        }
       ],
       "fromPort": "sp_ingot2:out-1",
       "toPort": "rod4:in-0"
     },
-
     {
       "id": "b_plate_p1",
-      "floor": 1, "mark": 1, "material": "铁板",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 1.5, "row": 4.25 },
-        { "col": 1.5, "row": 5.5 }
+        {
+          "col": 1.5,
+          "row": 4.25
+        },
+        {
+          "col": 1.5,
+          "row": 5.75
+        },
+        {
+          "col": 1.75,
+          "row": 5.75
+        }
       ],
       "fromPort": "plate1:out-0",
-      "toPort": "mg_plate:in-0"
+      "toPort": "mg_plate:in-2"
     },
     {
       "id": "b_plate_p2",
-      "floor": 1, "mark": 1, "material": "铁板",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 2.5, "row": 4.25 },
-        { "col": 2.5, "row": 5.25 },
-        { "col": 1.75, "row": 5.25 },
-        { "col": 1.75, "row": 5.5 }
+        {
+          "col": 2.5,
+          "row": 4.25
+        },
+        {
+          "col": 2.5,
+          "row": 5.75
+        },
+        {
+          "col": 2.25,
+          "row": 5.75
+        }
       ],
       "fromPort": "plate2:out-0",
       "toPort": "mg_plate:in-1"
     },
     {
       "id": "b_plate_lift",
-      "floor": 1, "mark": 1, "material": "铁板",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 1.5, "row": 6 },
-        { "col": 1.5, "row": 6.25 }
+        {
+          "col": 2,
+          "row": 6
+        },
+        {
+          "col": 2,
+          "row": 6.5
+        }
       ],
       "fromPort": "mg_plate:out-0"
     },
-
     {
       "id": "b_rod_r1",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 4.5, "row": 4.25 },
-        { "col": 4.5, "row": 5.5 }
+        {
+          "col": 4.5,
+          "row": 4.25
+        },
+        {
+          "col": 4.5,
+          "row": 5.5
+        }
       ],
       "fromPort": "rod1:out-0",
       "toPort": "mg_rod1:in-0"
     },
     {
       "id": "b_rod_r2",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 5.5, "row": 4.25 },
-        { "col": 5.5, "row": 5.25 },
-        { "col": 4.75, "row": 5.25 },
-        { "col": 4.75, "row": 5.5 }
+        {
+          "col": 5.5,
+          "row": 4.25
+        },
+        {
+          "col": 5.5,
+          "row": 5.25
+        },
+        {
+          "col": 4.75,
+          "row": 5.25
+        },
+        {
+          "col": 4.75,
+          "row": 5.5
+        }
       ],
       "fromPort": "rod2:out-0",
       "toPort": "mg_rod1:in-1"
     },
     {
       "id": "b_rod_r3",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 6.5, "row": 4.25 },
-        { "col": 6.5, "row": 5.5 }
+        {
+          "col": 6.5,
+          "row": 4.25
+        },
+        {
+          "col": 6.5,
+          "row": 5.5
+        }
       ],
       "fromPort": "rod3:out-0",
       "toPort": "mg_rod2:in-0"
     },
     {
       "id": "b_rod_r4",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 7.5, "row": 4.25 },
-        { "col": 7.5, "row": 5.25 },
-        { "col": 6.75, "row": 5.25 },
-        { "col": 6.75, "row": 5.5 }
+        {
+          "col": 7.5,
+          "row": 4.25
+        },
+        {
+          "col": 7.5,
+          "row": 5.25
+        },
+        {
+          "col": 6.75,
+          "row": 5.25
+        },
+        {
+          "col": 6.75,
+          "row": 5.5
+        }
       ],
       "fromPort": "rod4:out-0",
       "toPort": "mg_rod2:in-1"
     },
     {
       "id": "b_rod_mg1_out",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 4.5, "row": 6 },
-        { "col": 4.5, "row": 6.25 },
-        { "col": 5.25, "row": 6.25 },
-        { "col": 5.25, "row": 6 }
+        {
+          "col": 4.5,
+          "row": 6
+        },
+        {
+          "col": 4.5,
+          "row": 6.25
+        },
+        {
+          "col": 5.25,
+          "row": 6.25
+        },
+        {
+          "col": 5.25,
+          "row": 6
+        }
       ],
       "fromPort": "mg_rod1:out-0",
       "toPort": "mg_rod_final:in-2"
     },
     {
       "id": "b_rod_mg2_out",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 6.5, "row": 6 },
-        { "col": 6.5, "row": 6.25 },
-        { "col": 5.75, "row": 6.25 },
-        { "col": 5.75, "row": 6 }
+        {
+          "col": 6.5,
+          "row": 6
+        },
+        {
+          "col": 6.5,
+          "row": 6.25
+        },
+        {
+          "col": 5.75,
+          "row": 6.25
+        },
+        {
+          "col": 5.75,
+          "row": 6
+        }
       ],
       "fromPort": "mg_rod2:out-0",
       "toPort": "mg_rod_final:in-1"
     },
     {
       "id": "b_rod_lift",
-      "floor": 1, "mark": 1, "material": "铁棒",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 5.5, "row": 6.5 },
-        { "col": 5.5, "row": 6.75 }
+        {
+          "col": 5.5,
+          "row": 6.5
+        },
+        {
+          "col": 5.5,
+          "row": 6.75
+        }
       ],
       "fromPort": "mg_rod_final:out-0"
     },
-
     {
       "id": "b_rod_2f_in",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 5.5, "row": 0 },
-        { "col": 5.5, "row": 0.25 },
-        { "col": 4, "row": 0.25 }
+        {
+          "col": 5.5,
+          "row": 0
+        },
+        {
+          "col": 5.5,
+          "row": 0.25
+        },
+        {
+          "col": 4,
+          "row": 0.25
+        }
       ],
       "toPort": "sp_rod_2f_1:in-0"
     },
     {
       "id": "b_rod_2f_bypass",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 4, "row": 0.75 },
-        { "col": 4, "row": 4.375 },
-        { "col": 4.375, "row": 4.375 },
-        { "col": 4.375, "row": 4 }
+        {
+          "col": 4,
+          "row": 0.75
+        },
+        {
+          "col": 4,
+          "row": 4.375
+        },
+        {
+          "col": 4.375,
+          "row": 4.375
+        },
+        {
+          "col": 4.375,
+          "row": 4
+        }
       ],
       "fromPort": "sp_rod_2f_1:out-0",
       "toPort": "rotor:in-0"
     },
     {
       "id": "b_rod_2f_toleft",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 3.75, "row": 0.5 },
-        { "col": 2, "row": 0.5 },
-        { "col": 2, "row": 0.25 }
+        {
+          "col": 3.75,
+          "row": 0.5
+        },
+        {
+          "col": 2,
+          "row": 0.5
+        },
+        {
+          "col": 2,
+          "row": 0.25
+        }
       ],
       "fromPort": "sp_rod_2f_1:out-2",
       "toPort": "sp_rod_2f_2:in-0"
     },
     {
       "id": "b_rod_2f_toright",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 4.25, "row": 0.5 },
-        { "col": 5, "row": 0.5 },
-        { "col": 5, "row": 0.25 }
+        {
+          "col": 4.25,
+          "row": 0.5
+        },
+        {
+          "col": 5,
+          "row": 0.5
+        },
+        {
+          "col": 5,
+          "row": 0.25
+        }
       ],
       "fromPort": "sp_rod_2f_1:out-1",
       "toPort": "sp_rod_2f_3:in-0"
     },
     {
       "id": "b_rod_2f_s1",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 1.75, "row": 0.5 },
-        { "col": 1.5, "row": 0.5 },
-        { "col": 1.5, "row": 1 }
+        {
+          "col": 1.75,
+          "row": 0.5
+        },
+        {
+          "col": 1.5,
+          "row": 0.5
+        },
+        {
+          "col": 1.5,
+          "row": 1
+        }
       ],
       "fromPort": "sp_rod_2f_2:out-2",
       "toPort": "screw1:in-0"
     },
     {
       "id": "b_rod_2f_s2",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 2.25, "row": 0.5 },
-        { "col": 2.5, "row": 0.5 },
-        { "col": 2.5, "row": 1 }
+        {
+          "col": 2.25,
+          "row": 0.5
+        },
+        {
+          "col": 2.5,
+          "row": 0.5
+        },
+        {
+          "col": 2.5,
+          "row": 1
+        }
       ],
       "fromPort": "sp_rod_2f_2:out-1",
       "toPort": "screw2:in-0"
     },
     {
       "id": "b_rod_2f_s3",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 4.75, "row": 0.5 },
-        { "col": 4.5, "row": 0.5 },
-        { "col": 4.5, "row": 1 }
+        {
+          "col": 4.75,
+          "row": 0.5
+        },
+        {
+          "col": 4.5,
+          "row": 0.5
+        },
+        {
+          "col": 4.5,
+          "row": 1
+        }
       ],
       "fromPort": "sp_rod_2f_3:out-2",
       "toPort": "screw3:in-0"
     },
     {
       "id": "b_rod_2f_s4",
-      "floor": 2, "mark": 1, "material": "铁棒",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁棒",
       "path": [
-        { "col": 5.25, "row": 0.5 },
-        { "col": 5.5, "row": 0.5 },
-        { "col": 5.5, "row": 1 }
+        {
+          "col": 5.25,
+          "row": 0.5
+        },
+        {
+          "col": 5.5,
+          "row": 0.5
+        },
+        {
+          "col": 5.5,
+          "row": 1
+        }
       ],
       "fromPort": "sp_rod_2f_3:out-1",
       "toPort": "screw4:in-0"
     },
-
     {
       "id": "b_screw_s1",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 1.5, "row": 2.25 },
-        { "col": 1.5, "row": 2.75 },
-        { "col": 1.75, "row": 2.75 }
+        {
+          "col": 1.5,
+          "row": 2.25
+        },
+        {
+          "col": 1.5,
+          "row": 2.75
+        },
+        {
+          "col": 1.75,
+          "row": 2.75
+        }
       ],
       "fromPort": "screw1:out-0",
       "toPort": "mg_screw_l:in-2"
     },
     {
       "id": "b_screw_s2",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 2.5, "row": 2.25 },
-        { "col": 2.5, "row": 2.75 },
-        { "col": 2.25, "row": 2.75 }
+        {
+          "col": 2.5,
+          "row": 2.25
+        },
+        {
+          "col": 2.5,
+          "row": 2.75
+        },
+        {
+          "col": 2.25,
+          "row": 2.75
+        }
       ],
       "fromPort": "screw2:out-0",
       "toPort": "mg_screw_l:in-1"
     },
     {
       "id": "b_screw_s3",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 4.5, "row": 2.25 },
-        { "col": 4.5, "row": 2.75 },
-        { "col": 4.75, "row": 2.75 }
+        {
+          "col": 4.5,
+          "row": 2.25
+        },
+        {
+          "col": 4.5,
+          "row": 2.75
+        },
+        {
+          "col": 4.75,
+          "row": 2.75
+        }
       ],
       "fromPort": "screw3:out-0",
       "toPort": "mg_screw_r:in-2"
     },
     {
       "id": "b_screw_s4",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 5.5, "row": 2.25 },
-        { "col": 5.5, "row": 2.75 },
-        { "col": 5.25, "row": 2.75 }
+        {
+          "col": 5.5,
+          "row": 2.25
+        },
+        {
+          "col": 5.5,
+          "row": 2.75
+        },
+        {
+          "col": 5.25,
+          "row": 2.75
+        }
       ],
       "fromPort": "screw4:out-0",
       "toPort": "mg_screw_r:in-1"
     },
     {
       "id": "b_screw_l_out",
-      "floor": 2, "mark": 2, "material": "螺丝",
+      "floor": 2,
+      "mark": 2,
+      "material": "螺丝",
       "path": [
-        { "col": 2, "row": 3 },
-        { "col": 2, "row": 3.25 }
+        {
+          "col": 2,
+          "row": 3
+        },
+        {
+          "col": 2,
+          "row": 3.25
+        }
       ],
       "fromPort": "mg_screw_l:out-0",
       "toPort": "sp_screw_route:in-0"
     },
     {
       "id": "b_screw_to_rip",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 2, "row": 3.75 },
-        { "col": 2, "row": 4 },
-        { "col": 1.875, "row": 4 }
+        {
+          "col": 2,
+          "row": 3.75
+        },
+        {
+          "col": 2,
+          "row": 4
+        },
+        {
+          "col": 1.875,
+          "row": 4
+        }
       ],
       "fromPort": "sp_screw_route:out-0",
       "toPort": "rip:in-1"
     },
     {
       "id": "b_screw_cross",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 2.25, "row": 3.5 },
-        { "col": 4.75, "row": 3.5 },
-        { "col": 4.75, "row": 3.25 }
+        {
+          "col": 2.25,
+          "row": 3.5
+        },
+        {
+          "col": 4.75,
+          "row": 3.5
+        },
+        {
+          "col": 4.75,
+          "row": 3.25
+        }
       ],
       "fromPort": "sp_screw_route:out-1",
       "toPort": "mg_screw_rip:in-2"
     },
     {
       "id": "b_screw_r_out",
-      "floor": 2, "mark": 2, "material": "螺丝",
+      "floor": 2,
+      "mark": 2,
+      "material": "螺丝",
       "path": [
-        { "col": 5, "row": 3 },
-        { "col": 5, "row": 3.25 }
+        {
+          "col": 5,
+          "row": 3
+        },
+        {
+          "col": 5,
+          "row": 3.25
+        }
       ],
       "fromPort": "mg_screw_r:out-0",
       "toPort": "mg_screw_rip:in-0"
     },
     {
       "id": "b_screw_to_rotor",
-      "floor": 2, "mark": 2, "material": "螺丝",
+      "floor": 2,
+      "mark": 2,
+      "material": "螺丝",
       "path": [
-        { "col": 5, "row": 3.75 },
-        { "col": 5, "row": 4 },
-        { "col": 4.875, "row": 4 }
+        {
+          "col": 5,
+          "row": 3.75
+        },
+        {
+          "col": 5,
+          "row": 4
+        },
+        {
+          "col": 4.875,
+          "row": 4
+        }
       ],
       "fromPort": "mg_screw_rip:out-0",
       "toPort": "rotor:in-1"
     },
     {
       "id": "b_screw_overflow",
-      "floor": 2, "mark": 1, "material": "螺丝",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
       "path": [
-        { "col": 1.75, "row": 3.5 },
-        { "col": 1.75, "row": 3.75 },
-        { "col": 5.8125, "row": 3.75 },
-        { "col": 5.8125, "row": 7 }
+        {
+          "col": 1.75,
+          "row": 3.5
+        },
+        {
+          "col": 1.75,
+          "row": 3.75
+        },
+        {
+          "col": 5.8125,
+          "row": 3.75
+        },
+        {
+          "col": 5.8125,
+          "row": 7
+        }
       ],
       "fromPort": "sp_screw_route:out-2",
       "toPort": "store_screw:in-0"
     },
-
     {
       "id": "b_plate_2f_in",
-      "floor": 2, "mark": 1, "material": "铁板",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 1.5, "row": 0 },
-        { "col": 1.5, "row": 0.25 },
-        { "col": 1, "row": 0.25 }
+        {
+          "col": 1.5,
+          "row": 0
+        },
+        {
+          "col": 1.5,
+          "row": 0.25
+        },
+        {
+          "col": 1,
+          "row": 0.25
+        }
       ],
       "toPort": "sp_plate_2f:in-0"
     },
     {
       "id": "b_plate_to_rip",
-      "floor": 2, "mark": 1, "material": "铁板",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 1, "row": 0.75 },
-        { "col": 1, "row": 4 },
-        { "col": 1.375, "row": 4 }
+        {
+          "col": 1,
+          "row": 0.75
+        },
+        {
+          "col": 1,
+          "row": 4
+        },
+        {
+          "col": 1.375,
+          "row": 4
+        }
       ],
       "fromPort": "sp_plate_2f:out-0",
       "toPort": "rip:in-0"
     },
     {
       "id": "b_plate_to_store",
-      "floor": 2, "mark": 1, "material": "铁板",
+      "floor": 2,
+      "mark": 1,
+      "material": "铁板",
       "path": [
-        { "col": 0.75, "row": 0.5 },
-        { "col": 0.5, "row": 0.5 },
-        { "col": 0.5, "row": 7.25 },
-        { "col": 1.3125, "row": 7.25 },
-        { "col": 1.3125, "row": 7 }
+        {
+          "col": 0.75,
+          "row": 0.5
+        },
+        {
+          "col": 0.5,
+          "row": 0.5
+        },
+        {
+          "col": 0.5,
+          "row": 7.25
+        },
+        {
+          "col": 1.3125,
+          "row": 7.25
+        },
+        {
+          "col": 1.3125,
+          "row": 7
+        }
       ],
       "fromPort": "sp_plate_2f:out-2",
       "toPort": "store_plate:in-0"
     },
-
     {
       "id": "b_rip_out",
-      "floor": 2, "mark": 1, "material": "强化铁板",
+      "floor": 2,
+      "mark": 1,
+      "material": "强化铁板",
       "path": [
-        { "col": 1.625, "row": 5.875 },
-        { "col": 1.625, "row": 6.75 },
-        { "col": 2.3125, "row": 6.75 },
-        { "col": 2.3125, "row": 7 }
+        {
+          "col": 1.625,
+          "row": 5.875
+        },
+        {
+          "col": 1.625,
+          "row": 6.75
+        },
+        {
+          "col": 2.3125,
+          "row": 6.75
+        },
+        {
+          "col": 2.3125,
+          "row": 7
+        }
       ],
       "fromPort": "rip:out-0",
       "toPort": "store_rip:in-0"
     },
     {
       "id": "b_rotor_out",
-      "floor": 2, "mark": 1, "material": "转子",
+      "floor": 2,
+      "mark": 1,
+      "material": "转子",
       "path": [
-        { "col": 4.625, "row": 5.875 },
-        { "col": 4.625, "row": 6.75 },
-        { "col": 4.3125, "row": 6.75 },
-        { "col": 4.3125, "row": 7 }
+        {
+          "col": 4.625,
+          "row": 5.875
+        },
+        {
+          "col": 4.625,
+          "row": 6.75
+        },
+        {
+          "col": 4.3125,
+          "row": 6.75
+        },
+        {
+          "col": 4.3125,
+          "row": 7
+        }
       ],
       "fromPort": "rotor:out-0",
       "toPort": "store_rotor:in-0"
     }
   ],
-
   "lifts": [
     {
       "id": "lift_plate",
-      "pos": { "col": 1.5, "row": 6.5 },
+      "pos": {
+        "col": 1.5,
+        "row": 6.5
+      },
       "mark": 1,
       "fromFloor": 1,
       "toFloor": 2,
       "material": "铁板",
-      "connectedBelts": ["b_plate_lift", "b_plate_2f_in"]
+      "connectedBelts": [
+        "b_plate_lift",
+        "b_plate_2f_in"
+      ]
     },
     {
       "id": "lift_rod",
-      "pos": { "col": 5.5, "row": 6.5 },
+      "pos": {
+        "col": 5.5,
+        "row": 6.5
+      },
       "mark": 1,
       "fromFloor": 1,
       "toFloor": 2,
       "material": "铁棒",
-      "connectedBelts": ["b_rod_lift", "b_rod_2f_in"]
+      "connectedBelts": [
+        "b_rod_lift",
+        "b_rod_2f_in"
+      ]
     }
   ],
-
   "power": {
     "poles": [
-      { "id": "pole_A", "type": "power-pole-mk1", "pos": { "col": 0, "row": 6 }, "floor": 1 },
-      { "id": "pole_B", "type": "power-pole-mk1", "pos": { "col": 1.5, "row": 0.5 }, "floor": 1 },
-      { "id": "pole_C", "type": "power-pole-mk1", "pos": { "col": 4.5, "row": 0.5 }, "floor": 1 },
-      { "id": "pole_D", "type": "power-pole-mk1", "pos": { "col": 1.5, "row": 3.5 }, "floor": 1 },
-      { "id": "pole_E", "type": "power-pole-mk1", "pos": { "col": 5, "row": 3.5 }, "floor": 1 },
-      { "id": "pole_F", "type": "power-pole-mk1", "pos": { "col": 7, "row": 3.5 }, "floor": 1 },
-      { "id": "pole_G", "type": "power-pole-mk1", "pos": { "col": 3, "row": 0.5 }, "floor": 2 },
-      { "id": "pole_H", "type": "power-pole-mk1", "pos": { "col": 6, "row": 2 }, "floor": 2 },
-      { "id": "pole_I", "type": "power-pole-mk1", "pos": { "col": 3, "row": 5 }, "floor": 2 }
+      {
+        "id": "pole_A",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 0,
+          "row": 6
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_B",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 1.5,
+          "row": 0.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_C",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 4.5,
+          "row": 0.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_D",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 1.5,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_E",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 5,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_F",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 7,
+          "row": 3.5
+        },
+        "floor": 1
+      },
+      {
+        "id": "pole_G",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 3,
+          "row": 0.5
+        },
+        "floor": 2
+      },
+      {
+        "id": "pole_H",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 6,
+          "row": 2
+        },
+        "floor": 2
+      },
+      {
+        "id": "pole_I",
+        "type": "power-pole-mk1",
+        "pos": {
+          "col": 3,
+          "row": 5
+        },
+        "floor": 2
+      }
     ],
     "connections": [
-      { "from": "pole_A", "to": "pole_B" },
-      { "from": "pole_A", "to": "pole_C" },
-      { "from": "pole_B", "to": "pole_D" },
-      { "from": "pole_C", "to": "pole_E" },
-      { "from": "pole_E", "to": "pole_F" },
-      { "from": "pole_G", "to": "pole_H" },
-      { "from": "pole_H", "to": "pole_I" }
+      {
+        "from": "pole_A",
+        "to": "pole_B"
+      },
+      {
+        "from": "pole_A",
+        "to": "pole_C"
+      },
+      {
+        "from": "pole_B",
+        "to": "pole_D"
+      },
+      {
+        "from": "pole_C",
+        "to": "pole_E"
+      },
+      {
+        "from": "pole_E",
+        "to": "pole_F"
+      },
+      {
+        "from": "pole_G",
+        "to": "pole_H"
+      },
+      {
+        "from": "pole_H",
+        "to": "pole_I"
+      }
     ]
   },
-
   "structures": [],
-
   "zones": [
     {
-      "id": "f1-feed", "floor": 1,
-      "pos": { "col": 0, "row": 0 }, "size": { "w": 8, "h": 1 },
-      "kind": "trunk", "label": "主物流带 · 矿石输入"
+      "id": "f1-feed",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 矿石输入"
     },
     {
-      "id": "f1-walk", "floor": 1,
-      "pos": { "col": 3, "row": 1 }, "size": { "w": 1, "h": 2 },
-      "kind": "maintenance", "label": "维护走道"
+      "id": "f1-walk",
+      "floor": 1,
+      "pos": {
+        "col": 3,
+        "row": 1
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "maintenance",
+      "label": "维护走道"
     },
     {
-      "id": "f1-left-buffer", "floor": 1,
-      "pos": { "col": 0, "row": 3 }, "size": { "w": 1, "h": 2 },
-      "kind": "reserve", "label": "电力 / 缓冲"
+      "id": "f1-left-buffer",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 3
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "电力 / 缓冲"
     },
     {
-      "id": "f1-right-reserve", "floor": 1,
-      "pos": { "col": 6, "row": 1 }, "size": { "w": 2, "h": 2 },
-      "kind": "reserve", "label": "扩产预留"
+      "id": "f1-right-reserve",
+      "floor": 1,
+      "pos": {
+        "col": 6,
+        "row": 1
+      },
+      "size": {
+        "w": 2,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "扩产预留"
     },
     {
-      "id": "f1-front", "floor": 1,
-      "pos": { "col": 0, "row": 6 }, "size": { "w": 8, "h": 1 },
-      "kind": "front", "label": "前场缓冲 · 升降机/出货"
+      "id": "f1-front",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 6
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "前场缓冲 · 升降机/出货"
     },
     {
-      "id": "f2-arrival", "floor": 2,
-      "pos": { "col": 0, "row": 0 }, "size": { "w": 8, "h": 1 },
-      "kind": "trunk", "label": "主物流带 · 升降机到达"
+      "id": "f2-arrival",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 升降机到达"
     },
     {
-      "id": "f2-walk", "floor": 2,
-      "pos": { "col": 3, "row": 1 }, "size": { "w": 1, "h": 2 },
-      "kind": "maintenance", "label": "维护走道"
+      "id": "f2-walk",
+      "floor": 2,
+      "pos": {
+        "col": 3,
+        "row": 1
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "maintenance",
+      "label": "维护走道"
     },
     {
-      "id": "f2-screw-lane", "floor": 2,
-      "pos": { "col": 1, "row": 3 }, "size": { "w": 5, "h": 1 },
-      "kind": "trunk", "label": "主物流带 · 螺丝走廊"
+      "id": "f2-screw-lane",
+      "floor": 2,
+      "pos": {
+        "col": 1,
+        "row": 3
+      },
+      "size": {
+        "w": 5,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 螺丝走廊"
     },
     {
-      "id": "f2-right-reserve", "floor": 2,
-      "pos": { "col": 6, "row": 4 }, "size": { "w": 2, "h": 2 },
-      "kind": "reserve", "label": "扩产预留 · 终端件"
+      "id": "f2-right-reserve",
+      "floor": 2,
+      "pos": {
+        "col": 6,
+        "row": 4
+      },
+      "size": {
+        "w": 2,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "扩产预留 · 终端件"
     },
     {
-      "id": "f2-front", "floor": 2,
-      "pos": { "col": 0, "row": 6 }, "size": { "w": 8, "h": 1 },
-      "kind": "front", "label": "成品前场 · 储存/接口"
+      "id": "f2-front",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 6
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "成品前场 · 储存/接口"
     },
     {
-      "id": "f2-apron", "floor": 2,
-      "pos": { "col": 0, "row": 7 }, "size": { "w": 8, "h": 1 },
-      "kind": "front", "label": "南扩前场 · 出货缓冲"
+      "id": "f2-apron",
+      "floor": 2,
+      "pos": {
+        "col": 0,
+        "row": 7
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "南扩前场 · 出货缓冲"
     }
   ],
-
   "stats": {
     "totalPowerMW": 86,
     "inputs": [
-      { "material": "铁矿石", "rate": 120 }
+      {
+        "material": "铁矿石",
+        "rate": 120
+      }
     ],
     "outputs": [
-      { "material": "铁板", "rate": 10 },
-      { "material": "强化铁板", "rate": 5 },
-      { "material": "转子", "rate": 2.4 }
+      {
+        "material": "铁板",
+        "rate": 10
+      },
+      {
+        "material": "强化铁板",
+        "rate": 5
+      },
+      {
+        "material": "转子",
+        "rate": 2.4
+      }
     ]
   }
 }
