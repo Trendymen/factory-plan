@@ -53,13 +53,13 @@ React 19 + TypeScript + Vite 6 + Zustand + Motion
 
 传送带路径的每个点也必须对齐到 0.25 步进。
 
-### R9-R11: 引用完整性
+### R9-R10: 引用完整性
 
-升降机、电力连接中引用的楼层 ID、传送带 ID、机器/电线杆 ID 必须存在。
+升降机中引用的楼层 ID、传送带 ID 必须存在。
 
 ### R12: ID 唯一
 
-所有元素（machines, belts, lifts, poles, structures）的 `id` 全局唯一，不允许重复。
+所有元素（machines, belts, lifts, structures）的 `id` 全局唯一，不允许重复。
 
 ### R13: 机器间碰撞检测
 
@@ -77,7 +77,7 @@ React 19 + TypeScript + Vite 6 + Zustand + Motion
 
 ## 碰撞检测执行要求
 
-**每次生成或修改 `data/schemes/*.json` 后，必须运行 `npx vitest run` 确认方案通过所有验证规则（R1-R15）。** `validateSchemeDetailed()` 的 error 级别问题必须为 0，warn 级别问题应尽量消除。
+**每次生成或修改 `data/schemes/*.json` 后，必须运行 `npx vitest run` 确认方案通过所有验证规则。** `validateSchemeDetailed()` 的 error 级别问题必须为 0，warn 级别问题应尽量消除。
 
 ---
 

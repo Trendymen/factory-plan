@@ -70,30 +70,6 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     ports: [port('in-0', 'belt-in', 'back', 1.5), port('in-1', 'belt-in', 'back', 3.5), port('out-0', 'belt-out', 'front', 1.5), port('out-1', 'belt-out', 'front', 3.5)],
     color: '--industrial-storage', powerUsage: 0, stackable: true, wallMounted: false,
   },
-  'wall-outlet-mk1': {
-    type: 'wall-outlet-mk1', category: 'power', displayName: '墙壁电源 Mk.1',
-    dimensions: { width: 1, length: 0.5, height: 1 }, clearanceHeight: 1,
-    ports: [port('pwr-0', 'power', 'front', 0.5, 0.5)],
-    color: '--power', powerUsage: 0, stackable: false, wallMounted: true,
-  },
-  'wall-outlet-mk2': {
-    type: 'wall-outlet-mk2', category: 'power', displayName: '墙壁电源 Mk.2',
-    dimensions: { width: 1, length: 0.5, height: 1 }, clearanceHeight: 1,
-    ports: [port('pwr-0', 'power', 'front', 0.5, 0.5)],
-    color: '--power', powerUsage: 0, stackable: false, wallMounted: true,
-  },
-  'wall-outlet-mk3': {
-    type: 'wall-outlet-mk3', category: 'power', displayName: '墙壁电源 Mk.3',
-    dimensions: { width: 1, length: 0.5, height: 1 }, clearanceHeight: 1,
-    ports: [port('pwr-0', 'power', 'front', 0.5, 0.5)],
-    color: '--power', powerUsage: 0, stackable: false, wallMounted: true,
-  },
-  'power-pole-mk1': {
-    type: 'power-pole-mk1', category: 'power', displayName: '电线杆 Mk.1',
-    dimensions: { width: 0.8, length: 0.8, height: 7 }, clearanceHeight: 7,
-    ports: [port('pwr-0', 'power', 'top', 0.4, 7)],
-    color: '--power', powerUsage: 0, stackable: false, wallMounted: false,
-  },
   'wall-conveyor-hole': {
     type: 'wall-conveyor-hole', category: 'structure', displayName: '墙壁传送带孔',
     dimensions: { width: 4, length: 1, height: 2 }, clearanceHeight: 2,

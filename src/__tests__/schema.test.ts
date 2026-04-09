@@ -23,7 +23,6 @@ const MINIMAL_SCHEME: Scheme = {
     { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
   ],
   lifts: [],
-  power: { poles: [], connections: [] },
   structures: [],
   zones: [],
   stats: { totalPowerMW: 4, inputs: [{ material: '铁矿石', rate: 30 }], outputs: [{ material: '铁锭', rate: 30 }] },

@@ -6,7 +6,7 @@ import { GridRenderer } from '../renderers/GridRenderer';
 import { ZoneRenderer } from '../renderers/ZoneRenderer';
 import { MachineRenderer } from '../renderers/MachineRenderer';
 import { BeltRenderer } from '../renderers/BeltRenderer';
-import { PowerRenderer } from '../renderers/PowerRenderer';
+import { BeltLabelLayer } from '../renderers/BeltLabelLayer';
 import { LiftRenderer } from '../renderers/LiftRenderer';
 import { StructureRenderer } from '../renderers/StructureRenderer';
 
@@ -60,9 +60,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const belts = scheme.belts.filter(b => b.floor === floorId);
   const lifts = scheme.lifts.filter(l => l.fromFloor === floorId || l.toFloor === floorId);
   const zones = scheme.zones.filter(z => z.floor === floorId);
-  const poles = scheme.power.poles.filter(p => p.floor === floorId);
   const structures = scheme.structures.filter(s => s.floor === floorId);
-  const connections = scheme.power.connections;
 
   const hasHighlight = highlightChain.length > 0;
   const isHighlighted = (id: string) => highlightChain.includes(id);
@@ -85,16 +83,18 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
     >
       <GridRenderer cols={cols} rows={rows} />
       {layers.zones && zones.map(z => <ZoneRenderer key={z.id} zone={z} />)}
-      {layers.power && <PowerRenderer poles={poles} connections={connections} machines={machines} dimmed={hasHighlight} />}
-      {layers.belts && belts.map(b => (
-        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
-      ))}
       {layers.structures && structures.map(s => (
         <StructureRenderer key={s.id} structure={s} dimmed={isDimmed(s.id)} />
       ))}
       {machines.filter(m => layers.storage || (m.type !== 'storage' && m.type !== 'industrial-storage')).map(m => (
         <MachineRenderer key={m.id} machine={m} highlight={isHighlighted(m.id)} dimmed={isDimmed(m.id)} onHover={hover} onClick={select} />
       ))}
+      {layers.belts && belts.map(b => (
+        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
+      ))}
+      {layers.belts && (
+        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} onHover={hover} onClick={select} />
+      )}
       {lifts.map(l => (
         <LiftRenderer key={l.id} lift={l} highlight={isHighlighted(l.id)} dimmed={isDimmed(l.id)} onHover={hover} />
       ))}

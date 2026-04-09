@@ -32,7 +32,7 @@ export function machineGridSize(dim: Dimensions, facing: Facing): { cols: number
   return { cols: l, rows: w };
 }
 
-const SIDE_MAP: Record<Facing, Record<string, 'top' | 'bottom' | 'left' | 'right'>> = {
+export const SIDE_MAP: Record<Facing, Record<string, 'top' | 'bottom' | 'left' | 'right'>> = {
   south: { front: 'bottom', back: 'top', left: 'right', right: 'left' },
   north: { front: 'top', back: 'bottom', left: 'left', right: 'right' },
   east:  { front: 'right', back: 'left', left: 'bottom', right: 'top' },

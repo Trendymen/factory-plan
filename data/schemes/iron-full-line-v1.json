@@ -26,7 +26,7 @@
       "heightM": 4,
       "gridSize": {
         "cols": 8,
-        "rows": 8
+        "rows": 9
       }
     }
   ],
@@ -35,7 +35,7 @@
       "id": "smelter1",
       "type": "smelter",
       "pos": {
-        "col": 1,
+        "col": 1.125,
         "row": 1
       },
       "facing": "south",
@@ -47,7 +47,7 @@
       "id": "smelter2",
       "type": "smelter",
       "pos": {
-        "col": 2,
+        "col": 2.125,
         "row": 1
       },
       "facing": "south",
@@ -59,7 +59,7 @@
       "id": "smelter3",
       "type": "smelter",
       "pos": {
-        "col": 4,
+        "col": 4.125,
         "row": 1
       },
       "facing": "south",
@@ -71,7 +71,7 @@
       "id": "smelter4",
       "type": "smelter",
       "pos": {
-        "col": 5,
+        "col": 5.125,
         "row": 1
       },
       "facing": "south",
@@ -203,7 +203,7 @@
       "id": "rip",
       "type": "assembler",
       "pos": {
-        "col": 1,
+        "col": 0.875,
         "row": 4
       },
       "facing": "south",
@@ -215,7 +215,7 @@
       "id": "rotor",
       "type": "assembler",
       "pos": {
-        "col": 4,
+        "col": 3.875,
         "row": 4
       },
       "facing": "south",
@@ -257,22 +257,11 @@
       "label": "转子 储存箱"
     },
     {
-      "id": "store_screw",
-      "type": "storage",
-      "pos": {
-        "col": 5.5,
-        "row": 7
-      },
-      "facing": "south",
-      "floor": 2,
-      "label": "螺丝 储存箱"
-    },
-    {
       "id": "sp_ore1",
       "type": "splitter",
       "pos": {
-        "col": 2,
-        "row": 0.25
+        "col": 1.75,
+        "row": 0.5
       },
       "facing": "south",
       "floor": 1,
@@ -283,7 +272,7 @@
       "type": "splitter",
       "pos": {
         "col": 4.75,
-        "row": 0.25
+        "row": 0.5
       },
       "facing": "south",
       "floor": 1,
@@ -293,7 +282,7 @@
       "id": "sp_ingot1",
       "type": "splitter",
       "pos": {
-        "col": 4.25,
+        "col": 4.75,
         "row": 2.5
       },
       "facing": "south",
@@ -304,7 +293,7 @@
       "id": "sp_ingot2",
       "type": "splitter",
       "pos": {
-        "col": 6.25,
+        "col": 6.75,
         "row": 2.5
       },
       "facing": "south",
@@ -371,7 +360,7 @@
       "type": "splitter",
       "pos": {
         "col": 1.75,
-        "row": 0.25
+        "row": 0.5
       },
       "facing": "south",
       "floor": 2,
@@ -382,7 +371,7 @@
       "type": "splitter",
       "pos": {
         "col": 4.75,
-        "row": 0.25
+        "row": 0.5
       },
       "facing": "south",
       "floor": 2,
@@ -419,7 +408,7 @@
       },
       "facing": "south",
       "floor": 2,
-      "label": "螺丝分流 →组装+溢出"
+      "label": "螺丝分流 →组装"
     },
     {
       "id": "mg_screw_rip",
@@ -452,16 +441,12 @@
       "material": "铁矿石",
       "path": [
         {
-          "col": 0,
-          "row": 0.5
+          "col": 2,
+          "row": 0
         },
         {
-          "col": 2.25,
+          "col": 2,
           "row": 0.5
-        },
-        {
-          "col": 2.25,
-          "row": 0.25
         }
       ],
       "toPort": "sp_ore1:in-0"
@@ -473,15 +458,15 @@
       "material": "铁矿石",
       "path": [
         {
-          "col": 2,
-          "row": 0.5
+          "col": 1.75,
+          "row": 0.75
         },
         {
-          "col": 1.375,
-          "row": 0.5
+          "col": 1.5,
+          "row": 0.75
         },
         {
-          "col": 1.375,
+          "col": 1.5,
           "row": 1
         }
       ],
@@ -495,15 +480,15 @@
       "material": "铁矿石",
       "path": [
         {
+          "col": 2.25,
+          "row": 0.75
+        },
+        {
           "col": 2.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
-          "col": 2.375,
-          "row": 0.5
-        },
-        {
-          "col": 2.375,
+          "col": 2.5,
           "row": 1
         }
       ],
@@ -511,25 +496,20 @@
       "toPort": "smelter2:in-0"
     },
     {
-      "id": "b_ore_cross",
+      "id": "b_ore_in2",
       "floor": 1,
       "mark": 1,
       "material": "铁矿石",
       "path": [
         {
-          "col": 2.25,
-          "row": 0.75
+          "col": 5,
+          "row": 0
         },
         {
           "col": 5,
-          "row": 0.75
-        },
-        {
-          "col": 5,
-          "row": 0.25
+          "row": 0.5
         }
       ],
-      "fromPort": "sp_ore1:out-0",
       "toPort": "sp_ore2:in-0"
     },
     {
@@ -540,14 +520,14 @@
       "path": [
         {
           "col": 4.75,
-          "row": 0.5
+          "row": 0.75
         },
         {
-          "col": 4.375,
-          "row": 0.5
+          "col": 4.5,
+          "row": 0.75
         },
         {
-          "col": 4.375,
+          "col": 4.5,
           "row": 1
         }
       ],
@@ -562,14 +542,14 @@
       "path": [
         {
           "col": 5.25,
-          "row": 0.5
+          "row": 0.75
         },
         {
-          "col": 5.375,
-          "row": 0.5
+          "col": 5.5,
+          "row": 0.75
         },
         {
-          "col": 5.375,
+          "col": 5.5,
           "row": 1
         }
       ],
@@ -583,16 +563,8 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 1.375,
-          "row": 2.125
-        },
-        {
-          "col": 1.375,
-          "row": 2.75
-        },
-        {
           "col": 1.5,
-          "row": 2.75
+          "row": 2.125
         },
         {
           "col": 1.5,
@@ -609,16 +581,8 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 2.375,
-          "row": 2.125
-        },
-        {
-          "col": 2.375,
-          "row": 2.75
-        },
-        {
           "col": 2.5,
-          "row": 2.75
+          "row": 2.125
         },
         {
           "col": 2.5,
@@ -635,11 +599,15 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 4.375,
+          "col": 4.5,
           "row": 2.125
         },
         {
-          "col": 4.375,
+          "col": 5,
+          "row": 2.125
+        },
+        {
+          "col": 5,
           "row": 2.5
         }
       ],
@@ -653,7 +621,7 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 4.25,
+          "col": 4.75,
           "row": 2.75
         },
         {
@@ -675,7 +643,7 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 4.75,
+          "col": 5.25,
           "row": 2.75
         },
         {
@@ -697,19 +665,15 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 5.375,
+          "col": 5.5,
           "row": 2.125
         },
         {
-          "col": 5.375,
-          "row": 2.25
+          "col": 7,
+          "row": 2.125
         },
         {
-          "col": 6.5,
-          "row": 2.25
-        },
-        {
-          "col": 6.5,
+          "col": 7,
           "row": 2.5
         }
       ],
@@ -723,7 +687,7 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 6.25,
+          "col": 6.75,
           "row": 2.75
         },
         {
@@ -745,7 +709,7 @@
       "material": "铁锭",
       "path": [
         {
-          "col": 6.75,
+          "col": 7.25,
           "row": 2.75
         },
         {
@@ -1011,14 +975,14 @@
         },
         {
           "col": 4,
-          "row": 4.375
+          "row": 3.75
         },
         {
-          "col": 4.375,
-          "row": 4.375
+          "col": 4.25,
+          "row": 3.75
         },
         {
-          "col": 4.375,
+          "col": 4.25,
           "row": 4
         }
       ],
@@ -1038,10 +1002,6 @@
         {
           "col": 2,
           "row": 0.5
-        },
-        {
-          "col": 2,
-          "row": 0.25
         }
       ],
       "fromPort": "sp_rod_2f_1:out-2",
@@ -1060,10 +1020,6 @@
         {
           "col": 5,
           "row": 0.5
-        },
-        {
-          "col": 5,
-          "row": 0.25
         }
       ],
       "fromPort": "sp_rod_2f_1:out-1",
@@ -1077,11 +1033,11 @@
       "path": [
         {
           "col": 1.75,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 1.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 1.5,
@@ -1099,11 +1055,11 @@
       "path": [
         {
           "col": 2.25,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 2.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 2.5,
@@ -1121,11 +1077,11 @@
       "path": [
         {
           "col": 4.75,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 4.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 4.5,
@@ -1143,11 +1099,11 @@
       "path": [
         {
           "col": 5.25,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 5.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 5.5,
@@ -1278,7 +1234,7 @@
           "row": 4
         },
         {
-          "col": 1.875,
+          "col": 1.75,
           "row": 4
         }
       ],
@@ -1340,38 +1296,12 @@
           "row": 4
         },
         {
-          "col": 4.875,
+          "col": 4.75,
           "row": 4
         }
       ],
       "fromPort": "mg_screw_rip:out-0",
       "toPort": "rotor:in-1"
-    },
-    {
-      "id": "b_screw_overflow",
-      "floor": 2,
-      "mark": 1,
-      "material": "螺丝",
-      "path": [
-        {
-          "col": 1.75,
-          "row": 3.5
-        },
-        {
-          "col": 1.75,
-          "row": 3.75
-        },
-        {
-          "col": 5.8125,
-          "row": 3.75
-        },
-        {
-          "col": 5.8125,
-          "row": 7
-        }
-      ],
-      "fromPort": "sp_screw_route:out-2",
-      "toPort": "store_screw:in-0"
     },
     {
       "id": "b_plate_2f_in",
@@ -1406,10 +1336,14 @@
         },
         {
           "col": 1,
-          "row": 4
+          "row": 3.75
         },
         {
-          "col": 1.375,
+          "col": 1.25,
+          "row": 3.75
+        },
+        {
+          "col": 1.25,
           "row": 4
         }
       ],
@@ -1435,11 +1369,11 @@
           "row": 7.25
         },
         {
-          "col": 1.3125,
+          "col": 1.25,
           "row": 7.25
         },
         {
-          "col": 1.3125,
+          "col": 1.25,
           "row": 7
         }
       ],
@@ -1453,19 +1387,19 @@
       "material": "强化铁板",
       "path": [
         {
-          "col": 1.625,
-          "row": 5.875
+          "col": 1.5,
+          "row": 6
         },
         {
-          "col": 1.625,
+          "col": 1.5,
           "row": 6.75
         },
         {
-          "col": 2.3125,
+          "col": 2.25,
           "row": 6.75
         },
         {
-          "col": 2.3125,
+          "col": 2.25,
           "row": 7
         }
       ],
@@ -1479,19 +1413,19 @@
       "material": "转子",
       "path": [
         {
-          "col": 4.625,
-          "row": 5.875
+          "col": 4.5,
+          "row": 6
         },
         {
-          "col": 4.625,
+          "col": 4.5,
           "row": 6.75
         },
         {
-          "col": 4.3125,
+          "col": 4.25,
           "row": 6.75
         },
         {
-          "col": 4.3125,
+          "col": 4.25,
           "row": 7
         }
       ],
@@ -1531,121 +1465,6 @@
       ]
     }
   ],
-  "power": {
-    "poles": [
-      {
-        "id": "pole_A",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 0,
-          "row": 6
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_B",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 1.5,
-          "row": 0.5
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_C",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 4.5,
-          "row": 0.5
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_D",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 1.5,
-          "row": 3.5
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_E",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 5,
-          "row": 3.5
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_F",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 7,
-          "row": 3.5
-        },
-        "floor": 1
-      },
-      {
-        "id": "pole_G",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 3,
-          "row": 0.5
-        },
-        "floor": 2
-      },
-      {
-        "id": "pole_H",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 6,
-          "row": 2
-        },
-        "floor": 2
-      },
-      {
-        "id": "pole_I",
-        "type": "power-pole-mk1",
-        "pos": {
-          "col": 3,
-          "row": 5
-        },
-        "floor": 2
-      }
-    ],
-    "connections": [
-      {
-        "from": "pole_A",
-        "to": "pole_B"
-      },
-      {
-        "from": "pole_A",
-        "to": "pole_C"
-      },
-      {
-        "from": "pole_B",
-        "to": "pole_D"
-      },
-      {
-        "from": "pole_C",
-        "to": "pole_E"
-      },
-      {
-        "from": "pole_E",
-        "to": "pole_F"
-      },
-      {
-        "from": "pole_G",
-        "to": "pole_H"
-      },
-      {
-        "from": "pole_H",
-        "to": "pole_I"
-      }
-    ]
-  },
   "structures": [],
   "zones": [
     {
@@ -1699,7 +1518,7 @@
       },
       "size": {
         "w": 2,
-        "h": 2
+        "h": 1.5
       },
       "kind": "reserve",
       "label": "扩产预留"

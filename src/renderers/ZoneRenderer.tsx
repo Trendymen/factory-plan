@@ -13,7 +13,11 @@ export const ZoneRenderer = memo(function ZoneRenderer({ zone }: ZoneRendererPro
   return (
     <g>
       <rect className="zone-rect" x={x} y={y} width={w} height={h} rx={4} stroke={color} fill={color} />
-      <text className="zone-label" x={x + 8} y={y + 16} fill={color}>{zone.label}</text>
+      <clipPath id={`zone-clip-${zone.id}`}>
+        <rect x={x} y={y} width={w} height={h} />
+      </clipPath>
+      <text className="zone-label" x={x + w / 2} y={y + 16} fill={color}
+        clipPath={`url(#zone-clip-${zone.id})`}>{zone.label}</text>
     </g>
   );
 });

@@ -1,7 +1,8 @@
 import { memo } from 'react';
 import type { BeltSegment, MachineInstance } from '../core/types';
-import { gridToSvg, resolvePortPosition } from '../core/coordinate';
+import { gridToSvg, resolvePortPosition, SIDE_MAP } from '../core/coordinate';
 import { getMaterialColor, getBuildingMeta } from '../core/registry';
+import type { Facing } from '../core/types';
 
 interface BeltRendererProps {
   belt: BeltSegment;
@@ -12,8 +13,14 @@ interface BeltRendererProps {
   onClick?: (id: string) => void;
 }
 
-/** 解析端口引用 "machine-id:port-id" 并返回精确的 SVG 坐标 */
-function resolvePortRef(portRef: string | undefined, machines: MachineInstance[]): { x: number; y: number } | null {
+interface PortResult {
+  x: number;
+  y: number;
+  screenSide: 'top' | 'bottom' | 'left' | 'right';
+}
+
+/** 解析端口引用 "machine-id:port-id" 并返回精确的 SVG 坐标和端口朝向 */
+function resolvePortRef(portRef: string | undefined, machines: MachineInstance[]): PortResult | null {
   if (!portRef) return null;
   const [machineId, portId] = portRef.split(':');
   const machine = machines.find(m => m.id === machineId);
@@ -22,10 +29,60 @@ function resolvePortRef(portRef: string | undefined, machines: MachineInstance[]
     const meta = getBuildingMeta(machine.type);
     const portDef = meta.ports.find(p => p.id === portId);
     if (!portDef) return null;
-    return resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);
+    const pos = resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);
+    const screenSide = SIDE_MAP[machine.facing as Facing][portDef.side];
+    return { ...pos, screenSide };
   } catch {
     return null;
   }
+}
+
+/** 端口吸附时，若产生斜线则插入正交桥接点 */
+function snapWithBridge(
+  svgPoints: { x: number; y: number }[],
+  port: PortResult,
+  isFrom: boolean,
+) {
+  if (isFrom) {
+    svgPoints[0] = port;
+    const next = svgPoints[1];
+    if (next && port.x !== next.x && port.y !== next.y) {
+      // top/bottom 端口 → 第一段保持垂直; left/right 端口 → 第一段保持水平
+      const bridge = (port.screenSide === 'top' || port.screenSide === 'bottom')
+        ? { x: port.x, y: next.y }
+        : { x: next.x, y: port.y };
+      svgPoints.splice(1, 0, bridge);
+    }
+  } else {
+    const lastIdx = svgPoints.length - 1;
+    svgPoints[lastIdx] = port;
+    const prev = svgPoints[lastIdx - 1];
+    if (prev && port.x !== prev.x && port.y !== prev.y) {
+      // top/bottom 端口 → 最后一段保持垂直; left/right 端口 → 最后一段保持水平
+      const bridge = (port.screenSide === 'top' || port.screenSide === 'bottom')
+        ? { x: port.x, y: prev.y }
+        : { x: prev.x, y: port.y };
+      svgPoints.splice(lastIdx, 0, bridge);
+    }
+  }
+}
+
+// 分流器/合流器端口连接箭头颜色（进线/出线统一配色）
+const PORT_ARROW_IN  = '#ff9800'; // 进线: 橙色
+const PORT_ARROW_OUT = '#4caf50'; // 出线: 绿色
+const LOGISTICS_TYPES = new Set(['splitter', 'merger']);
+
+/** 若端口连接到分流器/合流器，返回对应的箭头颜色 */
+function getLogisticsArrowColor(
+  portRef: string | undefined,
+  machines: MachineInstance[],
+  isOutput: boolean, // true=从机器输出(fromPort), false=输入到机器(toPort)
+): string | null {
+  if (!portRef) return null;
+  const [machineId] = portRef.split(':');
+  const machine = machines.find(m => m.id === machineId);
+  if (!machine || !LOGISTICS_TYPES.has(machine.type)) return null;
+  return isOutput ? PORT_ARROW_OUT : PORT_ARROW_IN;
 }
 
 export const BeltRenderer = memo(function BeltRenderer({
@@ -35,44 +92,40 @@ export const BeltRenderer = memo(function BeltRenderer({
 
   const color = getMaterialColor(belt.material);
 
-  // 将路径转为 SVG 坐标，但起点/终点吸附到端口精确位置
+  // 将路径转为 SVG 坐标，起点/终点吸附到端口精确位置（保持正交）
   const svgPoints = belt.path.map(p => gridToSvg(p.col, p.row));
 
-  // 起点吸附到 fromPort
-  const fromPos = resolvePortRef(belt.fromPort, machines);
-  if (fromPos) svgPoints[0] = fromPos;
+  // 起点吸附到 fromPort（插入正交桥接点避免斜线）
+  const fromPort = resolvePortRef(belt.fromPort, machines);
+  if (fromPort) snapWithBridge(svgPoints, fromPort, true);
 
-  // 终点吸附到 toPort
-  const toPos = resolvePortRef(belt.toPort, machines);
-  if (toPos) svgPoints[svgPoints.length - 1] = toPos;
+  // 终点吸附到 toPort（插入正交桥接点避免斜线）
+  const toPort = resolvePortRef(belt.toPort, machines);
+  if (toPort) snapWithBridge(svgPoints, toPort, false);
 
   const points = svgPoints.map(p => `${p.x},${p.y}`).join(' ');
 
+  // 终点箭头（始终绘制）
   const s1 = svgPoints[svgPoints.length - 2];
   const s2 = svgPoints[svgPoints.length - 1];
-  const angle = Math.atan2(s2.y - s1.y, s2.x - s1.x) * (180 / Math.PI);
+  const endAngle = Math.atan2(s2.y - s1.y, s2.x - s1.x) * (180 / Math.PI);
 
-  // 找最长线段放标签（避免在短线段上标签拥挤）
-  let bestIdx = 0;
-  let bestLen = 0;
-  for (let i = 0; i < svgPoints.length - 1; i++) {
-    const dx = svgPoints[i + 1].x - svgPoints[i].x;
-    const dy = svgPoints[i + 1].y - svgPoints[i].y;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    if (len > bestLen) { bestLen = len; bestIdx = i; }
+  // 分流器/合流器端口连接色
+  const fromArrowColor = getLogisticsArrowColor(belt.fromPort, machines, true);
+  const toArrowColor = getLogisticsArrowColor(belt.toPort, machines, false);
+  const endArrowColor = toArrowColor ?? color;
+
+  // 起点箭头（仅在连接分流器/合流器输出端口时绘制）
+  let startArrowEl: React.ReactNode = null;
+  if (fromArrowColor && svgPoints.length >= 2) {
+    const f1 = svgPoints[0];
+    const f2 = svgPoints[1];
+    const startAngle = Math.atan2(f2.y - f1.y, f2.x - f1.x) * (180 / Math.PI);
+    startArrowEl = (
+      <polygon className="belt-port-arrow" points="-5,-3.5 0,0 -5,3.5" fill={fromArrowColor}
+        transform={`translate(${f1.x},${f1.y}) rotate(${startAngle})`} />
+    );
   }
-  const labelA = svgPoints[bestIdx];
-  const labelB = svgPoints[bestIdx + 1];
-  const labelX = (labelA.x + labelB.x) / 2;
-  const labelY = (labelA.y + labelB.y) / 2;
-  // 标签偏移到线段侧边，避免叠在线上
-  const isHorizontal = Math.abs(labelA.y - labelB.y) < 1;
-  const offsetX = isHorizontal ? 0 : 10;
-  const offsetY = isHorizontal ? -10 : 0;
-
-  // 标签尺寸计算
-  const charW = belt.material.length * 7 + 8;
-  const halfW = charW / 2;
 
   const className = [
     'belt-group',
@@ -84,15 +137,13 @@ export const BeltRenderer = memo(function BeltRenderer({
     <g className={className} onMouseEnter={() => onHover?.(belt.id)} onMouseLeave={() => onHover?.(null)}
       onClick={() => onClick?.(belt.id)} style={{ cursor: 'pointer' }}>
       <polyline className={`belt-line belt-mk${belt.mark}`} points={points} stroke={color} strokeDasharray="8 8" />
-      <polygon className="belt-arrow" points="-4,-2.5 0,0 -4,2.5" fill={color}
-        transform={`translate(${s2.x},${s2.y}) rotate(${angle})`} />
-      {/* 标签放在最长线段中点旁侧 */}
-      <g transform={`translate(${labelX + offsetX},${labelY + offsetY})`}>
-        <rect x={-halfW} y={-6} width={charW} height={12} rx={2}
-          fill="#080c12" fillOpacity={0.9} stroke={color} strokeWidth={0.4} />
-        <text className="belt-label" textAnchor="middle" dominantBaseline="central" y={0} fill={color}
-          style={{ fontSize: 7 }}>{belt.material}</text>
-      </g>
+      {startArrowEl}
+      <polygon
+        className={toArrowColor ? 'belt-port-arrow' : 'belt-arrow'}
+        points={toArrowColor ? '-5,-3.5 0,0 -5,3.5' : '-4,-2.5 0,0 -4,2.5'}
+        fill={endArrowColor}
+        transform={`translate(${s2.x},${s2.y}) rotate(${endAngle})`}
+      />
     </g>
   );
 });

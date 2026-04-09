@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { ErrorBoundary, useErrorBoundary } from 'react-error-boundary';
 import type { Scheme } from './core/types';
 import { validateScheme, buildSchemeIndex } from './core/schema';
 import { useAppStore } from './store/useAppStore';
@@ -8,6 +9,8 @@ import { RightPanel } from './ui/RightPanel';
 import { MachineTooltip } from './ui/MachineTooltip';
 import { MachineDetail } from './ui/MachineDetail';
 import { BottomBar } from './ui/BottomBar';
+import { AppErrorFallback } from './ui/AppErrorFallback';
+import { ViewErrorFallback } from './ui/ViewErrorFallback';
 import { FloorPlanView } from './views/FloorPlanView';
 import { LinkedFloorView } from './views/LinkedFloorView';
 import { CrossSectionView } from './views/CrossSectionView';
@@ -34,23 +37,30 @@ async function loadSchemeByPath(path: string): Promise<Scheme> {
   return data;
 }
 
-export default function App() {
+function AppContent() {
   const schemes = useAppStore(s => s.schemes);
   const currentScheme = useAppStore(s => s.currentScheme);
   const currentFloor = useAppStore(s => s.currentFloor);
   const viewMode = useAppStore(s => s.viewMode);
   const setSchemes = useAppStore(s => s.setSchemes);
   const loadScheme = useAppStore(s => s.loadScheme);
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
-    loadAllSchemeIndexes().then(async (indexes) => {
-      setSchemes(indexes);
-      if (indexes.length > 0) {
+    loadAllSchemeIndexes()
+      .then(async (indexes) => {
+        if (indexes.length === 0) {
+          showBoundary(new Error('没有找到可用的方案文件'));
+          return;
+        }
+        setSchemes(indexes);
         const first = await loadSchemeByPath(indexes[0].filePath);
         loadScheme(first);
-      }
-    });
-  }, [setSchemes, loadScheme]);
+      })
+      .catch((err) => {
+        showBoundary(err instanceof Error ? err : new Error(String(err)));
+      });
+  }, [setSchemes, loadScheme, showBoundary]);
 
   useEffect(() => {
     (window as any).__factoryPlan = {
@@ -74,38 +84,55 @@ export default function App() {
       const id = (e as CustomEvent).detail;
       const idx = schemes.find(s => s.id === id);
       if (idx) {
-        const data = await loadSchemeByPath(idx.filePath);
-        loadScheme(data);
+        try {
+          const data = await loadSchemeByPath(idx.filePath);
+          loadScheme(data);
+        } catch (err) {
+          showBoundary(err instanceof Error ? err : new Error(String(err)));
+        }
       }
     };
     window.addEventListener('scheme-change', handler);
     return () => window.removeEventListener('scheme-change', handler);
-  }, [schemes, loadScheme]);
+  }, [schemes, loadScheme, showBoundary]);
 
   return (
     <div className="app-layout">
       <TopBar />
       <aside className="left-panel"><LeftPanel /></aside>
       <main className="canvas-area">
-        {currentScheme && viewMode === 'single' && (
-          <FloorPlanView scheme={currentScheme} floorId={currentFloor} />
-        )}
-        {currentScheme && viewMode === 'linked' && (
-          <LinkedFloorView scheme={currentScheme} />
-        )}
-        {currentScheme && viewMode === 'section' && (
-          <CrossSectionView scheme={currentScheme} />
-        )}
-        {!currentScheme && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
-            加载方案中...
-          </div>
-        )}
+        <ErrorBoundary
+          FallbackComponent={ViewErrorFallback}
+          resetKeys={[viewMode, currentScheme?.id, currentFloor]}
+        >
+          {currentScheme && viewMode === 'single' && (
+            <FloorPlanView scheme={currentScheme} floorId={currentFloor} />
+          )}
+          {currentScheme && viewMode === 'linked' && (
+            <LinkedFloorView scheme={currentScheme} />
+          )}
+          {currentScheme && viewMode === 'section' && (
+            <CrossSectionView scheme={currentScheme} />
+          )}
+          {!currentScheme && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
+              加载方案中...
+            </div>
+          )}
+        </ErrorBoundary>
       </main>
       <aside className="right-panel"><RightPanel /></aside>
       <BottomBar />
       <MachineTooltip />
       <MachineDetail />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ErrorBoundary FallbackComponent={AppErrorFallback}>
+      <AppContent />
+    </ErrorBoundary>
   );
 }

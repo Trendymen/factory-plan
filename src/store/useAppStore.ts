@@ -82,7 +82,6 @@ const DEFAULT_VIEWPORT: Viewport = { zoom: 1, panX: 0, panY: 0 };
 
 const DEFAULT_LAYERS: Layers = {
   belts: true,
-  power: true,
   zones: true,
   structures: true,
   storage: true,

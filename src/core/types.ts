@@ -17,7 +17,7 @@ export type Facing = 'north' | 'south' | 'east' | 'west';
 
 // ===== 端口 =====
 
-export type PortKind = 'belt-in' | 'belt-out' | 'pipe-in' | 'pipe-out' | 'power';
+export type PortKind = 'belt-in' | 'belt-out' | 'pipe-in' | 'pipe-out';
 export type PortSide = 'front' | 'back' | 'left' | 'right' | 'top' | 'bottom';
 
 export interface PortDef {
@@ -31,23 +31,18 @@ export interface PortDef {
 
 // ===== 建筑类型 =====
 
-export type BuildingCategory = 'production' | 'logistics' | 'storage' | 'power' | 'structure';
+export type BuildingCategory = 'production' | 'logistics' | 'storage' | 'structure';
 
 export type PlaceableType =
   | 'smelter' | 'foundry' | 'constructor' | 'assembler' | 'manufacturer'
   | 'splitter' | 'merger'
   | 'storage' | 'industrial-storage';
 
-export type PowerType =
-  | 'wall-outlet-mk1' | 'wall-outlet-mk2' | 'wall-outlet-mk3'
-  | 'double-wall-outlet-mk1' | 'double-wall-outlet-mk2' | 'double-wall-outlet-mk3'
-  | 'power-pole-mk1' | 'power-pole-mk2' | 'power-pole-mk3';
-
 export type StructureType =
   | 'wall-conveyor-hole' | 'wall-pipe-hole'
   | 'conveyor-wall-mount' | 'conveyor-ceiling-mount' | 'conveyor-floor-stand';
 
-export type BuildingType = PlaceableType | PowerType | StructureType | 'conveyor-lift';
+export type BuildingType = PlaceableType | StructureType | 'conveyor-lift';
 
 // ===== 建筑元数据 =====
 
@@ -99,19 +94,6 @@ export interface Lift {
   connectedBelts?: [string, string];
 }
 
-export interface PowerPole {
-  id: string;
-  type: PowerType;
-  pos: GridPos;
-  floor: number;
-  wallSide?: Facing;
-}
-
-export interface PowerConnection {
-  from: string;
-  to: string;
-}
-
 export interface StructureInstance {
   id: string;
   type: StructureType;
@@ -158,10 +140,6 @@ export interface Scheme {
   machines: MachineInstance[];
   belts: BeltSegment[];
   lifts: Lift[];
-  power: {
-    poles: PowerPole[];
-    connections: PowerConnection[];
-  };
   structures: StructureInstance[];
   zones: Zone[];
   stats: {
@@ -199,7 +177,6 @@ export interface SectionCut {
 
 export interface Layers {
   belts: boolean;
-  power: boolean;
   zones: boolean;
   structures: boolean;
   storage: boolean;

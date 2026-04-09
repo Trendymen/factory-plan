@@ -1,7 +1,11 @@
 // src/core/schema.ts
-import type { Scheme, SchemeIndex, GridPos } from './types';
+import type { Scheme, SchemeIndex, GridPos, Facing } from './types';
 import { BUILDING_REGISTRY } from './registry';
-import { machineGridSize } from './coordinate';
+import {
+  type Rect, machineRect, rectFromSegment,
+  rectsOverlap, intervalsOverlap,
+} from './collision';
+import { SIDE_MAP, machineGridSize, METERS_PER_GRID } from './coordinate';
 
 /** 验证严重级别 */
 export type Severity = 'error' | 'warn';
@@ -75,23 +79,36 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       issues.push({ severity: 'warn', rule: 'R2-align', message: `Machine "${m.id}": pos (${m.pos.col}, ${m.pos.row}) not aligned to ${GRID_STEP} grid step`, elementId: m.id });
     }
 
-    // R3: 机器不超出画布边界
+    // R3: 机器完整占地不超出画布边界（含 dimensions + facing 旋转）
     const bounds = floorBounds.get(m.floor);
     if (bounds) {
-      if (m.pos.col < 0 || m.pos.row < 0 || m.pos.col >= bounds.cols || m.pos.row >= bounds.rows) {
-        issues.push({ severity: 'error', rule: 'R3-bounds', message: `Machine "${m.id}": pos (${m.pos.col}, ${m.pos.row}) out of floor bounds (${bounds.cols}x${bounds.rows})`, elementId: m.id });
+      const rect = machineRect(m);
+      if (rect) {
+        if (rect.x1 < -0.001 || rect.y1 < -0.001 || rect.x2 > bounds.cols + 0.001 || rect.y2 > bounds.rows + 0.001) {
+          issues.push({ severity: 'error', rule: 'R3-bounds', message: `Machine "${m.id}": AABB (${rect.x1},${rect.y1})-(${rect.x2.toFixed(3)},${rect.y2.toFixed(3)}) exceeds floor bounds (${bounds.cols}×${bounds.rows})`, elementId: m.id });
+        }
+      } else if (m.pos.col < 0 || m.pos.row < 0 || m.pos.col >= bounds.cols || m.pos.row >= bounds.rows) {
+        issues.push({ severity: 'error', rule: 'R3-bounds', message: `Machine "${m.id}": pos (${m.pos.col}, ${m.pos.row}) out of floor bounds (${bounds.cols}×${bounds.rows})`, elementId: m.id });
       }
     }
   }
 
   // ----------------------------------------------------------
   // R4: 传送带必须有 fromPort 和 toPort
+  // （升降机连接的传送带、楼层边界外部输入/输出除外）
   // ----------------------------------------------------------
+  const liftConnectedBelts = new Set(scheme.lifts.flatMap(l => l.connectedBelts ?? []));
+  function isAtFloorEdge(b: { floor: number; path: GridPos[] }, end: 'start' | 'end'): boolean {
+    const bounds = floorBounds.get(b.floor);
+    if (!bounds) return false;
+    const p = end === 'start' ? b.path[0] : b.path[b.path.length - 1];
+    return p.col <= 0 || p.row <= 0 || p.col >= bounds.cols || p.row >= bounds.rows;
+  }
   for (const b of scheme.belts) {
-    if (!b.fromPort) {
+    if (!b.fromPort && !liftConnectedBelts.has(b.id) && !isAtFloorEdge(b, 'start')) {
       issues.push({ severity: 'warn', rule: 'R4-fromPort', message: `Belt "${b.id}": missing fromPort`, elementId: b.id });
     }
-    if (!b.toPort) {
+    if (!b.toPort && !liftConnectedBelts.has(b.id) && !isAtFloorEdge(b, 'end')) {
       issues.push({ severity: 'warn', rule: 'R4-toPort', message: `Belt "${b.id}": missing toPort`, elementId: b.id });
     }
 
@@ -167,26 +184,12 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
-  // R11: 电力连接验证
-  // ----------------------------------------------------------
-  const allIds = new Set([...machineIds, ...scheme.power.poles.map(p => p.id)]);
-  for (const c of scheme.power.connections) {
-    if (!allIds.has(c.from)) {
-      issues.push({ severity: 'error', rule: 'R11-ref', message: `Power connection: unknown source "${c.from}"` });
-    }
-    if (!allIds.has(c.to)) {
-      issues.push({ severity: 'error', rule: 'R11-ref', message: `Power connection: unknown target "${c.to}"` });
-    }
-  }
-
-  // ----------------------------------------------------------
   // R12: ID 唯一性
   // ----------------------------------------------------------
   const allElementIds: string[] = [
     ...scheme.machines.map(m => m.id),
     ...scheme.belts.map(b => b.id),
     ...scheme.lifts.map(l => l.id),
-    ...scheme.power.poles.map(p => p.id),
     ...scheme.structures.map(s => s.id),
   ];
   const idCounts = new Map<string, number>();
@@ -202,31 +205,19 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // ----------------------------------------------------------
   // R13: 机器间碰撞检测（AABB 重叠）
   // ----------------------------------------------------------
-  interface AABB { id: string; floor: number; x1: number; y1: number; x2: number; y2: number; }
-  const machineBoxes: AABB[] = [];
-
-  for (const m of scheme.machines) {
-    const meta = BUILDING_REGISTRY[m.type];
-    if (!meta) continue;
-    const { cols, rows } = machineGridSize(meta.dimensions, m.facing);
-    machineBoxes.push({
-      id: m.id, floor: m.floor,
-      x1: m.pos.col, y1: m.pos.row,
-      x2: m.pos.col + cols, y2: m.pos.row + rows,
-    });
-  }
+  const machineBoxes = scheme.machines
+    .map(m => ({ id: m.id, floor: m.floor, rect: machineRect(m) }))
+    .filter((e): e is { id: string; floor: number; rect: Rect } => e.rect !== null);
 
   for (let i = 0; i < machineBoxes.length; i++) {
     for (let j = i + 1; j < machineBoxes.length; j++) {
       const a = machineBoxes[i];
       const b = machineBoxes[j];
       if (a.floor !== b.floor) continue;
-      // AABB 重叠检测（允许边缘恰好接触，不算重叠）
-      const EPS = 0.01;
-      if (a.x1 < b.x2 - EPS && a.x2 > b.x1 + EPS && a.y1 < b.y2 - EPS && a.y2 > b.y1 + EPS) {
+      if (rectsOverlap(a.rect, b.rect, 0.01)) {
         issues.push({
           severity: 'error', rule: 'R13-collision',
-          message: `Machine collision on floor ${a.floor}: "${a.id}" (${a.x1},${a.y1})-(${a.x2.toFixed(2)},${a.y2.toFixed(2)}) overlaps "${b.id}" (${b.x1},${b.y1})-(${b.x2.toFixed(2)},${b.y2.toFixed(2)})`,
+          message: `Machine collision on floor ${a.floor}: "${a.id}" (${a.rect.x1},${a.rect.y1})-(${a.rect.x2.toFixed(2)},${a.rect.y2.toFixed(2)}) overlaps "${b.id}" (${b.rect.x1},${b.rect.y1})-(${b.rect.x2.toFixed(2)},${b.rect.y2.toFixed(2)})`,
         });
       }
     }
@@ -236,25 +227,16 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // R14: 传送带线段不穿过机器主体
   // ----------------------------------------------------------
   for (const b of scheme.belts) {
+    const fromMachine = b.fromPort?.split(':')[0];
+    const toMachine = b.toPort?.split(':')[0];
+
     for (let i = 0; i < b.path.length - 1; i++) {
-      const p1 = b.path[i];
-      const p2 = b.path[i + 1];
-      // 线段的 AABB
-      const sx1 = Math.min(p1.col, p2.col);
-      const sy1 = Math.min(p1.row, p2.row);
-      const sx2 = Math.max(p1.col, p2.col);
-      const sy2 = Math.max(p1.row, p2.row);
+      const segRect = rectFromSegment(b.path[i], b.path[i + 1]);
 
       for (const box of machineBoxes) {
         if (box.floor !== b.floor) continue;
-        // 排除该传送带连接的起终点机器（传送带端点在机器端口上是正常的）
-        const fromMachine = b.fromPort?.split(':')[0];
-        const toMachine = b.toPort?.split(':')[0];
         if (box.id === fromMachine || box.id === toMachine) continue;
-
-        // 线段 AABB 与机器 AABB 重叠检测
-        const EPS = 0.02;
-        if (sx1 < box.x2 - EPS && sx2 > box.x1 + EPS && sy1 < box.y2 - EPS && sy2 > box.y1 + EPS) {
+        if (rectsOverlap(segRect, box.rect, 0.02)) {
           issues.push({
             severity: 'warn', rule: 'R14-belt-cross',
             message: `Belt "${b.id}" segment ${i}→${i + 1} crosses through machine "${box.id}" on floor ${b.floor}`,
@@ -266,9 +248,85 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
-  // R15: 传送带线段间碰撞（同一楼层同一物料除外的重叠线段）
+  // R16: 传送带端口-路径正交对齐（渲染时不产生斜线）
+  // 检查传送带首尾路径点与端口位置是否在同一轴上，
+  // 以及接近端口的线段方向是否垂直于端口所在边。
   // ----------------------------------------------------------
-  // 收集所有水平/垂直线段
+  const machineMap = new Map(scheme.machines.map(m => [m.id, m]));
+
+  function portGridPos(portRef: string): { pos: GridPos; screenSide: string } | null {
+    const [mid, pid] = portRef.split(':');
+    const machine = machineMap.get(mid);
+    if (!machine) return null;
+    const meta = BUILDING_REGISTRY[machine.type];
+    if (!meta) return null;
+    const portDef = meta.ports.find(p => p.id === pid);
+    if (!portDef) return null;
+    const { cols, rows } = machineGridSize(meta.dimensions, machine.facing);
+    const screenSide = SIDE_MAP[machine.facing as Facing][portDef.side];
+    const offsetGrid = portDef.offsetAlongEdge / METERS_PER_GRID;
+    let pos: GridPos;
+    switch (screenSide) {
+      case 'top':    pos = { col: machine.pos.col + offsetGrid, row: machine.pos.row }; break;
+      case 'bottom': pos = { col: machine.pos.col + offsetGrid, row: machine.pos.row + rows }; break;
+      case 'left':   pos = { col: machine.pos.col,              row: machine.pos.row + offsetGrid }; break;
+      case 'right':  pos = { col: machine.pos.col + cols,       row: machine.pos.row + offsetGrid }; break;
+    }
+    return { pos, screenSide };
+  }
+
+  for (const b of scheme.belts) {
+    // 检查 fromPort 端
+    if (b.fromPort && b.path.length >= 2) {
+      const portInfo = portGridPos(b.fromPort);
+      if (portInfo) {
+        const nextPt = b.path[1];
+        const isVerticalPort = portInfo.screenSide === 'top' || portInfo.screenSide === 'bottom';
+        // 端口位置与第二路径点不共轴 → 渲染会产生斜线
+        if (isVerticalPort && Math.abs(portInfo.pos.col - nextPt.col) > 0.01) {
+          issues.push({
+            severity: 'warn', rule: 'R16-port-align',
+            message: `Belt "${b.id}": fromPort 在 ${portInfo.screenSide} 边(col=${portInfo.pos.col.toFixed(3)})，但路径第2点 col=${nextPt.col}，应垂直接入`,
+            elementId: b.id,
+          });
+        }
+        if (!isVerticalPort && Math.abs(portInfo.pos.row - nextPt.row) > 0.01) {
+          issues.push({
+            severity: 'warn', rule: 'R16-port-align',
+            message: `Belt "${b.id}": fromPort 在 ${portInfo.screenSide} 边(row=${portInfo.pos.row.toFixed(3)})，但路径第2点 row=${nextPt.row}，应水平接入`,
+            elementId: b.id,
+          });
+        }
+      }
+    }
+    // 检查 toPort 端
+    if (b.toPort && b.path.length >= 2) {
+      const portInfo = portGridPos(b.toPort);
+      if (portInfo) {
+        const lastIdx = b.path.length - 1;
+        const prevPt = b.path[lastIdx - 1];
+        const isVerticalPort = portInfo.screenSide === 'top' || portInfo.screenSide === 'bottom';
+        if (isVerticalPort && Math.abs(portInfo.pos.col - prevPt.col) > 0.01) {
+          issues.push({
+            severity: 'warn', rule: 'R16-port-align',
+            message: `Belt "${b.id}": toPort 在 ${portInfo.screenSide} 边(col=${portInfo.pos.col.toFixed(3)})，但路径倒数第2点 col=${prevPt.col}，应垂直接入`,
+            elementId: b.id,
+          });
+        }
+        if (!isVerticalPort && Math.abs(portInfo.pos.row - prevPt.row) > 0.01) {
+          issues.push({
+            severity: 'warn', rule: 'R16-port-align',
+            message: `Belt "${b.id}": toPort 在 ${portInfo.screenSide} 边(row=${portInfo.pos.row.toFixed(3)})，但路径倒数第2点 row=${prevPt.row}，应水平接入`,
+            elementId: b.id,
+          });
+        }
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R15: 传送带线段间碰撞（同一楼层的重叠线段）
+  // ----------------------------------------------------------
   interface Segment { beltId: string; floor: number; horizontal: boolean; fixed: number; min: number; max: number; }
   const segments: Segment[] = [];
 
@@ -279,27 +337,22 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       const dCol = Math.abs(p1.col - p2.col);
       const dRow = Math.abs(p1.row - p2.row);
       if (dCol < 0.001) {
-        // 垂直线段
         segments.push({ beltId: b.id, floor: b.floor, horizontal: false, fixed: p1.col, min: Math.min(p1.row, p2.row), max: Math.max(p1.row, p2.row) });
       } else if (dRow < 0.001) {
-        // 水平线段
         segments.push({ beltId: b.id, floor: b.floor, horizontal: true, fixed: p1.row, min: Math.min(p1.col, p2.col), max: Math.max(p1.col, p2.col) });
       }
     }
   }
 
-  // 检测同方向、同轴（fixed值相同）、同楼层的不同传送带线段是否重叠
   for (let i = 0; i < segments.length; i++) {
     for (let j = i + 1; j < segments.length; j++) {
       const a = segments[i];
       const b = segments[j];
-      if (a.beltId === b.beltId) continue; // 同一传送带内部不检测
+      if (a.beltId === b.beltId) continue;
       if (a.floor !== b.floor) continue;
       if (a.horizontal !== b.horizontal) continue;
       if (Math.abs(a.fixed - b.fixed) > 0.01) continue;
-      // 同轴线段，检查区间是否重叠
-      const EPS = 0.02;
-      if (a.min < b.max - EPS && a.max > b.min + EPS) {
+      if (intervalsOverlap(a.min, a.max, b.min, b.max, 0.02)) {
         issues.push({
           severity: 'warn', rule: 'R15-belt-overlap',
           message: `Belt overlap on floor ${a.floor}: "${a.beltId}" and "${b.beltId}" share the same ${a.horizontal ? 'horizontal' : 'vertical'} path at ${a.horizontal ? 'row' : 'col'}=${a.fixed}`,

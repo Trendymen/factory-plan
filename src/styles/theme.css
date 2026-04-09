@@ -468,6 +468,14 @@ body {
   opacity: 0.6;
 }
 
+.grid-label {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 .zone-rect {
   fill: rgba(24, 36, 54, 0.25);
   stroke: var(--border);
@@ -563,35 +571,14 @@ body {
   pointer-events: none;
 }
 
-/* ============================================================
-   12. Power Styles
-   ============================================================ */
-.power-line {
-  fill: none;
-  stroke: var(--power);
-  stroke-width: 1.2;
-  stroke-dasharray: 4 4;
-  opacity: 0.5;
-  animation: powerPulse 1.2s linear infinite;
-}
-
-.power-pole-marker {
-  fill: var(--power);
-  opacity: 0.7;
-}
-
-.power-label {
-  fill: var(--power);
-  font-family: var(--font-mono);
-  font-size: 8px;
-  text-anchor: middle;
-  dominant-baseline: middle;
+.belt-port-arrow {
+  opacity: 0.9;
   pointer-events: none;
-  opacity: 0.6;
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.4));
 }
 
 /* ============================================================
-   13. Lift Styles
+   12. Lift Styles
    ============================================================ */
 .lift-box {
   fill: rgba(102, 187, 106, 0.1);
@@ -1051,11 +1038,6 @@ body {
    ============================================================ */
 @keyframes beltFlow {
   from { stroke-dashoffset: 12; }
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes powerPulse {
-  from { stroke-dashoffset: 8; }
   to { stroke-dashoffset: 0; }
 }
 

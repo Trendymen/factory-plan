@@ -20,6 +20,9 @@ export const MachineRenderer = memo(function MachineRenderer({
   const w = cols * GRID_PX;
   const h = rows * GRID_PX;
   const color = `var(${meta.color})`;
+  // 亮色背景机器使用深色文字
+  const lightBg = machine.type === 'splitter' || machine.type === 'merger';
+  const labelColor = lightBg ? '#1a1a2e' : undefined;
 
   const inset = Math.min(w, h) * 0.08;
   const bx = x + inset;
@@ -50,7 +53,7 @@ export const MachineRenderer = memo(function MachineRenderer({
       onClick={() => onClick?.(machine.id)}
     >
       <rect className="machine-footprint" x={x} y={y} width={w} height={h} rx={3} stroke={color} />
-      <rect className="machine-body" x={bx} y={by} width={bw} height={bh} rx={2} fill={color} stroke={color} />
+      <rect className="machine-body" x={bx} y={by} width={bw} height={bh} rx={2} style={{ fill: color, stroke: color }} />
 
       {/* 标签：clipPath 确保不溢出 */}
       <clipPath id={`clip-${machine.id}`}>
@@ -58,7 +61,7 @@ export const MachineRenderer = memo(function MachineRenderer({
       </clipPath>
       <g clipPath={`url(#clip-${machine.id})`}>
         <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 3)}
-          textAnchor="middle" style={{ fontSize: labelFontSize }}>
+          textAnchor="middle" style={{ fontSize: labelFontSize, fill: labelColor }}>
           {displayLabel}
         </text>
         {subLabel && !isSmall && (
@@ -69,7 +72,7 @@ export const MachineRenderer = memo(function MachineRenderer({
         )}
       </g>
 
-      {meta.ports.filter(p => p.kind !== 'power').map(portDef => {
+      {meta.ports.map(portDef => {
         const pos = resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);
         return (
           <circle key={portDef.id} className="port-dot" cx={pos.x} cy={pos.y}
