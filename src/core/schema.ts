@@ -1,6 +1,7 @@
 // src/core/schema.ts
 import type { Scheme, SchemeIndex, GridPos } from './types';
 import { BUILDING_REGISTRY } from './registry';
+import { machineGridSize } from './coordinate';
 
 /** 验证严重级别 */
 export type Severity = 'error' | 'warn';
@@ -195,6 +196,115 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   for (const [id, count] of idCounts) {
     if (count > 1) {
       issues.push({ severity: 'error', rule: 'R12-unique', message: `Duplicate element ID "${id}" (appears ${count} times)` });
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R13: 机器间碰撞检测（AABB 重叠）
+  // ----------------------------------------------------------
+  interface AABB { id: string; floor: number; x1: number; y1: number; x2: number; y2: number; }
+  const machineBoxes: AABB[] = [];
+
+  for (const m of scheme.machines) {
+    const meta = BUILDING_REGISTRY[m.type];
+    if (!meta) continue;
+    const { cols, rows } = machineGridSize(meta.dimensions, m.facing);
+    machineBoxes.push({
+      id: m.id, floor: m.floor,
+      x1: m.pos.col, y1: m.pos.row,
+      x2: m.pos.col + cols, y2: m.pos.row + rows,
+    });
+  }
+
+  for (let i = 0; i < machineBoxes.length; i++) {
+    for (let j = i + 1; j < machineBoxes.length; j++) {
+      const a = machineBoxes[i];
+      const b = machineBoxes[j];
+      if (a.floor !== b.floor) continue;
+      // AABB 重叠检测（允许边缘恰好接触，不算重叠）
+      const EPS = 0.01;
+      if (a.x1 < b.x2 - EPS && a.x2 > b.x1 + EPS && a.y1 < b.y2 - EPS && a.y2 > b.y1 + EPS) {
+        issues.push({
+          severity: 'error', rule: 'R13-collision',
+          message: `Machine collision on floor ${a.floor}: "${a.id}" (${a.x1},${a.y1})-(${a.x2.toFixed(2)},${a.y2.toFixed(2)}) overlaps "${b.id}" (${b.x1},${b.y1})-(${b.x2.toFixed(2)},${b.y2.toFixed(2)})`,
+        });
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R14: 传送带线段不穿过机器主体
+  // ----------------------------------------------------------
+  for (const b of scheme.belts) {
+    for (let i = 0; i < b.path.length - 1; i++) {
+      const p1 = b.path[i];
+      const p2 = b.path[i + 1];
+      // 线段的 AABB
+      const sx1 = Math.min(p1.col, p2.col);
+      const sy1 = Math.min(p1.row, p2.row);
+      const sx2 = Math.max(p1.col, p2.col);
+      const sy2 = Math.max(p1.row, p2.row);
+
+      for (const box of machineBoxes) {
+        if (box.floor !== b.floor) continue;
+        // 排除该传送带连接的起终点机器（传送带端点在机器端口上是正常的）
+        const fromMachine = b.fromPort?.split(':')[0];
+        const toMachine = b.toPort?.split(':')[0];
+        if (box.id === fromMachine || box.id === toMachine) continue;
+
+        // 线段 AABB 与机器 AABB 重叠检测
+        const EPS = 0.02;
+        if (sx1 < box.x2 - EPS && sx2 > box.x1 + EPS && sy1 < box.y2 - EPS && sy2 > box.y1 + EPS) {
+          issues.push({
+            severity: 'warn', rule: 'R14-belt-cross',
+            message: `Belt "${b.id}" segment ${i}→${i + 1} crosses through machine "${box.id}" on floor ${b.floor}`,
+            elementId: b.id,
+          });
+        }
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R15: 传送带线段间碰撞（同一楼层同一物料除外的重叠线段）
+  // ----------------------------------------------------------
+  // 收集所有水平/垂直线段
+  interface Segment { beltId: string; floor: number; horizontal: boolean; fixed: number; min: number; max: number; }
+  const segments: Segment[] = [];
+
+  for (const b of scheme.belts) {
+    for (let i = 0; i < b.path.length - 1; i++) {
+      const p1 = b.path[i];
+      const p2 = b.path[i + 1];
+      const dCol = Math.abs(p1.col - p2.col);
+      const dRow = Math.abs(p1.row - p2.row);
+      if (dCol < 0.001) {
+        // 垂直线段
+        segments.push({ beltId: b.id, floor: b.floor, horizontal: false, fixed: p1.col, min: Math.min(p1.row, p2.row), max: Math.max(p1.row, p2.row) });
+      } else if (dRow < 0.001) {
+        // 水平线段
+        segments.push({ beltId: b.id, floor: b.floor, horizontal: true, fixed: p1.row, min: Math.min(p1.col, p2.col), max: Math.max(p1.col, p2.col) });
+      }
+    }
+  }
+
+  // 检测同方向、同轴（fixed值相同）、同楼层的不同传送带线段是否重叠
+  for (let i = 0; i < segments.length; i++) {
+    for (let j = i + 1; j < segments.length; j++) {
+      const a = segments[i];
+      const b = segments[j];
+      if (a.beltId === b.beltId) continue; // 同一传送带内部不检测
+      if (a.floor !== b.floor) continue;
+      if (a.horizontal !== b.horizontal) continue;
+      if (Math.abs(a.fixed - b.fixed) > 0.01) continue;
+      // 同轴线段，检查区间是否重叠
+      const EPS = 0.02;
+      if (a.min < b.max - EPS && a.max > b.min + EPS) {
+        issues.push({
+          severity: 'warn', rule: 'R15-belt-overlap',
+          message: `Belt overlap on floor ${a.floor}: "${a.beltId}" and "${b.beltId}" share the same ${a.horizontal ? 'horizontal' : 'vertical'} path at ${a.horizontal ? 'row' : 'col'}=${a.fixed}`,
+        });
+      }
     }
   }
 

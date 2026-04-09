@@ -120,6 +120,81 @@ describe('schema', () => {
     expect(issues.some(i => i.rule === 'R12-unique')).toBe(true);
   });
 
+  it('R13: errors on overlapping machines', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'm1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1 },
+        { id: 'm2', type: 'smelter' as const, pos: { col: 1.5, row: 1 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R13-collision')).toBe(true);
+  });
+
+  it('R13: no collision for machines on different floors', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      floors: [
+        { id: 1, label: '1F', heightM: 8, gridSize: { cols: 8, rows: 8 } },
+        { id: 2, label: '2F', heightM: 8, gridSize: { cols: 8, rows: 8 } },
+      ],
+      machines: [
+        { id: 'm1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1 },
+        { id: 'm2', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 2 },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.filter(i => i.rule === 'R13-collision')).toHaveLength(0);
+  });
+
+  it('R13: no collision for adjacent non-overlapping machines', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'm1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1 },
+        { id: 'm2', type: 'smelter' as const, pos: { col: 2, row: 1 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.filter(i => i.rule === 'R13-collision')).toHaveLength(0);
+  });
+
+  it('R14: warns when belt crosses unrelated machine', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        MINIMAL_SCHEME.machines[0], // s1 at (1,1)
+        MINIMAL_SCHEME.machines[1], // sp1 at (1,2.5)
+        { id: 'blocker', type: 'constructor' as const, pos: { col: 1, row: 1.75 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [{
+        id: 'b-cross', floor: 1, mark: 1 as const, material: '铁锭',
+        path: [{ col: 1.5, row: 1 }, { col: 1.5, row: 3 }],
+        fromPort: 's1:out-0', toPort: 'sp1:in-0',
+      }],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R14-belt-cross')).toBe(true);
+  });
+
+  it('R15: warns on overlapping belt segments', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
+          path: [{ col: 1, row: 1 }, { col: 1, row: 3 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, material: '铁板',
+          path: [{ col: 1, row: 2 }, { col: 1, row: 4 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R15-belt-overlap')).toBe(true);
+  });
+
   it('buildSchemeIndex produces correct index', () => {
     const index = buildSchemeIndex(MINIMAL_SCHEME, '/data/schemes/test.json');
     expect(index.id).toBe('test-1');

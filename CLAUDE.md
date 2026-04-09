@@ -61,6 +61,24 @@ React 19 + TypeScript + Vite 6 + Zustand + Motion
 
 所有元素（machines, belts, lifts, poles, structures）的 `id` 全局唯一，不允许重复。
 
+### R13: 机器间碰撞检测
+
+同一楼层的任意两台机器/分流器/合流器的占地矩形（AABB）**不允许重叠**。占地矩形由 `pos` + 注册表 `dimensions` + `facing` 旋转后计算。边缘恰好接触允许，面积重叠不允许。
+
+### R14: 传送带不穿越无关机器
+
+传送带路径的每一段线段不能穿过与该传送带无关（既非 fromPort 也非 toPort 目标）的机器占地范围。传送带必须绕过其他机器。
+
+### R15: 传送带线段不重叠
+
+同一楼层、同方向（都是水平或都是垂直）、同轴（共享 row 或 col 值）的不同传送带线段，区间不允许重叠。两条传送带不能走同一条路。
+
+---
+
+## 碰撞检测执行要求
+
+**每次生成或修改 `data/schemes/*.json` 后，必须运行 `npx vitest run` 确认方案通过所有验证规则（R1-R15）。** `validateSchemeDetailed()` 的 error 级别问题必须为 0，warn 级别问题应尽量消除。
+
 ---
 
 ## 分流器/合流器布局规则
