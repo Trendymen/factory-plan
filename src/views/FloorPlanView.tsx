@@ -87,7 +87,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
       {layers.zones && zones.map(z => <ZoneRenderer key={z.id} zone={z} />)}
       {layers.power && <PowerRenderer poles={poles} connections={connections} machines={machines} dimmed={hasHighlight} />}
       {layers.belts && belts.map(b => (
-        <BeltRenderer key={b.id} belt={b} highlight={isHighlighted(b.id)} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
+        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
       ))}
       {layers.structures && structures.map(s => (
         <StructureRenderer key={s.id} structure={s} dimmed={isDimmed(s.id)} />
