@@ -44,7 +44,12 @@ export const BeltRenderer = memo(function BeltRenderer({
       <polygon className="belt-arrow" points="-5,-3 0,0 -5,3" fill={color}
         transform={`translate(${s2.x},${s2.y}) rotate(${angle})`} />
       <g transform={`translate(${midPt.x},${midPt.y - 6})`}>
-        <rect x={-20} y={-7} width={40} height={14} rx={3} fill="#0a0e14" fillOpacity={0.85} stroke={color} strokeWidth={0.5} />
+        {/* 用字符数估算宽度：中文字符约8px，英文约5px */}
+        {(() => {
+          const charW = belt.material.length * 8 + 10;
+          const halfW = charW / 2;
+          return <rect x={-halfW} y={-7} width={charW} height={14} rx={3} fill="#0a0e14" fillOpacity={0.85} stroke={color} strokeWidth={0.5} />;
+        })()}
         <text className="belt-label" textAnchor="middle" y={4} fill={color}>{belt.material}</text>
       </g>
     </g>

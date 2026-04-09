@@ -484,7 +484,7 @@
       "id": "belt_1",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 0,
@@ -500,7 +500,7 @@
       "id": "belt_2",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 2,
@@ -516,7 +516,7 @@
       "id": "belt_3",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 2,
@@ -536,7 +536,7 @@
       "id": "belt_4",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 2,
@@ -556,7 +556,7 @@
       "id": "belt_5",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 0,
@@ -572,7 +572,7 @@
       "id": "belt_6",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 5,
@@ -588,7 +588,7 @@
       "id": "belt_7",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 5,
@@ -608,7 +608,7 @@
       "id": "belt_8",
       "floor": 1,
       "mark": 1,
-      "material": "ore",
+      "material": "铁矿石",
       "path": [
         {
           "col": 5,
@@ -628,7 +628,7 @@
       "id": "belt_9",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 1.5,
@@ -644,7 +644,7 @@
       "id": "belt_10",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 2.5,
@@ -660,7 +660,7 @@
       "id": "belt_11",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 4.5,
@@ -676,7 +676,7 @@
       "id": "belt_12",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 4.5,
@@ -696,7 +696,7 @@
       "id": "belt_13",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 4.5,
@@ -716,7 +716,7 @@
       "id": "belt_14",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 5.5,
@@ -732,7 +732,7 @@
       "id": "belt_15",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 5.5,
@@ -752,7 +752,7 @@
       "id": "belt_16",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 7,
@@ -772,7 +772,7 @@
       "id": "belt_17",
       "floor": 1,
       "mark": 1,
-      "material": "ingot",
+      "material": "铁锭",
       "path": [
         {
           "col": 7,
@@ -792,7 +792,7 @@
       "id": "belt_18",
       "floor": 1,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1.5,
@@ -812,7 +812,7 @@
       "id": "belt_19",
       "floor": 1,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 2.5,
@@ -832,7 +832,7 @@
       "id": "belt_20",
       "floor": 1,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 2,
@@ -848,7 +848,7 @@
       "id": "belt_21",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 4.5,
@@ -868,7 +868,7 @@
       "id": "belt_22",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 5.5,
@@ -888,7 +888,7 @@
       "id": "belt_23",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 6.5,
@@ -908,7 +908,7 @@
       "id": "belt_24",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 7.5,
@@ -928,7 +928,7 @@
       "id": "belt_25",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 5,
@@ -948,7 +948,7 @@
       "id": "belt_26",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 7,
@@ -968,7 +968,7 @@
       "id": "belt_27",
       "floor": 1,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 6,
@@ -984,7 +984,7 @@
       "id": "belt_28",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 4.5,
@@ -1000,7 +1000,7 @@
       "id": "belt_29",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 4.5,
@@ -1020,7 +1020,7 @@
       "id": "belt_30",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 4.5,
@@ -1040,7 +1040,7 @@
       "id": "belt_31",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 3.5,
@@ -1060,7 +1060,7 @@
       "id": "belt_32",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 3.5,
@@ -1080,7 +1080,7 @@
       "id": "belt_33",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 2,
@@ -1100,7 +1100,7 @@
       "id": "belt_34",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 2,
@@ -1120,7 +1120,7 @@
       "id": "belt_35",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 5,
@@ -1140,7 +1140,7 @@
       "id": "belt_36",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 5,
@@ -1160,7 +1160,7 @@
       "id": "belt_37",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 1.5,
@@ -1180,7 +1180,7 @@
       "id": "belt_38",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 2.5,
@@ -1200,7 +1200,7 @@
       "id": "belt_39",
       "floor": 2,
       "mark": 2,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 2,
@@ -1216,7 +1216,7 @@
       "id": "belt_40",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 2,
@@ -1232,7 +1232,7 @@
       "id": "belt_41",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 2,
@@ -1248,7 +1248,7 @@
       "id": "belt_42",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 4.5,
@@ -1268,7 +1268,7 @@
       "id": "belt_43",
       "floor": 2,
       "mark": 1,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 5.5,
@@ -1288,7 +1288,7 @@
       "id": "belt_44",
       "floor": 2,
       "mark": 2,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 5,
@@ -1304,7 +1304,7 @@
       "id": "belt_45",
       "floor": 2,
       "mark": 2,
-      "material": "screw",
+      "material": "螺丝",
       "path": [
         {
           "col": 5,
@@ -1320,7 +1320,7 @@
       "id": "belt_46",
       "floor": 2,
       "mark": 1,
-      "material": "rod",
+      "material": "铁棒",
       "path": [
         {
           "col": 7.5,
@@ -1336,7 +1336,7 @@
       "id": "belt_47",
       "floor": 2,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1.5,
@@ -1352,7 +1352,7 @@
       "id": "belt_48",
       "floor": 2,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1.5,
@@ -1368,7 +1368,7 @@
       "id": "belt_49",
       "floor": 2,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1.5,
@@ -1384,7 +1384,7 @@
       "id": "belt_50",
       "floor": 2,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1,
@@ -1404,7 +1404,7 @@
       "id": "belt_51",
       "floor": 2,
       "mark": 1,
-      "material": "plate",
+      "material": "铁板",
       "path": [
         {
           "col": 1,
@@ -1428,7 +1428,7 @@
       "id": "belt_52",
       "floor": 2,
       "mark": 1,
-      "material": "rip",
+      "material": "强化铁板",
       "path": [
         {
           "col": 1.82,
@@ -1448,7 +1448,7 @@
       "id": "belt_53",
       "floor": 2,
       "mark": 1,
-      "material": "rotor",
+      "material": "转子",
       "path": [
         {
           "col": 4.97,
@@ -1479,7 +1479,7 @@
       "mark": 1,
       "fromFloor": 1,
       "toFloor": 2,
-      "material": "plate",
+      "material": "铁板",
       "connectedBelts": [
         "belt_21",
         "belt_52"
@@ -1494,7 +1494,7 @@
       "mark": 1,
       "fromFloor": 1,
       "toFloor": 2,
-      "material": "rod",
+      "material": "铁棒",
       "connectedBelts": [
         "belt_29",
         "belt_30"
@@ -1509,7 +1509,7 @@
       "mark": 1,
       "fromFloor": 2,
       "toFloor": 2,
-      "material": "rod"
+      "material": "铁棒"
     }
   ],
   "power": {
