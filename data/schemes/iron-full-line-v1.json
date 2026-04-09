@@ -27,84 +27,84 @@
   "machines": [
     {
       "id": "smelter1", "type": "smelter",
-      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 1,
+      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 1
     },
     {
       "id": "smelter2", "type": "smelter",
-      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 1,
+      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 1
     },
     {
       "id": "smelter3", "type": "smelter",
-      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 1,
+      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 1
     },
     {
       "id": "smelter4", "type": "smelter",
-      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 1,
+      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 1
     },
     {
       "id": "plate1", "type": "constructor",
-      "pos": { "col": 1, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 1, "row": 3 }, "facing": "south", "floor": 1
     },
     {
       "id": "plate2", "type": "constructor",
-      "pos": { "col": 2, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 2, "row": 3 }, "facing": "south", "floor": 1
     },
     {
       "id": "rod1", "type": "constructor",
-      "pos": { "col": 4, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 4, "row": 3 }, "facing": "south", "floor": 1
     },
     {
       "id": "rod2", "type": "constructor",
-      "pos": { "col": 5, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 5, "row": 3 }, "facing": "south", "floor": 1
     },
     {
       "id": "rod3", "type": "constructor",
-      "pos": { "col": 6, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 6, "row": 3 }, "facing": "south", "floor": 1
     },
     {
       "id": "rod4", "type": "constructor",
-      "pos": { "col": 7, "row": 3 }, "facing": "south", "floor": 1,
+      "pos": { "col": 7, "row": 3 }, "facing": "south", "floor": 1
     },
 
     {
       "id": "screw1", "type": "constructor",
-      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 2,
+      "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 2
     },
     {
       "id": "screw2", "type": "constructor",
-      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 2,
+      "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 2
     },
     {
       "id": "screw3", "type": "constructor",
-      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 2,
+      "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 2
     },
     {
       "id": "screw4", "type": "constructor",
-      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 2,
+      "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 2
     },
     {
       "id": "rip", "type": "assembler",
-      "pos": { "col": 1, "row": 4 }, "facing": "south", "floor": 2,
+      "pos": { "col": 1, "row": 4 }, "facing": "south", "floor": 2
     },
     {
       "id": "rotor", "type": "assembler",
-      "pos": { "col": 4, "row": 4 }, "facing": "south", "floor": 2,
+      "pos": { "col": 4, "row": 4 }, "facing": "south", "floor": 2
     },
     {
       "id": "store_plate", "type": "storage",
-      "pos": { "col": 1, "row": 7 }, "facing": "south", "floor": 2,
+      "pos": { "col": 1, "row": 7 }, "facing": "south", "floor": 2
     },
     {
       "id": "store_rip", "type": "storage",
-      "pos": { "col": 2, "row": 7 }, "facing": "south", "floor": 2,
+      "pos": { "col": 2, "row": 7 }, "facing": "south", "floor": 2
     },
     {
       "id": "store_rotor", "type": "storage",
-      "pos": { "col": 4, "row": 7 }, "facing": "south", "floor": 2,
+      "pos": { "col": 4, "row": 7 }, "facing": "south", "floor": 2
     },
     {
       "id": "store_screw", "type": "storage",
-      "pos": { "col": 5.5, "row": 7 }, "facing": "south", "floor": 2,
+      "pos": { "col": 5.5, "row": 7 }, "facing": "south", "floor": 2
     },
 
     {
