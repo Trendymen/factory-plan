@@ -28,103 +28,83 @@
     {
       "id": "smelter1", "type": "smelter",
       "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 1,
-      "recipe": "铁矿→铁锭", "clockSpeed": 1, "label": "冶炼炉 #1"
     },
     {
       "id": "smelter2", "type": "smelter",
       "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 1,
-      "recipe": "铁矿→铁锭", "clockSpeed": 1, "label": "冶炼炉 #2"
     },
     {
       "id": "smelter3", "type": "smelter",
       "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 1,
-      "recipe": "铁矿→铁锭", "clockSpeed": 1, "label": "冶炼炉 #3"
     },
     {
       "id": "smelter4", "type": "smelter",
       "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 1,
-      "recipe": "铁矿→铁锭", "clockSpeed": 1, "label": "冶炼炉 #4"
     },
     {
       "id": "plate1", "type": "constructor",
       "pos": { "col": 1, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×3→铁板×2", "clockSpeed": 1, "label": "铁板制造机 #1"
     },
     {
       "id": "plate2", "type": "constructor",
       "pos": { "col": 2, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×3→铁板×2", "clockSpeed": 1, "label": "铁板制造机 #2"
     },
     {
       "id": "rod1", "type": "constructor",
       "pos": { "col": 4, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×1→铁棒×1", "clockSpeed": 1, "label": "铁棒制造机 #1"
     },
     {
       "id": "rod2", "type": "constructor",
       "pos": { "col": 5, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×1→铁棒×1", "clockSpeed": 1, "label": "铁棒制造机 #2"
     },
     {
       "id": "rod3", "type": "constructor",
       "pos": { "col": 6, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×1→铁棒×1", "clockSpeed": 1, "label": "铁棒制造机 #3"
     },
     {
       "id": "rod4", "type": "constructor",
       "pos": { "col": 7, "row": 3 }, "facing": "south", "floor": 1,
-      "recipe": "铁锭×1→铁棒×1", "clockSpeed": 1, "label": "铁棒制造机 #4"
     },
 
     {
       "id": "screw1", "type": "constructor",
       "pos": { "col": 1, "row": 1 }, "facing": "south", "floor": 2,
-      "recipe": "铁棒×1→螺丝×4", "clockSpeed": 0.75, "label": "螺丝制造机 #1"
     },
     {
       "id": "screw2", "type": "constructor",
       "pos": { "col": 2, "row": 1 }, "facing": "south", "floor": 2,
-      "recipe": "铁棒×1→螺丝×4", "clockSpeed": 0.75, "label": "螺丝制造机 #2"
     },
     {
       "id": "screw3", "type": "constructor",
       "pos": { "col": 4, "row": 1 }, "facing": "south", "floor": 2,
-      "recipe": "铁棒×1→螺丝×4", "clockSpeed": 0.75, "label": "螺丝制造机 #3"
     },
     {
       "id": "screw4", "type": "constructor",
       "pos": { "col": 5, "row": 1 }, "facing": "south", "floor": 2,
-      "recipe": "铁棒×1→螺丝×4", "clockSpeed": 0.75, "label": "螺丝制造机 #4"
     },
     {
       "id": "rip", "type": "assembler",
       "pos": { "col": 1, "row": 4 }, "facing": "south", "floor": 2,
-      "recipe": "铁板×6+螺丝×12→强化铁板×1", "clockSpeed": 1, "label": "强化铁板 组装机"
     },
     {
       "id": "rotor", "type": "assembler",
       "pos": { "col": 4, "row": 4 }, "facing": "south", "floor": 2,
-      "recipe": "铁棒×5+螺丝×25→转子×1", "clockSpeed": 0.6, "label": "转子 组装机"
     },
     {
       "id": "store_plate", "type": "storage",
       "pos": { "col": 1, "row": 7 }, "facing": "south", "floor": 2,
-      "recipe": "成品前场缓冲", "clockSpeed": 1, "label": "铁板 储存箱"
     },
     {
       "id": "store_rip", "type": "storage",
       "pos": { "col": 2, "row": 7 }, "facing": "south", "floor": 2,
-      "recipe": "成品前场缓冲", "clockSpeed": 1, "label": "强化铁板 储存箱"
     },
     {
       "id": "store_rotor", "type": "storage",
       "pos": { "col": 4, "row": 7 }, "facing": "south", "floor": 2,
-      "recipe": "成品前场缓冲", "clockSpeed": 1, "label": "转子 储存箱"
     },
     {
       "id": "store_screw", "type": "storage",
       "pos": { "col": 5.5, "row": 7 }, "facing": "south", "floor": 2,
-      "recipe": "前场备用接口", "clockSpeed": 1, "label": "螺丝溢出 储存箱"
     },
 
     {

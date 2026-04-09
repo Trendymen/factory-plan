@@ -1,0 +1,147 @@
+{
+  "_meta": {
+    "source": "satisfactory.wiki.gg",
+    "version": "Satisfactory 1.0",
+    "updated": "2026-04-09",
+    "note": "所有速率为 100% 时钟速度下的标准值"
+  },
+  "beltRates": {
+    "mk1": 60,
+    "mk2": 120,
+    "mk3": 270,
+    "mk4": 480,
+    "mk5": 780,
+    "mk6": 1200
+  },
+  "recipes": [
+    {
+      "id": "iron-ingot",
+      "name": "铁锭",
+      "nameEn": "Iron Ingot",
+      "machine": "smelter",
+      "cycleTime": 2,
+      "powerMW": 4,
+      "inputs": [{ "item": "铁矿石", "amount": 1, "rate": 30 }],
+      "outputs": [{ "item": "铁锭", "amount": 1, "rate": 30 }]
+    },
+    {
+      "id": "iron-plate",
+      "name": "铁板",
+      "nameEn": "Iron Plate",
+      "machine": "constructor",
+      "cycleTime": 6,
+      "powerMW": 4,
+      "inputs": [{ "item": "铁锭", "amount": 3, "rate": 30 }],
+      "outputs": [{ "item": "铁板", "amount": 2, "rate": 20 }]
+    },
+    {
+      "id": "iron-rod",
+      "name": "铁棒",
+      "nameEn": "Iron Rod",
+      "machine": "constructor",
+      "cycleTime": 4,
+      "powerMW": 4,
+      "inputs": [{ "item": "铁锭", "amount": 1, "rate": 15 }],
+      "outputs": [{ "item": "铁棒", "amount": 1, "rate": 15 }]
+    },
+    {
+      "id": "screw",
+      "name": "螺丝",
+      "nameEn": "Screw",
+      "machine": "constructor",
+      "cycleTime": 6,
+      "powerMW": 4,
+      "inputs": [{ "item": "铁棒", "amount": 1, "rate": 10 }],
+      "outputs": [{ "item": "螺丝", "amount": 4, "rate": 40 }]
+    },
+    {
+      "id": "reinforced-iron-plate",
+      "name": "强化铁板",
+      "nameEn": "Reinforced Iron Plate",
+      "machine": "assembler",
+      "cycleTime": 12,
+      "powerMW": 15,
+      "inputs": [
+        { "item": "铁板", "amount": 6, "rate": 30 },
+        { "item": "螺丝", "amount": 12, "rate": 60 }
+      ],
+      "outputs": [{ "item": "强化铁板", "amount": 1, "rate": 5 }]
+    },
+    {
+      "id": "rotor",
+      "name": "转子",
+      "nameEn": "Rotor",
+      "machine": "assembler",
+      "cycleTime": 15,
+      "powerMW": 15,
+      "inputs": [
+        { "item": "铁棒", "amount": 5, "rate": 20 },
+        { "item": "螺丝", "amount": 25, "rate": 100 }
+      ],
+      "outputs": [{ "item": "转子", "amount": 1, "rate": 4 }]
+    },
+    {
+      "id": "modular-frame",
+      "name": "模块化框架",
+      "nameEn": "Modular Frame",
+      "machine": "assembler",
+      "cycleTime": 60,
+      "powerMW": 15,
+      "inputs": [
+        { "item": "强化铁板", "amount": 3, "rate": 3 },
+        { "item": "铁棒", "amount": 12, "rate": 12 }
+      ],
+      "outputs": [{ "item": "模块化框架", "amount": 2, "rate": 2 }]
+    },
+    {
+      "id": "copper-ingot",
+      "name": "铜锭",
+      "nameEn": "Copper Ingot",
+      "machine": "smelter",
+      "cycleTime": 2,
+      "powerMW": 4,
+      "inputs": [{ "item": "铜矿石", "amount": 1, "rate": 30 }],
+      "outputs": [{ "item": "铜锭", "amount": 1, "rate": 30 }]
+    },
+    {
+      "id": "wire",
+      "name": "电线",
+      "nameEn": "Wire",
+      "machine": "constructor",
+      "cycleTime": 4,
+      "powerMW": 4,
+      "inputs": [{ "item": "铜锭", "amount": 1, "rate": 15 }],
+      "outputs": [{ "item": "电线", "amount": 2, "rate": 30 }]
+    },
+    {
+      "id": "cable",
+      "name": "线缆",
+      "nameEn": "Cable",
+      "machine": "constructor",
+      "cycleTime": 2,
+      "powerMW": 4,
+      "inputs": [{ "item": "电线", "amount": 2, "rate": 60 }],
+      "outputs": [{ "item": "线缆", "amount": 1, "rate": 30 }]
+    },
+    {
+      "id": "copper-sheet",
+      "name": "铜板",
+      "nameEn": "Copper Sheet",
+      "machine": "constructor",
+      "cycleTime": 6,
+      "powerMW": 4,
+      "inputs": [{ "item": "铜锭", "amount": 2, "rate": 20 }],
+      "outputs": [{ "item": "铜板", "amount": 1, "rate": 10 }]
+    },
+    {
+      "id": "concrete",
+      "name": "混凝土",
+      "nameEn": "Concrete",
+      "machine": "constructor",
+      "cycleTime": 4,
+      "powerMW": 4,
+      "inputs": [{ "item": "石灰石", "amount": 3, "rate": 45 }],
+      "outputs": [{ "item": "混凝土", "amount": 1, "rate": 15 }]
+    }
+  ]
+}

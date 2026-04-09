@@ -52,8 +52,27 @@ export const BeltRenderer = memo(function BeltRenderer({
   const s2 = svgPoints[svgPoints.length - 1];
   const angle = Math.atan2(s2.y - s1.y, s2.x - s1.x) * (180 / Math.PI);
 
-  const midIdx = Math.floor(svgPoints.length / 2);
-  const midPt = svgPoints[midIdx];
+  // 找最长线段放标签（避免在短线段上标签拥挤）
+  let bestIdx = 0;
+  let bestLen = 0;
+  for (let i = 0; i < svgPoints.length - 1; i++) {
+    const dx = svgPoints[i + 1].x - svgPoints[i].x;
+    const dy = svgPoints[i + 1].y - svgPoints[i].y;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len > bestLen) { bestLen = len; bestIdx = i; }
+  }
+  const labelA = svgPoints[bestIdx];
+  const labelB = svgPoints[bestIdx + 1];
+  const labelX = (labelA.x + labelB.x) / 2;
+  const labelY = (labelA.y + labelB.y) / 2;
+  // 标签偏移到线段侧边，避免叠在线上
+  const isHorizontal = Math.abs(labelA.y - labelB.y) < 1;
+  const offsetX = isHorizontal ? 0 : 10;
+  const offsetY = isHorizontal ? -10 : 0;
+
+  // 标签尺寸计算
+  const charW = belt.material.length * 7 + 8;
+  const halfW = charW / 2;
 
   const className = [
     'belt-group',
@@ -65,16 +84,14 @@ export const BeltRenderer = memo(function BeltRenderer({
     <g className={className} onMouseEnter={() => onHover?.(belt.id)} onMouseLeave={() => onHover?.(null)}
       onClick={() => onClick?.(belt.id)} style={{ cursor: 'pointer' }}>
       <polyline className={`belt-line belt-mk${belt.mark}`} points={points} stroke={color} strokeDasharray="8 8" />
-      <polygon className="belt-arrow" points="-5,-3 0,0 -5,3" fill={color}
+      <polygon className="belt-arrow" points="-4,-2.5 0,0 -4,2.5" fill={color}
         transform={`translate(${s2.x},${s2.y}) rotate(${angle})`} />
-      <g transform={`translate(${midPt.x},${midPt.y - 6})`}>
-        {/* 用字符数估算宽度：中文字符约8px，英文约5px */}
-        {(() => {
-          const charW = belt.material.length * 8 + 10;
-          const halfW = charW / 2;
-          return <rect x={-halfW} y={-7} width={charW} height={14} rx={3} fill="#0a0e14" fillOpacity={0.85} stroke={color} strokeWidth={0.5} />;
-        })()}
-        <text className="belt-label" textAnchor="middle" y={4} fill={color}>{belt.material}</text>
+      {/* 标签放在最长线段中点旁侧 */}
+      <g transform={`translate(${labelX + offsetX},${labelY + offsetY})`}>
+        <rect x={-halfW} y={-6} width={charW} height={12} rx={2}
+          fill="#080c12" fillOpacity={0.9} stroke={color} strokeWidth={0.4} />
+        <text className="belt-label" textAnchor="middle" y={3} fill={color}
+          style={{ fontSize: 7 }}>{belt.material}</text>
       </g>
     </g>
   );

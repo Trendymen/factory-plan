@@ -33,6 +33,16 @@ export const MachineRenderer = memo(function MachineRenderer({
     dimmed && 'element-dimmed',
   ].filter(Boolean).join(' ');
 
+  // 根据机器尺寸调整标签策略
+  const isSmall = bw < 50 || bh < 50;
+  const label = machine.label ?? machine.id;
+  // 小型机器（分流/合流器）：截断标签，字号缩小
+  const displayLabel = isSmall ? label.slice(0, 2) : label;
+  const labelFontSize = isSmall ? 8 : 9;
+  const subLabel = meta.powerUsage > 0
+    ? `${meta.powerUsage}MW${machine.clockSpeed && machine.clockSpeed !== 100 ? ` ${machine.clockSpeed}%` : ''}`
+    : '';
+
   return (
     <g className={className}
       onMouseEnter={() => onHover?.(machine.id)}
@@ -41,12 +51,24 @@ export const MachineRenderer = memo(function MachineRenderer({
     >
       <rect className="machine-footprint" x={x} y={y} width={w} height={h} rx={3} stroke={color} />
       <rect className="machine-body" x={bx} y={by} width={bw} height={bh} rx={2} fill={color} stroke={color} />
-      <text className="machine-label" x={bx + bw / 2} y={by + 14} textAnchor="middle">
-        {machine.label ?? machine.id}
-      </text>
-      <text className="machine-sublabel" x={bx + bw / 2} y={by + bh - 6} textAnchor="middle" fill={color}>
-        {meta.powerUsage > 0 ? `${meta.powerUsage}MW` : ''}{machine.clockSpeed && machine.clockSpeed !== 100 ? ` ${machine.clockSpeed}%` : ''}
-      </text>
+
+      {/* 标签：clipPath 确保不溢出 */}
+      <clipPath id={`clip-${machine.id}`}>
+        <rect x={bx} y={by} width={bw} height={bh} />
+      </clipPath>
+      <g clipPath={`url(#clip-${machine.id})`}>
+        <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 3)}
+          textAnchor="middle" style={{ fontSize: labelFontSize }}>
+          {displayLabel}
+        </text>
+        {subLabel && !isSmall && (
+          <text className="machine-sublabel" x={bx + bw / 2} y={by + bh / 2 + 10}
+            textAnchor="middle" fill={color} style={{ fontSize: 7 }}>
+            {subLabel}
+          </text>
+        )}
+      </g>
+
       {meta.ports.filter(p => p.kind !== 'power').map(portDef => {
         const pos = resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);
         return (
