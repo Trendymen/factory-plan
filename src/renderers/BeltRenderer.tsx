@@ -90,7 +90,7 @@ export const BeltRenderer = memo(function BeltRenderer({
       <g transform={`translate(${labelX + offsetX},${labelY + offsetY})`}>
         <rect x={-halfW} y={-6} width={charW} height={12} rx={2}
           fill="#080c12" fillOpacity={0.9} stroke={color} strokeWidth={0.4} />
-        <text className="belt-label" textAnchor="middle" y={3} fill={color}
+        <text className="belt-label" textAnchor="middle" dominantBaseline="central" y={0} fill={color}
           style={{ fontSize: 7 }}>{belt.material}</text>
       </g>
     </g>
