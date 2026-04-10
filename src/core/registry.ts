@@ -52,10 +52,28 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     ports: [port('in-0', 'belt-in', 'back', 2), port('in-1', 'belt-in', 'left', 2), port('in-2', 'belt-in', 'right', 2), port('out-0', 'belt-out', 'front', 2)],
     color: '--merger', powerUsage: 0, stackable: true, wallMounted: false,
   },
-  'conveyor-lift': {
-    type: 'conveyor-lift', category: 'logistics', displayName: '传送带升降机',
+  'conveyor-lift-in-bottom': {
+    type: 'conveyor-lift-in-bottom', category: 'logistics', displayName: '传送带升降机(底入)',
     dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
-    ports: [port('bottom', 'belt-in', 'bottom', 1, 0), port('top', 'belt-out', 'top', 1, 7)],
+    ports: [port('bottom', 'belt-in', 'bottom', 1, 0)],
+    color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
+  },
+  'conveyor-lift-out-bottom': {
+    type: 'conveyor-lift-out-bottom', category: 'logistics', displayName: '传送带升降机(底出)',
+    dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
+    ports: [port('bottom', 'belt-out', 'bottom', 1, 0)],
+    color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
+  },
+  'conveyor-lift-in-top': {
+    type: 'conveyor-lift-in-top', category: 'logistics', displayName: '传送带升降机(顶入)',
+    dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
+    ports: [port('top', 'belt-in', 'top', 1, 7)],
+    color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
+  },
+  'conveyor-lift-out-top': {
+    type: 'conveyor-lift-out-top', category: 'logistics', displayName: '传送带升降机(顶出)',
+    dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
+    ports: [port('top', 'belt-out', 'top', 1, 7)],
     color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
   },
   storage: {
