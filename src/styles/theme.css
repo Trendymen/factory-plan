@@ -457,15 +457,15 @@ body {
    10. SVG Elements
    ============================================================ */
 .grid-line {
-  stroke: var(--border-subtle);
-  stroke-width: 0.3;
-  opacity: 0.5;
+  stroke: var(--border);
+  stroke-width: 0.8;
+  opacity: 0.85;
 }
 
 .grid-line-major {
   stroke: var(--border);
-  stroke-width: 0.4;
-  opacity: 0.6;
+  stroke-width: 1.2;
+  opacity: 1;
 }
 
 .grid-label {
