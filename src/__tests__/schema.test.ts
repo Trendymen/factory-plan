@@ -16,7 +16,7 @@ const MINIMAL_SCHEME: Scheme = {
   },
   floors: [{ id: 1, label: '1F', heightM: 8, gridSize: { cols: 8, rows: 8 } }],
   machines: [
-    { id: 's1', type: 'smelter', pos: { col: 1, row: 1 }, facing: 'south', floor: 1, recipe: '铁锭', label: 'S-1' },
+    { id: 's1', type: 'smelter', pos: { col: 1, row: 1 }, facing: 'south', floor: 1, recipe: 'iron-ingot', label: 'S-1' },
     { id: 'sp1', type: 'splitter', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1, label: '分流' },
   ],
   belts: [
@@ -25,7 +25,6 @@ const MINIMAL_SCHEME: Scheme = {
   liftPairs: [],
   structures: [],
   zones: [],
-  stats: { totalPowerMW: 4, inputs: [{ material: '铁矿石', rate: 30 }], outputs: [{ material: '铁锭', rate: 30 }] },
 };
 
 describe('schema', () => {
@@ -288,7 +287,6 @@ describe('R18 - LiftPair 一致性', () => {
         { id: 2, label: 'F2', heightM: 4, gridSize: { cols: 8, rows: 8 } },
       ],
       machines, belts: [], liftPairs, structures: [], zones: [],
-      stats: { totalPowerMW: 0, inputs: [], outputs: [] },
     };
   }
 
@@ -378,7 +376,6 @@ describe('R19 - 垂直交叉检测', () => {
       designPrinciples: { preferWallOutlets: false, preferWallHoles: false, preferCeilingMounts: false, keepFloorClear: false },
       floors: [baseFloor],
       machines: [], belts, liftPairs: [], structures: [], zones: [],
-      stats: { totalPowerMW: 0, inputs: [], outputs: [] },
     };
   }
 
@@ -429,6 +426,44 @@ describe('R19 - 垂直交叉检测', () => {
 });
 
 import ironFullLineV2 from '../../data/schemes/iron-full-line-v2.json';
+import { computeSchemeStats } from '../core/computeStats';
+
+describe('iron-full-line-v2 流量分析（Tier 2）', () => {
+  const scheme = ironFullLineV2 as unknown as Scheme;
+  const stats = computeSchemeStats(scheme);
+
+  it('铁矿石输入 = 120/min', () => {
+    const ore = stats.inputs.find(i => i.material === '铁矿石');
+    expect(ore?.rate).toBe(120);
+  });
+
+  it('铁板输出 = 10/min (40 生产 - 30 rip 消耗)', () => {
+    const plate = stats.outputs.find(o => o.material === '铁板');
+    expect(plate?.rate).toBe(10);
+  });
+
+  it('强化铁板输出 = 5/min', () => {
+    const rip = stats.outputs.find(o => o.material === '强化铁板');
+    expect(rip?.rate).toBe(5);
+  });
+
+  it('转子输出 = 4/min（sp_screw_bridge 已把 20 螺丝过剩引到 rotor 侧）', () => {
+    const rotor = stats.outputs.find(o => o.material === '转子');
+    expect(rotor?.rate).toBe(4);
+  });
+
+  it('总功耗 = 86 MW（4×smelter + 2×plate + 4×rod + 4×screw + rip + rotor，均 100%）', () => {
+    expect(stats.totalPowerMW).toBe(86);
+  });
+
+  it('内部物料（铁锭、铁棒、螺丝）完全平衡，不出现在 inputs/outputs', () => {
+    const internalMats = ['铁锭', '铁棒', '螺丝'];
+    for (const mat of internalMats) {
+      expect(stats.inputs.find(i => i.material === mat)).toBeUndefined();
+      expect(stats.outputs.find(o => o.material === mat)).toBeUndefined();
+    }
+  });
+});
 
 describe('iron-full-line-v2 方案校验', () => {
   it('validateSchemeDetailed 无 error', () => {
@@ -441,11 +476,23 @@ describe('iron-full-line-v2 方案校验', () => {
     expect(errors).toHaveLength(0);
   });
 
-  it('仅允许 R2/R8 对齐 warn（来自 lift/storage 端口固有偏移）', () => {
+  it('仅允许 R2/R8 对齐 warn 与 1 个已知 R19 跨带（螺丝跨组分流强制跨越 rod 主干）', () => {
     const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
     const warns = issues.filter(i => i.severity === 'warn');
+
+    // 已知豁免：b_bridge_to_mg_r 必须从 mg_screw_l 侧横跨到 mg_screw_r:in-1
+    // 把 screw2 过剩的 20/min 引流到 rotor 侧。rotor:in-0 端口在 col 5.625，
+    // rod main belt 被迫走 col 5.625 纵贯 rows 2.875-5.75，此交叉不可避免。
+    const KNOWN_R19_CROSSES = new Set<string>([
+      'b_bridge_to_mg_r × b_rod_main_to_rotor',
+      'b_rod_main_to_rotor × b_bridge_to_mg_r',
+    ]);
+    const isKnownR19 = (w: { rule: string; message: string }) =>
+      w.rule === 'R19-belt-cross' &&
+      [...KNOWN_R19_CROSSES].some(k => w.message.includes(k.split(' × ')[0]) && w.message.includes(k.split(' × ')[1]));
+
     const unexpectedWarns = warns.filter(
-      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-'),
+      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-') && !isKnownR19(w),
     );
     if (unexpectedWarns.length > 0) {
       console.error('Unexpected non-alignment warns in v2:');

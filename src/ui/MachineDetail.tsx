@@ -2,6 +2,12 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta, MATERIAL_RAW_COLORS } from '../core/registry';
+import { computeMachineFlow, formatRecipeLabel, getRecipe } from '../core/recipes';
+
+/** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
+function fmtRate(rate: number): string {
+  return Number.isInteger(rate) ? rate.toString() : rate.toFixed(1);
+}
 
 const CURSOR_OFFSET = 16;
 const EDGE_PADDING = 12;
@@ -110,6 +116,9 @@ export function MachineDetail() {
       ) ?? []
     : [];
 
+  const recipe = machine ? getRecipe(machine.recipe) : undefined;
+  const flow = machine ? computeMachineFlow(machine.recipe, machine.clockSpeed) : undefined;
+
   return (
     <AnimatePresence>
       {visible && machine && meta && (
@@ -143,13 +152,32 @@ export function MachineDetail() {
           </div>
           <div className="detail-body">
             <div className="detail-grid">
-              <span className="detail-key">配方</span><span className="detail-val">{machine.recipe ?? '—'}</span>
+              <span className="detail-key">配方</span><span className="detail-val">{recipe ? formatRecipeLabel(machine.recipe) : '—'}</span>
               <span className="detail-key">楼层</span><span className="detail-val">{machine.floor}F</span>
               <span className="detail-key">位置</span><span className="detail-val">({machine.pos.col.toFixed(1)}, {machine.pos.row.toFixed(1)})</span>
               <span className="detail-key">朝向</span><span className="detail-val">{machine.facing}</span>
-              <span className="detail-key">功耗</span><span className="detail-val" style={{ color: 'var(--power)' }}>{meta.powerUsage} MW</span>
+              <span className="detail-key">功耗</span><span className="detail-val" style={{ color: 'var(--power)' }}>{flow ? flow.powerMW.toFixed(1) : meta.powerUsage} MW</span>
               <span className="detail-key">尺寸</span><span className="detail-val">{meta.dimensions.width} × {meta.dimensions.length} × {meta.dimensions.height} m</span>
             </div>
+            {flow && (flow.inputs.length > 0 || flow.outputs.length > 0) && (
+              <div className="detail-section">
+                <div className="detail-section-title">每分钟吞吐</div>
+                {flow.inputs.map(i => (
+                  <div key={`in-${i.item}`} className="detail-belt-row">
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[i.item] ?? '#888' }} />
+                    <span className="detail-val">← {i.item}</span>
+                    <span className="detail-key">{fmtRate(i.rate)}/min</span>
+                  </div>
+                ))}
+                {flow.outputs.map(o => (
+                  <div key={`out-${o.item}`} className="detail-belt-row">
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[o.item] ?? '#888' }} />
+                    <span className="detail-val">→ {o.item}</span>
+                    <span className="detail-key">{fmtRate(o.rate)}/min</span>
+                  </div>
+                ))}
+              </div>
+            )}
             {connectedBelts.length > 0 && (
               <div className="detail-section">
                 <div className="detail-section-title">连接传送带</div>

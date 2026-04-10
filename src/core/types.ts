@@ -145,11 +145,9 @@ export interface Scheme {
   liftPairs: LiftPair[];
   structures: StructureInstance[];
   zones: Zone[];
-  stats: {
-    totalPowerMW: number;
-    inputs: { material: string; rate: number }[];
-    outputs: { material: string; rate: number }[];
-  };
+  // 注意：不再持久化 stats。输入/输出/总功耗由 src/core/computeStats.ts
+  // 基于 machines + recipes 实时计算。旧 scheme 文件里遗留的 stats 字段
+  // 会被 JSON 导入静默忽略。
 }
 
 // ===== 方案索引 =====

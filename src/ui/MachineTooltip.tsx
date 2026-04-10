@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta } from '../core/registry';
+import { computeMachineFlow, formatRecipeLabel, getRecipe } from '../core/recipes';
+
+/** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
+function fmtRate(rate: number): string {
+  return Number.isInteger(rate) ? rate.toString() : rate.toFixed(1);
+}
 
 export function MachineTooltip() {
   const hoveredId = useAppStore(s => s.hoveredId);
@@ -10,6 +16,8 @@ export function MachineTooltip() {
 
   const machine = scheme?.machines.find(m => m.id === hoveredId);
   const meta = machine ? getBuildingMeta(machine.type) : null;
+  const recipe = machine ? getRecipe(machine.recipe) : undefined;
+  const flow = machine ? computeMachineFlow(machine.recipe, machine.clockSpeed) : undefined;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => setPos({ x: e.clientX + 14, y: e.clientY + 14 });
@@ -31,10 +39,29 @@ export function MachineTooltip() {
             <span className="tooltip-type">{meta.displayName}</span>
           </div>
           <div className="tooltip-body">
-            {machine.recipe && (
-              <div className="tooltip-row"><span className="tooltip-key">配方</span><span className="tooltip-val">{machine.recipe}</span></div>
+            {recipe && (
+              <div className="tooltip-row"><span className="tooltip-key">配方</span><span className="tooltip-val">{formatRecipeLabel(machine.recipe)}</span></div>
             )}
-            <div className="tooltip-row"><span className="tooltip-key">功耗</span><span className="tooltip-val">{meta.powerUsage} MW</span></div>
+            {flow && flow.inputs.length > 0 && (
+              <div className="tooltip-row">
+                <span className="tooltip-key">输入</span>
+                <span className="tooltip-val">
+                  {flow.inputs.map(i => `${i.item} ${fmtRate(i.rate)}/min`).join(' · ')}
+                </span>
+              </div>
+            )}
+            {flow && flow.outputs.length > 0 && (
+              <div className="tooltip-row">
+                <span className="tooltip-key">输出</span>
+                <span className="tooltip-val">
+                  {flow.outputs.map(o => `${o.item} ${fmtRate(o.rate)}/min`).join(' · ')}
+                </span>
+              </div>
+            )}
+            <div className="tooltip-row">
+              <span className="tooltip-key">功耗</span>
+              <span className="tooltip-val">{flow ? flow.powerMW.toFixed(1) : meta.powerUsage} MW</span>
+            </div>
             {machine.clockSpeed && machine.clockSpeed !== 100 && (
               <div className="tooltip-row"><span className="tooltip-key">超频</span><span className="tooltip-val">{machine.clockSpeed}%</span></div>
             )}

@@ -41,7 +41,7 @@
       "facing": "south",
       "floor": 1,
       "label": "冶炼炉 #1",
-      "recipe": "铁矿石→铁锭"
+      "recipe": "iron-ingot"
     },
     {
       "id": "smelter2",
@@ -53,7 +53,7 @@
       "facing": "south",
       "floor": 1,
       "label": "冶炼炉 #2",
-      "recipe": "铁矿石→铁锭"
+      "recipe": "iron-ingot"
     },
     {
       "id": "smelter3",
@@ -65,7 +65,7 @@
       "facing": "south",
       "floor": 1,
       "label": "冶炼炉 #3",
-      "recipe": "铁矿石→铁锭"
+      "recipe": "iron-ingot"
     },
     {
       "id": "smelter4",
@@ -77,7 +77,7 @@
       "facing": "south",
       "floor": 1,
       "label": "冶炼炉 #4",
-      "recipe": "铁矿石→铁锭"
+      "recipe": "iron-ingot"
     },
     {
       "id": "plate1",
@@ -89,7 +89,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁板机 #1",
-      "recipe": "铁锭×3→铁板×2"
+      "recipe": "iron-plate"
     },
     {
       "id": "plate2",
@@ -101,7 +101,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁板机 #2",
-      "recipe": "铁锭×3→铁板×2"
+      "recipe": "iron-plate"
     },
     {
       "id": "rod1",
@@ -113,7 +113,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁棒机 #1",
-      "recipe": "铁锭→铁棒"
+      "recipe": "iron-rod"
     },
     {
       "id": "rod2",
@@ -125,7 +125,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁棒机 #2",
-      "recipe": "铁锭→铁棒"
+      "recipe": "iron-rod"
     },
     {
       "id": "rod3",
@@ -137,7 +137,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁棒机 #3",
-      "recipe": "铁锭→铁棒"
+      "recipe": "iron-rod"
     },
     {
       "id": "rod4",
@@ -149,7 +149,7 @@
       "facing": "south",
       "floor": 1,
       "label": "铁棒机 #4",
-      "recipe": "铁锭→铁棒"
+      "recipe": "iron-rod"
     },
     {
       "id": "sp_ore1",
@@ -302,7 +302,7 @@
       "facing": "north",
       "floor": 2,
       "label": "强化铁板 组装机",
-      "recipe": "铁板×6+螺丝×12→强化铁板"
+      "recipe": "reinforced-iron-plate"
     },
     {
       "id": "rotor",
@@ -311,7 +311,7 @@
       "facing": "north",
       "floor": 2,
       "label": "转子 组装机",
-      "recipe": "铁棒×5+螺丝×25→转子"
+      "recipe": "rotor"
     },
     {
       "id": "mg_screw_l",
@@ -330,13 +330,21 @@
       "label": "螺丝合流·右组"
     },
     {
+      "id": "sp_screw_bridge",
+      "type": "splitter",
+      "pos": { "col": 2.875, "row": 3 },
+      "facing": "north",
+      "floor": 2,
+      "label": "螺丝跨组分流·screw2 过剩引流"
+    },
+    {
       "id": "screw1",
       "type": "constructor",
       "pos": { "col": 1.625, "row": 3.75 },
       "facing": "north",
       "floor": 2,
       "label": "螺丝机 #1",
-      "recipe": "铁棒→螺丝"
+      "recipe": "screw"
     },
     {
       "id": "screw2",
@@ -345,7 +353,7 @@
       "facing": "north",
       "floor": 2,
       "label": "螺丝机 #2",
-      "recipe": "铁棒→螺丝"
+      "recipe": "screw"
     },
     {
       "id": "screw3",
@@ -354,7 +362,7 @@
       "facing": "north",
       "floor": 2,
       "label": "螺丝机 #3",
-      "recipe": "铁棒→螺丝"
+      "recipe": "screw"
     },
     {
       "id": "screw4",
@@ -363,7 +371,7 @@
       "facing": "north",
       "floor": 2,
       "label": "螺丝机 #4",
-      "recipe": "铁棒→螺丝"
+      "recipe": "screw"
     },
     {
       "id": "sp_rod_left",
@@ -1003,17 +1011,40 @@
       "toPort": "mg_screw_l:in-0"
     },
     {
-      "id": "b_screw2_to_mg",
+      "id": "b_screw2_to_bridge",
       "floor": 2,
       "mark": 1,
       "material": "螺丝",
       "path": [
         { "col": 3.125, "row": 3.75 },
-        { "col": 3.125, "row": 3.25 },
-        { "col": 2.375, "row": 3.25 }
+        { "col": 3.125, "row": 3.5 }
       ],
       "fromPort": "screw2:out-0",
+      "toPort": "sp_screw_bridge:in-0"
+    },
+    {
+      "id": "b_bridge_to_mg_l",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
+      "path": [
+        { "col": 2.875, "row": 3.25 },
+        { "col": 2.375, "row": 3.25 }
+      ],
+      "fromPort": "sp_screw_bridge:out-1",
       "toPort": "mg_screw_l:in-2"
+    },
+    {
+      "id": "b_bridge_to_mg_r",
+      "floor": 2,
+      "mark": 1,
+      "material": "螺丝",
+      "path": [
+        { "col": 3.375, "row": 3.25 },
+        { "col": 5.875, "row": 3.25 }
+      ],
+      "fromPort": "sp_screw_bridge:out-2",
+      "toPort": "mg_screw_r:in-1"
     },
     {
       "id": "b_screw3_to_mg",
@@ -1055,7 +1086,7 @@
     {
       "id": "b_mg_r_to_rotor",
       "floor": 2,
-      "mark": 1,
+      "mark": 2,
       "material": "螺丝",
       "path": [
         { "col": 6.125, "row": 3 },
@@ -1072,7 +1103,9 @@
       "path": [
         { "col": 1.875, "row": 1 },
         { "col": 1.875, "row": 0.75 },
-        { "col": 3.3125, "row": 0.75 },
+        { "col": 2.75, "row": 0.75 },
+        { "col": 2.75, "row": 1.375 },
+        { "col": 3.3125, "row": 1.375 },
         { "col": 3.3125, "row": 1.25 }
       ],
       "fromPort": "rip:out-0",
@@ -1086,7 +1119,9 @@
       "path": [
         { "col": 5.875, "row": 1 },
         { "col": 5.875, "row": 0.75 },
-        { "col": 7.3125, "row": 0.75 },
+        { "col": 6.75, "row": 0.75 },
+        { "col": 6.75, "row": 1.375 },
+        { "col": 7.3125, "row": 1.375 },
         { "col": 7.3125, "row": 1.25 }
       ],
       "fromPort": "rotor:out-0",
@@ -1169,28 +1204,5 @@
       "kind": "front",
       "label": "前场缓冲 · 升降机/出货"
     }
-  ],
-  "stats": {
-    "totalPowerMW": 86,
-    "inputs": [
-      {
-        "material": "铁矿石",
-        "rate": 120
-      }
-    ],
-    "outputs": [
-      {
-        "material": "铁板",
-        "rate": 10
-      },
-      {
-        "material": "强化铁板",
-        "rate": 5
-      },
-      {
-        "material": "转子",
-        "rate": 2.4
-      }
-    ]
-  }
+  ]
 }

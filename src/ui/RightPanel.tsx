@@ -1,20 +1,21 @@
+import { useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta, MATERIAL_RAW_COLORS } from '../core/registry';
+import { computeSchemeStats } from '../core/computeStats';
 
 export function RightPanel() {
   const scheme = useAppStore(s => s.currentScheme);
-  if (!scheme) return null;
+
+  // scheme 变化时才重算 stats；stats 由 machines + recipes 推导，不再读 scheme.stats
+  const stats = useMemo(() => scheme ? computeSchemeStats(scheme) : null, [scheme]);
+
+  if (!scheme || !stats) return null;
 
   const machineCounts = new Map<string, number>();
   for (const m of scheme.machines) {
     const meta = getBuildingMeta(m.type);
     machineCounts.set(meta.displayName, (machineCounts.get(meta.displayName) ?? 0) + 1);
   }
-
-  const totalPower = scheme.machines.reduce((sum, m) => {
-    const meta = getBuildingMeta(m.type);
-    return sum + meta.powerUsage * ((m.clockSpeed ?? 100) / 100);
-  }, 0);
 
   // Only show materials that actually appear in belts
   const usedMaterials = new Set(scheme.belts.map(b => b.material));
@@ -25,10 +26,10 @@ export function RightPanel() {
       <div className="panel-section">
         <div className="panel-section-title">
           <span>产出</span>
-          <span className="section-badge">{scheme.stats.outputs.length}</span>
+          <span className="section-badge">{stats.outputs.length}</span>
         </div>
         <div className="stat-list">
-          {scheme.stats.outputs.map(o => (
+          {stats.outputs.map(o => (
             <div key={o.material} className="stat-row">
               <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[o.material] ?? '#888' }} />
               <span className="stat-label">{o.material}</span>
@@ -41,10 +42,10 @@ export function RightPanel() {
       <div className="panel-section">
         <div className="panel-section-title">
           <span>输入</span>
-          <span className="section-badge">{scheme.stats.inputs.length}</span>
+          <span className="section-badge">{stats.inputs.length}</span>
         </div>
         <div className="stat-list">
-          {scheme.stats.inputs.map(i => (
+          {stats.inputs.map(i => (
             <div key={i.material} className="stat-row">
               <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[i.material] ?? '#888' }} />
               <span className="stat-label">{i.material}</span>
@@ -58,7 +59,7 @@ export function RightPanel() {
       <div className="panel-section">
         <div className="panel-section-title">电力</div>
         <div className="power-stat">
-          <span className="power-value">{totalPower.toFixed(0)}</span>
+          <span className="power-value">{stats.totalPowerMW.toFixed(0)}</span>
           <span className="power-unit">MW</span>
         </div>
       </div>

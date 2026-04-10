@@ -1,6 +1,7 @@
 // src/core/schema.ts
 import type { Scheme, SchemeIndex, GridPos, Facing, MachineInstance, PlaceableType } from './types';
 import { BUILDING_REGISTRY } from './registry';
+import { getRecipe } from './recipes';
 import {
   type Rect, machineRect, rectFromSegment,
   rectsOverlap, intervalsOverlap,
@@ -110,6 +111,28 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       } else if (m.pos.col < 0 || m.pos.row < 0 || m.pos.col >= bounds.cols || m.pos.row >= bounds.rows) {
         issues.push({ severity: 'error', rule: 'R3-bounds', message: `Machine "${m.id}": pos (${m.pos.col}, ${m.pos.row}) out of floor bounds (${bounds.cols}×${bounds.rows})`, elementId: m.id });
       }
+    }
+
+    // ----------------------------------------------------------
+    // R21: recipe 字段必须引用有效配方 id，且配方所需机器类型与实际类型一致
+    // 生产类机器（smelter/constructor/assembler/manufacturer/foundry）必须声明 recipe
+    // （R18-R20 已分别被 LiftPair / 垂直交叉 / 紧凑 U 型占用）
+    // ----------------------------------------------------------
+    const productionTypes: PlaceableType[] = ['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer'];
+    if (productionTypes.includes(m.type)) {
+      if (!m.recipe) {
+        issues.push({ severity: 'warn', rule: 'R21-missing-recipe', message: `Machine "${m.id}": production machine should declare recipe id`, elementId: m.id });
+      } else {
+        const recipe = getRecipe(m.recipe);
+        if (!recipe) {
+          issues.push({ severity: 'error', rule: 'R21-unknown-recipe', message: `Machine "${m.id}": recipe id "${m.recipe}" not found in RECIPE_REGISTRY`, elementId: m.id });
+        } else if (recipe.machine !== m.type) {
+          issues.push({ severity: 'error', rule: 'R21-type-mismatch', message: `Machine "${m.id}": recipe "${m.recipe}" requires ${recipe.machine}, but machine type is ${m.type}`, elementId: m.id });
+        }
+      }
+    } else if (m.recipe) {
+      // 非生产机器（splitter/merger/storage/lift）不应该有 recipe
+      issues.push({ severity: 'warn', rule: 'R21-unexpected-recipe', message: `Machine "${m.id}" (${m.type}) should not have recipe field`, elementId: m.id });
     }
   }
 
