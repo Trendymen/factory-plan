@@ -33,10 +33,10 @@ export function machineGridSize(dim: Dimensions, facing: Facing): { cols: number
 }
 
 export const SIDE_MAP: Record<Facing, Record<string, 'top' | 'bottom' | 'left' | 'right'>> = {
-  south: { front: 'bottom', back: 'top', left: 'right', right: 'left' },
-  north: { front: 'top', back: 'bottom', left: 'left', right: 'right' },
-  east:  { front: 'right', back: 'left', left: 'bottom', right: 'top' },
-  west:  { front: 'left', back: 'right', left: 'top', right: 'bottom' },
+  south: { front: 'bottom', back: 'top', left: 'right', right: 'left', top: 'top', bottom: 'bottom' },
+  north: { front: 'top', back: 'bottom', left: 'left', right: 'right', top: 'top', bottom: 'bottom' },
+  east:  { front: 'right', back: 'left', left: 'bottom', right: 'top', top: 'top', bottom: 'bottom' },
+  west:  { front: 'left', back: 'right', left: 'top', right: 'bottom', top: 'top', bottom: 'bottom' },
 };
 
 export function resolvePortPosition(
