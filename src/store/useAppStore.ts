@@ -10,44 +10,52 @@ function traceChain(scheme: Scheme, beltId: string): string[] {
   if (!belt) return [];
 
   ids.add(beltId);
-  const material = belt.material;
 
-  function traceUp(fromPort: string | undefined) {
-    if (!fromPort) return;
-    const machineId = fromPort.split(':')[0];
+  // lift pair 互指索引：machine id → 配对 machine id + pair id
+  const pairedMachine = new Map<string, string>();
+  const pairIdByMachine = new Map<string, string>();
+  for (const p of scheme.liftPairs) {
+    pairedMachine.set(p.bottomMachine, p.topMachine);
+    pairedMachine.set(p.topMachine, p.bottomMachine);
+    pairIdByMachine.set(p.bottomMachine, p.id);
+    pairIdByMachine.set(p.topMachine, p.id);
+  }
+
+  function visitMachine(machineId: string) {
+    if (ids.has(machineId)) return false;
     ids.add(machineId);
+    const pairId = pairIdByMachine.get(machineId);
+    if (pairId) ids.add(pairId);
+    return true;
+  }
+
+  function traceUp(machineId: string) {
+    if (!visitMachine(machineId)) return;
     for (const b of scheme.belts) {
       if (b.toPort?.startsWith(machineId + ':') && !ids.has(b.id)) {
         ids.add(b.id);
-        traceUp(b.fromPort);
+        if (b.fromPort) traceUp(b.fromPort.split(':')[0]);
       }
     }
-    for (const l of scheme.lifts) {
-      if (l.material === material && !ids.has(l.id)) {
-        if (l.connectedBelts?.some(bid => ids.has(bid))) ids.add(l.id);
-      }
-    }
+    // 跨越 lift pair 继续向上游追踪
+    const pairedId = pairedMachine.get(machineId);
+    if (pairedId) traceUp(pairedId);
   }
 
-  function traceDown(toPort: string | undefined) {
-    if (!toPort) return;
-    const machineId = toPort.split(':')[0];
-    ids.add(machineId);
+  function traceDown(machineId: string) {
+    if (!visitMachine(machineId)) return;
     for (const b of scheme.belts) {
       if (b.fromPort?.startsWith(machineId + ':') && !ids.has(b.id)) {
         ids.add(b.id);
-        traceDown(b.toPort);
+        if (b.toPort) traceDown(b.toPort.split(':')[0]);
       }
     }
-    for (const l of scheme.lifts) {
-      if (l.material === material && !ids.has(l.id)) {
-        if (l.connectedBelts?.some(bid => ids.has(bid))) ids.add(l.id);
-      }
-    }
+    const pairedId = pairedMachine.get(machineId);
+    if (pairedId) traceDown(pairedId);
   }
 
-  traceUp(belt.fromPort);
-  traceDown(belt.toPort);
+  if (belt.fromPort) traceUp(belt.fromPort.split(':')[0]);
+  if (belt.toPort) traceDown(belt.toPort.split(':')[0]);
   return [...ids];
 }
 

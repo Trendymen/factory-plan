@@ -22,7 +22,17 @@ export function CrossSectionView({ scheme }: CrossSectionViewProps) {
         yOffset += floorH + 20;
 
         const machines = scheme.machines.filter(m => m.floor === floor.id);
-        const lifts = scheme.lifts.filter(l => l.fromFloor === floor.id || l.toFloor === floor.id);
+        // 找到 pair 中属于本楼层的 machine + material
+        const floorLifts = scheme.liftPairs
+          .map(pair => {
+            const bot = scheme.machines.find(m => m.id === pair.bottomMachine);
+            const top = scheme.machines.find(m => m.id === pair.topMachine);
+            if (!bot || !top) return null;
+            if (bot.floor === floor.id) return { id: pair.id, pos: bot.pos, material: pair.material };
+            if (top.floor === floor.id) return { id: pair.id, pos: top.pos, material: pair.material };
+            return null;
+          })
+          .filter((x): x is { id: string; pos: { col: number; row: number }; material: string } => x !== null);
 
         return (
           <g key={floor.id}>
@@ -43,7 +53,7 @@ export function CrossSectionView({ scheme }: CrossSectionViewProps) {
                 </g>
               );
             })}
-            {lifts.map(l => {
+            {floorLifts.map(l => {
               const lX = PAD + l.pos.col * GRID_PX + 4;
               const color = getMaterialColor(l.material);
               return (

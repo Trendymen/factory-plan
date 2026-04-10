@@ -7,7 +7,7 @@ import { ZoneRenderer } from '../renderers/ZoneRenderer';
 import { MachineRenderer } from '../renderers/MachineRenderer';
 import { BeltRenderer } from '../renderers/BeltRenderer';
 import { BeltLabelLayer } from '../renderers/BeltLabelLayer';
-import { LiftRenderer } from '../renderers/LiftRenderer';
+import { LiftOverlay } from '../renderers/LiftRenderer';
 import { StructureRenderer } from '../renderers/StructureRenderer';
 
 interface FloorPlanViewProps {
@@ -38,7 +38,6 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
 
   const machines = scheme.machines.filter(m => m.floor === floorId);
   const belts = scheme.belts.filter(b => b.floor === floorId);
-  const lifts = scheme.lifts.filter(l => l.fromFloor === floorId || l.toFloor === floorId);
   const zones = scheme.zones.filter(z => z.floor === floorId);
   const structures = scheme.structures.filter(s => s.floor === floorId);
 
@@ -69,9 +68,14 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
       {layers.belts && (
         <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={select} />
       )}
-      {lifts.map(l => (
-        <LiftRenderer key={l.id} lift={l} highlight={isHighlighted(l.id)} dimmed={isDimmed(l.id)} onHover={hover} />
-      ))}
+      <LiftOverlay
+        pairs={scheme.liftPairs}
+        machines={scheme.machines}
+        floorId={floorId}
+        highlightChain={highlightChain}
+        onHover={hover}
+        onClick={select}
+      />
     </svg>
   );
 }
