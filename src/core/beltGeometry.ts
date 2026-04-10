@@ -2,9 +2,9 @@ import type { BeltSegment, Facing, GridPos, MachineInstance } from './types';
 import { getBuildingMeta } from './registry';
 import { METERS_PER_GRID, SIDE_MAP, machineGridSize } from './coordinate';
 
-type ScreenSide = 'top' | 'bottom' | 'left' | 'right';
+export type ScreenSide = 'top' | 'bottom' | 'left' | 'right';
 
-interface ResolvedPort {
+export interface ResolvedPort {
   pos: GridPos;
   screenSide: ScreenSide;
 }
@@ -141,6 +141,33 @@ export function buildBeltRenderPath(
   if (toPort) normalizeEnd(points, toPort);
 
   return dedupePoints(points);
+}
+
+/** fromPort 所在屏幕边对应的"外法线"方向角（SVG 旋转角度，单位度） */
+export function sideToOutwardAngleDeg(side: ScreenSide): number {
+  switch (side) {
+    case 'top':    return -90;
+    case 'bottom': return 90;
+    case 'left':   return 180;
+    case 'right':  return 0;
+  }
+}
+
+/**
+ * 判断传送带是否是"零空隙"连接：fromPort 与 toPort 解析后的物理位置重合。
+ * 返回 null 表示非零空隙，否则返回连接点和沿 fromPort 外法线的箭头方向。
+ */
+export function getBeltDegenerateInfo(
+  belt: BeltSegment,
+  machines: MachineInstance[],
+): { pos: GridPos; angleDeg: number } | null {
+  const fromPort = resolvePortGridRef(belt.fromPort, machines);
+  const toPort = resolvePortGridRef(belt.toPort, machines);
+  if (!fromPort || !toPort) return null;
+  if (Math.abs(fromPort.pos.col - toPort.pos.col) >= EPSILON) return null;
+  if (Math.abs(fromPort.pos.row - toPort.pos.row) >= EPSILON) return null;
+  // 箭头方向 = 物料从源机器流出的方向（fromPort 的外法线）
+  return { pos: fromPort.pos, angleDeg: sideToOutwardAngleDeg(fromPort.screenSide) };
 }
 
 export function getTerminalSegment(

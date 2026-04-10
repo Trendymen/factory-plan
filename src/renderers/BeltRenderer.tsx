@@ -2,7 +2,11 @@ import { memo } from 'react';
 import type { BeltSegment, MachineInstance } from '../core/types';
 import { gridToSvg } from '../core/coordinate';
 import { getMaterialColor } from '../core/registry';
-import { buildBeltRenderPath, getTerminalSegment } from '../core/beltGeometry';
+import {
+  buildBeltRenderPath,
+  getTerminalSegment,
+  getBeltDegenerateInfo,
+} from '../core/beltGeometry';
 
 interface BeltRendererProps {
   belt: BeltSegment;
@@ -36,6 +40,41 @@ export const BeltRenderer = memo(function BeltRenderer({
   belt, machines = [], highlight, selected, dimmed, onHover, onClick,
 }: BeltRendererProps) {
   const color = getMaterialColor(belt.material);
+
+  // 分流器/合流器端口连接色（degenerate/正常两个分支都要用）
+  const fromArrowColor = getLogisticsArrowColor(belt.fromPort, machines, true);
+  const toArrowColor = getLogisticsArrowColor(belt.toPort, machines, false);
+
+  const className = [
+    'belt-group',
+    selected && 'element-selected',
+    highlight && !selected && 'element-highlight',
+    dimmed && 'element-dimmed',
+  ].filter(Boolean).join(' ');
+
+  // ── 零空隙连接：fromPort 与 toPort 物理位置重合时只画一个箭头 ──
+  // 箭头颜色优先级：toPort 到分流/合流器(进线橙色) > fromPort 出分流/合流器(出线绿色) > 物料色
+  const degenerate = getBeltDegenerateInfo(belt, machines);
+  if (degenerate) {
+    const { x, y } = gridToSvg(degenerate.pos.col, degenerate.pos.row);
+    const portArrowColor = toArrowColor ?? fromArrowColor;
+    const arrowColor = portArrowColor ?? color;
+    const isPortArrow = portArrowColor !== null;
+    return (
+      <g className={className} onMouseEnter={() => onHover?.(belt.id)} onMouseLeave={() => onHover?.(null)}
+        onClick={() => onClick?.(belt.id)} style={{ cursor: 'pointer' }}>
+        {/* 透明命中区扩大点击面积 */}
+        <circle cx={x} cy={y} r={8} fill="transparent" />
+        <polygon
+          className={isPortArrow ? 'belt-port-arrow' : 'belt-arrow'}
+          points={isPortArrow ? '-5,-3.5 0,0 -5,3.5' : '-4,-2.5 0,0 -4,2.5'}
+          fill={arrowColor}
+          transform={`translate(${x},${y}) rotate(${degenerate.angleDeg})`}
+        />
+      </g>
+    );
+  }
+
   const renderPath = buildBeltRenderPath(belt, machines);
   if (renderPath.length < 2) return null;
 
@@ -45,9 +84,6 @@ export const BeltRenderer = memo(function BeltRenderer({
   const startSegment = getTerminalSegment(renderPath, 'start');
   const endSegment = getTerminalSegment(renderPath, 'end');
 
-  // 分流器/合流器端口连接色
-  const fromArrowColor = getLogisticsArrowColor(belt.fromPort, machines, true);
-  const toArrowColor = getLogisticsArrowColor(belt.toPort, machines, false);
   const endArrowColor = toArrowColor ?? color;
 
   // 起点箭头（仅在连接分流器/合流器输出端口时绘制）
@@ -61,13 +97,6 @@ export const BeltRenderer = memo(function BeltRenderer({
         transform={`translate(${f1.x},${f1.y}) rotate(${startAngle})`} />
     );
   }
-
-  const className = [
-    'belt-group',
-    selected && 'element-selected',
-    highlight && !selected && 'element-highlight',
-    dimmed && 'element-dimmed',
-  ].filter(Boolean).join(' ');
 
   return (
     <g className={className} onMouseEnter={() => onHover?.(belt.id)} onMouseLeave={() => onHover?.(null)}
