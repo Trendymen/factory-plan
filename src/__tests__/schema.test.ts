@@ -441,24 +441,16 @@ describe('iron-full-line-v2 方案校验', () => {
     expect(errors).toHaveLength(0);
   });
 
-  it('允许 warn 仅限 R2/R8 对齐 + R19 已知交叉（待 F2 layout v3 修复）', () => {
-    // NOTE: 当前 v2 F2 布局的 2 条垂直 trunk（plate + rod）与水平分发 belts
-    // 在拓扑上必然相交。R19 抓到 8 条交叉，全部是 known issue，等后续专门的
-    // F2 layout v3 任务重排整体布局。当前允许 R19 作为 tolerated warn。
-    const KNOWN_R19_CROSSINGS = 8;
+  it('仅允许 R2/R8 对齐 warn（来自 lift/storage 端口固有偏移）', () => {
     const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
     const warns = issues.filter(i => i.severity === 'warn');
     const unexpectedWarns = warns.filter(
-      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-') && w.rule !== 'R19-belt-cross',
+      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-'),
     );
     if (unexpectedWarns.length > 0) {
-      console.error('Unexpected non-alignment/non-R19 warns in v2:');
+      console.error('Unexpected non-alignment warns in v2:');
       unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
     }
     expect(unexpectedWarns).toHaveLength(0);
-
-    // R19 交叉数量不能增加（作为回归保护）
-    const r19Count = warns.filter(w => w.rule === 'R19-belt-cross').length;
-    expect(r19Count).toBeLessThanOrEqual(KNOWN_R19_CROSSINGS);
   });
 });
