@@ -26,7 +26,7 @@
       "heightM": 4,
       "gridSize": {
         "cols": 8,
-        "rows": 9
+        "rows": 10
       }
     }
   ],
@@ -156,7 +156,7 @@
       "type": "constructor",
       "pos": {
         "col": 1,
-        "row": 1
+        "row": 1.75
       },
       "facing": "south",
       "floor": 2,
@@ -168,7 +168,7 @@
       "type": "constructor",
       "pos": {
         "col": 2,
-        "row": 1
+        "row": 1.75
       },
       "facing": "south",
       "floor": 2,
@@ -180,7 +180,7 @@
       "type": "constructor",
       "pos": {
         "col": 4,
-        "row": 1
+        "row": 1.75
       },
       "facing": "south",
       "floor": 2,
@@ -192,7 +192,7 @@
       "type": "constructor",
       "pos": {
         "col": 5,
-        "row": 1
+        "row": 1.75
       },
       "facing": "south",
       "floor": 2,
@@ -203,8 +203,8 @@
       "id": "rip",
       "type": "assembler",
       "pos": {
-        "col": 0.875,
-        "row": 4
+        "col": 1.375,
+        "row": 4.75
       },
       "facing": "south",
       "floor": 2,
@@ -215,8 +215,8 @@
       "id": "rotor",
       "type": "assembler",
       "pos": {
-        "col": 3.875,
-        "row": 4
+        "col": 4.375,
+        "row": 4.75
       },
       "facing": "south",
       "floor": 2,
@@ -228,7 +228,7 @@
       "type": "storage",
       "pos": {
         "col": 1,
-        "row": 7
+        "row": 7.75
       },
       "facing": "south",
       "floor": 2,
@@ -238,8 +238,8 @@
       "id": "store_rip",
       "type": "storage",
       "pos": {
-        "col": 2,
-        "row": 7
+        "col": 1.6875,
+        "row": 7.75
       },
       "facing": "south",
       "floor": 2,
@@ -249,8 +249,8 @@
       "id": "store_rotor",
       "type": "storage",
       "pos": {
-        "col": 4,
-        "row": 7
+        "col": 4.6875,
+        "row": 7.75
       },
       "facing": "south",
       "floor": 2,
@@ -349,7 +349,7 @@
       "type": "splitter",
       "pos": {
         "col": 3.75,
-        "row": 0.25
+        "row": 0.5
       },
       "facing": "south",
       "floor": 2,
@@ -360,7 +360,7 @@
       "type": "splitter",
       "pos": {
         "col": 1.75,
-        "row": 0.5
+        "row": 1
       },
       "facing": "south",
       "floor": 2,
@@ -371,7 +371,7 @@
       "type": "splitter",
       "pos": {
         "col": 4.75,
-        "row": 0.5
+        "row": 1
       },
       "facing": "south",
       "floor": 2,
@@ -382,7 +382,7 @@
       "type": "merger",
       "pos": {
         "col": 1.75,
-        "row": 2.75
+        "row": 3
       },
       "facing": "south",
       "floor": 2,
@@ -393,7 +393,7 @@
       "type": "merger",
       "pos": {
         "col": 4.75,
-        "row": 2.75
+        "row": 3
       },
       "facing": "south",
       "floor": 2,
@@ -404,7 +404,7 @@
       "type": "splitter",
       "pos": {
         "col": 1.75,
-        "row": 3.25
+        "row": 3.75
       },
       "facing": "south",
       "floor": 2,
@@ -415,7 +415,7 @@
       "type": "merger",
       "pos": {
         "col": 4.75,
-        "row": 3.25
+        "row": 3.75
       },
       "facing": "south",
       "floor": 2,
@@ -426,7 +426,7 @@
       "type": "splitter",
       "pos": {
         "col": 0.75,
-        "row": 0.25
+        "row": 0.5
       },
       "facing": "south",
       "floor": 2,
@@ -603,8 +603,12 @@
           "row": 2.125
         },
         {
+          "col": 4.5,
+          "row": 2.25
+        },
+        {
           "col": 5,
-          "row": 2.125
+          "row": 2.25
         },
         {
           "col": 5,
@@ -669,8 +673,12 @@
           "row": 2.125
         },
         {
+          "col": 5.5,
+          "row": 2.25
+        },
+        {
           "col": 7,
-          "row": 2.125
+          "row": 2.25
         },
         {
           "col": 7,
@@ -815,15 +823,11 @@
         },
         {
           "col": 5.5,
-          "row": 5.25
+          "row": 5.75
         },
         {
           "col": 4.75,
-          "row": 5.25
-        },
-        {
-          "col": 4.75,
-          "row": 5.5
+          "row": 5.75
         }
       ],
       "fromPort": "rod2:out-0",
@@ -859,15 +863,11 @@
         },
         {
           "col": 7.5,
-          "row": 5.25
+          "row": 5.75
         },
         {
           "col": 6.75,
-          "row": 5.25
-        },
-        {
-          "col": 6.75,
-          "row": 5.5
+          "row": 5.75
         }
       ],
       "fromPort": "rod4:out-0",
@@ -890,10 +890,6 @@
         {
           "col": 5.25,
           "row": 6.25
-        },
-        {
-          "col": 5.25,
-          "row": 6
         }
       ],
       "fromPort": "mg_rod1:out-0",
@@ -916,10 +912,6 @@
         {
           "col": 5.75,
           "row": 6.25
-        },
-        {
-          "col": 5.75,
-          "row": 6
         }
       ],
       "fromPort": "mg_rod2:out-0",
@@ -950,15 +942,15 @@
       "path": [
         {
           "col": 5.5,
-          "row": 0
-        },
-        {
-          "col": 5.5,
           "row": 0.25
         },
         {
           "col": 4,
           "row": 0.25
+        },
+        {
+          "col": 4,
+          "row": 0.5
         }
       ],
       "toPort": "sp_rod_2f_1:in-0"
@@ -971,19 +963,19 @@
       "path": [
         {
           "col": 4,
-          "row": 0.75
+          "row": 1
         },
         {
           "col": 4,
-          "row": 3.75
+          "row": 4.5
         },
         {
-          "col": 4.25,
-          "row": 3.75
+          "col": 4.75,
+          "row": 4.5
         },
         {
-          "col": 4.25,
-          "row": 4
+          "col": 4.75,
+          "row": 4.75
         }
       ],
       "fromPort": "sp_rod_2f_1:out-0",
@@ -997,11 +989,15 @@
       "path": [
         {
           "col": 3.75,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 2,
-          "row": 0.5
+          "row": 0.75
+        },
+        {
+          "col": 2,
+          "row": 1
         }
       ],
       "fromPort": "sp_rod_2f_1:out-2",
@@ -1015,11 +1011,15 @@
       "path": [
         {
           "col": 4.25,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 5,
-          "row": 0.5
+          "row": 0.75
+        },
+        {
+          "col": 5,
+          "row": 1
         }
       ],
       "fromPort": "sp_rod_2f_1:out-1",
@@ -1033,15 +1033,15 @@
       "path": [
         {
           "col": 1.75,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 1.5,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 1.5,
-          "row": 1
+          "row": 1.75
         }
       ],
       "fromPort": "sp_rod_2f_2:out-2",
@@ -1055,15 +1055,15 @@
       "path": [
         {
           "col": 2.25,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 2.5,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 2.5,
-          "row": 1
+          "row": 1.75
         }
       ],
       "fromPort": "sp_rod_2f_2:out-1",
@@ -1077,15 +1077,15 @@
       "path": [
         {
           "col": 4.75,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 4.5,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 4.5,
-          "row": 1
+          "row": 1.75
         }
       ],
       "fromPort": "sp_rod_2f_3:out-2",
@@ -1099,15 +1099,15 @@
       "path": [
         {
           "col": 5.25,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 5.5,
-          "row": 0.75
+          "row": 1.25
         },
         {
           "col": 5.5,
-          "row": 1
+          "row": 1.75
         }
       ],
       "fromPort": "sp_rod_2f_3:out-1",
@@ -1121,15 +1121,15 @@
       "path": [
         {
           "col": 1.5,
-          "row": 2.25
+          "row": 3
         },
         {
           "col": 1.5,
-          "row": 2.75
+          "row": 3.25
         },
         {
           "col": 1.75,
-          "row": 2.75
+          "row": 3.25
         }
       ],
       "fromPort": "screw1:out-0",
@@ -1143,15 +1143,15 @@
       "path": [
         {
           "col": 2.5,
-          "row": 2.25
+          "row": 3
         },
         {
           "col": 2.5,
-          "row": 2.75
+          "row": 3.25
         },
         {
           "col": 2.25,
-          "row": 2.75
+          "row": 3.25
         }
       ],
       "fromPort": "screw2:out-0",
@@ -1165,15 +1165,15 @@
       "path": [
         {
           "col": 4.5,
-          "row": 2.25
+          "row": 3
         },
         {
           "col": 4.5,
-          "row": 2.75
+          "row": 3.25
         },
         {
           "col": 4.75,
-          "row": 2.75
+          "row": 3.25
         }
       ],
       "fromPort": "screw3:out-0",
@@ -1187,15 +1187,15 @@
       "path": [
         {
           "col": 5.5,
-          "row": 2.25
+          "row": 3
         },
         {
           "col": 5.5,
-          "row": 2.75
+          "row": 3.25
         },
         {
           "col": 5.25,
-          "row": 2.75
+          "row": 3.25
         }
       ],
       "fromPort": "screw4:out-0",
@@ -1209,11 +1209,11 @@
       "path": [
         {
           "col": 2,
-          "row": 3
+          "row": 3.5
         },
         {
           "col": 2,
-          "row": 3.25
+          "row": 3.75
         }
       ],
       "fromPort": "mg_screw_l:out-0",
@@ -1227,15 +1227,19 @@
       "path": [
         {
           "col": 2,
-          "row": 3.75
+          "row": 4.25
         },
         {
           "col": 2,
-          "row": 4
+          "row": 4.5
         },
         {
-          "col": 1.75,
-          "row": 4
+          "col": 2.25,
+          "row": 4.5
+        },
+        {
+          "col": 2.25,
+          "row": 4.75
         }
       ],
       "fromPort": "sp_screw_route:out-0",
@@ -1249,15 +1253,11 @@
       "path": [
         {
           "col": 2.25,
-          "row": 3.5
+          "row": 4
         },
         {
           "col": 4.75,
-          "row": 3.5
-        },
-        {
-          "col": 4.75,
-          "row": 3.25
+          "row": 4
         }
       ],
       "fromPort": "sp_screw_route:out-1",
@@ -1271,11 +1271,11 @@
       "path": [
         {
           "col": 5,
-          "row": 3
+          "row": 3.5
         },
         {
           "col": 5,
-          "row": 3.25
+          "row": 3.75
         }
       ],
       "fromPort": "mg_screw_r:out-0",
@@ -1289,15 +1289,19 @@
       "path": [
         {
           "col": 5,
-          "row": 3.75
+          "row": 4.25
         },
         {
           "col": 5,
-          "row": 4
+          "row": 4.5
         },
         {
-          "col": 4.75,
-          "row": 4
+          "col": 5.25,
+          "row": 4.5
+        },
+        {
+          "col": 5.25,
+          "row": 4.75
         }
       ],
       "fromPort": "mg_screw_rip:out-0",
@@ -1311,15 +1315,15 @@
       "path": [
         {
           "col": 1.5,
-          "row": 0
-        },
-        {
-          "col": 1.5,
           "row": 0.25
         },
         {
           "col": 1,
           "row": 0.25
+        },
+        {
+          "col": 1,
+          "row": 0.5
         }
       ],
       "toPort": "sp_plate_2f:in-0"
@@ -1332,19 +1336,19 @@
       "path": [
         {
           "col": 1,
-          "row": 0.75
+          "row": 1
         },
         {
           "col": 1,
-          "row": 3.75
+          "row": 4.5
         },
         {
-          "col": 1.25,
-          "row": 3.75
+          "col": 1.75,
+          "row": 4.5
         },
         {
-          "col": 1.25,
-          "row": 4
+          "col": 1.75,
+          "row": 4.75
         }
       ],
       "fromPort": "sp_plate_2f:out-0",
@@ -1358,23 +1362,23 @@
       "path": [
         {
           "col": 0.75,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 0.5,
-          "row": 0.5
+          "row": 0.75
         },
         {
           "col": 0.5,
-          "row": 7.25
+          "row": 7.5
         },
         {
-          "col": 1.25,
-          "row": 7.25
+          "col": 1.3125,
+          "row": 7.5
         },
         {
-          "col": 1.25,
-          "row": 7
+          "col": 1.3125,
+          "row": 7.75
         }
       ],
       "fromPort": "sp_plate_2f:out-2",
@@ -1387,20 +1391,12 @@
       "material": "强化铁板",
       "path": [
         {
-          "col": 1.5,
-          "row": 6
-        },
-        {
-          "col": 1.5,
+          "col": 2,
           "row": 6.75
         },
         {
-          "col": 2.25,
-          "row": 6.75
-        },
-        {
-          "col": 2.25,
-          "row": 7
+          "col": 2,
+          "row": 7.75
         }
       ],
       "fromPort": "rip:out-0",
@@ -1413,20 +1409,12 @@
       "material": "转子",
       "path": [
         {
-          "col": 4.5,
-          "row": 6
-        },
-        {
-          "col": 4.5,
+          "col": 5,
           "row": 6.75
         },
         {
-          "col": 4.25,
-          "row": 6.75
-        },
-        {
-          "col": 4.25,
-          "row": 7
+          "col": 5,
+          "row": 7.75
         }
       ],
       "fromPort": "rotor:out-0",

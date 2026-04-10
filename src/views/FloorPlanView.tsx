@@ -23,6 +23,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const viewport = useAppStore(s => s.viewport);
   const layers = useAppStore(s => s.layers);
   const highlightChain = useAppStore(s => s.highlightChain);
+  const selectedId = useAppStore(s => s.selectedId);
   const setViewport = useAppStore(s => s.setViewport);
   const hover = useAppStore(s => s.hover);
   const select = useAppStore(s => s.select);
@@ -90,10 +91,10 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
         <MachineRenderer key={m.id} machine={m} highlight={isHighlighted(m.id)} dimmed={isDimmed(m.id)} onHover={hover} onClick={select} />
       ))}
       {layers.belts && belts.map(b => (
-        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
+        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} selected={b.id === selectedId} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
       ))}
       {layers.belts && (
-        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} onHover={hover} onClick={select} />
+        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={select} />
       )}
       {lifts.map(l => (
         <LiftRenderer key={l.id} lift={l} highlight={isHighlighted(l.id)} dimmed={isDimmed(l.id)} onHover={hover} />

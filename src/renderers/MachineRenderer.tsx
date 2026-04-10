@@ -60,8 +60,8 @@ export const MachineRenderer = memo(function MachineRenderer({
         <rect x={bx} y={by} width={bw} height={bh} />
       </clipPath>
       <g clipPath={`url(#clip-${machine.id})`}>
-        <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 3)}
-          textAnchor="middle" style={{ fontSize: labelFontSize, fill: labelColor }}>
+        <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 0)}
+          textAnchor="middle" dominantBaseline="central" style={{ fontSize: labelFontSize, fill: labelColor }}>
           {displayLabel}
         </text>
         {subLabel && !isSmall && (

@@ -1,9 +1,10 @@
 // src/core/labelLayout.ts — 传送带标签碰撞避让算法
 // 使用统一碰撞检测模块，同时避让其他标签和传送带线段
 import type { BeltSegment, MachineInstance } from './types';
-import { gridToSvg, resolvePortPosition, machineGridSize, GRID_PX } from './coordinate';
+import { gridToSvg, machineGridSize, GRID_PX } from './coordinate';
 import { getMaterialColor, getBuildingMeta } from './registry';
 import { type Rect, rectFromCenter, rectFromPos, rectsOverlap } from './collision';
+import { buildBeltRenderPath } from './beltGeometry';
 
 /* ── 类型 ── */
 
@@ -21,28 +22,9 @@ export interface BeltLabelPlacement {
 
 /* ── 工具函数 ── */
 
-/** 解析端口引用 "machineId:portId" → SVG 坐标 */
-function resolvePortRef(ref: string | undefined, machines: MachineInstance[]): Point | null {
-  if (!ref) return null;
-  const [machineId, portId] = ref.split(':');
-  const machine = machines.find(m => m.id === machineId);
-  if (!machine) return null;
-  try {
-    const meta = getBuildingMeta(machine.type);
-    const portDef = meta.ports.find(p => p.id === portId);
-    if (!portDef) return null;
-    return resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);
-  } catch { return null; }
-}
-
-/** 将传送带路径转为 SVG 坐标，端点吸附到端口 */
+/** 将传送带路径转为 SVG 坐标，使用与渲染一致的端口桥接逻辑 */
 function beltSvgPoints(belt: BeltSegment, machines: MachineInstance[]): Point[] {
-  const pts = belt.path.map(p => gridToSvg(p.col, p.row));
-  const from = resolvePortRef(belt.fromPort, machines);
-  if (from) pts[0] = from;
-  const to = resolvePortRef(belt.toPort, machines);
-  if (to) pts[pts.length - 1] = to;
-  return pts;
+  return buildBeltRenderPath(belt, machines).map(point => gridToSvg(point.col, point.row));
 }
 
 /** 将线段膨胀为带厚度的 Rect（用于传送带线障碍物） */
@@ -58,12 +40,26 @@ function segmentToObstacle(a: Point, b: Point, halfW: number): Rect {
   return { x1: a.x - halfW, y1: minY, x2: a.x + halfW, y2: maxY };
 }
 
+/* ── 常量 ── */
+
+const LABEL_H = 12;
+const COLLISION_PAD_X = 4;
+const COLLISION_PAD_Y = 2;
+/** 传送带线障碍物的半宽（线宽最大3.5 + 视觉间距） */
+const BELT_LINE_HALF_W = 5;
+/** 机器障碍物外扩 padding（像素） */
+const MACHINE_PAD = 2;
+
 /* ── 候选位置生成 ── */
 
 interface Candidate { x: number; y: number }
 
-/** 沿传送带各线段生成候选标签位置（按优先级排序） */
-function generateCandidates(pts: Point[]): Candidate[] {
+/**
+ * 沿传送带各线段生成候选标签位置。
+ * 按距离优先排序：近距离的所有(seg,t)组合排在前面，再考虑远距离。
+ * 这样回退时优先选最近的可用位置。
+ */
+function generateCandidates(pts: Point[], labelW: number): Candidate[] {
   const segs: { i: number; len: number }[] = [];
   for (let i = 0; i < pts.length - 1; i++) {
     const dx = pts[i + 1].x - pts[i].x;
@@ -73,19 +69,26 @@ function generateCandidates(pts: Point[]): Candidate[] {
   segs.sort((a, b) => b.len - a.len);
 
   const tValues = [0.5, 0.35, 0.65, 0.2, 0.8];
-  const distances = [14, 22, 30, 40, 52]; // 足够远离机器主体
+  // 边距（标签近边到线段近边的间距），水平/垂直统一
+  const gaps = [1, 6, 12, 20];
+
+  // 距离优先：先遍历 gap 层，再遍历 seg 和 t
   const candidates: Candidate[] = [];
+  for (const gap of gaps) {
+    for (const seg of segs) {
+      const a = pts[seg.i];
+      const b = pts[seg.i + 1];
+      const horiz = Math.abs(a.y - b.y) < 1;
+      // 中心距 = 线段半宽 + 间距 + 标签半尺寸
+      const d = horiz
+        ? BELT_LINE_HALF_W + gap + LABEL_H / 2     // 上下偏移：用标签半高
+        : BELT_LINE_HALF_W + gap + (labelW + COLLISION_PAD_X) / 2; // 左右偏移：用标签半宽
+      const maxDist = Math.max(seg.len * 0.8, d + 2);
+      if (d > maxDist) continue;
 
-  for (const seg of segs) {
-    const a = pts[seg.i];
-    const b = pts[seg.i + 1];
-    const horiz = Math.abs(a.y - b.y) < 1;
-
-    for (const t of tValues) {
-      const mx = a.x + (b.x - a.x) * t;
-      const my = a.y + (b.y - a.y) * t;
-
-      for (const d of distances) {
+      for (const t of tValues) {
+        const mx = a.x + (b.x - a.x) * t;
+        const my = a.y + (b.y - a.y) * t;
         if (horiz) {
           candidates.push({ x: mx, y: my - d }); // 上方
           candidates.push({ x: mx, y: my + d }); // 下方
@@ -100,15 +103,6 @@ function generateCandidates(pts: Point[]): Candidate[] {
 }
 
 /* ── 主算法：贪心放置 ── */
-
-const LABEL_H = 12;
-const COLLISION_PAD_X = 4;
-const COLLISION_PAD_Y = 2;
-/** 传送带线障碍物的半宽（线宽最大3.5 + 视觉间距） */
-const BELT_LINE_HALF_W = 5;
-
-/** 机器障碍物外扩 padding（像素） */
-const MACHINE_PAD = 6;
 
 /**
  * 为一组传送带计算不重叠的标签位置。
@@ -141,14 +135,19 @@ export function computeBeltLabelPositions(
     } catch { /* unknown type, skip */ }
   }
 
-  // 传送带线段作为软障碍物
+  // 传送带线段作为软障碍物（按 belt id 分组，区分自己和别人的线）
+  const softByBelt = new Map<string, Rect[]>();
   for (const belt of belts) {
     if (belt.path.length < 2) continue;
     const pts = beltSvgPoints(belt, machines);
     beltPointsMap.set(belt.id, pts);
+    const rects: Rect[] = [];
     for (let i = 0; i < pts.length - 1; i++) {
-      softObstacles.push(segmentToObstacle(pts[i], pts[i + 1], BELT_LINE_HALF_W));
+      const r = segmentToObstacle(pts[i], pts[i + 1], BELT_LINE_HALF_W);
+      softObstacles.push(r);
+      rects.push(r);
     }
+    softByBelt.set(belt.id, rects);
   }
 
   // ── 2. 贪心放置标签 ──
@@ -159,7 +158,7 @@ export function computeBeltLabelPositions(
     const pts = beltPointsMap.get(belt.id);
     if (!pts) continue;
 
-    // 短连接带（两端都绑定机器且路径 < 60px）跳过标签
+    // 极短连接带（< 30px）跳过标签
     if (belt.fromPort && belt.toPort && pts.length >= 2) {
       let totalLen = 0;
       for (let i = 0; i < pts.length - 1; i++) {
@@ -167,7 +166,7 @@ export function computeBeltLabelPositions(
         const dy = pts[i + 1].y - pts[i].y;
         totalLen += Math.sqrt(dx * dx + dy * dy);
       }
-      if (totalLen < 60) continue;
+      if (totalLen < 30) continue;
     }
 
     const color = getMaterialColor(belt.material);
@@ -175,34 +174,43 @@ export function computeBeltLabelPositions(
     const colW = charW + COLLISION_PAD_X;
     const colH = LABEL_H + COLLISION_PAD_Y;
 
-    const candidates = generateCandidates(pts);
+    const candidates = generateCandidates(pts, charW);
     if (candidates.length === 0) continue;
 
-    function hitsHard(c: Candidate): boolean {
+    const selfLines = softByBelt.get(belt.id) ?? [];
+    // 碰别人的传送带线 = soft（不理想但可接受回退）
+    // 碰自己的传送带线 = 忽略（标签本来就在自己线旁边）
+    const otherLines = softObstacles.filter(so => !selfLines.includes(so));
+
+    function test(c: Candidate): 'perfect' | 'soft' | 'hard' {
       const rect = rectFromCenter(c.x, c.y, colW, colH);
-      if (placedLabelRects.some(pr => rectsOverlap(rect, pr))) return true;
-      if (hardObstacles.some(ho => rectsOverlap(rect, ho))) return true;
-      return false;
-    }
-    function hitsSoft(c: Candidate): boolean {
-      const rect = rectFromCenter(c.x, c.y, colW, colH);
-      return softObstacles.some(so => rectsOverlap(rect, so));
+      if (placedLabelRects.some(pr => rectsOverlap(rect, pr))) return 'hard';
+      if (hardObstacles.some(ho => rectsOverlap(rect, ho))) return 'hard';
+      if (otherLines.some(ol => rectsOverlap(rect, ol))) return 'soft';
+      return 'perfect';
     }
 
-    // Phase 1：找完全无重叠的位置
+    // 候选按距离排序（近→远）。
+    // 规则：距离近的 soft 优于距离远的 perfect（宁可贴着传送带线也不飘远）。
+    // 实现：记录第一个 soft，遇到 perfect 时只有距离更近才选。
     let chosen: Candidate | null = null;
+    let firstSoft: Candidate | null = null;
     for (const c of candidates) {
-      if (!hitsHard(c) && !hitsSoft(c)) { chosen = c; break; }
-    }
-
-    // Phase 2：允许软重叠（传送带线），但不允许硬重叠（机器/标签）
-    if (!chosen) {
-      for (const c of candidates) {
-        if (!hitsHard(c)) { chosen = c; break; }
+      const r = test(c);
+      if (r === 'perfect') {
+        if (firstSoft) {
+          // 已有更近的 soft 候选，用那个
+          chosen = firstSoft;
+        } else {
+          chosen = c;
+        }
+        break;
       }
+      if (r === 'soft' && !firstSoft) firstSoft = c;
     }
+    if (!chosen) chosen = firstSoft;
 
-    // Phase 3：仍无结果 → 不放置标签（不在机器上强行显示）
+    // 无可用位置 → 不放置标签
     if (!chosen) continue;
 
     placements.push({

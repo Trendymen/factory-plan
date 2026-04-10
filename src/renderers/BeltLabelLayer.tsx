@@ -6,6 +6,7 @@ interface BeltLabelLayerProps {
   belts: BeltSegment[];
   machines: MachineInstance[];
   highlightChain: string[];
+  selectedId: string | null;
   onHover?: (id: string | null) => void;
   onClick?: (id: string) => void;
 }
@@ -15,7 +16,7 @@ interface BeltLabelLayerProps {
  * 标签位置由贪心算法计算，确保不重叠。
  */
 export const BeltLabelLayer = memo(function BeltLabelLayer({
-  belts, machines, highlightChain, onHover, onClick,
+  belts, machines, highlightChain, selectedId, onHover, onClick,
 }: BeltLabelLayerProps) {
   const placements = useMemo(
     () => computeBeltLabelPositions(belts, machines),
@@ -28,14 +29,19 @@ export const BeltLabelLayer = memo(function BeltLabelLayer({
     <g className="belt-label-layer">
       {placements.map(p => {
         const halfW = p.width / 2;
+        const isSelected = p.id === selectedId;
         const isHighlighted = highlightChain.includes(p.id);
         const isDimmed = hasHighlight && !isHighlighted;
 
         const className = [
           'belt-group',
-          isHighlighted && 'element-highlight',
+          isSelected && 'element-selected',
+          isHighlighted && !isSelected && 'element-highlight',
           isDimmed && 'element-dimmed',
         ].filter(Boolean).join(' ');
+
+        const strokeW = isSelected ? 1.2 : 0.4;
+        const bgOpacity = isSelected ? 1 : 0.9;
 
         return (
           <g key={p.id} className={className}
@@ -46,7 +52,7 @@ export const BeltLabelLayer = memo(function BeltLabelLayer({
             transform={`translate(${p.x},${p.y})`}
           >
             <rect x={-halfW} y={-6} width={p.width} height={12} rx={2}
-              fill="#080c12" fillOpacity={0.9} stroke={p.color} strokeWidth={0.4} />
+              fill="#080c12" fillOpacity={bgOpacity} stroke={p.color} strokeWidth={strokeW} />
             <text className="belt-label" textAnchor="middle" dominantBaseline="central"
               y={0} fill={p.color} style={{ fontSize: 7 }}>
               {p.text}

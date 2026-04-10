@@ -621,6 +621,13 @@ body {
   filter: brightness(1.4) drop-shadow(0 0 3px var(--highlight));
 }
 
+.element-selected {
+  filter: brightness(1.8) drop-shadow(0 0 6px var(--highlight)) drop-shadow(0 0 12px var(--highlight));
+}
+.element-selected .belt-line {
+  stroke-width: 4 !important;
+}
+
 .element-dimmed {
   opacity: var(--dimmed-opacity);
 }
