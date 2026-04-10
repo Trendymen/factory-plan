@@ -1,0 +1,808 @@
+{
+  "id": "iron-full-line-v2",
+  "name": "铁矿全产线 v2",
+  "version": "2.0.0",
+  "category": "iron",
+  "description": "铁矿石→铁锭→铁板/铁棒→螺丝→强化铁板+转子 全产线，2层工厂，Mk.1传送带（升降机一等机器化 + F2 南向北重建）",
+  "designPrinciples": {
+    "preferWallOutlets": false,
+    "preferWallHoles": false,
+    "preferCeilingMounts": false,
+    "keepFloorClear": false
+  },
+  "floors": [
+    {
+      "id": 1,
+      "label": "1F 冶炼 & 制造",
+      "heightM": 4,
+      "gridSize": {
+        "cols": 8,
+        "rows": 7
+      }
+    },
+    {
+      "id": 2,
+      "label": "2F 组装 & 成品",
+      "heightM": 4,
+      "gridSize": {
+        "cols": 8,
+        "rows": 10
+      }
+    }
+  ],
+  "machines": [
+    {
+      "id": "smelter1",
+      "type": "smelter",
+      "pos": {
+        "col": 1.125,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #1",
+      "recipe": "铁矿石→铁锭"
+    },
+    {
+      "id": "smelter2",
+      "type": "smelter",
+      "pos": {
+        "col": 2.125,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #2",
+      "recipe": "铁矿石→铁锭"
+    },
+    {
+      "id": "smelter3",
+      "type": "smelter",
+      "pos": {
+        "col": 4.125,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #3",
+      "recipe": "铁矿石→铁锭"
+    },
+    {
+      "id": "smelter4",
+      "type": "smelter",
+      "pos": {
+        "col": 5.125,
+        "row": 1
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "冶炼炉 #4",
+      "recipe": "铁矿石→铁锭"
+    },
+    {
+      "id": "plate1",
+      "type": "constructor",
+      "pos": {
+        "col": 1,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁板机 #1",
+      "recipe": "铁锭×3→铁板×2"
+    },
+    {
+      "id": "plate2",
+      "type": "constructor",
+      "pos": {
+        "col": 2,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁板机 #2",
+      "recipe": "铁锭×3→铁板×2"
+    },
+    {
+      "id": "rod1",
+      "type": "constructor",
+      "pos": {
+        "col": 4,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #1",
+      "recipe": "铁锭→铁棒"
+    },
+    {
+      "id": "rod2",
+      "type": "constructor",
+      "pos": {
+        "col": 5,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #2",
+      "recipe": "铁锭→铁棒"
+    },
+    {
+      "id": "rod3",
+      "type": "constructor",
+      "pos": {
+        "col": 6,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #3",
+      "recipe": "铁锭→铁棒"
+    },
+    {
+      "id": "rod4",
+      "type": "constructor",
+      "pos": {
+        "col": 7,
+        "row": 3
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒机 #4",
+      "recipe": "铁锭→铁棒"
+    },
+    {
+      "id": "sp_ore1",
+      "type": "splitter",
+      "pos": {
+        "col": 1.75,
+        "row": 0.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "矿石分流 左组"
+    },
+    {
+      "id": "sp_ore2",
+      "type": "splitter",
+      "pos": {
+        "col": 4.75,
+        "row": 0.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "矿石分流 右组"
+    },
+    {
+      "id": "sp_ingot1",
+      "type": "splitter",
+      "pos": {
+        "col": 4.75,
+        "row": 2.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁锭分流 棒1-2"
+    },
+    {
+      "id": "sp_ingot2",
+      "type": "splitter",
+      "pos": {
+        "col": 6.75,
+        "row": 2.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁锭分流 棒3-4"
+    },
+    {
+      "id": "mg_plate",
+      "type": "merger",
+      "pos": {
+        "col": 1.75,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁板合流"
+    },
+    {
+      "id": "mg_rod1",
+      "type": "merger",
+      "pos": {
+        "col": 4.25,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒合流 1-2"
+    },
+    {
+      "id": "mg_rod2",
+      "type": "merger",
+      "pos": {
+        "col": 6.25,
+        "row": 5.5
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒合流 3-4"
+    },
+    {
+      "id": "mg_rod_final",
+      "type": "merger",
+      "pos": {
+        "col": 5.25,
+        "row": 6
+      },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁棒总合流"
+    }
+  ],
+  "belts": [
+    {
+      "id": "b_ore_in",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 2,
+          "row": 0
+        },
+        {
+          "col": 2,
+          "row": 0.5
+        }
+      ],
+      "toPort": "sp_ore1:in-0"
+    },
+    {
+      "id": "b_ore_l1",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 1.75,
+          "row": 0.75
+        },
+        {
+          "col": 1.5,
+          "row": 0.75
+        },
+        {
+          "col": 1.5,
+          "row": 1
+        }
+      ],
+      "fromPort": "sp_ore1:out-2",
+      "toPort": "smelter1:in-0"
+    },
+    {
+      "id": "b_ore_l2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 2.25,
+          "row": 0.75
+        },
+        {
+          "col": 2.5,
+          "row": 0.75
+        },
+        {
+          "col": 2.5,
+          "row": 1
+        }
+      ],
+      "fromPort": "sp_ore1:out-1",
+      "toPort": "smelter2:in-0"
+    },
+    {
+      "id": "b_ore_in2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 5,
+          "row": 0
+        },
+        {
+          "col": 5,
+          "row": 0.5
+        }
+      ],
+      "toPort": "sp_ore2:in-0"
+    },
+    {
+      "id": "b_ore_r1",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 4.75,
+          "row": 0.75
+        },
+        {
+          "col": 4.5,
+          "row": 0.75
+        },
+        {
+          "col": 4.5,
+          "row": 1
+        }
+      ],
+      "fromPort": "sp_ore2:out-2",
+      "toPort": "smelter3:in-0"
+    },
+    {
+      "id": "b_ore_r2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁矿石",
+      "path": [
+        {
+          "col": 5.25,
+          "row": 0.75
+        },
+        {
+          "col": 5.5,
+          "row": 0.75
+        },
+        {
+          "col": 5.5,
+          "row": 1
+        }
+      ],
+      "fromPort": "sp_ore2:out-1",
+      "toPort": "smelter4:in-0"
+    },
+    {
+      "id": "b_ingot_s1",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 2.125
+        },
+        {
+          "col": 1.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "smelter1:out-0",
+      "toPort": "plate1:in-0"
+    },
+    {
+      "id": "b_ingot_s2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 2.5,
+          "row": 2.125
+        },
+        {
+          "col": 2.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "smelter2:out-0",
+      "toPort": "plate2:in-0"
+    },
+    {
+      "id": "b_ingot_s3",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 2.125
+        },
+        {
+          "col": 4.5,
+          "row": 2.25
+        },
+        {
+          "col": 5,
+          "row": 2.25
+        },
+        {
+          "col": 5,
+          "row": 2.5
+        }
+      ],
+      "fromPort": "smelter3:out-0",
+      "toPort": "sp_ingot1:in-0"
+    },
+    {
+      "id": "b_ingot_sp1_l",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 4.75,
+          "row": 2.75
+        },
+        {
+          "col": 4.5,
+          "row": 2.75
+        },
+        {
+          "col": 4.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "sp_ingot1:out-2",
+      "toPort": "rod1:in-0"
+    },
+    {
+      "id": "b_ingot_sp1_r",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 5.25,
+          "row": 2.75
+        },
+        {
+          "col": 5.5,
+          "row": 2.75
+        },
+        {
+          "col": 5.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "sp_ingot1:out-1",
+      "toPort": "rod2:in-0"
+    },
+    {
+      "id": "b_ingot_s4",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 2.125
+        },
+        {
+          "col": 5.5,
+          "row": 2.25
+        },
+        {
+          "col": 7,
+          "row": 2.25
+        },
+        {
+          "col": 7,
+          "row": 2.5
+        }
+      ],
+      "fromPort": "smelter4:out-0",
+      "toPort": "sp_ingot2:in-0"
+    },
+    {
+      "id": "b_ingot_sp2_l",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 6.75,
+          "row": 2.75
+        },
+        {
+          "col": 6.5,
+          "row": 2.75
+        },
+        {
+          "col": 6.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "sp_ingot2:out-2",
+      "toPort": "rod3:in-0"
+    },
+    {
+      "id": "b_ingot_sp2_r",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁锭",
+      "path": [
+        {
+          "col": 7.25,
+          "row": 2.75
+        },
+        {
+          "col": 7.5,
+          "row": 2.75
+        },
+        {
+          "col": 7.5,
+          "row": 3
+        }
+      ],
+      "fromPort": "sp_ingot2:out-1",
+      "toPort": "rod4:in-0"
+    },
+    {
+      "id": "b_plate_p1",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁板",
+      "path": [
+        {
+          "col": 1.5,
+          "row": 4.25
+        },
+        {
+          "col": 1.5,
+          "row": 5.75
+        },
+        {
+          "col": 1.75,
+          "row": 5.75
+        }
+      ],
+      "fromPort": "plate1:out-0",
+      "toPort": "mg_plate:in-2"
+    },
+    {
+      "id": "b_plate_p2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁板",
+      "path": [
+        {
+          "col": 2.5,
+          "row": 4.25
+        },
+        {
+          "col": 2.5,
+          "row": 5.75
+        },
+        {
+          "col": 2.25,
+          "row": 5.75
+        }
+      ],
+      "fromPort": "plate2:out-0",
+      "toPort": "mg_plate:in-1"
+    },
+    {
+      "id": "b_rod_r1",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 4.25
+        },
+        {
+          "col": 4.5,
+          "row": 5.5
+        }
+      ],
+      "fromPort": "rod1:out-0",
+      "toPort": "mg_rod1:in-0"
+    },
+    {
+      "id": "b_rod_r2",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 5.5,
+          "row": 4.25
+        },
+        {
+          "col": 5.5,
+          "row": 5.75
+        },
+        {
+          "col": 4.75,
+          "row": 5.75
+        }
+      ],
+      "fromPort": "rod2:out-0",
+      "toPort": "mg_rod1:in-1"
+    },
+    {
+      "id": "b_rod_r3",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 6.5,
+          "row": 4.25
+        },
+        {
+          "col": 6.5,
+          "row": 5.5
+        }
+      ],
+      "fromPort": "rod3:out-0",
+      "toPort": "mg_rod2:in-0"
+    },
+    {
+      "id": "b_rod_r4",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 7.5,
+          "row": 4.25
+        },
+        {
+          "col": 7.5,
+          "row": 5.75
+        },
+        {
+          "col": 6.75,
+          "row": 5.75
+        }
+      ],
+      "fromPort": "rod4:out-0",
+      "toPort": "mg_rod2:in-1"
+    },
+    {
+      "id": "b_rod_mg1_out",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 4.5,
+          "row": 6
+        },
+        {
+          "col": 4.5,
+          "row": 6.25
+        },
+        {
+          "col": 5.25,
+          "row": 6.25
+        }
+      ],
+      "fromPort": "mg_rod1:out-0",
+      "toPort": "mg_rod_final:in-2"
+    },
+    {
+      "id": "b_rod_mg2_out",
+      "floor": 1,
+      "mark": 1,
+      "material": "铁棒",
+      "path": [
+        {
+          "col": 6.5,
+          "row": 6
+        },
+        {
+          "col": 6.5,
+          "row": 6.25
+        },
+        {
+          "col": 5.75,
+          "row": 6.25
+        }
+      ],
+      "fromPort": "mg_rod2:out-0",
+      "toPort": "mg_rod_final:in-1"
+    }
+  ],
+  "liftPairs": [],
+  "structures": [],
+  "zones": [
+    {
+      "id": "f1-feed",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "trunk",
+      "label": "主物流带 · 矿石输入"
+    },
+    {
+      "id": "f1-walk",
+      "floor": 1,
+      "pos": {
+        "col": 3,
+        "row": 1
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "maintenance",
+      "label": "维护走道"
+    },
+    {
+      "id": "f1-left-buffer",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 3
+      },
+      "size": {
+        "w": 1,
+        "h": 2
+      },
+      "kind": "reserve",
+      "label": "电力 / 缓冲"
+    },
+    {
+      "id": "f1-right-reserve",
+      "floor": 1,
+      "pos": {
+        "col": 6,
+        "row": 1
+      },
+      "size": {
+        "w": 2,
+        "h": 1.5
+      },
+      "kind": "reserve",
+      "label": "扩产预留"
+    },
+    {
+      "id": "f1-front",
+      "floor": 1,
+      "pos": {
+        "col": 0,
+        "row": 6
+      },
+      "size": {
+        "w": 8,
+        "h": 1
+      },
+      "kind": "front",
+      "label": "前场缓冲 · 升降机/出货"
+    }
+  ],
+  "stats": {
+    "totalPowerMW": 86,
+    "inputs": [
+      {
+        "material": "铁矿石",
+        "rate": 120
+      }
+    ],
+    "outputs": [
+      {
+        "material": "铁板",
+        "rate": 10
+      },
+      {
+        "material": "强化铁板",
+        "rate": 5
+      },
+      {
+        "material": "转子",
+        "rate": 2.4
+      }
+    ]
+  }
+}
