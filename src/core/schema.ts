@@ -1,5 +1,5 @@
 // src/core/schema.ts
-import type { Scheme, SchemeIndex, GridPos, Facing } from './types';
+import type { Scheme, SchemeIndex, GridPos, Facing, MachineInstance } from './types';
 import { BUILDING_REGISTRY } from './registry';
 import {
   type Rect, machineRect, rectFromSegment,
@@ -44,6 +44,26 @@ function isValidPortRef(ref: string): boolean {
 }
 
 // ============================================================
+// R18 辅助：lift pair 两端在各楼层 transform 之后是否落到同一屏幕坐标
+// 当前所有 floor.transform 为 identity，退化为 pos 相等比较。
+// 未来引入 Floor.transform 后，只需修改本函数实现，不改签名和调用点。
+// ============================================================
+function liftPairAligned(
+  bot: MachineInstance,
+  top: MachineInstance,
+  _scheme: Scheme,
+): boolean {
+  return Math.abs(bot.pos.col - top.pos.col) < 0.001
+      && Math.abs(bot.pos.row - top.pos.row) < 0.001;
+}
+
+// 合法的 pair 类型组合：bottom machine 类型 → 对应合法的 top machine 类型
+const LIFT_PAIR_COMBOS: Record<string, string> = {
+  'conveyor-lift-in-bottom':  'conveyor-lift-out-top',   // 向上运输
+  'conveyor-lift-out-bottom': 'conveyor-lift-in-top',    // 向下运输
+};
+
+// ============================================================
 // 主验证函数
 // ============================================================
 export function validateScheme(scheme: Scheme): string[] {
@@ -55,7 +75,6 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const floorIds = new Set(scheme.floors.map(f => f.id));
   const machineIds = new Set(scheme.machines.map(m => m.id));
-  const beltIds = new Set(scheme.belts.map(b => b.id));
 
   // 构建楼层边界映射
   const floorBounds = new Map<number, { cols: number; rows: number }>();
@@ -95,9 +114,8 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
 
   // ----------------------------------------------------------
   // R4: 传送带必须有 fromPort 和 toPort
-  // （升降机连接的传送带、楼层边界外部输入/输出除外）
+  // （楼层边界外部输入/输出除外）
   // ----------------------------------------------------------
-  const liftConnectedBelts = new Set(scheme.lifts.flatMap(l => l.connectedBelts ?? []));
   function isAtFloorEdge(b: { floor: number; path: GridPos[] }, end: 'start' | 'end'): boolean {
     const bounds = floorBounds.get(b.floor);
     if (!bounds) return false;
@@ -105,10 +123,10 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     return p.col <= 0 || p.row <= 0 || p.col >= bounds.cols || p.row >= bounds.rows;
   }
   for (const b of scheme.belts) {
-    if (!b.fromPort && !liftConnectedBelts.has(b.id) && !isAtFloorEdge(b, 'start')) {
+    if (!b.fromPort && !isAtFloorEdge(b, 'start')) {
       issues.push({ severity: 'warn', rule: 'R4-fromPort', message: `Belt "${b.id}": missing fromPort`, elementId: b.id });
     }
-    if (!b.toPort && !liftConnectedBelts.has(b.id) && !isAtFloorEdge(b, 'end')) {
+    if (!b.toPort && !isAtFloorEdge(b, 'end')) {
       issues.push({ severity: 'warn', rule: 'R4-toPort', message: `Belt "${b.id}": missing toPort`, elementId: b.id });
     }
 
@@ -165,31 +183,12 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
-  // R10: 升降机验证
-  // ----------------------------------------------------------
-  for (const l of scheme.lifts) {
-    if (!floorIds.has(l.fromFloor)) {
-      issues.push({ severity: 'error', rule: 'R10-floor', message: `Lift "${l.id}": non-existent fromFloor ${l.fromFloor}`, elementId: l.id });
-    }
-    if (!floorIds.has(l.toFloor)) {
-      issues.push({ severity: 'error', rule: 'R10-floor', message: `Lift "${l.id}": non-existent toFloor ${l.toFloor}`, elementId: l.id });
-    }
-    if (l.connectedBelts) {
-      for (const bid of l.connectedBelts) {
-        if (!beltIds.has(bid)) {
-          issues.push({ severity: 'warn', rule: 'R10-belt', message: `Lift "${l.id}": references unknown belt "${bid}"`, elementId: l.id });
-        }
-      }
-    }
-  }
-
-  // ----------------------------------------------------------
   // R12: ID 唯一性
   // ----------------------------------------------------------
   const allElementIds: string[] = [
     ...scheme.machines.map(m => m.id),
     ...scheme.belts.map(b => b.id),
-    ...scheme.lifts.map(l => l.id),
+    ...scheme.liftPairs.map(p => p.id),
     ...scheme.structures.map(s => s.id),
   ];
   const idCounts = new Map<string, number>();
@@ -398,6 +397,60 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
         message: `Belt "${b.id}": 路径总长 ${totalLength.toFixed(2)} 超过 bbox 半周长 ${semiPerimeter.toFixed(2)} × ${BACKTRACK_RATIO}，存在回头绕路，应调整上下游机器让端口同轴`,
         elementId: b.id,
       });
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R18: LiftPair 一致性
+  // ----------------------------------------------------------
+  const machineById = new Map(scheme.machines.map(m => [m.id, m]));
+  for (const pair of scheme.liftPairs) {
+    const bot = machineById.get(pair.bottomMachine);
+    const top = machineById.get(pair.topMachine);
+
+    if (!bot) {
+      issues.push({ severity: 'error', rule: 'R18-ref',
+        message: `LiftPair "${pair.id}": bottomMachine "${pair.bottomMachine}" 不存在`,
+        elementId: pair.id });
+    }
+    if (!top) {
+      issues.push({ severity: 'error', rule: 'R18-ref',
+        message: `LiftPair "${pair.id}": topMachine "${pair.topMachine}" 不存在`,
+        elementId: pair.id });
+    }
+    if (!bot || !top) continue;
+
+    // 类型合法性
+    const expectedTopType = LIFT_PAIR_COMBOS[bot.type];
+    if (!expectedTopType) {
+      issues.push({ severity: 'error', rule: 'R18-type',
+        message: `LiftPair "${pair.id}": bottomMachine 类型 "${bot.type}" 不是合法的 lift 底部类型`,
+        elementId: pair.id });
+    } else if (top.type !== expectedTopType) {
+      issues.push({ severity: 'error', rule: 'R18-type',
+        message: `LiftPair "${pair.id}": bottom 类型 "${bot.type}" 应配对 top 类型 "${expectedTopType}"，实际是 "${top.type}"`,
+        elementId: pair.id });
+    }
+
+    // 楼层关系
+    if (top.floor !== bot.floor + 1) {
+      issues.push({ severity: 'error', rule: 'R18-floor',
+        message: `LiftPair "${pair.id}": topMachine.floor (${top.floor}) 必须为 bottomMachine.floor (${bot.floor}) + 1`,
+        elementId: pair.id });
+    }
+
+    // 屏幕坐标对齐
+    if (!liftPairAligned(bot, top, scheme)) {
+      issues.push({ severity: 'error', rule: 'R18-align',
+        message: `LiftPair "${pair.id}": 两端机器 pos 不相等 (bot=${bot.pos.col},${bot.pos.row} vs top=${top.pos.col},${top.pos.row})`,
+        elementId: pair.id });
+    }
+
+    // facing 一致（warn）
+    if (bot.facing !== top.facing) {
+      issues.push({ severity: 'warn', rule: 'R18-facing',
+        message: `LiftPair "${pair.id}": 两端 facing 不一致 (bot=${bot.facing} vs top=${top.facing})`,
+        elementId: pair.id });
     }
   }
 

@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { validateScheme, validateSchemeDetailed } from '../core/schema';
 import { buildSchemeIndex } from '../core/schema';
-import type { Scheme } from '../core/types';
+import type { Scheme, MachineInstance, PlaceableType, LiftPair } from '../core/types';
 
 const MINIMAL_SCHEME: Scheme = {
   id: 'test-1',
@@ -22,7 +22,7 @@ const MINIMAL_SCHEME: Scheme = {
   belts: [
     { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
   ],
-  lifts: [],
+  liftPairs: [],
   structures: [],
   zones: [],
   stats: { totalPowerMW: 4, inputs: [{ material: '铁矿石', rate: 30 }], outputs: [{ material: '铁锭', rate: 30 }] },
@@ -271,5 +271,78 @@ describe('schema', () => {
   it('legacy validateScheme returns string array', () => {
     const warnings = validateScheme(MINIMAL_SCHEME);
     expect(Array.isArray(warnings)).toBe(true);
+  });
+});
+
+describe('R18 - LiftPair 一致性', () => {
+  function makeLiftMachine(id: string, type: PlaceableType, floor: number, col = 1.5, row = 6.5): MachineInstance {
+    return { id, type, floor, facing: 'south', pos: { col, row } };
+  }
+
+  function baseScheme(machines: MachineInstance[], liftPairs: LiftPair[]): Scheme {
+    return {
+      id: 'test', name: 'test', version: '1.0.0', category: 'test', description: '',
+      designPrinciples: { preferWallOutlets: false, preferWallHoles: false, preferCeilingMounts: false, keepFloorClear: false },
+      floors: [
+        { id: 1, label: 'F1', heightM: 4, gridSize: { cols: 8, rows: 8 } },
+        { id: 2, label: 'F2', heightM: 4, gridSize: { cols: 8, rows: 8 } },
+      ],
+      machines, belts: [], liftPairs, structures: [], zones: [],
+      stats: { totalPowerMW: 0, inputs: [], outputs: [] },
+    };
+  }
+
+  it('pair 引用不存在的机器 → error', () => {
+    const scheme = baseScheme([], [
+      { id: 'lp1', bottomMachine: 'missing_bot', topMachine: 'missing_top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
+  });
+
+  it('合法向上运输 pair → 无 R18 error', () => {
+    const scheme = baseScheme([
+      makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
+      makeLiftMachine('top', 'conveyor-lift-out-top', 2),
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
+  });
+
+  it('非法类型组合（bottom 机器用 top 类型）→ error', () => {
+    const scheme = baseScheme([
+      makeLiftMachine('bot', 'conveyor-lift-out-top', 1),
+      makeLiftMachine('top', 'conveyor-lift-in-bottom', 2),
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
+  });
+
+  it('跨越多层（floor 差不为 1）→ error', () => {
+    const scheme = baseScheme([
+      makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
+      { id: 'top', type: 'conveyor-lift-out-top', floor: 3, facing: 'south', pos: { col: 1.5, row: 6.5 } },
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    // 添加 floor 3 避免 R1-floor 失败抢先
+    scheme.floors.push({ id: 3, label: 'F3', heightM: 4, gridSize: { cols: 8, rows: 8 } });
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
+  });
+
+  it('pair 两端 pos 不相等 → error', () => {
+    const scheme = baseScheme([
+      makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1, 1.5, 6.5),
+      makeLiftMachine('top', 'conveyor-lift-out-top', 2, 2.0, 6.5),
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
   });
 });
