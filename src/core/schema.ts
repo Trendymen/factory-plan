@@ -419,6 +419,33 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
+  // R20: 紧凑空间内的多段 U 型 belt 不可能实际布线
+  // 当机器紧挨着（端口间距极短）但端口未对齐时，现实中无法在狭缝里完成
+  // 垂直进出 + 水平转折的折线布置；这类情况必须通过调整机器坐标让端口同轴
+  // 使 belt 变为单段直线（2 点路径）或合法的 L 型（3 点路径）。
+  // ----------------------------------------------------------
+  const TIGHT_BBOX_SPAN = 0.5;
+  for (const b of scheme.belts) {
+    if (b.path.length < 4) continue; // 2 点直线 / 3 点 L 不检查
+    let minCol = Infinity, maxCol = -Infinity, minRow = Infinity, maxRow = -Infinity;
+    for (const pt of b.path) {
+      if (pt.col < minCol) minCol = pt.col;
+      if (pt.col > maxCol) maxCol = pt.col;
+      if (pt.row < minRow) minRow = pt.row;
+      if (pt.row > maxRow) maxRow = pt.row;
+    }
+    const colSpan = maxCol - minCol;
+    const rowSpan = maxRow - minRow;
+    if (colSpan < TIGHT_BBOX_SPAN && rowSpan < TIGHT_BBOX_SPAN) {
+      issues.push({
+        severity: 'error', rule: 'R20-tight-u-turn',
+        message: `Belt "${b.id}": 紧凑空间 (col span=${colSpan.toFixed(3)}, row span=${rowSpan.toFixed(3)}) 内的 ${b.path.length}-点折线在游戏里无法实际布线，需对齐上下游机器端口让 belt 变为单段直线`,
+        elementId: b.id,
+      });
+    }
+  }
+
+  // ----------------------------------------------------------
   // R18: LiftPair 一致性
   // ----------------------------------------------------------
   for (const pair of scheme.liftPairs) {
