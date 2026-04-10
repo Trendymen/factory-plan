@@ -194,6 +194,72 @@ describe('schema', () => {
     expect(issues.some(i => i.rule === 'R15-belt-overlap')).toBe(true);
   });
 
+  it('R17: warns on belt path that loops back to starting area', () => {
+    // 6 点绕圈：起于 (2,4)，绕一圈又回到 (2,4) 附近
+    // bbox 半周长 = 0.75 + 1.25 = 2.0, 总长 = 0.5+0.75+1.25+0.75+0.75 = 4.0, 比 2.0
+    const bad = {
+      ...MINIMAL_SCHEME,
+      belts: [{
+        id: 'b_loop',
+        floor: 1,
+        mark: 1 as const,
+        material: '铁锭',
+        path: [
+          { col: 2, row: 4 },
+          { col: 2, row: 4.5 },
+          { col: 1.25, row: 4.5 },
+          { col: 1.25, row: 3.25 },
+          { col: 2, row: 3.25 },
+          { col: 2, row: 4 },
+        ],
+        fromPort: 's1:out-0',
+        toPort: 'sp1:in-0',
+      }],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R17-belt-backtrack')).toBe(true);
+  });
+
+  it('R17: does NOT warn on reasonable L-shape detour', () => {
+    // 正常 L 形：path 长 = bbox 半周长，比 1.0
+    const ok = {
+      ...MINIMAL_SCHEME,
+      belts: [{
+        id: 'b_L',
+        floor: 1,
+        mark: 1 as const,
+        material: '铁锭',
+        path: [
+          { col: 1, row: 1 },
+          { col: 1, row: 4.5 },
+          { col: 1.75, row: 4.5 },
+          { col: 1.75, row: 4.75 },
+        ],
+        fromPort: 's1:out-0',
+        toPort: 'sp1:in-0',
+      }],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R17-belt-backtrack')).toBe(false);
+  });
+
+  it('R17: does NOT warn on straight-line belt', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      belts: [{
+        id: 'b_straight',
+        floor: 1,
+        mark: 1 as const,
+        material: '铁锭',
+        path: [{ col: 2, row: 1 }, { col: 2, row: 5 }],
+        fromPort: 's1:out-0',
+        toPort: 'sp1:in-0',
+      }],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R17-belt-backtrack')).toBe(false);
+  });
+
   it('buildSchemeIndex produces correct index', () => {
     const index = buildSchemeIndex(MINIMAL_SCHEME, '/data/schemes/test.json');
     expect(index.id).toBe('test-1');

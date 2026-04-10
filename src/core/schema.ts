@@ -361,6 +361,46 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     }
   }
 
+  // ----------------------------------------------------------
+  // R17: 传送带不得回头绕路
+  // 路径实际总长 ≤ 起终点 bbox 半周长（曼哈顿距离）× 1.4
+  // 违反表现：belt 绕圈、U 形回头、S 形多次折线后回到起始区域。
+  // 根本原因常为机器端口未同轴对齐，被迫在狭小空间里强行折线。
+  // 修复思路：调整上下游机器布局让相关端口落在同一 col 或 row 主轴上。
+  // ----------------------------------------------------------
+  const BACKTRACK_RATIO = 1.4;
+  const MIN_SEMI_PERIMETER = 0.5; // 过短的 belt 跳过，避免数值抖动
+
+  for (const b of scheme.belts) {
+    if (b.path.length < 2) continue;
+
+    let minCol = Infinity, maxCol = -Infinity, minRow = Infinity, maxRow = -Infinity;
+    for (const pt of b.path) {
+      if (pt.col < minCol) minCol = pt.col;
+      if (pt.col > maxCol) maxCol = pt.col;
+      if (pt.row < minRow) minRow = pt.row;
+      if (pt.row > maxRow) maxRow = pt.row;
+    }
+
+    let totalLength = 0;
+    for (let i = 0; i < b.path.length - 1; i++) {
+      totalLength += Math.abs(b.path[i].col - b.path[i + 1].col)
+                   + Math.abs(b.path[i].row - b.path[i + 1].row);
+    }
+
+    const semiPerimeter = (maxCol - minCol) + (maxRow - minRow);
+    if (semiPerimeter < MIN_SEMI_PERIMETER) continue;
+
+    if (totalLength > semiPerimeter * BACKTRACK_RATIO + 0.001) {
+      issues.push({
+        severity: 'warn',
+        rule: 'R17-belt-backtrack',
+        message: `Belt "${b.id}": 路径总长 ${totalLength.toFixed(2)} 超过 bbox 半周长 ${semiPerimeter.toFixed(2)} × ${BACKTRACK_RATIO}，存在回头绕路，应调整上下游机器让端口同轴`,
+        elementId: b.id,
+      });
+    }
+  }
+
   return issues;
 }
 
