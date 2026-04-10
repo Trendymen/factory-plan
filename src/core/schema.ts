@@ -348,14 +348,33 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       const b = segments[j];
       if (a.beltId === b.beltId) continue;
       if (a.floor !== b.floor) continue;
-      if (a.horizontal !== b.horizontal) continue;
-      if (Math.abs(a.fixed - b.fixed) > 0.01) continue;
-      if (intervalsOverlap(a.min, a.max, b.min, b.max, 0.02)) {
-        issues.push({
-          severity: 'warn', rule: 'R15-belt-overlap',
-          message: `Belt overlap on floor ${a.floor}: "${a.beltId}" and "${b.beltId}" share the same ${a.horizontal ? 'horizontal' : 'vertical'} path at ${a.horizontal ? 'row' : 'col'}=${a.fixed}`,
-        });
+      // R15: 同方向共线重叠
+      if (a.horizontal === b.horizontal) {
+        if (Math.abs(a.fixed - b.fixed) > 0.01) continue;
+        if (intervalsOverlap(a.min, a.max, b.min, b.max, 0.02)) {
+          issues.push({
+            severity: 'warn', rule: 'R15-belt-overlap',
+            message: `Belt overlap on floor ${a.floor}: "${a.beltId}" and "${b.beltId}" share the same ${a.horizontal ? 'horizontal' : 'vertical'} path at ${a.horizontal ? 'row' : 'col'}=${a.fixed}`,
+          });
+        }
+        continue;
       }
+      // R19: 垂直交叉（一条水平一条垂直，在内部点相交）
+      const h = a.horizontal ? a : b; // horizontal segment: fixed=row, min/max=col
+      const v = a.horizontal ? b : a; // vertical segment: fixed=col, min/max=row
+      const x = v.fixed;
+      const y = h.fixed;
+      const EPS = 0.02;
+      if (x < h.min - EPS || x > h.max + EPS) continue;
+      if (y < v.min - EPS || y > v.max + EPS) continue;
+      // 只当交点严格位于至少一个段的内部时才算交叉；双端点相触属于共用连接点。
+      const interiorH = x > h.min + EPS && x < h.max - EPS;
+      const interiorV = y > v.min + EPS && y < v.max - EPS;
+      if (!interiorH && !interiorV) continue;
+      issues.push({
+        severity: 'warn', rule: 'R19-belt-cross',
+        message: `Belt 垂直交叉 on floor ${a.floor}: "${h.beltId}"(row=${h.fixed}) × "${v.beltId}"(col=${v.fixed}) 在 (${x}, ${y})`,
+      });
     }
   }
 

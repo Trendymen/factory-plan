@@ -370,6 +370,64 @@ describe('R18 - LiftPair 一致性', () => {
   });
 });
 
+describe('R19 - 垂直交叉检测', () => {
+  const baseFloor = { id: 1, label: 'F1', heightM: 4, gridSize: { cols: 8, rows: 8 } };
+  function schemeWithBelts(belts: Scheme['belts']): Scheme {
+    return {
+      id: 'test', name: 'test', version: '1.0.0', category: 'test', description: '',
+      designPrinciples: { preferWallOutlets: false, preferWallHoles: false, preferCeilingMounts: false, keepFloorClear: false },
+      floors: [baseFloor],
+      machines: [], belts, liftPairs: [], structures: [], zones: [],
+      stats: { totalPowerMW: 0, inputs: [], outputs: [] },
+    };
+  }
+
+  it('两条 belt 在内部点垂直交叉 → warn', () => {
+    const scheme = schemeWithBelts([
+      { id: 'b1', floor: 1, mark: 1, material: 'x',
+        path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
+      { id: 'b2', floor: 1, mark: 1, material: 'y',
+        path: [{ col: 3, row: 1 }, { col: 3, row: 5 }] },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.rule === 'R19-belt-cross')).toBe(true);
+  });
+
+  it('两条 belt 仅在共同端点相触 → 不 warn', () => {
+    const scheme = schemeWithBelts([
+      { id: 'b1', floor: 1, mark: 1, material: 'x',
+        path: [{ col: 1, row: 3 }, { col: 3, row: 3 }] },
+      { id: 'b2', floor: 1, mark: 1, material: 'y',
+        path: [{ col: 3, row: 3 }, { col: 3, row: 5 }] },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.rule === 'R19-belt-cross')).toBe(false);
+  });
+
+  it('T 型：belt A 端点落在 belt B 内部 → warn', () => {
+    const scheme = schemeWithBelts([
+      { id: 'b1', floor: 1, mark: 1, material: 'x',
+        path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
+      { id: 'b2', floor: 1, mark: 1, material: 'y',
+        path: [{ col: 3, row: 3 }, { col: 3, row: 5 }] },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.rule === 'R19-belt-cross')).toBe(true);
+  });
+
+  it('不同楼层的 belt 不触发 R19', () => {
+    const scheme = schemeWithBelts([
+      { id: 'b1', floor: 1, mark: 1, material: 'x',
+        path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
+      { id: 'b2', floor: 2, mark: 1, material: 'y',
+        path: [{ col: 3, row: 1 }, { col: 3, row: 5 }] },
+    ]);
+    scheme.floors.push({ id: 2, label: 'F2', heightM: 4, gridSize: { cols: 8, rows: 8 } });
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.some(i => i.rule === 'R19-belt-cross')).toBe(false);
+  });
+});
+
 import ironFullLineV2 from '../../data/schemes/iron-full-line-v2.json';
 
 describe('iron-full-line-v2 方案校验', () => {
@@ -383,14 +441,24 @@ describe('iron-full-line-v2 方案校验', () => {
     expect(errors).toHaveLength(0);
   });
 
-  it('仅允许 R2/R8 对齐 warn（来自 lift/storage 端口固有偏移）', () => {
+  it('允许 warn 仅限 R2/R8 对齐 + R19 已知交叉（待 F2 layout v3 修复）', () => {
+    // NOTE: 当前 v2 F2 布局的 2 条垂直 trunk（plate + rod）与水平分发 belts
+    // 在拓扑上必然相交。R19 抓到 8 条交叉，全部是 known issue，等后续专门的
+    // F2 layout v3 任务重排整体布局。当前允许 R19 作为 tolerated warn。
+    const KNOWN_R19_CROSSINGS = 8;
     const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
     const warns = issues.filter(i => i.severity === 'warn');
-    const unexpectedWarns = warns.filter(w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-'));
+    const unexpectedWarns = warns.filter(
+      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-') && w.rule !== 'R19-belt-cross',
+    );
     if (unexpectedWarns.length > 0) {
-      console.error('Unexpected non-alignment warns in v2:');
+      console.error('Unexpected non-alignment/non-R19 warns in v2:');
       unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
     }
     expect(unexpectedWarns).toHaveLength(0);
+
+    // R19 交叉数量不能增加（作为回归保护）
+    const r19Count = warns.filter(w => w.rule === 'R19-belt-cross').length;
+    expect(r19Count).toBeLessThanOrEqual(KNOWN_R19_CROSSINGS);
   });
 });
