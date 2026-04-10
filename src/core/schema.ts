@@ -1,5 +1,5 @@
 // src/core/schema.ts
-import type { Scheme, SchemeIndex, GridPos, Facing, MachineInstance } from './types';
+import type { Scheme, SchemeIndex, GridPos, Facing, MachineInstance, PlaceableType } from './types';
 import { BUILDING_REGISTRY } from './registry';
 import {
   type Rect, machineRect, rectFromSegment,
@@ -58,10 +58,10 @@ function liftPairAligned(
 }
 
 // 合法的 pair 类型组合：bottom machine 类型 → 对应合法的 top machine 类型
-const LIFT_PAIR_COMBOS: Record<string, string> = {
-  'conveyor-lift-in-bottom':  'conveyor-lift-out-top',   // 向上运输
-  'conveyor-lift-out-bottom': 'conveyor-lift-in-top',    // 向下运输
-};
+const LIFT_PAIR_COMBOS = new Map<PlaceableType, PlaceableType>([
+  ['conveyor-lift-in-bottom',  'conveyor-lift-out-top'],   // 向上运输
+  ['conveyor-lift-out-bottom', 'conveyor-lift-in-top'],    // 向下运输
+]);
 
 // ============================================================
 // 主验证函数
@@ -75,6 +75,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const floorIds = new Set(scheme.floors.map(f => f.id));
   const machineIds = new Set(scheme.machines.map(m => m.id));
+  const machineById = new Map(scheme.machines.map(m => [m.id, m]));
 
   // 构建楼层边界映射
   const floorBounds = new Map<number, { cols: number; rows: number }>();
@@ -251,11 +252,9 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // 检查传送带首尾路径点与端口位置是否在同一轴上，
   // 以及接近端口的线段方向是否垂直于端口所在边。
   // ----------------------------------------------------------
-  const machineMap = new Map(scheme.machines.map(m => [m.id, m]));
-
   function portGridPos(portRef: string): { pos: GridPos; screenSide: string } | null {
     const [mid, pid] = portRef.split(':');
-    const machine = machineMap.get(mid);
+    const machine = machineById.get(mid);
     if (!machine) return null;
     const meta = BUILDING_REGISTRY[machine.type];
     if (!meta) return null;
@@ -403,7 +402,6 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // ----------------------------------------------------------
   // R18: LiftPair 一致性
   // ----------------------------------------------------------
-  const machineById = new Map(scheme.machines.map(m => [m.id, m]));
   for (const pair of scheme.liftPairs) {
     const bot = machineById.get(pair.bottomMachine);
     const top = machineById.get(pair.topMachine);
@@ -421,7 +419,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     if (!bot || !top) continue;
 
     // 类型合法性
-    const expectedTopType = LIFT_PAIR_COMBOS[bot.type];
+    const expectedTopType = LIFT_PAIR_COMBOS.get(bot.type);
     if (!expectedTopType) {
       issues.push({ severity: 'error', rule: 'R18-type',
         message: `LiftPair "${pair.id}": bottomMachine 类型 "${bot.type}" 不是合法的 lift 底部类型`,

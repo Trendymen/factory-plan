@@ -345,4 +345,27 @@ describe('R18 - LiftPair 一致性', () => {
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
   });
+
+  it('pair 两端 facing 不一致 → warn（非 error）', () => {
+    const scheme = baseScheme([
+      makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
+      { id: 'top', type: 'conveyor-lift-out-top', floor: 2, facing: 'north', pos: { col: 1.5, row: 6.5 } },
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
+    expect(issues.some(i => i.severity === 'warn' && i.rule === 'R18-facing')).toBe(true);
+  });
+
+  it('合法向下运输 pair → 无 R18 error', () => {
+    const scheme = baseScheme([
+      { id: 'bot', type: 'conveyor-lift-out-bottom', floor: 1, facing: 'south', pos: { col: 1.5, row: 6.5 } },
+      { id: 'top', type: 'conveyor-lift-in-top', floor: 2, facing: 'south', pos: { col: 1.5, row: 6.5 } },
+    ], [
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+    ]);
+    const issues = validateSchemeDetailed(scheme);
+    expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
+  });
 });
