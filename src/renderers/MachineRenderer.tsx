@@ -8,7 +8,7 @@ interface MachineRendererProps {
   highlight?: boolean;
   dimmed?: boolean;
   onHover?: (id: string | null) => void;
-  onClick?: (id: string) => void;
+  onClick?: (id: string, anchor?: { x: number; y: number }) => void;
 }
 
 export const MachineRenderer = memo(function MachineRenderer({
@@ -50,7 +50,7 @@ export const MachineRenderer = memo(function MachineRenderer({
     <g className={className}
       onMouseEnter={() => onHover?.(machine.id)}
       onMouseLeave={() => onHover?.(null)}
-      onClick={() => onClick?.(machine.id)}
+      onClick={(e) => onClick?.(machine.id, { x: e.clientX, y: e.clientY })}
     >
       <rect className="machine-footprint" x={x} y={y} width={w} height={h} rx={3} stroke={color} />
       <rect className="machine-body" x={bx} y={by} width={bw} height={bh} rx={2} style={{ fill: color, stroke: color }} />

@@ -1,4 +1,4 @@
-import { useRef, useCallback, type WheelEvent, type MouseEvent } from 'react';
+import { useCallback, type WheelEvent } from 'react';
 import type { Scheme } from '../core/types';
 import { calcViewBox } from '../core/coordinate';
 import { useAppStore } from '../store/useAppStore';
@@ -16,10 +16,6 @@ interface FloorPlanViewProps {
 }
 
 export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const isPanning = useRef(false);
-  const panStart = useRef({ x: 0, y: 0 });
-
   const viewport = useAppStore(s => s.viewport);
   const layers = useAppStore(s => s.layers);
   const highlightChain = useAppStore(s => s.highlightChain);
@@ -35,27 +31,10 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const baseViewBox = calcViewBox(cols, rows);
 
   const onWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault();
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
     const newZoom = Math.max(0.3, Math.min(3, viewport.zoom * delta));
     setViewport({ zoom: newZoom });
   }, [viewport.zoom, setViewport]);
-
-  const onMouseDown = useCallback((e: MouseEvent) => {
-    if (e.button !== 0) return;
-    isPanning.current = true;
-    panStart.current = { x: e.clientX - viewport.panX, y: e.clientY - viewport.panY };
-  }, [viewport.panX, viewport.panY]);
-
-  const onMouseMove = useCallback((e: MouseEvent) => {
-    if (!isPanning.current) return;
-    setViewport({
-      panX: e.clientX - panStart.current.x,
-      panY: e.clientY - panStart.current.y,
-    });
-  }, [setViewport]);
-
-  const onMouseUp = useCallback(() => { isPanning.current = false; }, []);
 
   const machines = scheme.machines.filter(m => m.floor === floorId);
   const belts = scheme.belts.filter(b => b.floor === floorId);
@@ -69,18 +48,12 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
 
   return (
     <svg
-      ref={svgRef}
       viewBox={baseViewBox}
       style={{
         transform: `scale(${viewport.zoom}) translate(${viewport.panX / viewport.zoom}px, ${viewport.panY / viewport.zoom}px)`,
         transformOrigin: 'center center',
-        cursor: isPanning.current ? 'grabbing' : 'grab',
       }}
       onWheel={onWheel}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
     >
       <GridRenderer cols={cols} rows={rows} />
       {layers.zones && zones.map(z => <ZoneRenderer key={z.id} zone={z} />)}

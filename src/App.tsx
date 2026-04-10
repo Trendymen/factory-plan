@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, type MouseEvent as ReactMouseEvent } from 'react';
 import { ErrorBoundary, useErrorBoundary } from 'react-error-boundary';
 import type { Scheme } from './core/types';
 import { validateScheme, buildSchemeIndex } from './core/schema';
@@ -37,6 +37,8 @@ async function loadSchemeByPath(path: string): Promise<Scheme> {
   return data;
 }
 
+const PAN_THRESHOLD = 4;
+
 function AppContent() {
   const schemes = useAppStore(s => s.schemes);
   const currentScheme = useAppStore(s => s.currentScheme);
@@ -44,7 +46,56 @@ function AppContent() {
   const viewMode = useAppStore(s => s.viewMode);
   const setSchemes = useAppStore(s => s.setSchemes);
   const loadScheme = useAppStore(s => s.loadScheme);
+  const setViewport = useAppStore(s => s.setViewport);
   const { showBoundary } = useErrorBoundary();
+
+  // 画布拖动：作用于整个 <main>
+  const isPanning = useRef(false);
+  const panStart = useRef({ x: 0, y: 0 });
+  const panOrigin = useRef({ x: 0, y: 0 });
+  const didPan = useRef(false);
+  const suppressClick = useRef(false);
+
+  const onCanvasMouseDown = useCallback((e: ReactMouseEvent<HTMLElement>) => {
+    if (e.button !== 0) return;
+    const { panX, panY } = useAppStore.getState().viewport;
+    isPanning.current = true;
+    didPan.current = false;
+    panStart.current = { x: e.clientX, y: e.clientY };
+    panOrigin.current = { x: panX, y: panY };
+  }, []);
+
+  const onCanvasMouseMove = useCallback((e: ReactMouseEvent<HTMLElement>) => {
+    if (!isPanning.current) return;
+    const dx = e.clientX - panStart.current.x;
+    const dy = e.clientY - panStart.current.y;
+    if (!didPan.current && Math.hypot(dx, dy) > PAN_THRESHOLD) {
+      didPan.current = true;
+    }
+    if (didPan.current) {
+      setViewport({
+        panX: panOrigin.current.x + dx,
+        panY: panOrigin.current.y + dy,
+      });
+    }
+  }, [setViewport]);
+
+  const endPan = useCallback(() => {
+    if (isPanning.current && didPan.current) {
+      // 拖动确实发生过：吞掉接下来即将冒泡到 main 的那个点击事件
+      suppressClick.current = true;
+    }
+    isPanning.current = false;
+  }, []);
+
+  // 捕获阶段拦截 click，如果上一次拖动真正发生过就阻止它
+  const onCanvasClickCapture = useCallback((e: ReactMouseEvent<HTMLElement>) => {
+    if (suppressClick.current) {
+      suppressClick.current = false;
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }, []);
 
   useEffect(() => {
     loadAllSchemeIndexes()
@@ -100,7 +151,14 @@ function AppContent() {
     <div className="app-layout">
       <TopBar />
       <aside className="left-panel"><LeftPanel /></aside>
-      <main className="canvas-area">
+      <main
+        className="canvas-area"
+        onMouseDown={onCanvasMouseDown}
+        onMouseMove={onCanvasMouseMove}
+        onMouseUp={endPan}
+        onMouseLeave={endPan}
+        onClickCapture={onCanvasClickCapture}
+      >
         <ErrorBoundary
           FallbackComponent={ViewErrorFallback}
           resetKeys={[viewMode, currentScheme?.id, currentFloor]}

@@ -51,6 +51,11 @@ function traceChain(scheme: Scheme, beltId: string): string[] {
   return [...ids];
 }
 
+export interface SelectAnchor {
+  x: number;
+  y: number;
+}
+
 interface AppState {
   schemes: SchemeIndex[];
   currentSchemeId: string | null;
@@ -62,6 +67,7 @@ interface AppState {
   layers: Layers;
   hoveredId: string | null;
   selectedId: string | null;
+  selectAnchor: SelectAnchor | null;
   highlightChain: string[];
 
   setSchemes: (schemes: SchemeIndex[]) => void;
@@ -73,7 +79,7 @@ interface AppState {
   resetViewport: () => void;
   toggleLayer: (key: keyof Layers) => void;
   hover: (id: string | null) => void;
-  select: (id: string | null) => void;
+  select: (id: string | null, anchor?: SelectAnchor | null) => void;
   setHighlightChain: (ids: string[]) => void;
   clearHighlight: () => void;
 }
@@ -98,6 +104,7 @@ export const useAppStore = create<AppState>((set) => ({
   layers: { ...DEFAULT_LAYERS },
   hoveredId: null,
   selectedId: null,
+  selectAnchor: null,
   highlightChain: [],
 
   setSchemes: (schemes) => set({ schemes }),
@@ -109,6 +116,7 @@ export const useAppStore = create<AppState>((set) => ({
     viewport: { ...DEFAULT_VIEWPORT },
     hoveredId: null,
     selectedId: null,
+    selectAnchor: null,
     highlightChain: [],
   }),
 
@@ -119,15 +127,17 @@ export const useAppStore = create<AppState>((set) => ({
   resetViewport: () => set({ viewport: { ...DEFAULT_VIEWPORT } }),
   toggleLayer: (key) => set((s) => ({ layers: { ...s.layers, [key]: !s.layers[key] } })),
   hover: (hoveredId) => set({ hoveredId }),
-  select: (selectedId) => set((s) => {
-    if (!selectedId || !s.currentScheme) return { selectedId, highlightChain: [] };
+  select: (selectedId, anchor = null) => set((s) => {
+    if (!selectedId || !s.currentScheme) {
+      return { selectedId, selectAnchor: null, highlightChain: [] };
+    }
     const isBelt = s.currentScheme.belts.some(b => b.id === selectedId);
     if (isBelt) {
       const chain = traceChain(s.currentScheme, selectedId);
-      return { selectedId, highlightChain: chain };
+      return { selectedId, selectAnchor: anchor, highlightChain: chain };
     }
-    return { selectedId, highlightChain: [] };
+    return { selectedId, selectAnchor: anchor, highlightChain: [] };
   }),
   setHighlightChain: (highlightChain) => set({ highlightChain }),
-  clearHighlight: () => set({ highlightChain: [], selectedId: null }),
+  clearHighlight: () => set({ highlightChain: [], selectedId: null, selectAnchor: null }),
 }));
