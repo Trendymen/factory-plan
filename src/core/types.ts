@@ -36,13 +36,17 @@ export type BuildingCategory = 'production' | 'logistics' | 'storage' | 'structu
 export type PlaceableType =
   | 'smelter' | 'foundry' | 'constructor' | 'assembler' | 'manufacturer'
   | 'splitter' | 'merger'
-  | 'storage' | 'industrial-storage';
+  | 'storage' | 'industrial-storage'
+  | 'conveyor-lift-in-bottom'
+  | 'conveyor-lift-out-bottom'
+  | 'conveyor-lift-in-top'
+  | 'conveyor-lift-out-top';
 
 export type StructureType =
   | 'wall-conveyor-hole' | 'wall-pipe-hole'
   | 'conveyor-wall-mount' | 'conveyor-ceiling-mount' | 'conveyor-floor-stand';
 
-export type BuildingType = PlaceableType | StructureType | 'conveyor-lift';
+export type BuildingType = PlaceableType | StructureType;
 
 // ===== 建筑元数据 =====
 
@@ -84,14 +88,12 @@ export interface BeltSegment {
   toPort?: string;
 }
 
-export interface Lift {
-  id: string;
-  pos: GridPos;
-  mark: BeltMark;
-  fromFloor: number;
-  toFloor: number;
-  material: string;
-  connectedBelts?: [string, string];
+export interface LiftPair {
+  id: string;                   // pair 标识，全局唯一
+  bottomMachine: string;        // 指向 scheme.machines 中 F1 的 lift 机器 id
+  topMachine: string;           // 指向 scheme.machines 中 F2 的 lift 机器 id
+  material: string;             // 物流元数据，用于 LiftOverlay 徽标和 cross-section 连线
+  mark: BeltMark;               // 升降机等级（沿用原 Lift.mark 字段含义）
 }
 
 export interface StructureInstance {
@@ -139,7 +141,7 @@ export interface Scheme {
   floors: Floor[];
   machines: MachineInstance[];
   belts: BeltSegment[];
-  lifts: Lift[];
+  liftPairs: LiftPair[];
   structures: StructureInstance[];
   zones: Zone[];
   stats: {
