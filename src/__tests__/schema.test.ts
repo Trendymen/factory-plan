@@ -369,3 +369,28 @@ describe('R18 - LiftPair 一致性', () => {
     expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
   });
 });
+
+import ironFullLineV2 from '../../data/schemes/iron-full-line-v2.json';
+
+describe('iron-full-line-v2 方案校验', () => {
+  it('validateSchemeDetailed 无 error', () => {
+    const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
+    const errors = issues.filter(i => i.severity === 'error');
+    if (errors.length > 0) {
+      console.error('Unexpected errors in v2:');
+      errors.forEach(e => console.error(`  [${e.rule}] ${e.message}`));
+    }
+    expect(errors).toHaveLength(0);
+  });
+
+  it('仅允许 R2/R8 对齐 warn（来自 lift/storage 端口固有偏移）', () => {
+    const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
+    const warns = issues.filter(i => i.severity === 'warn');
+    const unexpectedWarns = warns.filter(w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-'));
+    if (unexpectedWarns.length > 0) {
+      console.error('Unexpected non-alignment warns in v2:');
+      unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
+    }
+    expect(unexpectedWarns).toHaveLength(0);
+  });
+});
