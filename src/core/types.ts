@@ -37,10 +37,11 @@ export type PlaceableType =
   | 'smelter' | 'foundry' | 'constructor' | 'assembler' | 'manufacturer'
   | 'splitter' | 'merger'
   | 'storage' | 'industrial-storage'
-  | 'conveyor-lift-in-bottom'
-  | 'conveyor-lift-out-bottom'
-  | 'conveyor-lift-in-top'
-  | 'conveyor-lift-out-top';
+  // 传送带升降机（一台物理升降机由 bottom + top 两条配对 machine 组成，类型表达方向与楼层位置）
+  | 'conveyor-lift-in-bottom'   // F1 底座：物料从这里进入，向上输送
+  | 'conveyor-lift-out-bottom'  // F1 底座：物料从这里吐出（来自上方）
+  | 'conveyor-lift-in-top'      // F2 顶部：物料从这里进入，向下输送
+  | 'conveyor-lift-out-top';    // F2 顶部：物料从这里吐出（来自下方）
 
 export type StructureType =
   | 'wall-conveyor-hole' | 'wall-pipe-hole'
