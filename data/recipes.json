@@ -438,8 +438,8 @@
       "cycleTime": 15,
       "powerMW": 15,
       "inputs": [
-        { "item": "铁棒", "amount": 5, "rate": 20 },
-        { "item": "螺丝", "amount": 25, "rate": 100 }
+        { "item": "螺丝", "amount": 25, "rate": 100 },
+        { "item": "铁棒", "amount": 5, "rate": 20 }
       ],
       "outputs": [{ "item": "转子", "amount": 1, "rate": 4 }]
     },

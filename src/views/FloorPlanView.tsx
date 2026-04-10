@@ -23,6 +23,12 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const setViewport = useAppStore(s => s.setViewport);
   const hover = useAppStore(s => s.hover);
   const select = useAppStore(s => s.select);
+  const clearHighlight = useAppStore(s => s.clearHighlight);
+
+  const toggleBeltSelect = useCallback((id: string) => {
+    if (id === selectedId) clearHighlight();
+    else select(id);
+  }, [selectedId, select, clearHighlight]);
 
   const floor = scheme.floors.find(f => f.id === floorId);
   if (!floor) return null;
@@ -66,7 +72,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
         <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} selected={b.id === selectedId} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
       ))}
       {layers.belts && (
-        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={select} />
+        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
       )}
       <LiftOverlay
         pairs={scheme.liftPairs}

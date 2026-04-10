@@ -20,9 +20,13 @@ export const MachineRenderer = memo(function MachineRenderer({
   const w = cols * GRID_PX;
   const h = rows * GRID_PX;
   const color = `var(${meta.color})`;
-  // 亮色背景机器使用深色文字
-  const lightBg = machine.type === 'splitter' || machine.type === 'merger';
-  const labelColor = lightBg ? '#1a1a2e' : undefined;
+  // 亮色背景机器使用深色文字（这些机器主色的亮度足够高，白字会糊在一起）
+  const LIGHT_BG_TYPES = new Set([
+    'splitter', 'merger', 'constructor', 'assembler', 'lift', 'industrial-storage',
+  ]);
+  const lightBg = LIGHT_BG_TYPES.has(machine.type);
+  const labelColor = lightBg ? '#12151c' : undefined;
+  const subLabelColor = lightBg ? 'rgba(18,21,28,0.75)' : 'var(--text-muted)';
 
   const inset = Math.min(w, h) * 0.08;
   const bx = x + inset;
@@ -66,7 +70,7 @@ export const MachineRenderer = memo(function MachineRenderer({
         </text>
         {subLabel && !isSmall && (
           <text className="machine-sublabel" x={bx + bw / 2} y={by + bh / 2 + 10}
-            textAnchor="middle" fill={color} style={{ fontSize: 7 }}>
+            textAnchor="middle" style={{ fontSize: 7, fill: subLabelColor }}>
             {subLabel}
           </text>
         )}

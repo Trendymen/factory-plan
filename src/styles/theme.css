@@ -618,11 +618,11 @@ body {
    15. Interaction States
    ============================================================ */
 .element-highlight {
-  filter: brightness(1.4) drop-shadow(0 0 3px var(--highlight));
+  filter: brightness(1.1) drop-shadow(0 0 2px var(--highlight));
 }
 
 .element-selected {
-  filter: brightness(1.8) drop-shadow(0 0 6px var(--highlight)) drop-shadow(0 0 12px var(--highlight));
+  filter: brightness(1.2) drop-shadow(0 0 4px var(--highlight)) drop-shadow(0 0 9px var(--highlight));
 }
 .element-selected .belt-line {
   stroke-width: 4 !important;
