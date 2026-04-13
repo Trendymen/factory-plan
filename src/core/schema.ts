@@ -7,6 +7,7 @@ import {
   rectsOverlap, intervalsOverlap,
 } from './collision';
 import { SIDE_MAP, machineGridSize, METERS_PER_GRID } from './coordinate';
+import { validateFlowRules } from './validateFlow';
 
 /** 验证严重级别 */
 export type Severity = 'error' | 'warn';
@@ -705,6 +706,15 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
         });
       }
     }
+  }
+
+  // ----------------------------------------------------------
+  // R22 + R28: 流量相关规则（传送带/升降机容量溢出）
+  // 仅在无结构性 error 时运行（避免在不合法方案上做流量计算）
+  // ----------------------------------------------------------
+  const structuralErrors = issues.filter(i => i.severity === 'error');
+  if (structuralErrors.length === 0) {
+    issues.push(...validateFlowRules(scheme));
   }
 
   return issues;
