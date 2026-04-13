@@ -23,6 +23,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const hoveredId = useAppStore(s => s.hoveredId);
   const selectedId = useAppStore(s => s.selectedId);
   const beltFlows = useAppStore(s => s.beltFlows);
+  const materialMap = useAppStore(s => s.materialMap);
   const setViewport = useAppStore(s => s.setViewport);
   const hover = useAppStore(s => s.hover);
   const select = useAppStore(s => s.select);
@@ -83,20 +84,21 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
         <MachineRenderer key={m.id} machine={m} highlight={isHighlighted(m.id)} dimmed={isDimmed(m.id)} onHover={hover} onClick={select} />
       ))}
       {layers.belts && belts.map(b => (
-        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} selected={b.id === selectedId} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
+        <BeltRenderer key={b.id} belt={b} machines={scheme.machines} materialMap={materialMap} highlight={isHighlighted(b.id)} selected={b.id === selectedId} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
       ))}
       {layers.belts && layers.showBeltLabel && (
-        <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
+        <BeltLabelLayer belts={belts} machines={scheme.machines} materialMap={materialMap} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
       )}
       {layers.beltFlow && layers.belts && (
-        <FlowLabelLayer belts={belts} machines={scheme.machines} beltFlows={beltFlows} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
+        <FlowLabelLayer belts={belts} machines={scheme.machines} materialMap={materialMap} beltFlows={beltFlows} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
       )}
       {hoveredId && tooltipPos && belts.some(b => b.id === hoveredId) && (
-        <FlowTooltip beltId={hoveredId} beltFlows={beltFlows} svgX={tooltipPos.x} svgY={tooltipPos.y} />
+        <FlowTooltip beltId={hoveredId} beltFlows={beltFlows} materialMap={materialMap} svgX={tooltipPos.x} svgY={tooltipPos.y} />
       )}
       <LiftOverlay
         pairs={scheme.liftPairs}
         machines={scheme.machines}
+        materialMap={materialMap}
         floorId={floorId}
         highlightChain={highlightChain}
         onHover={hover}
