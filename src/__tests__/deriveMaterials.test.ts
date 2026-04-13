@@ -63,7 +63,7 @@ describe('deriveMaterials', () => {
     expect(map.get('b3')!.length).toBe(2);
   });
 
-  it('无 fromPort 的外部输入 belt → 空数组', () => {
+  it('无 fromPort 的外部输入 belt → 反向推导到生产机器 recipe input', () => {
     const scheme: Scheme = {
       ...BASE_SCHEME,
       machines: [
@@ -74,7 +74,34 @@ describe('deriveMaterials', () => {
       ],
     };
     const map = deriveMaterials(scheme);
-    expect(map.get('b_ext')).toEqual([]);
+    expect(map.get('b_ext')).toEqual(['铁矿石']);
+  });
+
+  it('无 fromPort 经过 splitter 后到生产机器 → 反向推导', () => {
+    const scheme: Scheme = {
+      ...BASE_SCHEME,
+      machines: [
+        { id: 'sp1', type: 'splitter', pos: { col: 1, row: 1 }, facing: 'south', floor: 1 },
+        { id: 's1', type: 'smelter', pos: { col: 1, row: 3 }, facing: 'south', floor: 1, recipe: 'iron-ingot' },
+      ],
+      belts: [
+        { id: 'b_ext', floor: 1, mark: 1, path: [{ col: 1.25, row: 0 }, { col: 1.25, row: 1 }], toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1, path: [{ col: 1.25, row: 1.25 }, { col: 1.25, row: 3 }], fromPort: 'sp1:out-0', toPort: 's1:in-0' },
+      ],
+    };
+    const map = deriveMaterials(scheme);
+    expect(map.get('b_ext')).toEqual(['铁矿石']);
+  });
+
+  it('无 fromPort 且无 toPort → 空数组', () => {
+    const scheme: Scheme = {
+      ...BASE_SCHEME,
+      belts: [
+        { id: 'b_orphan', floor: 1, mark: 1, path: [{ col: 0, row: 0 }, { col: 1, row: 0 }] },
+      ],
+    };
+    const map = deriveMaterials(scheme);
+    expect(map.get('b_orphan')).toEqual([]);
   });
 
   it('同物料 merger → 不重复', () => {

@@ -26,7 +26,8 @@ export function deriveMaterials(scheme: Scheme): MaterialMap {
     let materials: string[] = [];
 
     if (!belt.fromPort) {
-      materials = [];
+      // 外部输入带：反向推导 — 沿 toPort 向下游追踪到生产机器，取其 recipe input
+      materials = belt.toPort ? deriveFromDownstream(belt.toPort) : [];
     } else {
       const [machineId, portId] = belt.fromPort.split(':');
       const machine = machineById.get(machineId);
@@ -68,6 +69,35 @@ export function deriveMaterials(scheme: Scheme): MaterialMap {
     visiting.delete(belt.id);
     cache.set(belt.id, materials);
     return materials;
+  }
+
+  /** 反向推导：从 toPort 向下游找生产机器，取 recipe input 确定物料 */
+  function deriveFromDownstream(portRef: string): string[] {
+    const [machineId, portId] = portRef.split(':');
+    const machine = machineById.get(machineId);
+    if (!machine) return [];
+
+    if (PRODUCTION_TYPES.has(machine.type)) {
+      const recipe = getRecipe(machine.recipe);
+      if (!recipe) return [];
+      const idx = parseInt(portId.split('-')[1] ?? '0', 10);
+      const input = recipe.inputs[idx];
+      return input ? [input.item] : [];
+    }
+
+    // 分流器/合流器/储存箱：继续向下游追踪
+    if (machine.type === 'splitter' || machine.type === 'merger' ||
+        machine.type === 'storage' || machine.type === 'industrial-storage') {
+      // 找从该机器输出的 belt，追踪其 toPort
+      for (const b of scheme.belts) {
+        if (b.fromPort?.startsWith(machineId + ':') && b.toPort) {
+          const result = deriveFromDownstream(b.toPort);
+          if (result.length > 0) return result;
+        }
+      }
+    }
+
+    return [];
   }
 
   function deriveLiftOut(outMachine: MachineInstance): string[] {
