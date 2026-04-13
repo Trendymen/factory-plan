@@ -135,6 +135,20 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       // 非生产机器（splitter/merger/storage/lift）不应该有 recipe
       issues.push({ severity: 'warn', rule: 'R21-unexpected-recipe', message: `Machine "${m.id}" (${m.type}) should not have recipe field`, elementId: m.id });
     }
+
+    // ----------------------------------------------------------
+    // R24: clockSpeed 范围校验 [1, 250]
+    // ----------------------------------------------------------
+    if (m.clockSpeed !== undefined) {
+      if (m.clockSpeed < 1 || m.clockSpeed > 250) {
+        issues.push({
+          severity: 'error',
+          rule: 'R24-clockspeed',
+          message: `Machine "${m.id}": clockSpeed ${m.clockSpeed}% out of valid range [1, 250]`,
+          elementId: m.id,
+        });
+      }
+    }
   }
 
   // ----------------------------------------------------------
@@ -536,6 +550,160 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
       issues.push({ severity: 'warn', rule: 'R18-facing',
         message: `LiftPair "${pair.id}": 两端 facing 不一致 (bot=${bot.facing} vs top=${top.facing})`,
         elementId: pair.id });
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R25: 分流器/合流器端口悬空检测
+  // ----------------------------------------------------------
+  {
+    const portConnected = new Set<string>();
+    for (const b of scheme.belts) {
+      if (b.fromPort) portConnected.add(b.fromPort);
+      if (b.toPort) portConnected.add(b.toPort);
+    }
+
+    for (const m of scheme.machines) {
+      const meta = BUILDING_REGISTRY[m.type];
+      if (!meta) continue;
+
+      if (m.type === 'splitter') {
+        const outputPorts = meta.ports.filter(p => p.kind === 'belt-out');
+        const connectedCount = outputPorts.filter(p => portConnected.has(`${m.id}:${p.id}`)).length;
+        if (connectedCount <= 1) {
+          issues.push({
+            severity: 'warn',
+            rule: 'R25-splitter-underuse',
+            message: `Splitter "${m.id}": only ${connectedCount} output(s) connected (need ≥2 to justify a splitter)`,
+            elementId: m.id,
+          });
+        }
+      }
+
+      if (m.type === 'merger') {
+        const inputPorts = meta.ports.filter(p => p.kind === 'belt-in');
+        const connectedCount = inputPorts.filter(p => portConnected.has(`${m.id}:${p.id}`)).length;
+        if (connectedCount <= 1) {
+          issues.push({
+            severity: 'warn',
+            rule: 'R25-merger-underuse',
+            message: `Merger "${m.id}": only ${connectedCount} input(s) connected (need ≥2 to justify a merger)`,
+            elementId: m.id,
+          });
+        }
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R23: 生产机器输入端口未连接检测
+  // ----------------------------------------------------------
+  {
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+    const connectedInputs = new Set<string>();
+    for (const b of scheme.belts) {
+      if (b.toPort) connectedInputs.add(b.toPort);
+    }
+
+    for (const m of scheme.machines) {
+      if (!productionSet.has(m.type)) continue;
+      const meta = BUILDING_REGISTRY[m.type];
+      if (!meta) continue;
+
+      const inputPorts = meta.ports.filter(p => p.kind === 'belt-in');
+      for (const p of inputPorts) {
+        if (!connectedInputs.has(`${m.id}:${p.id}`)) {
+          issues.push({
+            severity: 'warn',
+            rule: 'R23-unconnected-input',
+            message: `Machine "${m.id}" (${m.type}): input port "${p.id}" has no belt connected`,
+            elementId: m.id,
+          });
+        }
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R29: 孤立机器检测 + R30: Storage 入口连接检测
+  // ----------------------------------------------------------
+  {
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+    const storageSet = new Set<PlaceableType>(['storage', 'industrial-storage']);
+
+    const machineInCount = new Map<string, number>();
+    const machineOutCount = new Map<string, number>();
+    for (const b of scheme.belts) {
+      if (b.toPort) {
+        const mid = b.toPort.split(':')[0];
+        machineInCount.set(mid, (machineInCount.get(mid) ?? 0) + 1);
+      }
+      if (b.fromPort) {
+        const mid = b.fromPort.split(':')[0];
+        machineOutCount.set(mid, (machineOutCount.get(mid) ?? 0) + 1);
+      }
+    }
+
+    for (const m of scheme.machines) {
+      const hasIn = (machineInCount.get(m.id) ?? 0) > 0;
+      const hasOut = (machineOutCount.get(m.id) ?? 0) > 0;
+
+      if (productionSet.has(m.type)) {
+        if (!hasIn && !hasOut) {
+          issues.push({
+            severity: 'error',
+            rule: 'R29-isolated',
+            message: `Machine "${m.id}" (${m.type}): completely isolated — no input or output belts connected`,
+            elementId: m.id,
+          });
+        } else if (hasIn && !hasOut) {
+          issues.push({
+            severity: 'warn',
+            rule: 'R29-no-output',
+            message: `Machine "${m.id}" (${m.type}): has input but no output belt — produced items have nowhere to go`,
+            elementId: m.id,
+          });
+        }
+      }
+
+      if (storageSet.has(m.type) && !hasIn) {
+        issues.push({
+          severity: 'warn',
+          rule: 'R30-storage-no-input',
+          message: `Storage "${m.id}": no input belt connected — storage will remain empty`,
+          elementId: m.id,
+        });
+      }
+    }
+  }
+
+  // ----------------------------------------------------------
+  // R31: 传送带物料类型一致性
+  // ----------------------------------------------------------
+  {
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+
+    for (const b of scheme.belts) {
+      if (!b.fromPort) continue;
+      const parts = b.fromPort.split(':');
+      if (parts.length !== 2) continue;
+
+      const srcMachine = machineById.get(parts[0]);
+      if (!srcMachine || !productionSet.has(srcMachine.type)) continue;
+      if (!srcMachine.recipe) continue;
+
+      const recipe = getRecipe(srcMachine.recipe);
+      if (!recipe) continue;
+
+      const outputItems = recipe.outputs.map(o => o.item);
+      if (!outputItems.includes(b.material)) {
+        issues.push({
+          severity: 'error',
+          rule: 'R31-material-mismatch',
+          message: `Belt "${b.id}": material "${b.material}" does not match source machine "${srcMachine.id}" output [${outputItems.join(', ')}]`,
+          elementId: b.id,
+        });
+      }
     }
   }
 

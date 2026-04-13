@@ -270,6 +270,230 @@ describe('schema', () => {
     const warnings = validateScheme(MINIMAL_SCHEME);
     expect(Array.isArray(warnings)).toBe(true);
   });
+
+  // ==================== R24: clockSpeed 范围校验 ====================
+
+  it('R24: errors on clockSpeed > 250', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [{ ...MINIMAL_SCHEME.machines[0], clockSpeed: 300 }],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R24-clockspeed')).toBe(true);
+    expect(issues.find(i => i.rule === 'R24-clockspeed')?.severity).toBe('error');
+  });
+
+  it('R24: errors on clockSpeed < 1', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [{ ...MINIMAL_SCHEME.machines[0], clockSpeed: 0 }],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R24-clockspeed')).toBe(true);
+  });
+
+  it('R24: passes on valid clockSpeed', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [{ ...MINIMAL_SCHEME.machines[0], clockSpeed: 250 }],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R24-clockspeed')).toBe(false);
+  });
+
+  it('R24: passes when clockSpeed is undefined', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [{ ...MINIMAL_SCHEME.machines[0], clockSpeed: undefined }],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R24-clockspeed')).toBe(false);
+  });
+
+  // ==================== R25: 分流器/合流器端口悬空检测 ====================
+
+  it('R25: warns when splitter has only 1 output connected', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        MINIMAL_SCHEME.machines[0],
+        { id: 'sp1', type: 'splitter' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R25-splitter-underuse')).toBe(true);
+    expect(issues.find(i => i.rule === 'R25-splitter-underuse')?.severity).toBe('warn');
+  });
+
+  it('R25: warns when merger has only 1 input connected', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        MINIMAL_SCHEME.machines[0],
+        { id: 'mg1', type: 'merger' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R25-merger-underuse')).toBe(true);
+  });
+
+  it('R25: passes when splitter has 2+ outputs connected', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        MINIMAL_SCHEME.machines[0],
+        { id: 'sp1', type: 'splitter' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
+        { id: 'b3', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 2, row: 2.75 }], fromPort: 'sp1:out-1' },
+      ],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R25-splitter-underuse')).toBe(false);
+  });
+
+  // ==================== R23: 生产机器输入端口未连接 ====================
+
+  it('R23: warns when assembler input port has no belt', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'asm1', type: 'assembler' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'reinforced-iron-plate' },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板', path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R23-unconnected-input')).toBe(true);
+    expect(issues.find(i => i.rule === 'R23-unconnected-input')?.severity).toBe('warn');
+  });
+
+  it('R23: passes when all inputs connected', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'asm1', type: 'assembler' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'reinforced-iron-plate' },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板', path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 1.875, row: 0 }, { col: 1.875, row: 1 }], toPort: 'asm1:in-1' },
+      ],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R23-unconnected-input')).toBe(false);
+  });
+
+  it('R23: skips non-production machines', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'sp1', type: 'splitter' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R23-unconnected-input')).toBe(false);
+  });
+
+  // ==================== R29: 孤立机器 + R30: Storage 无输入 ====================
+
+  it('R29: errors on completely isolated production machine', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'c1', type: 'constructor' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'iron-plate' },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R29-isolated')).toBe(true);
+    expect(issues.find(i => i.rule === 'R29-isolated')?.severity).toBe('error');
+  });
+
+  it('R29: warns on production machine with input but no output', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'c1', type: 'constructor' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'iron-plate' },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R29-no-output')).toBe(true);
+    expect(issues.find(i => i.rule === 'R29-no-output')?.severity).toBe('warn');
+  });
+
+  it('R30: warns on storage with no input belt', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 'st1', type: 'storage' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1 },
+      ],
+      belts: [],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R30-storage-no-input')).toBe(true);
+    expect(issues.find(i => i.rule === 'R30-storage-no-input')?.severity).toBe('warn');
+  });
+
+  // ==================== R31: 传送带物料类型一致性 ====================
+
+  it('R31: errors when belt material mismatches source output', () => {
+    const bad = {
+      ...MINIMAL_SCHEME,
+      machines: [
+        { id: 's1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'iron-ingot' },
+        { id: 'c1', type: 'constructor' as const, pos: { col: 1, row: 3 }, facing: 'south' as const, floor: 1, recipe: 'iron-plate' },
+      ],
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板',
+          path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 3 }],
+          fromPort: 's1:out-0', toPort: 'c1:in-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(bad);
+    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(true);
+    expect(issues.find(i => i.rule === 'R31-material-mismatch')?.severity).toBe('error');
+  });
+
+  it('R31: passes when belt material matches source output', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
+          path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }],
+          fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(false);
+  });
+
+  it('R31: skips belts from splitter/merger', () => {
+    const ok = {
+      ...MINIMAL_SCHEME,
+      belts: [
+        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
+          path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }],
+          fromPort: 'sp1:out-0' },
+      ],
+    };
+    const issues = validateSchemeDetailed(ok);
+    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(false);
+  });
 });
 
 describe('R18 - LiftPair 一致性', () => {
