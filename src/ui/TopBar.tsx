@@ -4,7 +4,6 @@ import type { ViewMode } from '../core/types';
 const VIEW_MODES: { id: ViewMode; label: string }[] = [
   { id: 'single', label: '单层' },
   { id: 'linked', label: '联动' },
-  { id: 'section', label: '剖面' },
 ];
 
 export function TopBar() {

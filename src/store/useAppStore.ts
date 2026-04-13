@@ -1,7 +1,7 @@
 // src/store/useAppStore.ts
 import { create } from 'zustand';
 import type {
-  Scheme, SchemeIndex, ViewMode, Viewport, SectionCut, Layers,
+  Scheme, SchemeIndex, ViewMode, Viewport, Layers,
 } from '../core/types';
 
 function traceChain(scheme: Scheme, beltId: string): string[] {
@@ -70,7 +70,6 @@ interface AppState {
   currentScheme: Scheme | null;
   viewMode: ViewMode;
   currentFloor: number;
-  sectionCut: SectionCut | null;
   viewport: Viewport;
   layers: Layers;
   hoveredId: string | null;
@@ -82,7 +81,6 @@ interface AppState {
   loadScheme: (scheme: Scheme) => void;
   setViewMode: (mode: ViewMode) => void;
   setFloor: (floor: number) => void;
-  setSectionCut: (cut: SectionCut | null) => void;
   setViewport: (vp: Partial<Viewport>) => void;
   resetViewport: () => void;
   toggleLayer: (key: keyof Layers) => void;
@@ -107,7 +105,6 @@ export const useAppStore = create<AppState>((set) => ({
   currentScheme: null,
   viewMode: 'single',
   currentFloor: 1,
-  sectionCut: null,
   viewport: { ...DEFAULT_VIEWPORT },
   layers: { ...DEFAULT_LAYERS },
   hoveredId: null,
@@ -130,7 +127,6 @@ export const useAppStore = create<AppState>((set) => ({
 
   setViewMode: (viewMode) => set({ viewMode }),
   setFloor: (currentFloor) => set({ currentFloor }),
-  setSectionCut: (sectionCut) => set({ sectionCut }),
   setViewport: (vp) => set((s) => ({ viewport: { ...s.viewport, ...vp } })),
   resetViewport: () => set({ viewport: { ...DEFAULT_VIEWPORT } }),
   toggleLayer: (key) => set((s) => ({ layers: { ...s.layers, [key]: !s.layers[key] } })),

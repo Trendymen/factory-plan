@@ -13,7 +13,6 @@ import { AppErrorFallback } from './ui/AppErrorFallback';
 import { ViewErrorFallback } from './ui/ViewErrorFallback';
 import { FloorPlanView } from './views/FloorPlanView';
 import { LinkedFloorView } from './views/LinkedFloorView';
-import { CrossSectionView } from './views/CrossSectionView';
 
 const schemeModules = import.meta.glob<Scheme>('/data/schemes/*.json', { eager: false });
 
@@ -168,9 +167,6 @@ function AppContent() {
           )}
           {currentScheme && viewMode === 'linked' && (
             <LinkedFloorView scheme={currentScheme} />
-          )}
-          {currentScheme && viewMode === 'section' && (
-            <CrossSectionView scheme={currentScheme} />
           )}
           {!currentScheme && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>

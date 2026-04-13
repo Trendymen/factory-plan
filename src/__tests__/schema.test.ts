@@ -14,7 +14,7 @@ const MINIMAL_SCHEME: Scheme = {
     preferWallOutlets: true, preferWallHoles: true,
     preferCeilingMounts: false, keepFloorClear: true,
   },
-  floors: [{ id: 1, label: '1F', heightM: 8, gridSize: { cols: 8, rows: 8 } }],
+  floors: [{ id: 1, label: '1F', gridSize: { cols: 8, rows: 8 } }],
   machines: [
     { id: 's1', type: 'smelter', pos: { col: 1, row: 1 }, facing: 'south', floor: 1, recipe: 'iron-ingot', label: 'S-1' },
     { id: 'sp1', type: 'splitter', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1, label: '分流' },
@@ -135,8 +135,8 @@ describe('schema', () => {
     const ok = {
       ...MINIMAL_SCHEME,
       floors: [
-        { id: 1, label: '1F', heightM: 8, gridSize: { cols: 8, rows: 8 } },
-        { id: 2, label: '2F', heightM: 8, gridSize: { cols: 8, rows: 8 } },
+        { id: 1, label: '1F', gridSize: { cols: 8, rows: 8 } },
+        { id: 2, label: '2F', gridSize: { cols: 8, rows: 8 } },
       ],
       machines: [
         { id: 'm1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1 },
@@ -176,7 +176,7 @@ describe('schema', () => {
       }],
     };
     const issues = validateSchemeDetailed(bad);
-    expect(issues.some(i => i.rule === 'R14-belt-cross')).toBe(true);
+    expect(issues.some(i => i.rule === 'R14b-belt-cross')).toBe(true);
   });
 
   it('R15: warns on overlapping belt segments', () => {
@@ -283,8 +283,8 @@ describe('R18 - LiftPair 一致性', () => {
       id: 'test', name: 'test', version: '1.0.0', category: 'test', description: '',
       designPrinciples: { preferWallOutlets: false, preferWallHoles: false, preferCeilingMounts: false, keepFloorClear: false },
       floors: [
-        { id: 1, label: 'F1', heightM: 4, gridSize: { cols: 8, rows: 8 } },
-        { id: 2, label: 'F2', heightM: 4, gridSize: { cols: 8, rows: 8 } },
+        { id: 1, label: 'F1', gridSize: { cols: 8, rows: 8 } },
+        { id: 2, label: 'F2', gridSize: { cols: 8, rows: 8 } },
       ],
       machines, belts: [], liftPairs, structures: [], zones: [],
     };
@@ -328,7 +328,7 @@ describe('R18 - LiftPair 一致性', () => {
       { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
     ]);
     // 添加 floor 3 避免 R1-floor 失败抢先
-    scheme.floors.push({ id: 3, label: 'F3', heightM: 4, gridSize: { cols: 8, rows: 8 } });
+    scheme.floors.push({ id: 3, label: 'F3', gridSize: { cols: 8, rows: 8 } });
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
   });
@@ -369,7 +369,7 @@ describe('R18 - LiftPair 一致性', () => {
 });
 
 describe('R19 - 垂直交叉检测', () => {
-  const baseFloor = { id: 1, label: 'F1', heightM: 4, gridSize: { cols: 8, rows: 8 } };
+  const baseFloor = { id: 1, label: 'F1', gridSize: { cols: 8, rows: 8 } };
   function schemeWithBelts(belts: Scheme['belts']): Scheme {
     return {
       id: 'test', name: 'test', version: '1.0.0', category: 'test', description: '',
@@ -419,7 +419,7 @@ describe('R19 - 垂直交叉检测', () => {
       { id: 'b2', floor: 2, mark: 1, material: 'y',
         path: [{ col: 3, row: 1 }, { col: 3, row: 5 }] },
     ]);
-    scheme.floors.push({ id: 2, label: 'F2', heightM: 4, gridSize: { cols: 8, rows: 8 } });
+    scheme.floors.push({ id: 2, label: 'F2', gridSize: { cols: 8, rows: 8 } });
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.rule === 'R19-belt-cross')).toBe(false);
   });
@@ -476,7 +476,7 @@ describe('iron-full-line-v2 方案校验', () => {
     expect(errors).toHaveLength(0);
   });
 
-  it('仅允许 R2/R8 对齐 warn 与 1 个已知 R19 跨带（螺丝跨组分流强制跨越 rod 主干）', () => {
+  it('仅允许 1 个已知 R19 跨带 warn（螺丝跨组分流强制跨越 rod 主干）', () => {
     const issues = validateSchemeDetailed(ironFullLineV2 as unknown as Scheme);
     const warns = issues.filter(i => i.severity === 'warn');
 
@@ -491,11 +491,9 @@ describe('iron-full-line-v2 方案校验', () => {
       w.rule === 'R19-belt-cross' &&
       [...KNOWN_R19_CROSSES].some(k => w.message.includes(k.split(' × ')[0]) && w.message.includes(k.split(' × ')[1]));
 
-    const unexpectedWarns = warns.filter(
-      w => !w.rule.startsWith('R2-') && !w.rule.startsWith('R8-') && !isKnownR19(w),
-    );
+    const unexpectedWarns = warns.filter(w => !isKnownR19(w));
     if (unexpectedWarns.length > 0) {
-      console.error('Unexpected non-alignment warns in v2:');
+      console.error('Unexpected warns in v2:');
       unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
     }
     expect(unexpectedWarns).toHaveLength(0);

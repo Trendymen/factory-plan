@@ -28,6 +28,7 @@ export const MachineRenderer = memo(function MachineRenderer({
   const labelColor = lightBg ? '#12151c' : undefined;
   const subLabelColor = lightBg ? 'rgba(18,21,28,0.75)' : 'var(--text-muted)';
 
+  const isLift = machine.type.startsWith('conveyor-lift');
   const inset = Math.min(w, h) * 0.08;
   const bx = x + inset;
   const by = y + inset;
@@ -59,22 +60,26 @@ export const MachineRenderer = memo(function MachineRenderer({
       <rect className="machine-footprint" x={x} y={y} width={w} height={h} rx={3} stroke={color} />
       <rect className="machine-body" x={bx} y={by} width={bw} height={bh} rx={2} style={{ fill: color, stroke: color }} />
 
-      {/* 标签：clipPath 确保不溢出 */}
-      <clipPath id={`clip-${machine.id}`}>
-        <rect x={bx} y={by} width={bw} height={bh} />
-      </clipPath>
-      <g clipPath={`url(#clip-${machine.id})`}>
-        <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 0)}
-          textAnchor="middle" dominantBaseline="central" style={{ fontSize: labelFontSize, fill: labelColor }}>
-          {displayLabel}
-        </text>
-        {subLabel && !isSmall && (
-          <text className="machine-sublabel" x={bx + bw / 2} y={by + bh / 2 + 10}
-            textAnchor="middle" style={{ fontSize: 7, fill: subLabelColor }}>
-            {subLabel}
-          </text>
-        )}
-      </g>
+      {/* 标签：clipPath 确保不溢出（升降机由 LiftOverlay 提供标签） */}
+      {!isLift && (
+        <>
+          <clipPath id={`clip-${machine.id}`}>
+            <rect x={bx} y={by} width={bw} height={bh} />
+          </clipPath>
+          <g clipPath={`url(#clip-${machine.id})`}>
+            <text className="machine-label" x={bx + bw / 2} y={by + bh / 2 + (subLabel && !isSmall ? -3 : 0)}
+              textAnchor="middle" dominantBaseline="central" style={{ fontSize: labelFontSize, fill: labelColor }}>
+              {displayLabel}
+            </text>
+            {subLabel && !isSmall && (
+              <text className="machine-sublabel" x={bx + bw / 2} y={by + bh / 2 + 10}
+                textAnchor="middle" style={{ fontSize: 7, fill: subLabelColor }}>
+                {subLabel}
+              </text>
+            )}
+          </g>
+        </>
+      )}
 
       {meta.ports.map(portDef => {
         const pos = resolvePortPosition(machine.pos, machine.facing, meta.dimensions, portDef);

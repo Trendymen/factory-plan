@@ -19,9 +19,10 @@ export interface ValidationIssue {
 }
 
 // ============================================================
-// 网格对齐步进（0.25 = 2m 精度）
+// 网格对齐步进（0.0625 = 0.5m 精度）
+// 放宽至 0.0625 以兼容端口同轴对齐场景（如 storage 2.5m 端口偏移 = 0.3125 格）
 // ============================================================
-const GRID_STEP = 0.25;
+const GRID_STEP = 0.0625;
 
 function isAligned(v: number): boolean {
   return Math.abs(v - Math.round(v / GRID_STEP) * GRID_STEP) < 0.001;
@@ -247,24 +248,42 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
-  // R14: 传送带线段不穿过机器主体
+  // R14a: 非端口段不得穿越连接机器 (error)
+  // R14b: 传送带线段不穿过无关机器 (warn)
   // ----------------------------------------------------------
   for (const b of scheme.belts) {
     const fromMachine = b.fromPort?.split(':')[0];
     const toMachine = b.toPort?.split(':')[0];
+    const lastSegIdx = b.path.length - 2;
 
     for (let i = 0; i < b.path.length - 1; i++) {
       const segRect = rectFromSegment(b.path[i], b.path[i + 1]);
 
       for (const box of machineBoxes) {
         if (box.floor !== b.floor) continue;
-        if (box.id === fromMachine || box.id === toMachine) continue;
+
+        // 端口段允许与连接机器重叠：首段→fromMachine，末段→toMachine
+        const isFrom = box.id === fromMachine;
+        const isTo = box.id === toMachine;
+        if (isFrom && i === 0) continue;
+        if (isTo && i === lastSegIdx) continue;
+
         if (rectsOverlap(segRect, box.rect, 0.02)) {
-          issues.push({
-            severity: 'warn', rule: 'R14-belt-cross',
-            message: `Belt "${b.id}" segment ${i}→${i + 1} crosses through machine "${box.id}" on floor ${b.floor}`,
-            elementId: b.id,
-          });
+          if (isFrom || isTo) {
+            // R14a: 非端口段穿越了连接机器
+            issues.push({
+              severity: 'error', rule: 'R14a-connected-cross',
+              message: `Belt "${b.id}" segment ${i}→${i + 1} crosses through connected machine "${box.id}" (only terminal segment may enter machine body)`,
+              elementId: b.id,
+            });
+          } else {
+            // R14b: 穿越无关机器
+            issues.push({
+              severity: 'warn', rule: 'R14b-belt-cross',
+              message: `Belt "${b.id}" segment ${i}→${i + 1} crosses through machine "${box.id}" on floor ${b.floor}`,
+              elementId: b.id,
+            });
+          }
         }
       }
     }

@@ -55,13 +55,13 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   'conveyor-lift-in-bottom': {
     type: 'conveyor-lift-in-bottom', category: 'logistics', displayName: '传送带升降机(底入)',
     dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
-    ports: [port('bottom', 'belt-in', 'bottom', 1, 0)],
+    ports: [port('bottom', 'belt-in', 'top', 1, 0)],
     color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
   },
   'conveyor-lift-out-bottom': {
     type: 'conveyor-lift-out-bottom', category: 'logistics', displayName: '传送带升降机(底出)',
     dimensions: { width: 2, length: 2, height: 7 }, clearanceHeight: 7,
-    ports: [port('bottom', 'belt-out', 'bottom', 1, 0)],
+    ports: [port('bottom', 'belt-out', 'top', 1, 0)],
     color: '--lift', powerUsage: 0, stackable: false, wallMounted: false,
   },
   'conveyor-lift-in-top': {

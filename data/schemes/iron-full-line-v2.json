@@ -14,7 +14,6 @@
     {
       "id": 1,
       "label": "1F 冶炼 & 制造",
-      "heightM": 4,
       "gridSize": {
         "cols": 8,
         "rows": 7
@@ -23,7 +22,6 @@
     {
       "id": 2,
       "label": "2F 组装 & 成品",
-      "heightM": 4,
       "gridSize": {
         "cols": 8,
         "rows": 7
@@ -712,11 +710,12 @@
       "material": "铁板",
       "path": [
         { "col": 1.5, "row": 4.25 },
-        { "col": 1.5, "row": 5.75 },
-        { "col": 1.375, "row": 5.75 }
+        { "col": 1.5, "row": 5.25 },
+        { "col": 1.625, "row": 5.25 },
+        { "col": 1.625, "row": 5.5 }
       ],
       "fromPort": "plate1:out-0",
-      "toPort": "mg_plate:in-2"
+      "toPort": "mg_plate:in-0"
     },
     {
       "id": "b_plate_p2",

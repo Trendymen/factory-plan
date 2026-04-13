@@ -93,7 +93,7 @@ export interface LiftPair {
   id: string;                   // pair 标识，全局唯一
   bottomMachine: string;        // 指向 scheme.machines 中 F1 的 lift 机器 id
   topMachine: string;           // 指向 scheme.machines 中 F2 的 lift 机器 id
-  material: string;             // 物流元数据，用于 LiftOverlay 徽标和 cross-section 连线
+  material: string;             // 物流元数据，用于 LiftOverlay 徽标
   mark: BeltMark;               // 升降机等级（沿用原 Lift.mark 字段含义）
 }
 
@@ -119,7 +119,6 @@ export interface Zone {
 export interface Floor {
   id: number;
   label: string;
-  heightM: number;
   gridSize: { cols: number; rows: number };
 }
 
@@ -163,17 +162,12 @@ export interface SchemeIndex {
 
 // ===== 视图状态 =====
 
-export type ViewMode = 'single' | 'linked' | 'section';
+export type ViewMode = 'single' | 'linked';
 
 export interface Viewport {
   zoom: number;
   panX: number;
   panY: number;
-}
-
-export interface SectionCut {
-  axis: 'col' | 'row';
-  position: number;
 }
 
 export interface Layers {
