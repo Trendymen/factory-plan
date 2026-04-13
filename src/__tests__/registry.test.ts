@@ -43,9 +43,24 @@ describe('registry', () => {
     expect(MATERIAL_COLORS['线缆']).toBeDefined();
   });
 
-  it('smelter dimensions match wiki data (6x9x9)', () => {
+  it('smelter dimensions match wiki data (5x10)', () => {
     const meta = getBuildingMeta('smelter');
-    expect(meta.dimensions).toEqual({ width: 6, length: 9, height: 9 });
+    expect(meta.dimensions).toEqual({ width: 5, length: 10, height: 9 });
+  });
+
+  it('assembler dimensions match wiki data (9x16)', () => {
+    const meta = getBuildingMeta('assembler');
+    expect(meta.dimensions).toEqual({ width: 9, length: 16, height: 11 });
+  });
+
+  it('new production machine types are registered', () => {
+    const newTypes = ['refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter'];
+    for (const t of newTypes) {
+      const meta = getBuildingMeta(t as any);
+      expect(meta).toBeDefined();
+      expect(meta.dimensions.width).toBeGreaterThan(0);
+      expect(meta.ports.length).toBeGreaterThan(0);
+    }
   });
 
   it('assembler has 2 belt inputs and 1 belt output', () => {

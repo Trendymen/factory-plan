@@ -26,7 +26,7 @@ export interface RecipePort {
 }
 
 /** 配方所属的生产机器类型（与 BUILDING_REGISTRY key 对齐） */
-export type RecipeMachine = PlaceableType | 'refinery' | 'packager' | 'blender' | 'particle-accelerator' | 'nuclear-power-plant' | 'water-extractor' | 'oil-extractor' | 'miner';
+export type RecipeMachine = PlaceableType | 'nuclear-power-plant' | 'water-extractor' | 'oil-extractor' | 'miner';
 
 export interface Recipe {
   id: string;

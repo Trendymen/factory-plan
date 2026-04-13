@@ -35,6 +35,8 @@ export type BuildingCategory = 'production' | 'logistics' | 'storage';
 
 export type PlaceableType =
   | 'smelter' | 'foundry' | 'constructor' | 'assembler' | 'manufacturer'
+  | 'refinery' | 'packager' | 'blender'
+  | 'particle-accelerator' | 'quantum-encoder' | 'converter'
   | 'splitter' | 'merger'
   | 'storage' | 'industrial-storage'
   // 传送带升降机（一台物理升降机由 bottom + top 两条配对 machine 组成，类型表达方向与楼层位置）

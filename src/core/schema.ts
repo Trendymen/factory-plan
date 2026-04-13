@@ -120,7 +120,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     // 生产类机器（smelter/constructor/assembler/manufacturer/foundry）必须声明 recipe
     // （R18-R20 已分别被 LiftPair / 垂直交叉 / 紧凑 U 型占用）
     // ----------------------------------------------------------
-    const productionTypes: PlaceableType[] = ['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer'];
+    const productionTypes: PlaceableType[] = ['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer', 'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter'];
     if (productionTypes.includes(m.type)) {
       if (!m.recipe) {
         issues.push({ severity: 'warn', rule: 'R21-missing-recipe', message: `Machine "${m.id}": production machine should declare recipe id`, elementId: m.id });
@@ -600,7 +600,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // R23: 生产机器输入端口未连接检测
   // ----------------------------------------------------------
   {
-    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer', 'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter']);
     const connectedInputs = new Set<string>();
     for (const b of scheme.belts) {
       if (b.toPort) connectedInputs.add(b.toPort);
@@ -629,7 +629,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // R29: 孤立机器检测 + R30: Storage 入口连接检测
   // ----------------------------------------------------------
   {
-    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer', 'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter']);
     const storageSet = new Set<PlaceableType>(['storage', 'industrial-storage']);
 
     const machineInCount = new Map<string, number>();
@@ -682,7 +682,7 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   // R31: 传送带物料类型一致性
   // ----------------------------------------------------------
   {
-    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer']);
+    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer', 'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter']);
 
     for (const b of scheme.belts) {
       if (!b.fromPort) continue;

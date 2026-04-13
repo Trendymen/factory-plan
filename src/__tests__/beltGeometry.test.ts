@@ -49,8 +49,8 @@ describe('beltGeometry', () => {
 
     expect(points).toEqual([
       { col: 2, row: 4.5 },
-      { col: 1.75, row: 4.5 },
-      { col: 1.75, row: 4.75 },
+      { col: 1.6875, row: 4.5 },
+      { col: 1.6875, row: 4.75 },
     ]);
   });
 

@@ -21,6 +21,7 @@ export interface FlowValidationIssue {
 
 const PRODUCTION_TYPES = new Set<string>([
   'smelter', 'foundry', 'constructor', 'assembler', 'manufacturer',
+  'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter',
 ]);
 
 function beltCapacity(mark: number): number {

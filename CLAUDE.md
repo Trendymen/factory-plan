@@ -204,15 +204,23 @@ storage / industrial-storage 的 `belt-in` 端口无传送带连接 → **warn**
 
 ## 机器尺寸参考（网格单位，1格=8m）
 
-| 类型 | 宽×长(格) | 入口 | 出口 |
-|------|----------|------|------|
-| smelter | 0.75×1.125 | 1×back | 1×front |
-| constructor | 1.0×1.25 | 1×back | 1×front |
-| assembler | 1.25×1.875 | 2×back | 1×front |
-| manufacturer | 2.25×2.5 | 4×**front** | 1×back |
-| splitter | 0.5×0.5 | 1×back | 3×(front,left,right) |
-| merger | 0.5×0.5 | 3×(back,left,right) | 1×front |
-| storage | 0.625×1.25 | 1×back | 1×front |
+| 类型 | 实际尺寸(m) | 宽×长(格) | 入口 | 出口 |
+|------|-----------|----------|------|------|
+| smelter | 5×10 | 0.625×1.25 | 1×back | 1×front |
+| foundry | 10×9 | 1.25×1.125 | 2×back | 1×front |
+| constructor | 8×10 | 1.0×1.25 | 1×back | 1×front |
+| assembler | 9×16 | 1.125×2.0 | 2×back | 1×front |
+| manufacturer | 18×20 | 2.25×2.5 | 4×**front** | 1×back |
+| refinery | 10×22 | 1.25×2.75 | 1×back | 1×front |
+| packager | 8×8 | 1.0×1.0 | 1×back | 1×front |
+| blender | 18×16 | 2.25×2.0 | 2×back | 1×front |
+| particle-accelerator | 24×38 | 3.0×4.75 | 2×back | 1×front |
+| quantum-encoder | 22×50 | 2.75×6.25 | 3×back | 1×front |
+| converter | 16×16 | 2.0×2.0 | 2×back | 1×front |
+| splitter | 4×4 | 0.5×0.5 | 1×back | 3×(front,left,right) |
+| merger | 4×4 | 0.5×0.5 | 3×(back,left,right) | 1×front |
+| storage | 5×11 | 0.625×1.375 | 1×back | 1×front |
+| industrial-storage | 5×11 | 0.625×1.375 | 2×back | 2×front |
 
 注意：**manufacturer 是唯一输入在前方(front)的机器**，其他所有机器输入都在后方(back)。
 

@@ -29,6 +29,7 @@ import { BELT_RATES, getRecipe, type BeltMarkKey } from './recipes';
 
 const PRODUCTION_TYPES = new Set<string>([
   'smelter', 'foundry', 'constructor', 'assembler', 'manufacturer',
+  'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter',
 ]);
 
 export interface SchemeStats {
