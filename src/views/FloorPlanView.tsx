@@ -85,7 +85,7 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
       {layers.belts && belts.map(b => (
         <BeltRenderer key={b.id} belt={b} machines={scheme.machines} highlight={isHighlighted(b.id)} selected={b.id === selectedId} dimmed={isDimmed(b.id)} onHover={hover} onClick={select} />
       ))}
-      {layers.belts && (
+      {layers.belts && layers.showBeltLabel && (
         <BeltLabelLayer belts={belts} machines={scheme.machines} highlightChain={highlightChain} selectedId={selectedId} onHover={hover} onClick={toggleBeltSelect} />
       )}
       {layers.beltFlow && layers.belts && (

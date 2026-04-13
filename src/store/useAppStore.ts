@@ -99,7 +99,8 @@ const DEFAULT_LAYERS: Layers = {
   zones: true,
   storage: true,
   beltFlow: false,
-  showBeltMark: true,
+  showBeltMark: false,
+  showBeltLabel: true,
 };
 
 export const useAppStore = create<AppState>((set) => ({

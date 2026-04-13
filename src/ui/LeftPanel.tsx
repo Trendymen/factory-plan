@@ -46,6 +46,13 @@ export function LeftPanel() {
       </div>
       <div className="panel-section panel-section-bottom">
         <label className="switch-toggle">
+          <span className="switch-label">传送带标签</span>
+          <span className={`switch-track${layers.showBeltLabel ? ' switch-on' : ''}`}
+            onClick={() => toggleLayer('showBeltLabel')}>
+            <span className="switch-thumb" />
+          </span>
+        </label>
+        <label className="switch-toggle">
           <span className="switch-label">传送带等级</span>
           <span className={`switch-track${layers.showBeltMark ? ' switch-on' : ''}`}
             onClick={() => toggleLayer('showBeltMark')}>

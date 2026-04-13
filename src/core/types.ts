@@ -164,4 +164,5 @@ export interface Layers {
   storage: boolean;
   beltFlow: boolean;
   showBeltMark: boolean;
+  showBeltLabel: boolean;
 }
