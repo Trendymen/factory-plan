@@ -1,6 +1,7 @@
 // src/core/labelLayout.ts — 传送带标签碰撞避让算法
 // 使用统一碰撞检测模块，同时避让其他标签和传送带线段
 import type { BeltSegment, MachineInstance } from './types';
+import type { MaterialMap } from './deriveMaterials';
 import { gridToSvg, machineGridSize, GRID_PX } from './coordinate';
 import { getMaterialColor, getBuildingMeta } from './registry';
 import { type Rect, rectFromCenter, rectFromPos, rectsOverlap } from './collision';
@@ -119,6 +120,7 @@ export interface LabelLayoutOptions {
 export function computeBeltLabelPositions(
   belts: BeltSegment[],
   machines: MachineInstance[],
+  materialMap: MaterialMap,
   options?: LabelLayoutOptions,
 ): BeltLabelPlacement[] {
   const tPref = options?.tPreference ?? 'center';
@@ -178,8 +180,10 @@ export function computeBeltLabelPositions(
       if (totalLen < 30) continue;
     }
 
-    const color = getMaterialColor(belt.material);
-    const charW = belt.material.length * 7 + 8;
+    const materials = materialMap.get(belt.id) ?? [];
+    const label = materials.length > 0 ? materials.join('+') : belt.id;
+    const color = getMaterialColor(materials[0] ?? '');
+    const charW = label.length * 7 + 8;
     const colW = charW + COLLISION_PAD_X;
     const colH = LABEL_H + COLLISION_PAD_Y;
 
@@ -226,7 +230,7 @@ export function computeBeltLabelPositions(
       id: belt.id,
       x: chosen.x,
       y: chosen.y,
-      text: belt.material,
+      text: label,
       color,
       width: charW,
       height: LABEL_H,

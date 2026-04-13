@@ -1,10 +1,12 @@
 import { memo, useMemo } from 'react';
 import type { BeltSegment, MachineInstance } from '../core/types';
+import type { MaterialMap } from '../core/deriveMaterials';
 import { computeBeltLabelPositions } from '../core/labelLayout';
 
 interface BeltLabelLayerProps {
   belts: BeltSegment[];
   machines: MachineInstance[];
+  materialMap: MaterialMap;
   highlightChain: string[];
   selectedId: string | null;
   onHover?: (id: string | null) => void;
@@ -16,11 +18,11 @@ interface BeltLabelLayerProps {
  * 标签位置由贪心算法计算，确保不重叠。
  */
 export const BeltLabelLayer = memo(function BeltLabelLayer({
-  belts, machines, highlightChain, selectedId, onHover, onClick,
+  belts, machines, materialMap, highlightChain, selectedId, onHover, onClick,
 }: BeltLabelLayerProps) {
   const placements = useMemo(
-    () => computeBeltLabelPositions(belts, machines),
-    [belts, machines],
+    () => computeBeltLabelPositions(belts, machines, materialMap),
+    [belts, machines, materialMap],
   );
 
   const hasHighlight = highlightChain.length > 0;
