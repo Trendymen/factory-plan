@@ -18,7 +18,7 @@ describe('deriveMaterials', () => {
         { id: 'c1', type: 'constructor', pos: { col: 1, row: 3 }, facing: 'south', floor: 1, recipe: 'iron-plate' },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 3 }], fromPort: 's1:out-0', toPort: 'c1:in-0' },
+        { id: 'b1', floor: 1, mark: 1, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 3 }], fromPort: 's1:out-0', toPort: 'c1:in-0' },
       ],
     };
     const map = deriveMaterials(scheme);
@@ -33,8 +33,8 @@ describe('deriveMaterials', () => {
         { id: 'sp1', type: 'splitter', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
-        { id: 'b2', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
+        { id: 'b1', floor: 1, mark: 1, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
       ],
     };
     const map = deriveMaterials(scheme);
@@ -51,9 +51,9 @@ describe('deriveMaterials', () => {
         { id: 'mg1', type: 'merger', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1, material: '铁板', path: [{ col: 0.5, row: 1.25 }, { col: 0.5, row: 2.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b2', floor: 1, mark: 1, material: '铁棒', path: [{ col: 2, row: 1.25 }, { col: 2, row: 2.5 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
-        { id: 'b3', floor: 1, mark: 1, material: '铁板', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
+        { id: 'b1', floor: 1, mark: 1, path: [{ col: 0.5, row: 1.25 }, { col: 0.5, row: 2.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b2', floor: 1, mark: 1, path: [{ col: 2, row: 1.25 }, { col: 2, row: 2.5 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
+        { id: 'b3', floor: 1, mark: 1, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
       ],
     };
     const map = deriveMaterials(scheme);
@@ -70,7 +70,7 @@ describe('deriveMaterials', () => {
         { id: 's1', type: 'smelter', pos: { col: 1, row: 1 }, facing: 'south', floor: 1, recipe: 'iron-ingot' },
       ],
       belts: [
-        { id: 'b_ext', floor: 1, mark: 1, material: '铁矿石', path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 's1:in-0' },
+        { id: 'b_ext', floor: 1, mark: 1, path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 's1:in-0' },
       ],
     };
     const map = deriveMaterials(scheme);
@@ -86,9 +86,9 @@ describe('deriveMaterials', () => {
         { id: 'mg1', type: 'merger', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 0.375, row: 1.25 }, { col: 0.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b2', floor: 1, mark: 1, material: '铁锭', path: [{ col: 2, row: 1.25 }, { col: 2, row: 2.5 }], fromPort: 's2:out-0', toPort: 'mg1:in-1' },
-        { id: 'b3', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
+        { id: 'b1', floor: 1, mark: 1, path: [{ col: 0.375, row: 1.25 }, { col: 0.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b2', floor: 1, mark: 1, path: [{ col: 2, row: 1.25 }, { col: 2, row: 2.5 }], fromPort: 's2:out-0', toPort: 'mg1:in-1' },
+        { id: 'b3', floor: 1, mark: 1, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
       ],
     };
     const map = deriveMaterials(scheme);

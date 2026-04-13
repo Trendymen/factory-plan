@@ -27,12 +27,12 @@ describe('R22: 传送带容量溢出', () => {
         { id: 'st1', type: 'storage', pos: { col: 1.5, row: 5 }, facing: 'south', floor: 1 },
       ],
       belts: [
-        { id: 'b_in1', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
-        { id: 'b_in2', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
-        { id: 'b_c1', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b_c2', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
+        { id: 'b_in1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
+        { id: 'b_in2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
+        { id: 'b_c1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b_c2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
         // Mk.1 (60/min) 但合流后 2×40=80/min → 溢出
-        { id: 'b_overflow', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'st1:in-0' },
+        { id: 'b_overflow', floor: 1, mark: 1 as const, path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'st1:in-0' },
       ],
     };
     const issues = validateFlowRules(scheme);
@@ -52,12 +52,12 @@ describe('R22: 传送带容量溢出', () => {
         { id: 'st1', type: 'storage', pos: { col: 1.5, row: 5 }, facing: 'south', floor: 1 },
       ],
       belts: [
-        { id: 'b_in1', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
-        { id: 'b_in2', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
-        { id: 'b_c1', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b_c2', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
+        { id: 'b_in1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
+        { id: 'b_in2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
+        { id: 'b_c1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b_c2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
         // Mk.2 (120/min) ≥ 80/min → OK
-        { id: 'b_overflow', floor: 1, mark: 2 as const, material: '螺丝', path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'st1:in-0' },
+        { id: 'b_overflow', floor: 1, mark: 2 as const, path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'st1:in-0' },
       ],
     };
     const issues = validateFlowRules(scheme);
@@ -82,15 +82,15 @@ describe('R28: 升降机容量溢出', () => {
         { id: 'st1', type: 'storage', pos: { col: 1.5, row: 3 }, facing: 'south', floor: 2 },
       ],
       belts: [
-        { id: 'b_in1', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
-        { id: 'b_in2', floor: 1, mark: 1 as const, material: '铁棒', path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
-        { id: 'b_c1', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b_c2', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
-        { id: 'b_to_lift', floor: 1, mark: 2 as const, material: '螺丝', path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'lift_bot:bottom' },
-        { id: 'b_from_lift', floor: 2, mark: 2 as const, material: '螺丝', path: [{ col: 2, row: 5 }, { col: 2, row: 3 }], fromPort: 'lift_top:top', toPort: 'st1:in-0' },
+        { id: 'b_in1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
+        { id: 'b_in2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 0 }, { col: 3, row: 1 }], toPort: 'c2:in-0' },
+        { id: 'b_c1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 2.25 }, { col: 1.5, row: 3.5 }], fromPort: 'c1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b_c2', floor: 1, mark: 1 as const, path: [{ col: 3, row: 2.25 }, { col: 3, row: 3.75 }, { col: 2.25, row: 3.75 }], fromPort: 'c2:out-0', toPort: 'mg1:in-1' },
+        { id: 'b_to_lift', floor: 1, mark: 2 as const, path: [{ col: 2, row: 3.75 }, { col: 2, row: 5 }], fromPort: 'mg1:out-0', toPort: 'lift_bot:bottom' },
+        { id: 'b_from_lift', floor: 2, mark: 2 as const, path: [{ col: 2, row: 5 }, { col: 2, row: 3 }], fromPort: 'lift_top:top', toPort: 'st1:in-0' },
       ],
       liftPairs: [
-        { id: 'lift_screw', bottomMachine: 'lift_bot', topMachine: 'lift_top', material: '螺丝', mark: 1 as const },
+        { id: 'lift_screw', bottomMachine: 'lift_bot', topMachine: 'lift_top', mark: 1 as const },
       ],
     };
     const issues = validateFlowRules(scheme);

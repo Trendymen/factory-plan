@@ -35,7 +35,6 @@ describe('beltGeometry', () => {
       id: 'b-screw-to-rip',
       floor: 2,
       mark: 1,
-      material: '螺丝',
       path: [
         { col: 2, row: 4.5 },
         { col: 2, row: 4.75 },
@@ -59,7 +58,6 @@ describe('beltGeometry', () => {
       id: 'b-plate-store',
       floor: 2,
       mark: 1,
-      material: '铁板',
       path: [
         { col: 0.75, row: 0.75 },
         { col: 0.5, row: 0.75 },
