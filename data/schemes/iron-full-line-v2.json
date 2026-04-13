@@ -875,7 +875,7 @@
     {
       "id": "b_rod_lift_in",
       "floor": 2,
-      "mark": 2,
+      "mark": 1,
       "material": "铁棒",
       "path": [
         { "col": 5.625, "row": 6.5 },
@@ -912,7 +912,7 @@
     {
       "id": "b_rod_main_to_rotor",
       "floor": 2,
-      "mark": 2,
+      "mark": 1,
       "material": "铁棒",
       "path": [
         { "col": 5.875, "row": 6 },
@@ -1099,7 +1099,7 @@
     {
       "id": "b_rip_to_store",
       "floor": 2,
-      "mark": 2,
+      "mark": 1,
       "material": "强化铁板",
       "path": [
         { "col": 1.875, "row": 1.5 },
@@ -1113,7 +1113,7 @@
     {
       "id": "b_rotor_to_store",
       "floor": 2,
-      "mark": 2,
+      "mark": 1,
       "material": "转子",
       "path": [
         { "col": 5.875, "row": 1.5 },

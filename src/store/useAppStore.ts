@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import type {
   Scheme, SchemeIndex, ViewMode, Viewport, Layers,
 } from '../core/types';
+import { computeBeltFlows, type BeltFlowEntry } from '../core/computeStats';
 
 function traceChain(scheme: Scheme, beltId: string): string[] {
   const ids = new Set<string>();
@@ -68,6 +69,7 @@ interface AppState {
   schemes: SchemeIndex[];
   currentSchemeId: string | null;
   currentScheme: Scheme | null;
+  beltFlows: Map<string, BeltFlowEntry>;
   viewMode: ViewMode;
   currentFloor: number;
   viewport: Viewport;
@@ -96,12 +98,15 @@ const DEFAULT_LAYERS: Layers = {
   belts: true,
   zones: true,
   storage: true,
+  beltFlow: false,
+  showBeltMark: true,
 };
 
 export const useAppStore = create<AppState>((set) => ({
   schemes: [],
   currentSchemeId: null,
   currentScheme: null,
+  beltFlows: new Map(),
   viewMode: 'single',
   currentFloor: 1,
   viewport: { ...DEFAULT_VIEWPORT },
@@ -116,6 +121,7 @@ export const useAppStore = create<AppState>((set) => ({
   loadScheme: (scheme) => set({
     currentSchemeId: scheme.id,
     currentScheme: scheme,
+    beltFlows: computeBeltFlows(scheme),
     currentFloor: scheme.floors[0]?.id ?? 1,
     viewport: { ...DEFAULT_VIEWPORT },
     hoveredId: null,

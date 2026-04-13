@@ -59,7 +59,7 @@ interface Candidate { x: number; y: number }
  * 按距离优先排序：近距离的所有(seg,t)组合排在前面，再考虑远距离。
  * 这样回退时优先选最近的可用位置。
  */
-function generateCandidates(pts: Point[], labelW: number): Candidate[] {
+function generateCandidates(pts: Point[], labelW: number, tPreference: 'center' | 'offset' = 'center'): Candidate[] {
   const segs: { i: number; len: number }[] = [];
   for (let i = 0; i < pts.length - 1; i++) {
     const dx = pts[i + 1].x - pts[i].x;
@@ -68,7 +68,9 @@ function generateCandidates(pts: Point[], labelW: number): Candidate[] {
   }
   segs.sort((a, b) => b.len - a.len);
 
-  const tValues = [0.5, 0.35, 0.65, 0.2, 0.8];
+  const tValues = tPreference === 'offset'
+    ? [0.35, 0.2, 0.65, 0.8, 0.5]
+    : [0.5, 0.35, 0.65, 0.2, 0.8];
   // 边距（标签近边到线段近边的间距），水平/垂直统一
   const gaps = [1, 6, 12, 20];
 
@@ -109,10 +111,17 @@ function generateCandidates(pts: Point[], labelW: number): Candidate[] {
  * 硬约束（绝不违反）：① 已放置标签 ② 机器主体
  * 软约束（尽量避免）：③ 传送带线段
  */
+export interface LabelLayoutOptions {
+  /** 候选位置 t 值偏好：'center' 优先中点，'offset' 优先偏移（避免与中心标签重叠） */
+  tPreference?: 'center' | 'offset';
+}
+
 export function computeBeltLabelPositions(
   belts: BeltSegment[],
   machines: MachineInstance[],
+  options?: LabelLayoutOptions,
 ): BeltLabelPlacement[] {
+  const tPref = options?.tPreference ?? 'center';
   // ── 1. 预计算障碍物 ──
   const hardObstacles: Rect[] = []; // 机器主体：绝不重叠
   const softObstacles: Rect[] = []; // 传送带线：尽量避让
@@ -174,7 +183,7 @@ export function computeBeltLabelPositions(
     const colW = charW + COLLISION_PAD_X;
     const colH = LABEL_H + COLLISION_PAD_Y;
 
-    const candidates = generateCandidates(pts, charW);
+    const candidates = generateCandidates(pts, charW, tPref);
     if (candidates.length === 0) continue;
 
     const selfLines = softByBelt.get(belt.id) ?? [];

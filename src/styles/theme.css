@@ -430,6 +430,57 @@ body {
   opacity: 1;
 }
 
+/* ── Switch toggle (底部设置项) ── */
+
+.panel-section-bottom {
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: none;
+}
+
+.switch-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.switch-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.switch-track {
+  position: relative;
+  width: 28px;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.switch-track.switch-on {
+  background: #ab47bc;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.switch-track.switch-on .switch-thumb {
+  transform: translateX(14px);
+}
+
 /* ============================================================
    9. Canvas Area
    ============================================================ */
@@ -573,6 +624,45 @@ body {
   opacity: 0.9;
   pointer-events: none;
   filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.4));
+}
+
+/* ============================================================
+   11b. Flow Label / Tooltip — 毛玻璃样式
+   ============================================================ */
+
+.flow-label-glass,
+.flow-tooltip-glass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 6px;
+  line-height: 1;
+  color: #22d3ee;
+  white-space: nowrap;
+  /* 毛玻璃核心 */
+  background: rgba(8, 20, 36, 0.55);
+  backdrop-filter: blur(6px) saturate(1.4);
+  -webkit-backdrop-filter: blur(6px) saturate(1.4);
+  border: 0.5px solid rgba(34, 211, 238, 0.3);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+}
+
+.flow-label-selected {
+  border-color: rgba(34, 211, 238, 0.7);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.25);
+}
+
+.flow-tooltip-glass {
+  font-size: 7px;
+  background: rgba(8, 20, 36, 0.6);
+  backdrop-filter: blur(8px) saturate(1.5);
+  -webkit-backdrop-filter: blur(8px) saturate(1.5);
+  border: 0.8px solid rgba(34, 211, 238, 0.45);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================================

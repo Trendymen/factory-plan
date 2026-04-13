@@ -5,6 +5,7 @@ const LAYER_CONFIG: { key: keyof Layers; label: string; color: string }[] = [
   { key: 'belts', label: '传送带', color: '#00bcd4' },
   { key: 'zones', label: '分区', color: '#556677' },
   { key: 'storage', label: '储存', color: '#8d6e63' },
+  { key: 'beltFlow', label: '流量', color: '#22d3ee' },
 ];
 
 export function LeftPanel() {
@@ -42,6 +43,15 @@ export function LeftPanel() {
             </label>
           ))}
         </div>
+      </div>
+      <div className="panel-section panel-section-bottom">
+        <label className="switch-toggle">
+          <span className="switch-label">传送带等级</span>
+          <span className={`switch-track${layers.showBeltMark ? ' switch-on' : ''}`}
+            onClick={() => toggleLayer('showBeltMark')}>
+            <span className="switch-thumb" />
+          </span>
+        </label>
       </div>
     </>
   );

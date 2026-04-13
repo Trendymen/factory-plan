@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta, MATERIAL_RAW_COLORS } from '../core/registry';
 import { computeMachineFlow, formatRecipeLabel, getRecipe } from '../core/recipes';
+import type { BeltFlowEntry } from '../core/computeStats';
+import type { MachineInstance, Scheme } from '../core/types';
 
 /** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
 function fmtRate(rate: number): string {
@@ -13,18 +15,13 @@ const CURSOR_OFFSET = 16;
 const EDGE_PADDING = 12;
 const FALLBACK_SIZE = { width: 360, height: 280 };
 
+const LOGISTICS_TYPES = new Set(['splitter', 'merger']);
+
 interface PopupPos {
   left: number;
   top: number;
 }
 
-/**
- * 基于鼠标锚点与弹窗尺寸计算最终位置：
- * 1. 先尝试在光标右下角放置
- * 2. 若右边溢出 → 改放光标左侧
- * 3. 若下方溢出 → 改放光标上方
- * 4. 最后做边缘 clamp，保证永远在可视区
- */
 function computePopupPos(
   anchor: { x: number; y: number },
   size: { width: number; height: number },
@@ -41,7 +38,6 @@ function computePopupPos(
   } else if (anchor.x >= size.width + CURSOR_OFFSET + EDGE_PADDING) {
     left = anchor.x - CURSOR_OFFSET - size.width;
   } else {
-    // 两边都塞不下，居中贴近光标
     left = Math.max(EDGE_PADDING, Math.min(vw - size.width - EDGE_PADDING, anchor.x - size.width / 2));
   }
 
@@ -54,27 +50,61 @@ function computePopupPos(
     top = Math.max(EDGE_PADDING, Math.min(vh - size.height - EDGE_PADDING, anchor.y - size.height / 2));
   }
 
-  // 兜底 clamp 到可视范围内
   left = Math.max(EDGE_PADDING, Math.min(vw - size.width - EDGE_PADDING, left));
   top = Math.max(EDGE_PADDING, Math.min(vh - size.height - EDGE_PADDING, top));
 
   return { left, top };
 }
 
+/** 收集分流器/合流器的实际吞吐 */
+function computeLogisticsFlow(
+  machine: MachineInstance,
+  scheme: Scheme,
+  beltFlows: Map<string, BeltFlowEntry>,
+): { inputs: { item: string; rate: number }[]; outputs: { item: string; rate: number }[] } {
+  const inputs: { item: string; rate: number }[] = [];
+  const outputs: { item: string; rate: number }[] = [];
+
+  for (const belt of scheme.belts) {
+    const entry = beltFlows.get(belt.id);
+    if (!entry || entry.flow <= 0) continue;
+    if (belt.toPort?.startsWith(machine.id + ':')) {
+      inputs.push({ item: entry.material, rate: entry.flow });
+    }
+    if (belt.fromPort?.startsWith(machine.id + ':')) {
+      outputs.push({ item: entry.material, rate: entry.flow });
+    }
+  }
+
+  return { inputs, outputs };
+}
+
+function CloseButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button className="detail-close" onClick={onClick} aria-label="关闭">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </button>
+  );
+}
+
 export function MachineDetail() {
   const selectedId = useAppStore(s => s.selectedId);
   const selectAnchor = useAppStore(s => s.selectAnchor);
   const scheme = useAppStore(s => s.currentScheme);
+  const beltFlows = useAppStore(s => s.beltFlows);
   const select = useAppStore(s => s.select);
 
   const popupRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<PopupPos | null>(null);
 
+  // ── 查找目标：machine 或 liftPair ──
   const machine = scheme?.machines.find(m => m.id === selectedId);
+  const liftPair = !machine ? scheme?.liftPairs.find(p => p.id === selectedId) : null;
   const meta = machine ? getBuildingMeta(machine.type) : null;
-  const visible = !!(machine && meta);
+  const visible = !!(machine && meta) || !!liftPair;
 
-  // 测量并定位：每当选中机器或锚点变化时重新计算
   useLayoutEffect(() => {
     if (!visible) {
       setPos(null);
@@ -87,7 +117,6 @@ export function MachineDetail() {
     setPos(computePopupPos(anchor, size));
   }, [visible, selectAnchor, selectedId]);
 
-  // Escape 关闭
   useEffect(() => {
     if (!visible) return;
     const handler = (e: KeyboardEvent) => {
@@ -97,7 +126,6 @@ export function MachineDetail() {
     return () => window.removeEventListener('keydown', handler);
   }, [visible, select]);
 
-  // 视口大小变化 → 重新定位
   useEffect(() => {
     if (!visible) return;
     const onResize = () => {
@@ -110,55 +138,121 @@ export function MachineDetail() {
     return () => window.removeEventListener('resize', onResize);
   }, [visible, selectAnchor]);
 
-  const connectedBelts = machine
-    ? scheme?.belts.filter(b =>
-        b.fromPort?.startsWith(machine.id + ':') || b.toPort?.startsWith(machine.id + ':'),
-      ) ?? []
-    : [];
+  if (!scheme) return null;
 
-  const recipe = machine ? getRecipe(machine.recipe) : undefined;
-  const flow = machine ? computeMachineFlow(machine.recipe, machine.clockSpeed) : undefined;
+  // ── 升降机 pair 详情弹窗 ──
+  if (liftPair) {
+    const bot = scheme.machines.find(m => m.id === liftPair.bottomMachine);
+    const top = scheme.machines.find(m => m.id === liftPair.topMachine);
+    const direction = bot?.type.includes('-in-') ? '↑ 向上' : '↓ 向下';
+    const liftFlowEntry = beltFlows.get(liftPair.id);
+
+    // 连接的传送带
+    const connectedBelts = scheme.belts.filter(b =>
+      b.fromPort?.startsWith(liftPair.bottomMachine + ':') ||
+      b.toPort?.startsWith(liftPair.bottomMachine + ':') ||
+      b.fromPort?.startsWith(liftPair.topMachine + ':') ||
+      b.toPort?.startsWith(liftPair.topMachine + ':'),
+    );
+
+    return (
+      <AnimatePresence>
+        {visible && (
+          <motion.div
+            ref={popupRef}
+            className="machine-detail machine-detail-floating"
+            style={{ position: 'fixed', left: pos?.left ?? -9999, top: pos?.top ?? -9999, visibility: pos ? 'visible' : 'hidden' }}
+            initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.14, ease: 'easeOut' }}
+            onMouseDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}
+          >
+            <div className="detail-header" style={{ '--accent': 'var(--lift)' } as React.CSSProperties}>
+              <div className="detail-title-row">
+                <h3 className="detail-title">{liftPair.id}</h3>
+                <span className="detail-type">升降机</span>
+              </div>
+              <CloseButton onClick={() => select(null)} />
+            </div>
+            <div className="detail-body">
+              <div className="detail-grid">
+                <span className="detail-key">方向</span><span className="detail-val">{direction}</span>
+                <span className="detail-key">楼层</span><span className="detail-val">{bot?.floor}F → {top?.floor}F</span>
+                <span className="detail-key">等级</span><span className="detail-val">Mk.{liftPair.mark}</span>
+                <span className="detail-key">物料</span><span className="detail-val">{liftPair.material}</span>
+              </div>
+              {liftFlowEntry && liftFlowEntry.flow > 0 && (
+                <div className="detail-section">
+                  <div className="detail-section-title">每分钟吞吐</div>
+                  <div className="detail-belt-row">
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[liftFlowEntry.material] ?? '#888' }} />
+                    <span className="detail-val">↕ {liftFlowEntry.material}</span>
+                    <span className="detail-key">{fmtRate(liftFlowEntry.flow)}/min</span>
+                  </div>
+                </div>
+              )}
+              {connectedBelts.length > 0 && (
+                <div className="detail-section">
+                  <div className="detail-section-title">连接传送带</div>
+                  {connectedBelts.map(b => (
+                    <div key={b.id} className="detail-belt-row">
+                      <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[b.material] ?? '#888' }} />
+                      <span className="detail-val">{b.material}</span>
+                      <span className="detail-key">Mk.{b.mark}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  }
+
+  // ── 普通机器 / 分流器 / 合流器 详情弹窗 ──
+  if (!machine || !meta) return null;
+
+  const connectedBelts = scheme.belts.filter(b =>
+    b.fromPort?.startsWith(machine.id + ':') || b.toPort?.startsWith(machine.id + ':'),
+  );
+
+  const recipe = getRecipe(machine.recipe);
+  const flow = computeMachineFlow(machine.recipe, machine.clockSpeed);
+  const isLogistics = LOGISTICS_TYPES.has(machine.type);
+  const logisticsFlow = isLogistics ? computeLogisticsFlow(machine, scheme, beltFlows) : null;
 
   return (
     <AnimatePresence>
-      {visible && machine && meta && (
+      {visible && (
         <motion.div
           ref={popupRef}
           className="machine-detail machine-detail-floating"
-          style={{
-            position: 'fixed',
-            left: pos?.left ?? -9999,
-            top: pos?.top ?? -9999,
-            // 初次未测量时先隐形渲染以便获取真实尺寸
-            visibility: pos ? 'visible' : 'hidden',
-          }}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.96 }}
+          style={{ position: 'fixed', left: pos?.left ?? -9999, top: pos?.top ?? -9999, visibility: pos ? 'visible' : 'hidden' }}
+          initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 0.14, ease: 'easeOut' }}
-          onMouseDown={(e) => e.stopPropagation()}
-          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}
         >
           <div className="detail-header" style={{ '--accent': `var(${meta.color})` } as React.CSSProperties}>
             <div className="detail-title-row">
               <h3 className="detail-title">{machine.label ?? machine.id}</h3>
               <span className="detail-type">{meta.displayName}</span>
             </div>
-            <button className="detail-close" onClick={() => select(null)} aria-label="关闭">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
+            <CloseButton onClick={() => select(null)} />
           </div>
           <div className="detail-body">
             <div className="detail-grid">
-              <span className="detail-key">配方</span><span className="detail-val">{recipe ? formatRecipeLabel(machine.recipe) : '—'}</span>
+              {recipe && (
+                <><span className="detail-key">配方</span><span className="detail-val">{formatRecipeLabel(machine.recipe)}</span></>
+              )}
               <span className="detail-key">楼层</span><span className="detail-val">{machine.floor}F</span>
               <span className="detail-key">位置</span><span className="detail-val">({machine.pos.col.toFixed(1)}, {machine.pos.row.toFixed(1)})</span>
               <span className="detail-key">朝向</span><span className="detail-val">{machine.facing}</span>
-              <span className="detail-key">功耗</span><span className="detail-val" style={{ color: 'var(--power)' }}>{flow ? flow.powerMW.toFixed(1) : meta.powerUsage} MW</span>
+              {!isLogistics && (
+                <><span className="detail-key">功耗</span><span className="detail-val" style={{ color: 'var(--power)' }}>{flow ? flow.powerMW.toFixed(1) : meta.powerUsage} MW</span></>
+              )}
               <span className="detail-key">尺寸</span><span className="detail-val">{meta.dimensions.width} × {meta.dimensions.length} × {meta.dimensions.height} m</span>
             </div>
+            {/* 生产机器吞吐 */}
             {flow && (flow.inputs.length > 0 || flow.outputs.length > 0) && (
               <div className="detail-section">
                 <div className="detail-section-title">每分钟吞吐</div>
@@ -171,6 +265,26 @@ export function MachineDetail() {
                 ))}
                 {flow.outputs.map(o => (
                   <div key={`out-${o.item}`} className="detail-belt-row">
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[o.item] ?? '#888' }} />
+                    <span className="detail-val">→ {o.item}</span>
+                    <span className="detail-key">{fmtRate(o.rate)}/min</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* 分流器/合流器吞吐 */}
+            {logisticsFlow && (logisticsFlow.inputs.length > 0 || logisticsFlow.outputs.length > 0) && (
+              <div className="detail-section">
+                <div className="detail-section-title">每分钟吞吐</div>
+                {logisticsFlow.inputs.map((i, idx) => (
+                  <div key={`in-${idx}`} className="detail-belt-row">
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[i.item] ?? '#888' }} />
+                    <span className="detail-val">← {i.item}</span>
+                    <span className="detail-key">{fmtRate(i.rate)}/min</span>
+                  </div>
+                ))}
+                {logisticsFlow.outputs.map((o, idx) => (
+                  <div key={`out-${idx}`} className="detail-belt-row">
                     <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[o.item] ?? '#888' }} />
                     <span className="detail-val">→ {o.item}</span>
                     <span className="detail-key">{fmtRate(o.rate)}/min</span>

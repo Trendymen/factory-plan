@@ -160,4 +160,6 @@ export interface Layers {
   belts: boolean;
   zones: boolean;
   storage: boolean;
+  beltFlow: boolean;
+  showBeltMark: boolean;
 }

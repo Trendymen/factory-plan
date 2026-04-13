@@ -399,3 +399,42 @@ function createFlowAnalyzer(scheme: Scheme): FlowAnalyzer {
 
   return { machineRate, beltFlow };
 }
+
+// ============================================================
+// 传送带流量查询（供 UI 层使用）
+// ============================================================
+
+export interface BeltFlowEntry {
+  material: string;
+  flow: number;
+  mark?: number;
+}
+
+/**
+ * 计算方案中每条传送带和每对升降机的实际物料流量。
+ * 返回 Map<id, { material, flow }>，key 包括 beltId 和 liftPairId。
+ */
+export function computeBeltFlows(scheme: Scheme): Map<string, BeltFlowEntry> {
+  const analyzer = createFlowAnalyzer(scheme);
+  const result = new Map<string, BeltFlowEntry>();
+
+  for (const belt of scheme.belts) {
+    const flow = roundRate(analyzer.beltFlow(belt));
+    result.set(belt.id, { material: belt.material, flow, mark: belt.mark });
+  }
+
+  // 升降机流量：取进入 lift 入口端的 belt 流量
+  for (const pair of scheme.liftPairs) {
+    // 找到连接到 lift 入口机器的 belt
+    let flow = 0;
+    for (const belt of scheme.belts) {
+      if (belt.toPort?.startsWith(pair.bottomMachine + ':') ||
+          belt.toPort?.startsWith(pair.topMachine + ':')) {
+        flow = Math.max(flow, roundRate(analyzer.beltFlow(belt)));
+      }
+    }
+    result.set(pair.id, { material: pair.material, flow });
+  }
+
+  return result;
+}
