@@ -965,7 +965,7 @@
       "id": "b_rod_left_to_screw2",
       "floor": 2,
       "mark": 1,
-      "material": "铁棒1",
+      "material": "铁棒",
       "path": [
         { "col": 2.375, "row": 5.5 },
         { "col": 3.125, "row": 5.5 },
