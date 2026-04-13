@@ -4,6 +4,7 @@ import type {
   Scheme, SchemeIndex, ViewMode, Viewport, Layers,
 } from '../core/types';
 import { computeBeltFlows, type BeltFlowEntry } from '../core/computeStats';
+import { deriveMaterials, type MaterialMap } from '../core/deriveMaterials';
 
 function traceChain(scheme: Scheme, beltId: string): string[] {
   const ids = new Set<string>();
@@ -70,6 +71,7 @@ interface AppState {
   currentSchemeId: string | null;
   currentScheme: Scheme | null;
   beltFlows: Map<string, BeltFlowEntry>;
+  materialMap: MaterialMap;
   viewMode: ViewMode;
   currentFloor: number;
   viewport: Viewport;
@@ -108,6 +110,7 @@ export const useAppStore = create<AppState>((set) => ({
   currentSchemeId: null,
   currentScheme: null,
   beltFlows: new Map(),
+  materialMap: new Map(),
   viewMode: 'single',
   currentFloor: 1,
   viewport: { ...DEFAULT_VIEWPORT },
@@ -126,6 +129,7 @@ export const useAppStore = create<AppState>((set) => ({
       currentSchemeId: scheme.id,
       currentScheme: scheme,
       beltFlows: computeBeltFlows(scheme),
+      materialMap: deriveMaterials(scheme),
       // 同方案且楼层仍存在 → 保留当前楼层（HMR 友好）
       currentFloor: floorStillExists ? s.currentFloor : (scheme.floors[0]?.id ?? 1),
       // 同方案 → 保留视口和选中状态
