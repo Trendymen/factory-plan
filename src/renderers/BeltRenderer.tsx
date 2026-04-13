@@ -2,6 +2,7 @@ import { memo } from 'react';
 import type { BeltSegment, MachineInstance } from '../core/types';
 import { gridToSvg } from '../core/coordinate';
 import { getMaterialColor } from '../core/registry';
+import type { MaterialMap } from '../core/deriveMaterials';
 import {
   buildBeltRenderPath,
   getTerminalSegment,
@@ -11,6 +12,7 @@ import {
 interface BeltRendererProps {
   belt: BeltSegment;
   machines?: MachineInstance[];
+  materialMap: MaterialMap;
   highlight?: boolean;
   selected?: boolean;
   dimmed?: boolean;
@@ -37,9 +39,10 @@ function getLogisticsArrowColor(
 }
 
 export const BeltRenderer = memo(function BeltRenderer({
-  belt, machines = [], highlight, selected, dimmed, onHover, onClick,
+  belt, machines = [], materialMap, highlight, selected, dimmed, onHover, onClick,
 }: BeltRendererProps) {
-  const color = getMaterialColor(belt.material);
+  const materials = materialMap.get(belt.id) ?? [];
+  const color = getMaterialColor(materials[0] ?? '');
 
   // 分流器/合流器端口连接色（degenerate/正常两个分支都要用）
   const fromArrowColor = getLogisticsArrowColor(belt.fromPort, machines, true);

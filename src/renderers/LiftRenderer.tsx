@@ -2,6 +2,7 @@ import { memo } from 'react';
 import type { BeltMark, LiftPair, MachineInstance } from '../core/types';
 import { gridToSvg, machineGridSize, GRID_PX } from '../core/coordinate';
 import { getBuildingMeta } from '../core/registry';
+import type { MaterialMap } from '../core/deriveMaterials';
 
 /** 等级徽标颜色，与传送带 belt-mkN 保持一致 */
 const MARK_COLORS: Record<BeltMark, string> = {
@@ -17,6 +18,7 @@ interface LiftOverlayProps {
   pairs: LiftPair[];
   machines: MachineInstance[];
   floorId: number;
+  materialMap: MaterialMap;
   highlightChain?: string[];
   onHover?: (id: string | null) => void;
   onClick?: (id: string) => void;
@@ -24,7 +26,7 @@ interface LiftOverlayProps {
 
 interface BadgeInfo {
   pairId: string;
-  material: string;
+  materials: string[];
   mark: number;
   machine: MachineInstance;
   direction: 'up' | 'down';
@@ -37,6 +39,7 @@ function computeBadge(
   pair: LiftPair,
   machines: MachineInstance[],
   floorId: number,
+  materialMap: MaterialMap,
 ): BadgeInfo | null {
   const bot = machines.find(m => m.id === pair.bottomMachine);
   const top = machines.find(m => m.id === pair.topMachine);
@@ -62,14 +65,15 @@ function computeBadge(
     ? (role === 'send' ? 'up' : 'down')
     : (role === 'send' ? 'down' : 'up');
 
-  return { pairId: pair.id, material: pair.material, mark: pair.mark, machine, direction, role, targetFloor };
+  const materials = materialMap.get(pair.id) ?? [];
+  return { pairId: pair.id, materials, mark: pair.mark, machine, direction, role, targetFloor };
 }
 
 export const LiftOverlay = memo(function LiftOverlay({
-  pairs, machines, floorId, highlightChain = [], onHover, onClick,
+  pairs, machines, floorId, materialMap, highlightChain = [], onHover, onClick,
 }: LiftOverlayProps) {
   const badges = pairs
-    .map(pair => computeBadge(pair, machines, floorId))
+    .map(pair => computeBadge(pair, machines, floorId, materialMap))
     .filter((b): b is BadgeInfo => b !== null);
 
   return (
@@ -106,7 +110,7 @@ export const LiftOverlay = memo(function LiftOverlay({
             onClick={() => onClick?.(badge.pairId)}
             style={{ cursor: 'pointer' }}
           >
-            <title>{badge.material} · Mk.{badge.mark} · {badge.direction === 'up' ? '↑' : '↓'} {badge.targetFloor}F</title>
+            <title>{badge.materials.join('+')} · Mk.{badge.mark} · {badge.direction === 'up' ? '↑' : '↓'} {badge.targetFloor}F</title>
             {/* 方向箭头：实心=送出, 空心=到达 */}
             <polygon
               points={arrowPoints}
