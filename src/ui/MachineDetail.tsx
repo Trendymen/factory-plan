@@ -4,6 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta, MATERIAL_RAW_COLORS } from '../core/registry';
 import { computeMachineFlow, formatRecipeLabel, getRecipe } from '../core/recipes';
 import type { BeltFlowEntry } from '../core/computeStats';
+import type { MaterialMap } from '../core/deriveMaterials';
 import type { MachineInstance, Scheme } from '../core/types';
 
 /** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
@@ -61,6 +62,7 @@ function computeLogisticsFlow(
   machine: MachineInstance,
   scheme: Scheme,
   beltFlows: Map<string, BeltFlowEntry>,
+  materialMap: MaterialMap,
 ): { inputs: { item: string; rate: number }[]; outputs: { item: string; rate: number }[] } {
   const inputs: { item: string; rate: number }[] = [];
   const outputs: { item: string; rate: number }[] = [];
@@ -69,10 +71,12 @@ function computeLogisticsFlow(
     const entry = beltFlows.get(belt.id);
     if (!entry || entry.flow <= 0) continue;
     if (belt.toPort?.startsWith(machine.id + ':')) {
-      inputs.push({ item: entry.material, rate: entry.flow });
+      const matLabel = (materialMap.get(belt.id) ?? []).join('+') || '?';
+      inputs.push({ item: matLabel, rate: entry.flow });
     }
     if (belt.fromPort?.startsWith(machine.id + ':')) {
-      outputs.push({ item: entry.material, rate: entry.flow });
+      const matLabel = (materialMap.get(belt.id) ?? []).join('+') || '?';
+      outputs.push({ item: matLabel, rate: entry.flow });
     }
   }
 
@@ -94,6 +98,7 @@ export function MachineDetail() {
   const selectAnchor = useAppStore(s => s.selectAnchor);
   const scheme = useAppStore(s => s.currentScheme);
   const beltFlows = useAppStore(s => s.beltFlows);
+  const materialMap = useAppStore(s => s.materialMap);
   const select = useAppStore(s => s.select);
 
   const popupRef = useRef<HTMLDivElement>(null);
@@ -178,14 +183,14 @@ export function MachineDetail() {
                 <span className="detail-key">方向</span><span className="detail-val">{direction}</span>
                 <span className="detail-key">楼层</span><span className="detail-val">{bot?.floor}F → {top?.floor}F</span>
                 <span className="detail-key">等级</span><span className="detail-val">Mk.{liftPair.mark}</span>
-                <span className="detail-key">物料</span><span className="detail-val">{liftPair.material}</span>
+                <span className="detail-key">物料</span><span className="detail-val">{(materialMap.get(liftPair.id) ?? []).join('+') || '—'}</span>
               </div>
               {liftFlowEntry && liftFlowEntry.flow > 0 && (
                 <div className="detail-section">
                   <div className="detail-section-title">每分钟吞吐</div>
                   <div className="detail-belt-row">
-                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[liftFlowEntry.material] ?? '#888' }} />
-                    <span className="detail-val">↕ {liftFlowEntry.material}</span>
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[(materialMap.get(liftPair.id) ?? [])[0] ?? ''] ?? '#888' }} />
+                    <span className="detail-val">↕ {(materialMap.get(liftPair.id) ?? []).join('+') || '—'}</span>
                     <span className="detail-key">{fmtRate(liftFlowEntry.flow)}/min</span>
                   </div>
                 </div>
@@ -195,8 +200,8 @@ export function MachineDetail() {
                   <div className="detail-section-title">连接传送带</div>
                   {connectedBelts.map(b => (
                     <div key={b.id} className="detail-belt-row">
-                      <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[b.material] ?? '#888' }} />
-                      <span className="detail-val">{b.material}</span>
+                      <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[(materialMap.get(b.id) ?? [])[0] ?? ''] ?? '#888' }} />
+                      <span className="detail-val">{(materialMap.get(b.id) ?? []).join('+') || '—'}</span>
                       <span className="detail-key">Mk.{b.mark}</span>
                     </div>
                   ))}
@@ -219,7 +224,7 @@ export function MachineDetail() {
   const recipe = getRecipe(machine.recipe);
   const flow = computeMachineFlow(machine.recipe, machine.clockSpeed);
   const isLogistics = LOGISTICS_TYPES.has(machine.type);
-  const logisticsFlow = isLogistics ? computeLogisticsFlow(machine, scheme, beltFlows) : null;
+  const logisticsFlow = isLogistics ? computeLogisticsFlow(machine, scheme, beltFlows, materialMap) : null;
 
   return (
     <AnimatePresence>
@@ -297,8 +302,8 @@ export function MachineDetail() {
                 <div className="detail-section-title">连接传送带</div>
                 {connectedBelts.map(b => (
                   <div key={b.id} className="detail-belt-row">
-                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[b.material] ?? '#888' }} />
-                    <span className="detail-val">{b.material}</span>
+                    <span className="stat-dot" style={{ background: MATERIAL_RAW_COLORS[(materialMap.get(b.id) ?? [])[0] ?? ''] ?? '#888' }} />
+                    <span className="detail-val">{(materialMap.get(b.id) ?? []).join('+') || '—'}</span>
                     <span className="detail-key">Mk.{b.mark}</span>
                   </div>
                 ))}

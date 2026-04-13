@@ -4,6 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta } from '../core/registry';
 import { computeMachineFlow, formatRecipeLabel, getRecipe } from '../core/recipes';
 import type { BeltFlowEntry } from '../core/computeStats';
+import type { MaterialMap } from '../core/deriveMaterials';
 import type { LiftPair, MachineInstance, Scheme } from '../core/types';
 
 /** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
@@ -51,6 +52,7 @@ function computeLogisticsFlow(
   machine: MachineInstance,
   scheme: Scheme,
   beltFlows: Map<string, BeltFlowEntry>,
+  materialMap: MaterialMap,
 ): { inputs: { item: string; rate: number }[]; outputs: { item: string; rate: number }[] } {
   const inputs: { item: string; rate: number }[] = [];
   const outputs: { item: string; rate: number }[] = [];
@@ -60,10 +62,12 @@ function computeLogisticsFlow(
     if (!entry || entry.flow <= 0) continue;
 
     if (belt.toPort?.startsWith(machine.id + ':')) {
-      inputs.push({ item: entry.material, rate: entry.flow });
+      const matLabel = (materialMap.get(belt.id) ?? []).join('+') || '?';
+      inputs.push({ item: matLabel, rate: entry.flow });
     }
     if (belt.fromPort?.startsWith(machine.id + ':')) {
-      outputs.push({ item: entry.material, rate: entry.flow });
+      const matLabel = (materialMap.get(belt.id) ?? []).join('+') || '?';
+      outputs.push({ item: matLabel, rate: entry.flow });
     }
   }
 
@@ -74,16 +78,19 @@ function computeLogisticsFlow(
 function computeLiftFlow(
   pair: LiftPair,
   beltFlows: Map<string, BeltFlowEntry>,
+  materialMap: MaterialMap,
 ): { material: string; rate: number } | null {
   const entry = beltFlows.get(pair.id);
   if (!entry || entry.flow <= 0) return null;
-  return { material: entry.material, rate: entry.flow };
+  const matLabel = (materialMap.get(pair.id) ?? []).join('+') || '?';
+  return { material: matLabel, rate: entry.flow };
 }
 
 export function MachineTooltip() {
   const hoveredId = useAppStore(s => s.hoveredId);
   const scheme = useAppStore(s => s.currentScheme);
   const beltFlows = useAppStore(s => s.beltFlows);
+  const materialMap = useAppStore(s => s.materialMap);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ left: 0, top: 0 });
 
@@ -110,7 +117,7 @@ export function MachineTooltip() {
     const bot = scheme.machines.find(m => m.id === liftPair.bottomMachine);
     const top = scheme.machines.find(m => m.id === liftPair.topMachine);
     const direction = bot?.type.includes('-in-') ? '↑' : '↓';
-    const liftFlow = computeLiftFlow(liftPair, beltFlows);
+    const liftFlow = computeLiftFlow(liftPair, beltFlows, materialMap);
 
     return (
       <AnimatePresence>
@@ -154,7 +161,7 @@ export function MachineTooltip() {
   const recipe = getRecipe(machine.recipe);
   const flow = computeMachineFlow(machine.recipe, machine.clockSpeed);
   const isLogistics = LOGISTICS_TYPES.has(machine.type);
-  const logisticsFlow = isLogistics ? computeLogisticsFlow(machine, scheme, beltFlows) : null;
+  const logisticsFlow = isLogistics ? computeLogisticsFlow(machine, scheme, beltFlows, materialMap) : null;
 
   return (
     <AnimatePresence>

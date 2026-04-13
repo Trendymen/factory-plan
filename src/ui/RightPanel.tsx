@@ -5,6 +5,7 @@ import { computeSchemeStats } from '../core/computeStats';
 
 export function RightPanel() {
   const scheme = useAppStore(s => s.currentScheme);
+  const materialMap = useAppStore(s => s.materialMap);
 
   // scheme 变化时才重算 stats；stats 由 machines + recipes 推导，不再读 scheme.stats
   const stats = useMemo(() => scheme ? computeSchemeStats(scheme) : null, [scheme]);
@@ -18,7 +19,9 @@ export function RightPanel() {
   }
 
   // Only show materials that actually appear in belts
-  const usedMaterials = new Set(scheme.belts.map(b => b.material));
+  const usedMaterials = new Set(
+    [...materialMap.values()].flatMap(mats => mats),
+  );
 
   return (
     <>
