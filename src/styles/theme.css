@@ -477,7 +477,7 @@ body {
 }
 
 .zone-rect {
-  fill: rgba(24, 36, 54, 0.25);
+  fill: rgba(30, 50, 78, 0.4);
   stroke: var(--border);
   stroke-width: 0.8;
 }
@@ -607,10 +607,10 @@ body {
 }
 
 .walkway-marker {
-  fill: rgba(27, 94, 32, 0.15);
+  fill: rgba(34, 120, 42, 0.3);
   stroke: var(--walkable);
   stroke-width: 0.5;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /* ============================================================
