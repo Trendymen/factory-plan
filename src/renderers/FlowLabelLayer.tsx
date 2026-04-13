@@ -5,6 +5,7 @@ import { computeBeltLabelPositions } from '../core/labelLayout';
 import { getBeltDegenerateInfo } from '../core/beltGeometry';
 import { gridToSvg } from '../core/coordinate';
 import { useAppStore } from '../store/useAppStore';
+import type { MaterialMap } from '../core/deriveMaterials';
 
 interface FlowLabelLayerProps {
   belts: BeltSegment[];
@@ -14,6 +15,7 @@ interface FlowLabelLayerProps {
   selectedId: string | null;
   onHover?: (id: string | null) => void;
   onClick?: (id: string) => void;
+  materialMap: MaterialMap;
 }
 
 interface DegeneratePlacement {
@@ -27,7 +29,7 @@ interface DegeneratePlacement {
  * 使用 foreignObject + backdrop-filter 实现 iOS/Windows 11 毛玻璃效果。
  */
 export const FlowLabelLayer = memo(function FlowLabelLayer({
-  belts, machines, beltFlows, highlightChain, selectedId, onHover, onClick,
+  belts, machines, beltFlows, highlightChain, selectedId, onHover, onClick, materialMap,
 }: FlowLabelLayerProps) {
   const normalBelts = useMemo(
     () => belts.filter(b => !getBeltDegenerateInfo(b, machines)),
@@ -35,8 +37,8 @@ export const FlowLabelLayer = memo(function FlowLabelLayer({
   );
 
   const placements = useMemo(
-    () => computeBeltLabelPositions(normalBelts, machines, { tPreference: 'offset' }),
-    [normalBelts, machines],
+    () => computeBeltLabelPositions(normalBelts, machines, materialMap, { tPreference: 'offset' }),
+    [normalBelts, machines, materialMap],
   );
 
   const degeneratePlacements = useMemo(() => {
@@ -58,7 +60,9 @@ export const FlowLabelLayer = memo(function FlowLabelLayer({
     if (!entry || entry.flow <= 0) return null;
 
     const markLabel = showBeltMark && entry.mark ? ` · Mk.${entry.mark}` : '';
-    const text = `${entry.material} ${entry.flow}/min${markLabel}`;
+    const materials = materialMap.get(id) ?? [];
+    const matLabel = materials.length > 0 ? materials.join('+') : '?';
+    const text = `${matLabel} ${entry.flow}/min${markLabel}`;
     const charW = text.length * 5.5 + 10;
     const halfW = charW / 2;
     const h = 14;

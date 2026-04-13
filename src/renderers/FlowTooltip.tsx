@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import type { BeltFlowEntry } from '../core/computeStats';
 import { useAppStore } from '../store/useAppStore';
+import type { MaterialMap } from '../core/deriveMaterials';
 
 interface FlowTooltipProps {
   beltId: string;
   beltFlows: Map<string, BeltFlowEntry>;
   svgX: number;
   svgY: number;
+  materialMap: MaterialMap;
 }
 
 /**
@@ -14,14 +16,16 @@ interface FlowTooltipProps {
  * 显示：物料名 流量/min [· Mk.N]
  */
 export const FlowTooltip = memo(function FlowTooltip({
-  beltId, beltFlows, svgX, svgY,
+  beltId, beltFlows, svgX, svgY, materialMap,
 }: FlowTooltipProps) {
   const showBeltMark = useAppStore(s => s.layers.showBeltMark);
   const entry = beltFlows.get(beltId);
   if (!entry || entry.flow <= 0) return null;
 
   const markLabel = showBeltMark && entry.mark ? ` · Mk.${entry.mark}` : '';
-  const text = `${entry.material} ${entry.flow}/min${markLabel}`;
+  const materials = materialMap.get(beltId) ?? [];
+  const matLabel = materials.length > 0 ? materials.join('+') : '?';
+  const text = `${matLabel} ${entry.flow}/min${markLabel}`;
   const charW = text.length * 5.5 + 14;
   const halfW = charW / 2;
   const h = 16;
