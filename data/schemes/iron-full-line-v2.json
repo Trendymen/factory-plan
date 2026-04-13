@@ -1200,6 +1200,30 @@
       },
       "kind": "front",
       "label": "前场缓冲 · 升降机/出货"
+    },
+    {
+      "id": "f2-storage",
+      "floor": 2,
+      "pos": { "col": 0, "row": 0 },
+      "size": { "w": 8, "h": 1 },
+      "kind": "trunk",
+      "label": "成品仓储 · 出货"
+    },
+    {
+      "id": "f2-walk",
+      "floor": 2,
+      "pos": { "col": 3.5, "row": 1.5 },
+      "size": { "w": 1.25, "h": 2 },
+      "kind": "maintenance",
+      "label": "维护走道"
+    },
+    {
+      "id": "f2-intake",
+      "floor": 2,
+      "pos": { "col": 0, "row": 6 },
+      "size": { "w": 8, "h": 1 },
+      "kind": "front",
+      "label": "来料层 · 升降机"
     }
   ]
 }
