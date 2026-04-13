@@ -406,7 +406,6 @@ function createFlowAnalyzer(scheme: Scheme): FlowAnalyzer {
 // ============================================================
 
 export interface BeltFlowEntry {
-  material: string;
   flow: number;
   mark?: number;
 }
@@ -421,7 +420,7 @@ export function computeBeltFlows(scheme: Scheme): Map<string, BeltFlowEntry> {
 
   for (const belt of scheme.belts) {
     const flow = roundRate(analyzer.beltFlow(belt));
-    result.set(belt.id, { material: belt.material, flow, mark: belt.mark });
+    result.set(belt.id, { flow, mark: belt.mark });
   }
 
   // 升降机流量：取进入 lift 入口端的 belt 流量
@@ -434,7 +433,7 @@ export function computeBeltFlows(scheme: Scheme): Map<string, BeltFlowEntry> {
         flow = Math.max(flow, roundRate(analyzer.beltFlow(belt)));
       }
     }
-    result.set(pair.id, { material: pair.material, flow });
+    result.set(pair.id, { flow });
   }
 
   return result;

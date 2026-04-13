@@ -81,7 +81,6 @@ export interface BeltSegment {
   id: string;
   floor: number;
   mark: BeltMark;
-  material: string;
   path: GridPos[];
   fromPort?: string;
   toPort?: string;
@@ -91,7 +90,6 @@ export interface LiftPair {
   id: string;                   // pair 标识，全局唯一
   bottomMachine: string;        // 指向 scheme.machines 中 F1 的 lift 机器 id
   topMachine: string;           // 指向 scheme.machines 中 F2 的 lift 机器 id
-  material: string;             // 物流元数据，用于 LiftOverlay 徽标
   mark: BeltMark;               // 升降机等级（沿用原 Lift.mark 字段含义）
 }
 
