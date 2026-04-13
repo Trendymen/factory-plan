@@ -1,7 +1,17 @@
 import { memo } from 'react';
-import type { LiftPair, MachineInstance } from '../core/types';
+import type { BeltMark, LiftPair, MachineInstance } from '../core/types';
 import { gridToSvg, machineGridSize, GRID_PX } from '../core/coordinate';
 import { getBuildingMeta } from '../core/registry';
+
+/** 等级徽标颜色，与传送带 belt-mkN 保持一致 */
+const MARK_COLORS: Record<BeltMark, string> = {
+  1: '#ff6b35',
+  2: '#ffd740',
+  3: '#69f0ae',
+  4: '#00bcd4',
+  5: '#ce93d8',
+  6: '#ef5350',
+};
 
 interface LiftOverlayProps {
   pairs: LiftPair[];
@@ -15,6 +25,7 @@ interface LiftOverlayProps {
 interface BadgeInfo {
   pairId: string;
   material: string;
+  mark: number;
   machine: MachineInstance;
   direction: 'up' | 'down';
   /** send = 物料从本层送出; receive = 物料到达本层 */
@@ -51,7 +62,7 @@ function computeBadge(
     ? (role === 'send' ? 'up' : 'down')
     : (role === 'send' ? 'down' : 'up');
 
-  return { pairId: pair.id, material: pair.material, machine, direction, role, targetFloor };
+  return { pairId: pair.id, material: pair.material, mark: pair.mark, machine, direction, role, targetFloor };
 }
 
 export const LiftOverlay = memo(function LiftOverlay({
@@ -95,6 +106,7 @@ export const LiftOverlay = memo(function LiftOverlay({
             onClick={() => onClick?.(badge.pairId)}
             style={{ cursor: 'pointer' }}
           >
+            <title>{badge.material} · Mk.{badge.mark} · {badge.direction === 'up' ? '↑' : '↓'} {badge.targetFloor}F</title>
             {/* 方向箭头：实心=送出, 空心=到达 */}
             <polygon
               points={arrowPoints}
@@ -113,6 +125,46 @@ export const LiftOverlay = memo(function LiftOverlay({
             >
               {badge.targetFloor}F
             </text>
+            {/* 右上角丝带三角角标（裁剪到 body 内矩形） */}
+            {(() => {
+              const inset = Math.min(w, h) * 0.08;
+              const bx = x + inset;
+              const by = y + inset;
+              const bw = w - inset * 2;
+              const bh = h - inset * 2;
+              const s = Math.min(bw, bh) * 0.38;
+              const o = 5;
+              // body stroke-width=1.2，stroke 向外延伸 0.6；clipPath 需覆盖描边可见区域
+              const halfStroke = 0.6;
+              return (
+                <>
+                  <defs>
+                    <clipPath id={`lift-clip-${badge.pairId}`}>
+                      <rect
+                        x={bx - halfStroke} y={by - halfStroke}
+                        width={bw + halfStroke * 2} height={bh + halfStroke * 2}
+                        rx={2.6}
+                      />
+                    </clipPath>
+                  </defs>
+                  <g clipPath={`url(#lift-clip-${badge.pairId})`}>
+                    <polygon
+                      points={`${bx + bw - s - o},${by - o} ${bx + bw + o},${by - o} ${bx + bw + o},${by + s + o}`}
+                      fill={MARK_COLORS[badge.mark as BeltMark] ?? '#888'}
+                    />
+                    <text
+                      x={bx + bw - s * 0.28}
+                      y={by + s * 0.28}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      style={{ fontSize: 4.5, fill: '#000', fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}
+                    >
+                      {badge.mark}
+                    </text>
+                  </g>
+                </>
+              );
+            })()}
           </g>
         );
       })}

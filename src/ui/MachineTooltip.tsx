@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useAppStore } from '../store/useAppStore';
 import { getBuildingMeta } from '../core/registry';
@@ -9,6 +9,35 @@ import type { LiftPair, MachineInstance, Scheme } from '../core/types';
 /** 格式化每分钟速率：整数不带小数，否则保留 1 位 */
 function fmtRate(rate: number): string {
   return Number.isInteger(rate) ? rate.toString() : rate.toFixed(1);
+}
+
+const CURSOR_OFFSET = 14;
+const EDGE_PADDING = 8;
+
+/** 根据鼠标位置和 tooltip 尺寸计算不溢出视口的坐标 */
+function clampToViewport(
+  cursor: { x: number; y: number },
+  size: { width: number; height: number },
+): { left: number; top: number } {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  let left = cursor.x + CURSOR_OFFSET;
+  let top = cursor.y + CURSOR_OFFSET;
+
+  // 右侧放不下则翻到左侧
+  if (left + size.width + EDGE_PADDING > vw) {
+    left = cursor.x - CURSOR_OFFSET - size.width;
+  }
+  // 下方放不下则翻到上方
+  if (top + size.height + EDGE_PADDING > vh) {
+    top = cursor.y - CURSOR_OFFSET - size.height;
+  }
+
+  left = Math.max(EDGE_PADDING, Math.min(vw - size.width - EDGE_PADDING, left));
+  top = Math.max(EDGE_PADDING, Math.min(vh - size.height - EDGE_PADDING, top));
+
+  return { left, top };
 }
 
 const LOGISTICS_TYPES = new Set(['splitter', 'merger']);
@@ -55,15 +84,23 @@ export function MachineTooltip() {
   const hoveredId = useAppStore(s => s.hoveredId);
   const scheme = useAppStore(s => s.currentScheme);
   const beltFlows = useAppStore(s => s.beltFlows);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ left: 0, top: 0 });
+
+  const updatePos = useCallback((e: MouseEvent) => {
+    const el = tooltipRef.current;
+    const size = el
+      ? { width: el.offsetWidth, height: el.offsetHeight }
+      : { width: 200, height: 120 };
+    setPos(clampToViewport({ x: e.clientX, y: e.clientY }, size));
+  }, []);
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => setPos({ x: e.clientX + 14, y: e.clientY + 14 });
     if (hoveredId) {
-      window.addEventListener('mousemove', handler);
-      return () => window.removeEventListener('mousemove', handler);
+      window.addEventListener('mousemove', updatePos);
+      return () => window.removeEventListener('mousemove', updatePos);
     }
-  }, [hoveredId]);
+  }, [hoveredId, updatePos]);
 
   if (!scheme || !hoveredId) return null;
 
@@ -77,7 +114,7 @@ export function MachineTooltip() {
 
     return (
       <AnimatePresence>
-        <motion.div className="tooltip" style={{ position: 'fixed', left: pos.x, top: pos.y }}
+        <motion.div ref={tooltipRef} className="tooltip" style={{ position: 'fixed', left: pos.left, top: pos.top }}
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 0.12 }}>
           <div className="tooltip-header">
@@ -121,7 +158,7 @@ export function MachineTooltip() {
 
   return (
     <AnimatePresence>
-      <motion.div className="tooltip" style={{ position: 'fixed', left: pos.x, top: pos.y }}
+      <motion.div ref={tooltipRef} className="tooltip" style={{ position: 'fixed', left: pos.left, top: pos.top }}
         initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
         transition={{ duration: 0.12 }}>
         <div className="tooltip-header">
