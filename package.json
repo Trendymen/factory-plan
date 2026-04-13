@@ -24,10 +24,10 @@
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^6.0.1",
     "jsdom": "^29.0.2",
     "typescript": "~5.8.3",
-    "vite": "^6.3.2",
+    "vite": "^8.0.8",
     "vitest": "^4.1.3"
   }
 }
