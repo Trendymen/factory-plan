@@ -88,24 +88,6 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     ports: [port('in-0', 'belt-in', 'back', 1.5), port('in-1', 'belt-in', 'back', 3.5), port('out-0', 'belt-out', 'front', 1.5), port('out-1', 'belt-out', 'front', 3.5)],
     color: '--industrial-storage', powerUsage: 0, stackable: true, wallMounted: false,
   },
-  'wall-conveyor-hole': {
-    type: 'wall-conveyor-hole', category: 'structure', displayName: '墙壁传送带孔',
-    dimensions: { width: 4, length: 1, height: 2 }, clearanceHeight: 2,
-    ports: [port('in-0', 'belt-in', 'back', 2, 1), port('out-0', 'belt-out', 'front', 2, 1)],
-    color: '--structure', powerUsage: 0, stackable: false, wallMounted: true,
-  },
-  'conveyor-ceiling-mount': {
-    type: 'conveyor-ceiling-mount', category: 'structure', displayName: '吊顶传送带支架',
-    dimensions: { width: 2, length: 2, height: 1 }, clearanceHeight: 1,
-    ports: [],
-    color: '--structure', powerUsage: 0, stackable: false, wallMounted: true,
-  },
-  'conveyor-wall-mount': {
-    type: 'conveyor-wall-mount', category: 'structure', displayName: '挂墙传送带支架',
-    dimensions: { width: 2, length: 1, height: 2 }, clearanceHeight: 2,
-    ports: [],
-    color: '--structure', powerUsage: 0, stackable: false, wallMounted: true,
-  },
 };
 
 export function getBuildingMeta(type: BuildingType): BuildingMetadata {

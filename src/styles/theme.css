@@ -56,7 +56,6 @@
 
   /* Functional */
   --power: #ffd740;
-  --structure: #78909c;
   --walkable: #1b5e20;
   --highlight: rgba(255, 255, 255, 0.2);
   --dimmed-opacity: 0.25;
@@ -594,16 +593,6 @@ body {
   text-anchor: middle;
   dominant-baseline: middle;
   pointer-events: none;
-}
-
-/* ============================================================
-   14. Structure Styles
-   ============================================================ */
-.structure-marker {
-  fill: none;
-  stroke: var(--structure);
-  stroke-width: 0.8;
-  opacity: 0.4;
 }
 
 .walkway-marker {

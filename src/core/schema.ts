@@ -214,7 +214,6 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     ...scheme.machines.map(m => m.id),
     ...scheme.belts.map(b => b.id),
     ...scheme.liftPairs.map(p => p.id),
-    ...scheme.structures.map(s => s.id),
   ];
   const idCounts = new Map<string, number>();
   for (const id of allElementIds) {

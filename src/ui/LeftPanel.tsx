@@ -4,7 +4,6 @@ import type { Layers } from '../core/types';
 const LAYER_CONFIG: { key: keyof Layers; label: string; color: string }[] = [
   { key: 'belts', label: '传送带', color: '#00bcd4' },
   { key: 'zones', label: '分区', color: '#556677' },
-  { key: 'structures', label: '结构件', color: '#78909c' },
   { key: 'storage', label: '储存', color: '#8d6e63' },
 ];
 

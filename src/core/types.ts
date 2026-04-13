@@ -31,7 +31,7 @@ export interface PortDef {
 
 // ===== 建筑类型 =====
 
-export type BuildingCategory = 'production' | 'logistics' | 'storage' | 'structure';
+export type BuildingCategory = 'production' | 'logistics' | 'storage';
 
 export type PlaceableType =
   | 'smelter' | 'foundry' | 'constructor' | 'assembler' | 'manufacturer'
@@ -43,11 +43,7 @@ export type PlaceableType =
   | 'conveyor-lift-in-top'      // F2 顶部：物料从这里进入，向下输送
   | 'conveyor-lift-out-top';    // F2 顶部：物料从这里吐出（来自下方）
 
-export type StructureType =
-  | 'wall-conveyor-hole' | 'wall-pipe-hole'
-  | 'conveyor-wall-mount' | 'conveyor-ceiling-mount' | 'conveyor-floor-stand';
-
-export type BuildingType = PlaceableType | StructureType;
+export type BuildingType = PlaceableType;
 
 // ===== 建筑元数据 =====
 
@@ -97,15 +93,6 @@ export interface LiftPair {
   mark: BeltMark;               // 升降机等级（沿用原 Lift.mark 字段含义）
 }
 
-export interface StructureInstance {
-  id: string;
-  type: StructureType;
-  pos: GridPos;
-  floor: number;
-  wallSide?: Facing;
-  heightM?: number;
-}
-
 export interface Zone {
   id: string;
   floor: number;
@@ -142,7 +129,6 @@ export interface Scheme {
   machines: MachineInstance[];
   belts: BeltSegment[];
   liftPairs: LiftPair[];
-  structures: StructureInstance[];
   zones: Zone[];
   // 注意：不再持久化 stats。输入/输出/总功耗由 src/core/computeStats.ts
   // 基于 machines + recipes 实时计算。旧 scheme 文件里遗留的 stats 字段
@@ -173,6 +159,5 @@ export interface Viewport {
 export interface Layers {
   belts: boolean;
   zones: boolean;
-  structures: boolean;
   storage: boolean;
 }

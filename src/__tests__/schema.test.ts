@@ -23,7 +23,6 @@ const MINIMAL_SCHEME: Scheme = {
     { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
   ],
   liftPairs: [],
-  structures: [],
   zones: [],
 };
 
@@ -286,7 +285,7 @@ describe('R18 - LiftPair 一致性', () => {
         { id: 1, label: 'F1', gridSize: { cols: 8, rows: 8 } },
         { id: 2, label: 'F2', gridSize: { cols: 8, rows: 8 } },
       ],
-      machines, belts: [], liftPairs, structures: [], zones: [],
+      machines, belts: [], liftPairs, zones: [],
     };
   }
 
@@ -375,7 +374,7 @@ describe('R19 - 垂直交叉检测', () => {
       id: 'test', name: 'test', version: '1.0.0', category: 'test', description: '',
       designPrinciples: { preferWallOutlets: false, preferWallHoles: false, preferCeilingMounts: false, keepFloorClear: false },
       floors: [baseFloor],
-      machines: [], belts, liftPairs: [], structures: [], zones: [],
+      machines: [], belts, liftPairs: [], zones: [],
     };
   }
 

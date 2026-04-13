@@ -8,7 +8,6 @@ import { MachineRenderer } from '../renderers/MachineRenderer';
 import { BeltRenderer } from '../renderers/BeltRenderer';
 import { BeltLabelLayer } from '../renderers/BeltLabelLayer';
 import { LiftOverlay } from '../renderers/LiftRenderer';
-import { StructureRenderer } from '../renderers/StructureRenderer';
 
 interface FloorPlanViewProps {
   scheme: Scheme;
@@ -45,8 +44,6 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const machines = scheme.machines.filter(m => m.floor === floorId);
   const belts = scheme.belts.filter(b => b.floor === floorId);
   const zones = scheme.zones.filter(z => z.floor === floorId);
-  const structures = scheme.structures.filter(s => s.floor === floorId);
-
   const hasHighlight = highlightChain.length > 0;
   const isHighlighted = (id: string) => highlightChain.includes(id);
   const isDimmed = (id: string) => hasHighlight && !isHighlighted(id);
@@ -62,9 +59,6 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
     >
       <GridRenderer cols={cols} rows={rows} />
       {layers.zones && zones.map(z => <ZoneRenderer key={z.id} zone={z} />)}
-      {layers.structures && structures.map(s => (
-        <StructureRenderer key={s.id} structure={s} dimmed={isDimmed(s.id)} />
-      ))}
       {machines.filter(m => layers.storage || (m.type !== 'storage' && m.type !== 'industrial-storage')).map(m => (
         <MachineRenderer key={m.id} machine={m} highlight={isHighlighted(m.id)} dimmed={isDimmed(m.id)} onHover={hover} onClick={select} />
       ))}

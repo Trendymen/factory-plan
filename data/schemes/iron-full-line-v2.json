@@ -1129,7 +1129,6 @@
     { "id": "lift_plate", "bottomMachine": "lift_plate_bot", "topMachine": "lift_plate_top", "material": "铁板", "mark": 1 },
     { "id": "lift_rod",   "bottomMachine": "lift_rod_bot",   "topMachine": "lift_rod_top",   "material": "铁棒", "mark": 1 }
   ],
-  "structures": [],
   "zones": [
     {
       "id": "f1-feed",
