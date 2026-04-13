@@ -118,16 +118,22 @@ export const useAppStore = create<AppState>((set) => ({
 
   setSchemes: (schemes) => set({ schemes }),
 
-  loadScheme: (scheme) => set({
-    currentSchemeId: scheme.id,
-    currentScheme: scheme,
-    beltFlows: computeBeltFlows(scheme),
-    currentFloor: scheme.floors[0]?.id ?? 1,
-    viewport: { ...DEFAULT_VIEWPORT },
-    hoveredId: null,
-    selectedId: null,
-    selectAnchor: null,
-    highlightChain: [],
+  loadScheme: (scheme) => set((s) => {
+    const isSameScheme = s.currentSchemeId === scheme.id;
+    const floorStillExists = isSameScheme && scheme.floors.some(f => f.id === s.currentFloor);
+    return {
+      currentSchemeId: scheme.id,
+      currentScheme: scheme,
+      beltFlows: computeBeltFlows(scheme),
+      // 同方案且楼层仍存在 → 保留当前楼层（HMR 友好）
+      currentFloor: floorStillExists ? s.currentFloor : (scheme.floors[0]?.id ?? 1),
+      // 同方案 → 保留视口和选中状态
+      viewport: isSameScheme ? s.viewport : { ...DEFAULT_VIEWPORT },
+      hoveredId: isSameScheme ? s.hoveredId : null,
+      selectedId: isSameScheme ? s.selectedId : null,
+      selectAnchor: isSameScheme ? s.selectAnchor : null,
+      highlightChain: isSameScheme ? s.highlightChain : [],
+    };
   }),
 
   setViewMode: (viewMode) => set({ viewMode }),
