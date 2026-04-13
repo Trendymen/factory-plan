@@ -20,7 +20,7 @@ const MINIMAL_SCHEME: Scheme = {
     { id: 'sp1', type: 'splitter', pos: { col: 1, row: 2.5 }, facing: 'south', floor: 1, label: '分流' },
   ],
   belts: [
-    { id: 'b1', floor: 1, mark: 1, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+    { id: 'b1', floor: 1, mark: 1, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
   ],
   liftPairs: [],
   zones: [],
@@ -66,7 +66,7 @@ describe('schema', () => {
   it('R4: warns on missing fromPort/toPort', () => {
     const bad = {
       ...MINIMAL_SCHEME,
-      belts: [{ id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1, row: 2 }, { col: 3, row: 2 }] }],
+      belts: [{ id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1, row: 2 }, { col: 3, row: 2 }] }],
     };
     const issues = validateSchemeDetailed(bad);
     expect(issues.filter(i => i.rule === 'R4-fromPort').length).toBe(1);
@@ -86,7 +86,7 @@ describe('schema', () => {
     const bad = {
       ...MINIMAL_SCHEME,
       belts: [{
-        id: 'b-diag', floor: 1, mark: 1 as const, material: '铁锭',
+        id: 'b-diag', floor: 1, mark: 1 as const,
         path: [{ col: 1, row: 1 }, { col: 3, row: 3 }],
         fromPort: 's1:out-0', toPort: 'sp1:in-0',
       }],
@@ -99,7 +99,7 @@ describe('schema', () => {
     const ok = {
       ...MINIMAL_SCHEME,
       belts: [{
-        id: 'b-ok', floor: 1, mark: 1 as const, material: '铁锭',
+        id: 'b-ok', floor: 1, mark: 1 as const,
         path: [{ col: 1, row: 1 }, { col: 1, row: 3 }, { col: 3, row: 3 }],
         fromPort: 's1:out-0', toPort: 'sp1:in-0',
       }],
@@ -169,7 +169,7 @@ describe('schema', () => {
         { id: 'blocker', type: 'constructor' as const, pos: { col: 1, row: 1.75 }, facing: 'south' as const, floor: 1 },
       ],
       belts: [{
-        id: 'b-cross', floor: 1, mark: 1 as const, material: '铁锭',
+        id: 'b-cross', floor: 1, mark: 1 as const,
         path: [{ col: 1.5, row: 1 }, { col: 1.5, row: 3 }],
         fromPort: 's1:out-0', toPort: 'sp1:in-0',
       }],
@@ -182,9 +182,9 @@ describe('schema', () => {
     const bad = {
       ...MINIMAL_SCHEME,
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
+        { id: 'b1', floor: 1, mark: 1 as const,
           path: [{ col: 1, row: 1 }, { col: 1, row: 3 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
-        { id: 'b2', floor: 1, mark: 1 as const, material: '铁板',
+        { id: 'b2', floor: 1, mark: 1 as const,
           path: [{ col: 1, row: 2 }, { col: 1, row: 4 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
       ],
     };
@@ -201,7 +201,6 @@ describe('schema', () => {
         id: 'b_loop',
         floor: 1,
         mark: 1 as const,
-        material: '铁锭',
         path: [
           { col: 2, row: 4 },
           { col: 2, row: 4.5 },
@@ -226,7 +225,6 @@ describe('schema', () => {
         id: 'b_L',
         floor: 1,
         mark: 1 as const,
-        material: '铁锭',
         path: [
           { col: 1, row: 1 },
           { col: 1, row: 4.5 },
@@ -248,7 +246,6 @@ describe('schema', () => {
         id: 'b_straight',
         floor: 1,
         mark: 1 as const,
-        material: '铁锭',
         path: [{ col: 2, row: 1 }, { col: 2, row: 5 }],
         fromPort: 's1:out-0',
         toPort: 'sp1:in-0',
@@ -320,8 +317,8 @@ describe('schema', () => {
         { id: 'sp1', type: 'splitter' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
-        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
       ],
     };
     const issues = validateSchemeDetailed(bad);
@@ -337,8 +334,8 @@ describe('schema', () => {
         { id: 'mg1', type: 'merger' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'mg1:in-0' },
-        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'mg1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'mg1:out-0' },
       ],
     };
     const issues = validateSchemeDetailed(bad);
@@ -353,9 +350,9 @@ describe('schema', () => {
         { id: 'sp1', type: 'splitter' as const, pos: { col: 1, row: 2.5 }, facing: 'south' as const, floor: 1 },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
-        { id: 'b2', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
-        { id: 'b3', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.25, row: 2.75 }, { col: 2, row: 2.75 }], fromPort: 'sp1:out-1' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }], fromPort: 's1:out-0', toPort: 'sp1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }], fromPort: 'sp1:out-0' },
+        { id: 'b3', floor: 1, mark: 1 as const, path: [{ col: 1.25, row: 2.75 }, { col: 2, row: 2.75 }], fromPort: 'sp1:out-1' },
       ],
     };
     const issues = validateSchemeDetailed(ok);
@@ -371,7 +368,7 @@ describe('schema', () => {
         { id: 'asm1', type: 'assembler' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'reinforced-iron-plate' },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板', path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
       ],
     };
     const issues = validateSchemeDetailed(bad);
@@ -386,8 +383,8 @@ describe('schema', () => {
         { id: 'asm1', type: 'assembler' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'reinforced-iron-plate' },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板', path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
-        { id: 'b2', floor: 1, mark: 1 as const, material: '螺丝', path: [{ col: 1.875, row: 0 }, { col: 1.875, row: 1 }], toPort: 'asm1:in-1' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.375, row: 0 }, { col: 1.375, row: 1 }], toPort: 'asm1:in-0' },
+        { id: 'b2', floor: 1, mark: 1 as const, path: [{ col: 1.875, row: 0 }, { col: 1.875, row: 1 }], toPort: 'asm1:in-1' },
       ],
     };
     const issues = validateSchemeDetailed(ok);
@@ -428,7 +425,7 @@ describe('schema', () => {
         { id: 'c1', type: 'constructor' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'iron-plate' },
       ],
       belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭', path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
+        { id: 'b1', floor: 1, mark: 1 as const, path: [{ col: 1.5, row: 0 }, { col: 1.5, row: 1 }], toPort: 'c1:in-0' },
       ],
     };
     const issues = validateSchemeDetailed(bad);
@@ -449,51 +446,6 @@ describe('schema', () => {
     expect(issues.find(i => i.rule === 'R30-storage-no-input')?.severity).toBe('warn');
   });
 
-  // ==================== R31: 传送带物料类型一致性 ====================
-
-  it('R31: errors when belt material mismatches source output', () => {
-    const bad = {
-      ...MINIMAL_SCHEME,
-      machines: [
-        { id: 's1', type: 'smelter' as const, pos: { col: 1, row: 1 }, facing: 'south' as const, floor: 1, recipe: 'iron-ingot' },
-        { id: 'c1', type: 'constructor' as const, pos: { col: 1, row: 3 }, facing: 'south' as const, floor: 1, recipe: 'iron-plate' },
-      ],
-      belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁板',
-          path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 3 }],
-          fromPort: 's1:out-0', toPort: 'c1:in-0' },
-      ],
-    };
-    const issues = validateSchemeDetailed(bad);
-    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(true);
-    expect(issues.find(i => i.rule === 'R31-material-mismatch')?.severity).toBe('error');
-  });
-
-  it('R31: passes when belt material matches source output', () => {
-    const ok = {
-      ...MINIMAL_SCHEME,
-      belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
-          path: [{ col: 1.375, row: 2.125 }, { col: 1.375, row: 2.5 }],
-          fromPort: 's1:out-0', toPort: 'sp1:in-0' },
-      ],
-    };
-    const issues = validateSchemeDetailed(ok);
-    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(false);
-  });
-
-  it('R31: skips belts from splitter/merger', () => {
-    const ok = {
-      ...MINIMAL_SCHEME,
-      belts: [
-        { id: 'b1', floor: 1, mark: 1 as const, material: '铁锭',
-          path: [{ col: 1.25, row: 2.75 }, { col: 1.25, row: 3.5 }],
-          fromPort: 'sp1:out-0' },
-      ],
-    };
-    const issues = validateSchemeDetailed(ok);
-    expect(issues.some(i => i.rule === 'R31-material-mismatch')).toBe(false);
-  });
 });
 
 describe('R18 - LiftPair 一致性', () => {
@@ -515,7 +467,7 @@ describe('R18 - LiftPair 一致性', () => {
 
   it('pair 引用不存在的机器 → error', () => {
     const scheme = baseScheme([], [
-      { id: 'lp1', bottomMachine: 'missing_bot', topMachine: 'missing_top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'missing_bot', topMachine: 'missing_top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
@@ -526,7 +478,7 @@ describe('R18 - LiftPair 一致性', () => {
       makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
       makeLiftMachine('top', 'conveyor-lift-out-top', 2),
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
@@ -537,7 +489,7 @@ describe('R18 - LiftPair 一致性', () => {
       makeLiftMachine('bot', 'conveyor-lift-out-top', 1),
       makeLiftMachine('top', 'conveyor-lift-in-bottom', 2),
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
@@ -548,7 +500,7 @@ describe('R18 - LiftPair 一致性', () => {
       makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
       { id: 'top', type: 'conveyor-lift-out-top', floor: 3, facing: 'south', pos: { col: 1.5, row: 6.5 } },
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     // 添加 floor 3 避免 R1-floor 失败抢先
     scheme.floors.push({ id: 3, label: 'F3', gridSize: { cols: 8, rows: 8 } });
@@ -561,7 +513,7 @@ describe('R18 - LiftPair 一致性', () => {
       makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1, 1.5, 6.5),
       makeLiftMachine('top', 'conveyor-lift-out-top', 2, 2.0, 6.5),
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
@@ -572,7 +524,7 @@ describe('R18 - LiftPair 一致性', () => {
       makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
       { id: 'top', type: 'conveyor-lift-out-top', floor: 2, facing: 'north', pos: { col: 1.5, row: 6.5 } },
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
@@ -584,7 +536,7 @@ describe('R18 - LiftPair 一致性', () => {
       { id: 'bot', type: 'conveyor-lift-out-bottom', floor: 1, facing: 'south', pos: { col: 1.5, row: 6.5 } },
       { id: 'top', type: 'conveyor-lift-in-top', floor: 2, facing: 'south', pos: { col: 1.5, row: 6.5 } },
     ], [
-      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', material: '铁板', mark: 1 },
+      { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
     const issues = validateSchemeDetailed(scheme);
     expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
@@ -604,9 +556,9 @@ describe('R19 - 垂直交叉检测', () => {
 
   it('两条 belt 在内部点垂直交叉 → warn', () => {
     const scheme = schemeWithBelts([
-      { id: 'b1', floor: 1, mark: 1, material: 'x',
+      { id: 'b1', floor: 1, mark: 1,
         path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
-      { id: 'b2', floor: 1, mark: 1, material: 'y',
+      { id: 'b2', floor: 1, mark: 1,
         path: [{ col: 3, row: 1 }, { col: 3, row: 5 }] },
     ]);
     const issues = validateSchemeDetailed(scheme);
@@ -615,9 +567,9 @@ describe('R19 - 垂直交叉检测', () => {
 
   it('两条 belt 仅在共同端点相触 → 不 warn', () => {
     const scheme = schemeWithBelts([
-      { id: 'b1', floor: 1, mark: 1, material: 'x',
+      { id: 'b1', floor: 1, mark: 1,
         path: [{ col: 1, row: 3 }, { col: 3, row: 3 }] },
-      { id: 'b2', floor: 1, mark: 1, material: 'y',
+      { id: 'b2', floor: 1, mark: 1,
         path: [{ col: 3, row: 3 }, { col: 3, row: 5 }] },
     ]);
     const issues = validateSchemeDetailed(scheme);
@@ -626,9 +578,9 @@ describe('R19 - 垂直交叉检测', () => {
 
   it('T 型：belt A 端点落在 belt B 内部 → warn', () => {
     const scheme = schemeWithBelts([
-      { id: 'b1', floor: 1, mark: 1, material: 'x',
+      { id: 'b1', floor: 1, mark: 1,
         path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
-      { id: 'b2', floor: 1, mark: 1, material: 'y',
+      { id: 'b2', floor: 1, mark: 1,
         path: [{ col: 3, row: 3 }, { col: 3, row: 5 }] },
     ]);
     const issues = validateSchemeDetailed(scheme);
@@ -637,9 +589,9 @@ describe('R19 - 垂直交叉检测', () => {
 
   it('不同楼层的 belt 不触发 R19', () => {
     const scheme = schemeWithBelts([
-      { id: 'b1', floor: 1, mark: 1, material: 'x',
+      { id: 'b1', floor: 1, mark: 1,
         path: [{ col: 1, row: 3 }, { col: 5, row: 3 }] },
-      { id: 'b2', floor: 2, mark: 1, material: 'y',
+      { id: 'b2', floor: 2, mark: 1,
         path: [{ col: 3, row: 1 }, { col: 3, row: 5 }] },
     ]);
     scheme.floors.push({ id: 2, label: 'F2', gridSize: { cols: 8, rows: 8 } });

@@ -679,36 +679,6 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
-  // R31: 传送带物料类型一致性
-  // ----------------------------------------------------------
-  {
-    const productionSet = new Set<PlaceableType>(['smelter', 'foundry', 'constructor', 'assembler', 'manufacturer', 'refinery', 'packager', 'blender', 'particle-accelerator', 'quantum-encoder', 'converter']);
-
-    for (const b of scheme.belts) {
-      if (!b.fromPort) continue;
-      const parts = b.fromPort.split(':');
-      if (parts.length !== 2) continue;
-
-      const srcMachine = machineById.get(parts[0]);
-      if (!srcMachine || !productionSet.has(srcMachine.type)) continue;
-      if (!srcMachine.recipe) continue;
-
-      const recipe = getRecipe(srcMachine.recipe);
-      if (!recipe) continue;
-
-      const outputItems = recipe.outputs.map(o => o.item);
-      if (!outputItems.includes(b.material)) {
-        issues.push({
-          severity: 'error',
-          rule: 'R31-material-mismatch',
-          message: `Belt "${b.id}": material "${b.material}" does not match source machine "${srcMachine.id}" output [${outputItems.join(', ')}]`,
-          elementId: b.id,
-        });
-      }
-    }
-  }
-
-  // ----------------------------------------------------------
   // R22 + R28: 流量相关规则（传送带/升降机容量溢出）
   // 仅在无结构性 error 时运行（避免在不合法方案上做流量计算）
   // ----------------------------------------------------------
