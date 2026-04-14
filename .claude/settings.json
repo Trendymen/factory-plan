@@ -2,8 +2,5 @@
   "enabledMcpjsonServers": [
     "vscode-server-mcp"
   ],
-  "enableAllProjectMcpServers": true,
-  "env": {
-    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-opus-4-6"
-  }
+  "enableAllProjectMcpServers": true
 }
