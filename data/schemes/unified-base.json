@@ -219,9 +219,170 @@
       "facing": "south",
       "floor": 3,
       "label": "ModFrame 缓冲"
+    },
+    {
+      "id": "sp-fe-ore-2",
+      "type": "splitter",
+      "pos": { "col": 3.25, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁矿分流 #2"
+    },
+    {
+      "id": "sp-fe-ore-1",
+      "type": "splitter",
+      "pos": { "col": 1.25, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁矿分流 #1"
+    },
+    {
+      "id": "sp-cu-ore",
+      "type": "splitter",
+      "pos": { "col": 7.25, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铜矿分流"
+    },
+    {
+      "id": "sp-lime",
+      "type": "splitter",
+      "pos": { "col": 8.75, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "石灰石分流"
     }
   ],
-  "belts": [],
+  "belts": [
+    {
+      "id": "b-fe-ore-in",
+      "floor": 1,
+      "mark": 2,
+      "path": [
+        { "col": 3.5, "row": 0 },
+        { "col": 3.5, "row": 0.25 }
+      ],
+      "toPort": "sp-fe-ore-2:in-0"
+    },
+    {
+      "id": "b-cu-ore-in",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 7.5, "row": 0 },
+        { "col": 7.5, "row": 0.25 }
+      ],
+      "toPort": "sp-cu-ore:in-0"
+    },
+    {
+      "id": "b-lime-in",
+      "floor": 1,
+      "mark": 2,
+      "path": [
+        { "col": 9.0, "row": 0 },
+        { "col": 9.0, "row": 0.25 }
+      ],
+      "toPort": "sp-lime:in-0"
+    },
+    {
+      "id": "b-fe-ore-split",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 3.25, "row": 0.5 },
+        { "col": 3.0, "row": 0.5 },
+        { "col": 3.0, "row": 0 },
+        { "col": 1.5, "row": 0 },
+        { "col": 1.5, "row": 0.25 }
+      ],
+      "fromPort": "sp-fe-ore-2:out-2",
+      "toPort": "sp-fe-ore-1:in-0"
+    },
+    {
+      "id": "b-fe-smelt-3",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 0.75 },
+        { "col": 3.5, "row": 1.0 }
+      ],
+      "fromPort": "sp-fe-ore-2:out-0",
+      "toPort": "fe-smelt-3:in-0"
+    },
+    {
+      "id": "b-fe-smelt-1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 0.75 },
+        { "col": 1.5, "row": 1.0 }
+      ],
+      "fromPort": "sp-fe-ore-1:out-0",
+      "toPort": "fe-smelt-1:in-0"
+    },
+    {
+      "id": "b-fe-smelt-2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.75, "row": 0.5 },
+        { "col": 2.5, "row": 0.5 },
+        { "col": 2.5, "row": 1.0 }
+      ],
+      "fromPort": "sp-fe-ore-1:out-1",
+      "toPort": "fe-smelt-2:in-0"
+    },
+    {
+      "id": "b-cu-smelt-1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 7.5, "row": 0.75 },
+        { "col": 7.5, "row": 1.0 }
+      ],
+      "fromPort": "sp-cu-ore:out-0",
+      "toPort": "cu-smelt-1:in-0"
+    },
+    {
+      "id": "b-cu-smelt-2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 7.75, "row": 0.5 },
+        { "col": 8.5, "row": 0.5 },
+        { "col": 8.5, "row": 1.0 }
+      ],
+      "fromPort": "sp-cu-ore:out-1",
+      "toPort": "cu-smelt-2:in-0"
+    },
+    {
+      "id": "b-concrete-2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 9.0, "row": 0.75 },
+        { "col": 9.0, "row": 2.5 }
+      ],
+      "fromPort": "sp-lime:out-0",
+      "toPort": "concrete-2:in-0"
+    },
+    {
+      "id": "b-concrete-1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 8.75, "row": 0.5 },
+        { "col": 8.0, "row": 0.5 },
+        { "col": 8.0, "row": 0.75 },
+        { "col": 7.0, "row": 0.75 },
+        { "col": 7.0, "row": 2.25 },
+        { "col": 7.5, "row": 2.25 },
+        { "col": 7.5, "row": 2.5 }
+      ],
+      "fromPort": "sp-lime:out-2",
+      "toPort": "concrete-1:in-0"
+    }
+  ],
   "liftPairs": [],
   "zones": []
 }
