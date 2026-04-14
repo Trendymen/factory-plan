@@ -495,17 +495,16 @@ describe('R18 - LiftPair 一致性', () => {
     expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
   });
 
-  it('跨越多层（floor 差不为 1）→ error', () => {
+  it('跨越多层（top floor > bottom floor）→ 无 R18 error', () => {
     const scheme = baseScheme([
       makeLiftMachine('bot', 'conveyor-lift-in-bottom', 1),
       { id: 'top', type: 'conveyor-lift-out-top', floor: 3, facing: 'south', pos: { col: 1.5, row: 6.5 } },
     ], [
       { id: 'lp1', bottomMachine: 'bot', topMachine: 'top', mark: 1 },
     ]);
-    // 添加 floor 3 避免 R1-floor 失败抢先
     scheme.floors.push({ id: 3, label: 'F3', gridSize: { cols: 8, rows: 8 } });
     const issues = validateSchemeDetailed(scheme);
-    expect(issues.some(i => i.severity === 'error' && i.rule.startsWith('R18'))).toBe(true);
+    expect(issues.filter(i => i.severity === 'error' && i.rule.startsWith('R18'))).toEqual([]);
   });
 
   it('pair 两端 pos 不相等 → error', () => {
@@ -601,6 +600,7 @@ describe('R19 - 垂直交叉检测', () => {
 });
 
 import ironFullLineV2 from '../../data/schemes/iron-full-line-v2.json';
+import unifiedBase from '../../data/schemes/unified-base.json';
 import { computeSchemeStats } from '../core/computeStats';
 
 describe('iron-full-line-v2 流量分析（Tier 2）', () => {
@@ -669,6 +669,47 @@ describe('iron-full-line-v2 方案校验', () => {
     const unexpectedWarns = warns.filter(w => !isKnownR19(w));
     if (unexpectedWarns.length > 0) {
       console.error('Unexpected warns in v2:');
+      unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
+    }
+    expect(unexpectedWarns).toHaveLength(0);
+  });
+});
+
+describe('unified-base 方案校验', () => {
+  it('validateSchemeDetailed 无 error', () => {
+    const issues = validateSchemeDetailed(unifiedBase as unknown as Scheme);
+    const errors = issues.filter(i => i.severity === 'error');
+    if (errors.length > 0) {
+      console.error('Unexpected errors in unified-base:');
+      errors.forEach(e => console.error(`  [${e.rule}] ${e.message}`));
+    }
+    expect(errors).toHaveLength(0);
+  });
+
+  it('不应出现皮带穿机/重叠/交叉等异常 warn', () => {
+    const issues = validateSchemeDetailed(unifiedBase as unknown as Scheme);
+    const warns = issues.filter(i => i.severity === 'warn');
+
+    const expectedTerminalUnderuse = new Set([
+      'Machine "sp-O1" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O2" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O3" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O4" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O5" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O6" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O7" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O8" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O9" (splitter): only 0 output port(s) connected',
+      'Machine "sp-O10" (splitter): only 0 output port(s) connected',
+    ]);
+
+    const unexpectedWarns = warns.filter(w => {
+      if (w.rule !== 'R25-splitter-underuse') return true;
+      return !expectedTerminalUnderuse.has(w.message);
+    });
+
+    if (unexpectedWarns.length > 0) {
+      console.error('Unexpected warns in unified-base:');
       unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
     }
     expect(unexpectedWarns).toHaveLength(0);

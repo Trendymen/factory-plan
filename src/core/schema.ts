@@ -533,9 +533,9 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
     }
 
     // 楼层关系
-    if (top.floor !== bot.floor + 1) {
+    if (top.floor <= bot.floor) {
       issues.push({ severity: 'error', rule: 'R18-floor',
-        message: `LiftPair "${pair.id}": topMachine.floor (${top.floor}) 必须为 bottomMachine.floor (${bot.floor}) + 1`,
+        message: `LiftPair "${pair.id}": topMachine.floor (${top.floor}) 必须大于 bottomMachine.floor (${bot.floor})`,
         elementId: pair.id });
     }
 
