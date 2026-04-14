@@ -255,6 +255,17 @@ storage / industrial-storage 的 `belt-in` 端口无传送带连接 → **warn**
 
 ---
 
+## 子 Agent 约束
+
+所有通过 `Agent` 工具派发的子 agent，**必须**使用以下配置：
+
+- **模型**：`model: "opus"`（Opus 4.6）
+- **推理努力**：至少 `high`（允许 `high` 或 `max`，禁止 `low` / `medium`）
+
+禁止省略 `model` 参数让子 agent 降级到更低模型。每次调用 `Agent` 工具时都必须显式传入 `model: "opus"`。
+
+---
+
 ## 开发规则
 
 ### 代码结构
