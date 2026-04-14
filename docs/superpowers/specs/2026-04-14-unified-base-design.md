@@ -510,7 +510,88 @@ ModFrame #3 → st-modframe → L14 ↓ F1 (O10 ModFrame/SP 输出)
 
 ---
 
-## 14. 参考
+## 14. 全局重排规范（v3 — 消除 80 项警告）
+
+> 背景：v2 生成的 JSON 存在 80 项 warn（R14b/R15/R16/R19/R25），根本原因是未做同轴对齐。  
+> 本节定义全局重排的布局规则，供 AI 完整重写 JSON 时遵循。
+
+### 14.1 核心原则
+
+1. **列区独占**：每条产线独占一段 col 区间，不同产线不共享中间段
+2. **垂直主干**：同一产线内，上下游机器必须同轴（相关端口共享同一 col）
+3. **水平跨链段仅在端行**：跨产线的连接带只走指定的"水平走廊行"（Row H），且不穿越其他产线的垂直主干
+4. **R16 强制满足**：进出所有端口的带，最后一段（最近一段）必须垂直于端口所在边
+
+### 14.2 F1 列区分配
+
+| 列区 | Col 范围 | 产线 |
+|------|---------|------|
+| 铁链 | 0 – 3.5 | sp-fe-ore-2, sp-fe-ore-1, smelt-1/2/3, mg-fe-ingot-1/2, L1-bot↑ |
+| 铜链 | 5 – 7.5 | sp-cu-ore, cu-smelt-1/2, mg-cu-ingot, L2-bot↑ |
+| 混凝土链 | 7.5 – 9.5 | sp-lime, concrete-1/2, mg-concrete |
+| 输出区 | 0 – 9.5 | 所有下行升降机(L6-L14)排成一排，每个升降机下方直接连 sp-O，间距 ≥ 0.5 格 |
+
+- 铁链各机器端口 col 主轴：约 col 1.5（smelt-1/2 合并点）和 col 2.5（smelt-3）
+- mg-fe-ingot-1 的 out-0 端口 col = mg-fe-ingot-2 的 in-0 端口 col（两个 merger 竖向串联，同轴）
+- L1-bot 的 in-0 端口 col = mg-fe-ingot-2 的 out-0 端口 col（同轴直线向下）
+
+### 14.3 F2 列区分配
+
+| 列区 | Col 范围 | 产线 |
+|------|---------|------|
+| 铁板链 | 0 – 2.5 | L1-top, sp-fe-plate, plate-1, plate-2, mg-plate, sp-plate, L3-bot↑, L6-top↓ |
+| 铁棒+螺丝链 | 2.5 – 5.5 | sp-fe-rod, rod-1, rod-2, mg-rod, sp-rod-feed, screw-1, screw-2, mg-screw, sp-screw, sp-rod-out, L5-bot↑, L7-top↓, L8-top↓ |
+| 电线+电缆链 | 5.5 – 8.0 | L2-top, sp-cu-ingot, wire-1, wire-2, mg-wire, sp-wire, cable-1, L9-top↓, L10-top↓ |
+| 铜板链 | 8.0 – 9.5 | sheet-1, L11-top↓ |
+
+**关键同轴约束：**
+- sp-fe-plate 在铁板链与铁棒链边界，其 in-0（top）对齐 L1-top out-0（bottom）
+- sp-fe-plate out-0（front）→ plate-1 in-0（back）：直线垂直
+- sp-fe-plate out-1（east）→ plate-2 in-0（back）：先水平后垂直 L 形
+- sp-fe-plate out-2（west）→ sp-fe-rod in-0（back）：水平带（两者同行）
+- sp-plate 与 L3-bot、L6-top 的端口 col 对齐，分别用 out-0、out-1 直达
+
+### 14.4 F3 列区分配
+
+| 列区 | Col 范围 | 产线 |
+|------|---------|------|
+| RIP 链 | 0 – 3.0 | L3-top, L4-top(screw), sp-f3-screw, asm-rip, sp-rip-out, st-rip, L12-top↓ |
+| Rotor 链 | 3.0 – 6.0 | L5-top(rod), sp-f3-rod, asm-rotor, st-rotor, L13-top↓ |
+| ModFrame 链 | 6.0 – 9.5 | asm-modframe, st-modframe, L14-top↓ |
+
+**RIP→ModFrame 跨链连接：**
+- sp-rip-out out-0 → st-rip（同轴直线）
+- sp-rip-out out-1 → asm-modframe in-0：水平走廊行（Row H ≈ 4.5），不穿越 Rotor 链
+
+### 14.5 输出 sp-O 设计
+
+sp-O1 到 sp-O10 的 out 端口**保持无连接**（0 个输出）。R25-splitter-underuse warn 对这 10 个终端是**预期的**，已在测试中列为白名单（`src/__tests__/schema.test.ts` 第 690-703 行）。
+
+要求：
+- 每个 sp-O 有且仅有 **1 条输入带**（来自对应的下行升降机）
+- 这条输入带必须直接垂直对齐（同 col）：升降机 out-0（front/south 端口）→ sp-O in-0（back/north 端口）
+- sp-O 的 out-0、out-1、out-2 均不连接任何传送带（楼外接驳留给玩家）
+
+### 14.6 传送带设计规则（执行层）
+
+1. **直线优先**：能用 2 点（直线）完成的绝不用 4 点
+2. **L 形最多 4 点**：跨列连接用 4 点（起→转弯1→转弯2→终），转弯行必须不与其他带共轴
+3. **禁止 U 形和 S 形**：R17 强制，实际总长 ≤ 起终点 bbox 半周长 × 1.4
+4. **间隔保障**：同一楼层任意两台机器之间至少保留 0.5 格走廊给传送带
+5. **端口接入规则（R16）**：
+   - 进出 back/front 端口 → 最后一段必须是垂直段（共享 col）
+   - 进出 left/right 端口 → 最后一段必须是水平段（共享 row）
+
+### 14.7 升降机配对规则
+
+- conveyor-lift-in-bottom（底部入口）和 conveyor-lift-out-top（顶部出口）组成一对（物料上行）
+- conveyor-lift-in-top（顶部入口）和 conveyor-lift-out-bottom（底部出口）组成一对（物料下行）
+- 同一对的两台机器必须 **pos 完全相同**（R18 要求）
+- 升降机的 in-0 端口 col 必须对齐上游 belt 的末段 col（R16）
+
+---
+
+## 16. 参考
 
 - 前版 v1 spec：本文件的 git 历史
 - 现有方案参考：`data/schemes/iron-full-line-v2.json`（8×7, 2 层铁矿全产线）
