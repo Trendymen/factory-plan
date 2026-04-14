@@ -1,0 +1,227 @@
+{
+  "id": "unified-base",
+  "name": "大一统基础产线 v2",
+  "version": "2.0.0",
+  "category": "mixed",
+  "description": "铜铁石灰石三矿大一统产线 3F — 10×9 网格，纯单品输出架构，RIP/Rotor/ModFrame 常驻 + Smart Plating flex 机位，F3 缓冲 storage，14 对升降机",
+  "designPrinciples": {
+    "preferWallOutlets": false,
+    "preferWallHoles": false,
+    "preferCeilingMounts": false,
+    "keepFloorClear": false
+  },
+  "floors": [
+    { "id": 1, "label": "1F 冶炼 & 输出", "gridSize": { "cols": 10, "rows": 9 } },
+    { "id": 2, "label": "2F 制造", "gridSize": { "cols": 10, "rows": 9 } },
+    { "id": 3, "label": "3F 组装 & 缓冲", "gridSize": { "cols": 10, "rows": 9 } }
+  ],
+  "machines": [
+    {
+      "id": "fe-smelt-1",
+      "type": "smelter",
+      "pos": { "col": 1.1875, "row": 1.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁冶炼 #1",
+      "recipe": "iron-ingot"
+    },
+    {
+      "id": "fe-smelt-2",
+      "type": "smelter",
+      "pos": { "col": 2.1875, "row": 1.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁冶炼 #2",
+      "recipe": "iron-ingot"
+    },
+    {
+      "id": "fe-smelt-3",
+      "type": "smelter",
+      "pos": { "col": 3.1875, "row": 1.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁冶炼 #3",
+      "recipe": "iron-ingot"
+    },
+    {
+      "id": "cu-smelt-1",
+      "type": "smelter",
+      "pos": { "col": 7.1875, "row": 1.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铜冶炼 #1",
+      "recipe": "copper-ingot"
+    },
+    {
+      "id": "cu-smelt-2",
+      "type": "smelter",
+      "pos": { "col": 8.1875, "row": 1.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铜冶炼 #2",
+      "recipe": "copper-ingot"
+    },
+    {
+      "id": "concrete-1",
+      "type": "constructor",
+      "pos": { "col": 7.0, "row": 2.5 },
+      "facing": "south",
+      "floor": 1,
+      "label": "混凝土 #1",
+      "recipe": "concrete"
+    },
+    {
+      "id": "concrete-2",
+      "type": "constructor",
+      "pos": { "col": 8.5, "row": 2.5 },
+      "facing": "south",
+      "floor": 1,
+      "label": "混凝土 #2",
+      "recipe": "concrete"
+    },
+    {
+      "id": "plate-1",
+      "type": "constructor",
+      "pos": { "col": 0.75, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "铁板 #1",
+      "recipe": "iron-plate"
+    },
+    {
+      "id": "plate-2",
+      "type": "constructor",
+      "pos": { "col": 2.0, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "铁板 #2",
+      "recipe": "iron-plate"
+    },
+    {
+      "id": "rod-1",
+      "type": "constructor",
+      "pos": { "col": 3.25, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "铁棒 #1",
+      "recipe": "iron-rod"
+    },
+    {
+      "id": "rod-2",
+      "type": "constructor",
+      "pos": { "col": 4.5, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "铁棒 #2",
+      "recipe": "iron-rod"
+    },
+    {
+      "id": "wire-1",
+      "type": "constructor",
+      "pos": { "col": 5.75, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "电线 #1",
+      "recipe": "wire"
+    },
+    {
+      "id": "wire-2",
+      "type": "constructor",
+      "pos": { "col": 7.0, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "电线 #2",
+      "recipe": "wire"
+    },
+    {
+      "id": "sheet-1",
+      "type": "constructor",
+      "pos": { "col": 8.5, "row": 1.5 },
+      "facing": "south",
+      "floor": 2,
+      "label": "铜板 #1",
+      "recipe": "copper-sheet"
+    },
+    {
+      "id": "screw-1",
+      "type": "constructor",
+      "pos": { "col": 0.75, "row": 4.0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝 #1",
+      "recipe": "screw"
+    },
+    {
+      "id": "screw-2",
+      "type": "constructor",
+      "pos": { "col": 2.0, "row": 4.0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "螺丝 #2",
+      "recipe": "screw"
+    },
+    {
+      "id": "cable-1",
+      "type": "constructor",
+      "pos": { "col": 5.75, "row": 4.0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "电缆 #1",
+      "recipe": "cable"
+    },
+    {
+      "id": "asm-rip",
+      "type": "assembler",
+      "pos": { "col": 0.9375, "row": 2.0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "RIP #1",
+      "recipe": "reinforced-iron-plate"
+    },
+    {
+      "id": "asm-rotor",
+      "type": "assembler",
+      "pos": { "col": 3.4375, "row": 2.0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "Rotor #2",
+      "recipe": "rotor"
+    },
+    {
+      "id": "asm-modframe",
+      "type": "assembler",
+      "pos": { "col": 5.9375, "row": 2.0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "ModFrame #3 (flex)",
+      "recipe": "modular-frame"
+    },
+    {
+      "id": "st-rip",
+      "type": "storage",
+      "pos": { "col": 1.1875, "row": 5.5 },
+      "facing": "south",
+      "floor": 3,
+      "label": "RIP 缓冲"
+    },
+    {
+      "id": "st-rotor",
+      "type": "storage",
+      "pos": { "col": 3.6875, "row": 5.5 },
+      "facing": "south",
+      "floor": 3,
+      "label": "Rotor 缓冲"
+    },
+    {
+      "id": "st-modframe",
+      "type": "storage",
+      "pos": { "col": 6.1875, "row": 5.5 },
+      "facing": "south",
+      "floor": 3,
+      "label": "ModFrame 缓冲"
+    }
+  ],
+  "belts": [],
+  "liftPairs": [],
+  "zones": []
+}
