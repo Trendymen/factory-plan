@@ -251,6 +251,54 @@
       "facing": "south",
       "floor": 1,
       "label": "石灰石分流"
+    },
+    {
+      "id": "mg-fe-ingot-1",
+      "type": "merger",
+      "pos": { "col": 1.25, "row": 2.5 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁锭合流 #1"
+    },
+    {
+      "id": "mg-fe-ingot-2",
+      "type": "merger",
+      "pos": { "col": 1.25, "row": 3.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铁锭合流 #2"
+    },
+    {
+      "id": "mg-cu-ingot",
+      "type": "merger",
+      "pos": { "col": 8.0, "row": 3.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "铜锭合流"
+    },
+    {
+      "id": "mg-concrete",
+      "type": "merger",
+      "pos": { "col": 7.25, "row": 4.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "混凝土合流"
+    },
+    {
+      "id": "lift-L1-bot",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.375, "row": 4.0 },
+      "facing": "south",
+      "floor": 1,
+      "label": "L1 铁锭升降机(底)"
+    },
+    {
+      "id": "lift-L2-bot",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 8.125, "row": 3.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "L2 铜锭升降机(底)"
     }
   ],
   "belts": [
@@ -381,6 +429,122 @@
       ],
       "fromPort": "sp-lime:out-2",
       "toPort": "concrete-1:in-0"
+    },
+    {
+      "id": "b-fe-smelt1-mg1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 2.25 },
+        { "col": 1.5, "row": 2.5 }
+      ],
+      "fromPort": "fe-smelt-1:out-0",
+      "toPort": "mg-fe-ingot-1:in-0"
+    },
+    {
+      "id": "b-fe-smelt2-mg1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 2.25 },
+        { "col": 2.5, "row": 2.75 },
+        { "col": 1.75, "row": 2.75 }
+      ],
+      "fromPort": "fe-smelt-2:out-0",
+      "toPort": "mg-fe-ingot-1:in-1"
+    },
+    {
+      "id": "b-mg1-mg2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 3.0 },
+        { "col": 1.5, "row": 3.25 }
+      ],
+      "fromPort": "mg-fe-ingot-1:out-0",
+      "toPort": "mg-fe-ingot-2:in-0"
+    },
+    {
+      "id": "b-fe-smelt3-mg2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 2.25 },
+        { "col": 3.5, "row": 3.5 },
+        { "col": 1.75, "row": 3.5 }
+      ],
+      "fromPort": "fe-smelt-3:out-0",
+      "toPort": "mg-fe-ingot-2:in-1"
+    },
+    {
+      "id": "b-mg2-L1",
+      "floor": 1,
+      "mark": 2,
+      "path": [
+        { "col": 1.5, "row": 3.75 },
+        { "col": 1.5, "row": 4.0 }
+      ],
+      "fromPort": "mg-fe-ingot-2:out-0",
+      "toPort": "lift-L1-bot:bottom"
+    },
+    {
+      "id": "b-cu-smelt1-mg",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 7.5, "row": 2.25 },
+        { "col": 7.5, "row": 2.5 },
+        { "col": 8.25, "row": 2.5 },
+        { "col": 8.25, "row": 3.0 }
+      ],
+      "fromPort": "cu-smelt-1:out-0",
+      "toPort": "mg-cu-ingot:in-0"
+    },
+    {
+      "id": "b-cu-smelt2-mg",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 8.5, "row": 2.25 },
+        { "col": 8.5, "row": 3.25 },
+        { "col": 8.0, "row": 3.25 }
+      ],
+      "fromPort": "cu-smelt-2:out-0",
+      "toPort": "mg-cu-ingot:in-2"
+    },
+    {
+      "id": "b-mg-cu-L2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 8.25, "row": 3.5 },
+        { "col": 8.25, "row": 3.75 }
+      ],
+      "fromPort": "mg-cu-ingot:out-0",
+      "toPort": "lift-L2-bot:bottom"
+    },
+    {
+      "id": "b-concrete1-mg",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 7.5, "row": 3.75 },
+        { "col": 7.5, "row": 4.0 }
+      ],
+      "fromPort": "concrete-1:out-0",
+      "toPort": "mg-concrete:in-0"
+    },
+    {
+      "id": "b-concrete2-mg",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 9.0, "row": 3.75 },
+        { "col": 9.0, "row": 4.25 },
+        { "col": 7.75, "row": 4.25 }
+      ],
+      "fromPort": "concrete-2:out-0",
+      "toPort": "mg-concrete:in-1"
     }
   ],
   "liftPairs": [],
