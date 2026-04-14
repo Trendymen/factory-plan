@@ -145,7 +145,7 @@
     {
       "id": "screw-1",
       "type": "constructor",
-      "pos": { "col": 0.75, "row": 4.0 },
+      "pos": { "col": 0.25, "row": 4.0 },
       "facing": "south",
       "floor": 2,
       "label": "螺丝 #1",
@@ -299,6 +299,46 @@
       "facing": "south",
       "floor": 1,
       "label": "L2 铜锭升降机(底)"
+    },
+    {
+      "id": "lift-L1-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.375, "row": 4.0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "L1 铁锭升降机(顶)"
+    },
+    {
+      "id": "lift-L2-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 8.125, "row": 3.75 },
+      "facing": "south",
+      "floor": 2,
+      "label": "L2 铜锭升降机(顶)"
+    },
+    {
+      "id": "sp-fe-plate",
+      "type": "splitter",
+      "pos": { "col": 1.5, "row": 3.0 },
+      "facing": "north",
+      "floor": 2,
+      "label": "铁锭分流(板)"
+    },
+    {
+      "id": "sp-fe-rod",
+      "type": "splitter",
+      "pos": { "col": 3.5, "row": 3.0 },
+      "facing": "north",
+      "floor": 2,
+      "label": "铁锭分流(棒)"
+    },
+    {
+      "id": "sp-cu-ingot",
+      "type": "splitter",
+      "pos": { "col": 7.25, "row": 3.0 },
+      "facing": "north",
+      "floor": 2,
+      "label": "铜锭分流"
     }
   ],
   "belts": [
@@ -545,8 +585,146 @@
       ],
       "fromPort": "concrete-2:out-0",
       "toPort": "mg-concrete:in-1"
+    },
+
+    {
+      "id": "b-L1-spfeplate",
+      "floor": 2,
+      "mark": 2,
+      "path": [
+        { "col": 1.5, "row": 4.0 },
+        { "col": 1.5, "row": 3.75 },
+        { "col": 1.75, "row": 3.75 },
+        { "col": 1.75, "row": 3.5 }
+      ],
+      "fromPort": "lift-L1-top:top",
+      "toPort": "sp-fe-plate:in-0"
+    },
+    {
+      "id": "b-spfeplate-plate1",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 3.25 },
+        { "col": 1.25, "row": 3.25 },
+        { "col": 1.25, "row": 1.5 }
+      ],
+      "fromPort": "sp-fe-plate:out-1",
+      "toPort": "plate-1:in-0"
+    },
+    {
+      "id": "b-spfeplate-plate2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 2.0, "row": 3.25 },
+        { "col": 2.5, "row": 3.25 },
+        { "col": 2.5, "row": 1.5 }
+      ],
+      "fromPort": "sp-fe-plate:out-2",
+      "toPort": "plate-2:in-0"
+    },
+    {
+      "id": "b-spfeplate-spferod",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 1.75, "row": 3.0 },
+        { "col": 1.75, "row": 2.75 },
+        { "col": 3.75, "row": 2.75 },
+        { "col": 3.75, "row": 3.5 }
+      ],
+      "fromPort": "sp-fe-plate:out-0",
+      "toPort": "sp-fe-rod:in-0"
+    },
+    {
+      "id": "b-spferod-rod1",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 3.25 },
+        { "col": 3.25, "row": 3.25 },
+        { "col": 3.25, "row": 1.25 },
+        { "col": 3.75, "row": 1.25 },
+        { "col": 3.75, "row": 1.5 }
+      ],
+      "fromPort": "sp-fe-rod:out-1",
+      "toPort": "rod-1:in-0"
+    },
+    {
+      "id": "b-spferod-rod2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 4.0, "row": 3.25 },
+        { "col": 5.0, "row": 3.25 },
+        { "col": 5.0, "row": 1.5 }
+      ],
+      "fromPort": "sp-fe-rod:out-2",
+      "toPort": "rod-2:in-0"
+    },
+    {
+      "id": "b-L2-spcuingot",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 8.25, "row": 3.75 },
+        { "col": 8.25, "row": 3.0 },
+        { "col": 7.5, "row": 3.0 },
+        { "col": 7.5, "row": 3.5 }
+      ],
+      "fromPort": "lift-L2-top:top",
+      "toPort": "sp-cu-ingot:in-0"
+    },
+    {
+      "id": "b-spcuingot-wire1",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 7.25, "row": 3.25 },
+        { "col": 6.25, "row": 3.25 },
+        { "col": 6.25, "row": 1.5 }
+      ],
+      "fromPort": "sp-cu-ingot:out-1",
+      "toPort": "wire-1:in-0"
+    },
+    {
+      "id": "b-spcuingot-wire2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 7.5, "row": 3.0 },
+        { "col": 7.5, "row": 1.5 }
+      ],
+      "fromPort": "sp-cu-ingot:out-0",
+      "toPort": "wire-2:in-0"
+    },
+    {
+      "id": "b-spcuingot-sheet1",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 7.75, "row": 3.25 },
+        { "col": 9.0, "row": 3.25 },
+        { "col": 9.0, "row": 1.5 }
+      ],
+      "fromPort": "sp-cu-ingot:out-2",
+      "toPort": "sheet-1:in-0"
     }
   ],
-  "liftPairs": [],
+  "liftPairs": [
+    {
+      "id": "lp-L1",
+      "bottomMachine": "lift-L1-bot",
+      "topMachine": "lift-L1-top",
+      "mark": 2
+    },
+    {
+      "id": "lp-L2",
+      "bottomMachine": "lift-L2-bot",
+      "topMachine": "lift-L2-top",
+      "mark": 1
+    }
+  ],
   "zones": []
 }
