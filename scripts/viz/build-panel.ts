@@ -17,6 +17,10 @@ export function buildMergerTree(opts: {
 }): MergerTreeResult {
   const { sourceIds, ratePerSource, material, idPrefix } = opts;
 
+  if (sourceIds.length === 0) {
+    throw new Error('buildMergerTree: sourceIds must not be empty');
+  }
+
   if (sourceIds.length === 1) {
     return {
       mergers: [],
@@ -63,12 +67,12 @@ export function buildMergerTree(opts: {
         inputBeltIds.push(b.id);
         belts.push(b);
       }
-      const outBeltId = `${idPrefix}-b${belts.length}`;
+      // outputs 留空，待根阶段写入（或单叶提前返回路径中保持空——调用方负责创建主干 belt）
       mergers.push({
         id: mergerId,
         kind: 'merger',
         inputs: inputBeltIds,
-        outputs: [outBeltId],
+        outputs: [],
       });
       leafNodeIds.push(mergerId);
       leafRates.push(group.length * ratePerSource);
@@ -94,7 +98,6 @@ export function buildMergerTree(opts: {
   }
 
   const rootMergerId = `${idPrefix}-m${mergers.length}`;
-  const rootOutBeltId = `${idPrefix}-b${belts.length + leafNodeIds.length}`;
   // 写入叶节点 → 根合流器的边
   const rootInputBeltIds: string[] = [];
   for (let i = 0; i < leafNodeIds.length; i++) {
@@ -113,11 +116,12 @@ export function buildMergerTree(opts: {
       leafMerger.outputs = [b.id];
     }
   }
+  // outputs 留空，调用方负责创建主干 belt 并回填
   mergers.push({
     id: rootMergerId,
     kind: 'merger',
     inputs: rootInputBeltIds,
-    outputs: [rootOutBeltId],
+    outputs: [],
   });
 
   return {
