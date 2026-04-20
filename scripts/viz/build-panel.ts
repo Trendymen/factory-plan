@@ -131,3 +131,89 @@ export function buildMergerTree(opts: {
     trunkRate: leafRates.reduce((a, b) => a + b, 0),
   };
 }
+
+// ---------- buildManifold ----------
+
+export interface ManifoldStop {
+  consumerId: string;
+  take: number;
+}
+
+export interface ManifoldResult {
+  splitters: RouteNode[];
+  belts: Belt[];
+  /** 若 terminalRate > 0，这条带指向外输终端 */
+  terminalBelt?: Belt;
+}
+
+export function buildManifold(opts: {
+  trunkEntryId: string;
+  trunkRate: number;
+  material: string;
+  idPrefix: string;
+  stops: ManifoldStop[];
+  /** 主干末端剩余流量（→ 外输终端，0 表示无外输） */
+  terminalRate: number;
+}): ManifoldResult {
+  const { trunkEntryId, trunkRate, material, idPrefix, stops, terminalRate } = opts;
+
+  const totalTake = stops.reduce((s, x) => s + x.take, 0);
+  if (Math.abs(totalTake + terminalRate - trunkRate) > 1e-6) {
+    throw new Error(
+      `buildManifold: unbalanced trunk rate ${trunkRate} != sum(stops.take)=${totalTake} + terminalRate=${terminalRate}`
+    );
+  }
+
+  const splitters: RouteNode[] = [];
+  const belts: Belt[] = [];
+
+  // 单消费且无外输：直连
+  if (stops.length === 1 && terminalRate === 0) {
+    belts.push({
+      id: `${idPrefix}-direct`,
+      material,
+      from: trunkEntryId,
+      to: stops[0].consumerId,
+      rate: trunkRate,
+    });
+    return { splitters, belts };
+  }
+
+  let currentSourceId = trunkEntryId;
+  let currentRate = trunkRate;
+
+  for (let i = 0; i < stops.length; i++) {
+    const stop = stops[i];
+    const isLast = i === stops.length - 1;
+    const splitterId = `${idPrefix}-s${i}`;
+
+    const inBeltId = `${idPrefix}-in${i}`;
+    belts.push({ id: inBeltId, material, from: currentSourceId, to: splitterId, rate: currentRate });
+
+    const downBeltId = `${idPrefix}-down${i}`;
+    belts.push({ id: downBeltId, material, from: splitterId, to: stop.consumerId, rate: stop.take });
+
+    const remaining = currentRate - stop.take;
+    const hasContinuation = !isLast || terminalRate > 0;
+
+    if (!hasContinuation) {
+      // 末段无外输：1 入 1 出
+      splitters.push({ id: splitterId, kind: 'splitter', inputs: [inBeltId], outputs: [downBeltId] });
+    } else if (isLast) {
+      // 末段接 terminal
+      const termBeltId = `${idPrefix}-term`;
+      belts.push({ id: termBeltId, material, from: splitterId, to: `${idPrefix}-terminal`, rate: terminalRate });
+      splitters.push({ id: splitterId, kind: 'splitter', inputs: [inBeltId], outputs: [downBeltId, termBeltId] });
+    } else {
+      // 中段：续到下一个分流器
+      const nextInId = `${idPrefix}-in${i + 1}`;
+      splitters.push({ id: splitterId, kind: 'splitter', inputs: [inBeltId], outputs: [downBeltId, nextInId] });
+    }
+
+    currentSourceId = splitterId;
+    currentRate = remaining;
+  }
+
+  const terminalBelt = terminalRate > 0 ? belts.find((b) => b.id === `${idPrefix}-term`) : undefined;
+  return { splitters, belts, terminalBelt };
+}
