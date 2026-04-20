@@ -20,9 +20,17 @@ export interface Machine {
 export interface RouteNode {
   id: string;
   kind: 'splitter' | 'merger';
-  /** 入口边 id 列表（合流 1~3 个，分流恰好 1 个） */
+  /**
+   * 入口边 id 列表（合流 1~3 个，分流恰好 1 个）。
+   * 由 build-panel 层填充，渲染层直接遍历 panel.belts 判定流向，不依赖此字段。
+   */
   inputs: string[];
-  /** 出口边 id 列表（合流恰好 1 个，分流 1~3 个） */
+  /**
+   * 出口边 id 列表（合流恰好 1 个，分流 1~3 个）。
+   * 注意：主干末端的根合流器（buildMergerTree 产出）此字段可为空数组，
+   * 因为主干出边由下游 manifold 或上层 buildPanel 创建并直接归属于 belt 列表。
+   * 渲染层基于 panel.belts 而非此字段绘制边。
+   */
   outputs: string[];
 }
 
