@@ -87,7 +87,7 @@ describe('buildManifold', () => {
     expect(r.belts).toHaveLength(8);
   });
 
-  it('3 个消费 + 外输：主干末端接终端', () => {
+  it('1 个消费 + 外输：主干末端接终端', () => {
     const r = buildManifold({
       trunkEntryId: 'trunk-in',
       trunkRate: 120,
@@ -105,6 +105,24 @@ describe('buildManifold', () => {
     expect(r.belts).toHaveLength(3);
     expect(r.terminalBelt).toBeDefined();
     expect(r.terminalBelt!.rate).toBe(20);
+  });
+
+  it('0 消费 + 外输：主干直接通到终端（无分流器）', () => {
+    const r = buildManifold({
+      trunkEntryId: 'trunk-in',
+      trunkRate: 30,
+      material: 'cable',
+      idPrefix: 'c',
+      stops: [],
+      terminalRate: 30,
+    });
+    expect(r.splitters).toHaveLength(0);
+    expect(r.belts).toHaveLength(1);
+    expect(r.belts[0].from).toBe('trunk-in');
+    expect(r.belts[0].to).toBe('c-terminal');
+    expect(r.belts[0].rate).toBe(30);
+    expect(r.terminalBelt).toBeDefined();
+    expect(r.terminalBelt!.rate).toBe(30);
   });
 
   it('主干流量不守恒 → 抛错', () => {

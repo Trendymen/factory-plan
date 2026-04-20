@@ -167,6 +167,23 @@ export function buildManifold(opts: {
   const splitters: RouteNode[] = [];
   const belts: Belt[] = [];
 
+  // 无内部消费者
+  if (stops.length === 0) {
+    if (terminalRate > 0) {
+      const termBeltId = `${idPrefix}-term`;
+      const tb: Belt = {
+        id: termBeltId,
+        material,
+        from: trunkEntryId,
+        to: `${idPrefix}-terminal`,
+        rate: terminalRate,
+      };
+      return { splitters: [], belts: [tb], terminalBelt: tb };
+    }
+    // trunkRate === 0 case: empty manifold
+    return { splitters: [], belts: [] };
+  }
+
   // 单消费且无外输：直连
   if (stops.length === 1 && terminalRate === 0) {
     belts.push({
