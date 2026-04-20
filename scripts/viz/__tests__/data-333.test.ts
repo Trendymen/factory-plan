@@ -4,9 +4,8 @@ import { panels333 } from '../data-333';
 import { validatePanel } from '../validate';
 
 describe('333 方案 19 个面板', () => {
-  it('面板数量为 19（Task 6 只有 4 个，此测试会在 Task 7 后通过）', () => {
-    // Task 6 only declares 4; full 19 comes in Task 7
-    expect(panels333.length).toBeGreaterThanOrEqual(4);
+  it('面板数量为 19', () => {
+    expect(panels333.length).toBe(19);
   });
 
   it('每个面板流量守恒且无 Mk.3 超限', () => {
