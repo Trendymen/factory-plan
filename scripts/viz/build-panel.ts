@@ -1,5 +1,5 @@
 // scripts/viz/build-panel.ts
-import { RouteNode, Belt } from './types';
+import { RouteNode, Belt, Panel, Machine } from './types';
 
 export interface MergerTreeResult {
   mergers: RouteNode[];
@@ -233,4 +233,89 @@ export function buildManifold(opts: {
 
   const terminalBelt = terminalRate > 0 ? belts.find((b) => b.id === `${idPrefix}-term`) : undefined;
   return { splitters, belts, terminalBelt };
+}
+
+// ---------- buildPanel ----------
+
+export interface TrunkSpec {
+  producer: Omit<Machine, 'kind'>;
+  consumers: Omit<Machine, 'kind'>[];
+  terminalRate: number;
+}
+
+export interface PanelSpec {
+  id: string;
+  title: string;
+  material: string;
+  trunks: TrunkSpec[];
+}
+
+export function buildPanel(spec: PanelSpec): Panel {
+  const panel: Panel = {
+    id: spec.id,
+    title: spec.title,
+    material: spec.material,
+    producers: [],
+    consumers: [],
+    mergers: [],
+    splitters: [],
+    terminals: [],
+    belts: [],
+  };
+
+  const producerMap = new Map<string, Machine>();
+  const consumerMap = new Map<string, Machine>();
+
+  spec.trunks.forEach((trunk, trunkIdx) => {
+    const idPrefix = `${spec.id}-t${trunkIdx}`;
+
+    const pBase = trunk.producer;
+    if (!producerMap.has(pBase.id)) {
+      producerMap.set(pBase.id, { ...pBase, kind: 'producer' });
+    }
+    const sourceIds = Array.from({ length: pBase.count }, (_, i) => `${pBase.id}#${i}`);
+
+    const treeResult = buildMergerTree({
+      sourceIds,
+      ratePerSource: pBase.ratePerMachine,
+      material: spec.material,
+      idPrefix,
+    });
+    panel.mergers.push(...treeResult.mergers);
+    panel.belts.push(...treeResult.belts);
+
+    const stops: ManifoldStop[] = [];
+    trunk.consumers.forEach((c) => {
+      if (!consumerMap.has(c.id)) {
+        consumerMap.set(c.id, { ...c, kind: 'consumer' });
+      }
+      for (let j = 0; j < c.count; j++) {
+        stops.push({ consumerId: `${c.id}#${j}`, take: c.ratePerMachine });
+      }
+    });
+
+    const manifold = buildManifold({
+      trunkEntryId: treeResult.trunkEntryId,
+      trunkRate: treeResult.trunkRate,
+      material: spec.material,
+      idPrefix,
+      stops,
+      terminalRate: trunk.terminalRate,
+    });
+    panel.splitters.push(...manifold.splitters);
+    panel.belts.push(...manifold.belts);
+
+    if (trunk.terminalRate > 0) {
+      panel.terminals.push({
+        id: `${idPrefix}-terminal`,
+        material: spec.material,
+        rate: trunk.terminalRate,
+        label: `外输 ${spec.material} ${trunk.terminalRate}/min`,
+      });
+    }
+  });
+
+  panel.producers = Array.from(producerMap.values());
+  panel.consumers = Array.from(consumerMap.values());
+  return panel;
 }
