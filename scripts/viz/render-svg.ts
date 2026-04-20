@@ -56,13 +56,15 @@ export function renderPanelSvg(panel: Panel, layout: PanelLayout): string {
     const util = belt.rate / cap;
     const strokeWidth = util >= 0.9 ? 4 : util >= 0.5 ? 3 : 2;
     const strokeColor = util >= 0.9 ? '#d12' : color;
+    // Orthogonal L-shape: horizontal first (from.x → midX at from.y), then vertical (midX, from.y → midX, to.y), then horizontal (midX, to.y → to.x, to.y)
+    const midX = from.x + (to.x - from.x) * 0.6;
     parts.push(
-      `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${strokeColor}" stroke-width="${strokeWidth}" marker-end="url(#arrow-${escapeId(panel.id)})"/>`
+      `<polyline points="${from.x},${from.y} ${midX},${from.y} ${midX},${to.y} ${to.x},${to.y}" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth}" marker-end="url(#arrow-${escapeId(panel.id)})"/>`
     );
-    const midX = (from.x + to.x) / 2;
-    const midY = (from.y + to.y) / 2;
+    // Label at the vertical segment midpoint
+    const labelY = (from.y + to.y) / 2;
     parts.push(
-      `<text x="${midX}" y="${midY - 4}" font-family="sans-serif" font-size="10" fill="#333">${belt.rate}/min</text>`
+      `<text x="${midX + 4}" y="${labelY}" font-family="sans-serif" font-size="10" fill="#333">${belt.rate}/min</text>`
     );
   }
 
