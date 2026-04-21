@@ -7,6 +7,7 @@ import { TopBar } from './ui/TopBar';
 import { LeftPanel } from './ui/LeftPanel';
 import { RightPanel } from './ui/RightPanel';
 import { MachineTooltip } from './ui/MachineTooltip';
+import { FlowTooltip } from './renderers/FlowTooltip';
 import { MachineDetail } from './ui/MachineDetail';
 import { BottomBar } from './ui/BottomBar';
 import { AppErrorFallback } from './ui/AppErrorFallback';
@@ -104,8 +105,11 @@ function AppContent() {
           return;
         }
         setSchemes(indexes);
-        const first = await loadSchemeByPath(indexes[0].filePath);
-        loadScheme(first);
+        // HMR 友好：优先恢复用户当前选中的方案，仅在无选中（或选中已删除）时 fallback 到首个
+        const currentId = useAppStore.getState().currentSchemeId;
+        const target = (currentId && indexes.find(idx => idx.id === currentId)) || indexes[0];
+        const data = await loadSchemeByPath(target.filePath);
+        loadScheme(data);
       })
       .catch((err) => {
         showBoundary(err instanceof Error ? err : new Error(String(err)));
@@ -178,6 +182,7 @@ function AppContent() {
       <aside className="right-panel"><RightPanel /></aside>
       <BottomBar />
       <MachineTooltip />
+      <FlowTooltip />
       <MachineDetail />
     </div>
   );

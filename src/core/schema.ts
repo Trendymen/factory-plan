@@ -379,6 +379,44 @@ export function validateSchemeDetailed(scheme: Scheme): ValidationIssue[] {
   }
 
   // ----------------------------------------------------------
+  // R14c: 传送带必须从端口所在边的"外侧"接近端口（error）
+  // 防止例如：splitter 输入端口在顶边，但 belt 却从下方穿过 splitter 体内抵达顶边端口。
+  // 例外：conveyor-lift-* 的端口语义是垂直提升（俯视是 2×2 方形中心），不适用此规则。
+  // ----------------------------------------------------------
+  for (const b of scheme.belts) {
+    if (b.path.length < 2) continue;
+
+    const checkApproach = (portRef: string, pt: GridPos, isFrom: boolean) => {
+      const [mid] = portRef.split(':');
+      const machine = machineById.get(mid);
+      if (!machine) return;
+      if (machine.type.startsWith('conveyor-lift-')) return;
+      const info = portGridPos(portRef);
+      if (!info) return;
+      const eps = 0.01;
+      let ok = true;
+      switch (info.screenSide) {
+        case 'top':    ok = pt.row < info.pos.row - eps; break;
+        case 'bottom': ok = pt.row > info.pos.row + eps; break;
+        case 'left':   ok = pt.col < info.pos.col - eps; break;
+        case 'right':  ok = pt.col > info.pos.col + eps; break;
+      }
+      if (!ok) {
+        const which = isFrom ? '第2点' : '倒数第2点';
+        const role = isFrom ? 'fromPort' : 'toPort';
+        issues.push({
+          severity: 'error', rule: 'R14c-port-approach-side',
+          message: `Belt "${b.id}": ${role} 在机器 "${mid}" 的 ${info.screenSide} 边，但${which} (col=${pt.col}, row=${pt.row}) 位于机器体内侧，belt 需从该边外侧进出`,
+          elementId: b.id,
+        });
+      }
+    };
+
+    if (b.fromPort) checkApproach(b.fromPort, b.path[1], true);
+    if (b.toPort)   checkApproach(b.toPort, b.path[b.path.length - 2], false);
+  }
+
+  // ----------------------------------------------------------
   // R15: 传送带线段间碰撞（同一楼层的重叠线段）
   // ----------------------------------------------------------
   interface Segment { beltId: string; floor: number; horizontal: boolean; fixed: number; min: number; max: number; }

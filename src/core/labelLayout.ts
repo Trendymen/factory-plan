@@ -73,7 +73,8 @@ function generateCandidates(pts: Point[], labelW: number, tPreference: 'center' 
     ? [0.35, 0.2, 0.65, 0.8, 0.5]
     : [0.5, 0.35, 0.65, 0.2, 0.8];
   // 边距（标签近边到线段近边的间距），水平/垂直统一
-  const gaps = [1, 6, 12, 20];
+  // 最小 4px 给视觉喘息空间（旧值 1 会导致贴边观感=覆盖）
+  const gaps = [4, 8, 14, 22];
 
   // 距离优先：先遍历 gap 层，再遍历 seg 和 t
   const candidates: Candidate[] = [];
@@ -191,37 +192,38 @@ export function computeBeltLabelPositions(
     if (candidates.length === 0) continue;
 
     const selfLines = softByBelt.get(belt.id) ?? [];
-    // 碰别人的传送带线 = soft（不理想但可接受回退）
-    // 碰自己的传送带线 = 忽略（标签本来就在自己线旁边）
+    // 所有传送带线（含自身其它分段）都作为 soft 障碍。
+    // 候选生成已保证标签偏离"当前分段"一段距离，但 L/U 形带可能让候选落到自己另一分段上，
+    // 因此此处仍需把自身分段一并检查，避免标签压在自家其它分段上。
+    // 碰自身分段优先级较低（soft-self < soft-other），以便短带回退时优先选择压自家线。
     const otherLines = softObstacles.filter(so => !selfLines.includes(so));
 
-    function test(c: Candidate): 'perfect' | 'soft' | 'hard' {
+    function test(c: Candidate): 'perfect' | 'soft-self' | 'soft-other' | 'hard' {
       const rect = rectFromCenter(c.x, c.y, colW, colH);
       if (placedLabelRects.some(pr => rectsOverlap(rect, pr))) return 'hard';
       if (hardObstacles.some(ho => rectsOverlap(rect, ho))) return 'hard';
-      if (otherLines.some(ol => rectsOverlap(rect, ol))) return 'soft';
+      if (otherLines.some(ol => rectsOverlap(rect, ol))) return 'soft-other';
+      if (selfLines.some(sl => rectsOverlap(rect, sl))) return 'soft-self';
       return 'perfect';
     }
 
     // 候选按距离排序（近→远）。
     // 规则：距离近的 soft 优于距离远的 perfect（宁可贴着传送带线也不飘远）。
-    // 实现：记录第一个 soft，遇到 perfect 时只有距离更近才选。
+    // 回退优先级：perfect > soft-self（压自家其它分段）> soft-other（压别的带）
     let chosen: Candidate | null = null;
-    let firstSoft: Candidate | null = null;
+    let firstSoftSelf: Candidate | null = null;
+    let firstSoftOther: Candidate | null = null;
     for (const c of candidates) {
       const r = test(c);
       if (r === 'perfect') {
-        if (firstSoft) {
-          // 已有更近的 soft 候选，用那个
-          chosen = firstSoft;
-        } else {
-          chosen = c;
-        }
+        if (firstSoftSelf) chosen = firstSoftSelf;
+        else chosen = c;
         break;
       }
-      if (r === 'soft' && !firstSoft) firstSoft = c;
+      if (r === 'soft-self' && !firstSoftSelf) firstSoftSelf = c;
+      if (r === 'soft-other' && !firstSoftOther) firstSoftOther = c;
     }
-    if (!chosen) chosen = firstSoft;
+    if (!chosen) chosen = firstSoftSelf ?? firstSoftOther;
 
     // 无可用位置 → 不放置标签
     if (!chosen) continue;
