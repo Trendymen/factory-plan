@@ -1,0 +1,1940 @@
+{
+    "elements": {
+        "nodes": [
+            {
+                "data": {
+                    "id": "Desc_Cable_C_0",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Cable_C",
+                    "qty": "9",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Cables_256.png?v=1725286507",
+                    "label": "9 电缆"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_2",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_Cable_C",
+                    "itemOut": "Desc_Cable_C",
+                    "qtyProducedDefault": 30,
+                    "qtyProduced": 30,
+                    "qtyUsed": 9,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 30,
+                    "performanceColor": "rgb(255,153,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (30%)\n(电缆)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_Wire_C_5",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Wire_C",
+                    "qty": "6",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Wire_256.png?v=1725286514",
+                    "label": "6 电线"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_Motor_C_9",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Motor_C",
+                    "qty": "0.25",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Engine_256.png?v=1725286512",
+                    "label": "0.25 马达"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_11",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_Motor_C",
+                    "itemOut": "Desc_Motor_C",
+                    "qtyProducedDefault": 5,
+                    "qtyProduced": 5,
+                    "qtyUsed": 0.25,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 5,
+                    "performanceColor": "rgb(255,25,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (5%)\n(马达)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_13",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_IronRod_C",
+                    "itemOut": "Desc_IronRod_C",
+                    "qtyProducedDefault": 15,
+                    "qtyProduced": 15,
+                    "qtyUsed": 2.5,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 17,
+                    "performanceColor": "rgb(255,86,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (17%)\n(铁棒)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_Stator_C_27",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Stator_C",
+                    "qty": "0.05",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Stator_256.png?v=1725286508",
+                    "label": "0.05 定子"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_29",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_Stator_C",
+                    "itemOut": "Desc_Stator_C",
+                    "qtyProducedDefault": 5,
+                    "qtyProduced": 5,
+                    "qtyUsed": 0.55,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 11,
+                    "performanceColor": "rgb(255,56,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (11%)\n(定子)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_34",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_Wire_C",
+                    "itemOut": "Desc_Wire_C",
+                    "qtyProducedDefault": 30,
+                    "qtyProduced": 30,
+                    "qtyUsed": 28.4,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 95,
+                    "performanceColor": "rgb(25,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (95%)\n(电线)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_Rotor_C_36",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Rotor_C",
+                    "qty": "0.25",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Rotor_256.png?v=1725286512",
+                    "label": "0.25 转子"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_38",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_Rotor_C",
+                    "itemOut": "Desc_Rotor_C",
+                    "qtyProducedDefault": 4,
+                    "qtyProduced": 4,
+                    "qtyUsed": 0.75,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 19,
+                    "performanceColor": "rgb(255,96,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (19%)\n(转子)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_ModularFrameHeavy_C_45",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_ModularFrameHeavy_C",
+                    "qty": "0.25",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ModularFrameHeavy_256.png?v=1725286509",
+                    "label": "0.25 重型模块化框架"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ManufacturerMk1_C_47",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ManufacturerMk1_C",
+                    "recipe": "Recipe_ModularFrameHeavy_C",
+                    "itemOut": "Desc_ModularFrameHeavy_C",
+                    "qtyProducedDefault": 2,
+                    "qtyProduced": 2,
+                    "qtyUsed": 0.25,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Manufacturer_256.png?v=1725286555",
+                    "performance": 13,
+                    "performanceColor": "rgb(255,66,0)",
+                    "borderWidth": "15px",
+                    "label": "制造站 (13%)\n(重型模块化框架)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_51",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_SmelterMk1_C",
+                    "recipe": "Recipe_IngotIron_C",
+                    "itemOut": "Desc_IronIngot_C",
+                    "qtyProducedDefault": 30,
+                    "qtyProduced": 30,
+                    "qtyUsed": 20,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_SmelterMk1_256.png?v=1725286558",
+                    "performance": 67,
+                    "performanceColor": "rgb(168,255,0)",
+                    "borderWidth": "15px",
+                    "label": "冶炼站 (67%)\n(铁锭)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_53",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_Screw_C",
+                    "itemOut": "Desc_IronScrew_C",
+                    "qtyProducedDefault": 40,
+                    "qtyProduced": 40,
+                    "qtyUsed": 35,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 88,
+                    "performanceColor": "rgb(61,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (88%)\n(螺丝)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_57",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_IronRod_C",
+                    "itemOut": "Desc_IronRod_C",
+                    "qtyProducedDefault": 15,
+                    "qtyProduced": 15,
+                    "qtyUsed": 13.4375,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 90,
+                    "performanceColor": "rgb(50,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (90%)\n(铁棒)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_ModularFrame_C_74",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_ModularFrame_C",
+                    "qty": "0.1",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ModularFrame_256.png?v=1725286508",
+                    "label": "0.1 模块化框架"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_76",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_ModularFrame_C",
+                    "itemOut": "Desc_ModularFrame_C",
+                    "qtyProducedDefault": 2,
+                    "qtyProduced": 2,
+                    "qtyUsed": 1.35,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 68,
+                    "performanceColor": "rgb(163,255,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (68%)\n(模块化框架)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_SteelPlateReinforced_C_87",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_SteelPlateReinforced_C",
+                    "qty": "0.25",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_EncasedSteelBeam_256.png?v=1725286508",
+                    "label": "0.25 钢筋混凝土梁"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_89",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_EncasedIndustrialBeam_C",
+                    "itemOut": "Desc_SteelPlateReinforced_C",
+                    "qtyProducedDefault": 6,
+                    "qtyProduced": 6,
+                    "qtyUsed": 1.5,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 25,
+                    "performanceColor": "rgb(255,127,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (25%)\n(钢筋混凝土梁)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_SteelPlate_C_95",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_SteelPlate_C",
+                    "qty": "0.2",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_SteelBeam_256.png?v=1725286508",
+                    "label": "0.2 钢梁"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_97",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_SteelBeam_C",
+                    "itemOut": "Desc_SteelPlate_C",
+                    "qtyProducedDefault": 15,
+                    "qtyProduced": 15,
+                    "qtyUsed": 4.7,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 31,
+                    "performanceColor": "rgb(255,158,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (31%)\n(钢梁)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_SteelPipe_C_100",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_SteelPipe_C",
+                    "qty": "0.25",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_SteelPipe_256.png?v=1725286515",
+                    "label": "0.25 钢管"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_102",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_SteelPipe_C",
+                    "itemOut": "Desc_SteelPipe_C",
+                    "qtyProducedDefault": 20,
+                    "qtyProduced": 20,
+                    "qtyUsed": 6.9,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 35,
+                    "performanceColor": "rgb(255,178,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (35%)\n(钢管)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_FoundryMk1_C_103",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_FoundryMk1_C",
+                    "recipe": "Recipe_IngotSteel_C",
+                    "itemOut": "Desc_SteelIngot_C",
+                    "qtyProducedDefault": 45,
+                    "qtyProduced": 45,
+                    "qtyUsed": 29.150000000000002,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Foundry_256.png?v=1725286563",
+                    "performance": 65,
+                    "performanceColor": "rgb(178,255,0)",
+                    "borderWidth": "15px",
+                    "label": "铸造站 (65%)\n(钢锭)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_105",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_MinerMk2_C",
+                    "recipe": "Recipe_Coal_C",
+                    "itemOut": "Desc_Coal_C",
+                    "qtyProducedDefault": 120,
+                    "qtyProduced": 120,
+                    "qtyUsed": 29.150000000000002,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_MinerMk2_256.png?v=1725286556",
+                    "performance": 24,
+                    "performanceColor": "rgb(255,122,0)",
+                    "borderWidth": "15px",
+                    "label": "2级采矿机 (24%)\n(煤)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_CopperSheet_C_105",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_CopperSheet_C",
+                    "qty": "0.05",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_CopperSheet_256.png?v=1725286511",
+                    "label": "0.05 铜板"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_107",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_CopperSheet_C",
+                    "itemOut": "Desc_CopperSheet_C",
+                    "qtyProducedDefault": 10,
+                    "qtyProduced": 10,
+                    "qtyUsed": 0.05,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 1,
+                    "performanceColor": "rgb(255,5,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (1%)\n(铜板)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_108",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_SmelterMk1_C",
+                    "recipe": "Recipe_IngotCopper_C",
+                    "itemOut": "Desc_CopperIngot_C",
+                    "qtyProducedDefault": 30,
+                    "qtyProduced": 30,
+                    "qtyUsed": 14.3,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_SmelterMk1_256.png?v=1725286558",
+                    "performance": 48,
+                    "performanceColor": "rgb(255,244,0)",
+                    "borderWidth": "15px",
+                    "label": "冶炼站 (48%)\n(铜锭)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_109",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_MinerMk2_C",
+                    "recipe": "Recipe_OreCopper_C",
+                    "itemOut": "Desc_OreCopper_C",
+                    "qtyProducedDefault": 120,
+                    "qtyProduced": 120,
+                    "qtyUsed": 14.3,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_MinerMk2_256.png?v=1725286556",
+                    "performance": 12,
+                    "performanceColor": "rgb(255,61,0)",
+                    "borderWidth": "15px",
+                    "label": "2级采矿机 (12%)\n(铜矿石)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_IronPlateReinforced_C_109",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_IronPlateReinforced_C",
+                    "qty": "0.1",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ReinforcedIronPlates_256.png?v=1725286515",
+                    "label": "0.1 强化铁板"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_111",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_AssemblerMk1_C",
+                    "recipe": "Recipe_IronPlateReinforced_C",
+                    "itemOut": "Desc_IronPlateReinforced_C",
+                    "qtyProducedDefault": 5,
+                    "qtyProduced": 5,
+                    "qtyUsed": 2.125,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_AssemblerMk1_256.png?v=1725286557",
+                    "performance": 43,
+                    "performanceColor": "rgb(255,219,0)",
+                    "borderWidth": "15px",
+                    "label": "装配站 (43%)\n(强化铁板)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_115",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_Screw_C",
+                    "itemOut": "Desc_IronScrew_C",
+                    "qtyProducedDefault": 40,
+                    "qtyProduced": 40,
+                    "qtyUsed": 39.25,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 98,
+                    "performanceColor": "rgb(10,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (98%)\n(螺丝)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_IronPlate_C_118",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_IronPlate_C",
+                    "qty": "0.1",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_IronPlates_256.png?v=1725286507",
+                    "label": "0.1 铁板"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_120",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_IronPlate_C",
+                    "itemOut": "Desc_IronPlate_C",
+                    "qtyProducedDefault": 20,
+                    "qtyProduced": 20,
+                    "qtyUsed": 12.85,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 64,
+                    "performanceColor": "rgb(183,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (64%)\n(铁板)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_IronRod_C_122",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": "0.1",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_IronRods_256.png?v=1725286516",
+                    "label": "0.1 铁棒"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_124",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_IronRod_C",
+                    "itemOut": "Desc_IronRod_C",
+                    "qtyProducedDefault": 15,
+                    "qtyProduced": 15,
+                    "qtyUsed": 14.575,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 97,
+                    "performanceColor": "rgb(15,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (97%)\n(铁棒)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_125",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_SmelterMk1_C",
+                    "recipe": "Recipe_IngotIron_C",
+                    "itemOut": "Desc_IronIngot_C",
+                    "qtyProducedDefault": 30,
+                    "qtyProduced": 30,
+                    "qtyUsed": 29.7875,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_SmelterMk1_256.png?v=1725286558",
+                    "performance": 99,
+                    "performanceColor": "rgb(5,255,0)",
+                    "borderWidth": "15px",
+                    "label": "冶炼站 (99%)\n(铁锭)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_126",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_MinerMk2_C",
+                    "recipe": "Recipe_OreIron_C",
+                    "itemOut": "Desc_OreIron_C",
+                    "qtyProducedDefault": 120,
+                    "qtyProduced": 120,
+                    "qtyUsed": 78.9375,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_MinerMk2_256.png?v=1725286556",
+                    "performance": 66,
+                    "performanceColor": "rgb(173,255,0)",
+                    "borderWidth": "15px",
+                    "label": "2级采矿机 (66%)\n(铁矿石)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Desc_Cement_C_126",
+                    "nodeType": "mainNode",
+                    "itemId": "Desc_Cement_C",
+                    "qty": "0.3",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_Concrete_256.png?v=1725286514",
+                    "label": "0.3 混凝土"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_128",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_ConstructorMk1_C",
+                    "recipe": "Recipe_Concrete_C",
+                    "itemOut": "Desc_Cement_C",
+                    "qtyProducedDefault": 15,
+                    "qtyProduced": 15,
+                    "qtyUsed": 9.3,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConstructorMk1_256.png?v=1725286553",
+                    "performance": 62,
+                    "performanceColor": "rgb(193,255,0)",
+                    "borderWidth": "15px",
+                    "label": "构筑站 (62%)\n(混凝土)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_129",
+                    "nodeType": "productionBuilding",
+                    "buildingType": "Build_MinerMk2_C",
+                    "recipe": "Recipe_Limestone_C",
+                    "itemOut": "Desc_Stone_C",
+                    "qtyProducedDefault": 120,
+                    "qtyProduced": 120,
+                    "qtyUsed": 27.9,
+                    "clockSpeed": 100,
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_MinerMk2_256.png?v=1725286556",
+                    "performance": 23,
+                    "performanceColor": "rgb(255,117,0)",
+                    "borderWidth": "15px",
+                    "label": "2级采矿机 (23%)\n(石灰石)"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_1",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "合并器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_2",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronScrew_C",
+                    "label": "合并器\n(螺丝)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_3",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronIngot_C",
+                    "label": "合并器\n(铁锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_4",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "合并器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_5",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "合并器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_6",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronScrew_C",
+                    "label": "合并器\n(螺丝)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_7",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronIngot_C",
+                    "label": "合并器\n(铁锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "merger_8",
+                    "nodeType": "merger",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "合并器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorMerger_256.png?v=1725286541"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_1",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_Wire_C",
+                    "label": "分离器\n(电线)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_2",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_CopperIngot_C",
+                    "label": "分离器\n(铜锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_3",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_Rotor_C",
+                    "label": "分离器\n(转子)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_4",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronIngot_C",
+                    "label": "分离器\n(铁锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_5",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronIngot_C",
+                    "label": "分离器\n(铁锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_6",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_OreIron_C",
+                    "label": "分离器\n(铁矿石)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_7",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_SteelPipe_C",
+                    "label": "分离器\n(钢管)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_8",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_SteelIngot_C",
+                    "label": "分离器\n(钢锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_9",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_ModularFrame_C",
+                    "label": "分离器\n(模块化框架)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_10",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronPlateReinforced_C",
+                    "label": "分离器\n(强化铁板)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_11",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronPlate_C",
+                    "label": "分离器\n(铁板)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_12",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_SteelPlateReinforced_C",
+                    "label": "分离器\n(钢筋混凝土梁)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_13",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_SteelPlate_C",
+                    "label": "分离器\n(钢梁)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_14",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_Cement_C",
+                    "label": "分离器\n(混凝土)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_15",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronScrew_C",
+                    "label": "分离器\n(螺丝)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_16",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "分离器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_17",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "分离器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_18",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "分离器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_19",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronRod_C",
+                    "label": "分离器\n(铁棒)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_20",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronScrew_C",
+                    "label": "分离器\n(螺丝)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            },
+            {
+                "data": {
+                    "id": "splitter_21",
+                    "nodeType": "splitter",
+                    "itemId": "Desc_IronIngot_C",
+                    "label": "分离器\n(铁锭)",
+                    "image": "https://static.satisfactory-calculator.com/img/gameStable1.0/IconDesc_ConveyorSplitter_256.png?v=1725286563"
+                },
+                "group": "nodes"
+            }
+        ],
+        "edges": [
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_2_Desc_Cable_C_0",
+                    "source": "Build_ConstructorMk1_C_2",
+                    "target": "Desc_Cable_C_0",
+                    "itemId": "Desc_Cable_C",
+                    "recipe": "Recipe_Cable_C",
+                    "qty": 9,
+                    "label": "电缆 (9 units/min)",
+                    "color": "#6e6c6c"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_5_Build_SmelterMk1_C_4",
+                    "source": "Build_MinerMk2_C_109",
+                    "target": "Build_SmelterMk1_C_108",
+                    "itemId": "Desc_OreCopper_C",
+                    "recipe": "Recipe_OreCopper_C",
+                    "qty": 14.299999999999999,
+                    "label": "铜矿石 (14.3 units/min)",
+                    "color": "#b87333"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_11_Desc_Motor_C_9",
+                    "source": "Build_AssemblerMk1_C_11",
+                    "target": "Desc_Motor_C_9",
+                    "itemId": "Desc_Motor_C",
+                    "recipe": "Recipe_Motor_C",
+                    "qty": 0.25,
+                    "label": "马达 (0.25 units/min)",
+                    "color": "#49575b"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_20_Build_AssemblerMk1_C_11",
+                    "source": "Build_AssemblerMk1_C_29",
+                    "target": "Build_AssemblerMk1_C_11",
+                    "itemId": "Desc_Stator_C",
+                    "recipe": "Recipe_Stator_C",
+                    "qty": 0.5,
+                    "label": "定子 (0.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_24_Build_FoundryMk1_C_22",
+                    "source": "Build_MinerMk2_C_105",
+                    "target": "Build_FoundryMk1_C_103",
+                    "itemId": "Desc_Coal_C",
+                    "recipe": "Recipe_Coal_C",
+                    "qty": 29.150000000000002,
+                    "label": "煤 (29.15 units/min)",
+                    "color": "#030405"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ManufacturerMk1_C_47_Desc_ModularFrameHeavy_C_45",
+                    "source": "Build_ManufacturerMk1_C_47",
+                    "target": "Desc_ModularFrameHeavy_C_45",
+                    "itemId": "Desc_ModularFrameHeavy_C",
+                    "recipe": "Recipe_ModularFrameHeavy_C",
+                    "qty": 0.25,
+                    "label": "重型模块化框架 (0.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_70_Build_ConstructorMk1_C_69",
+                    "source": "Build_MinerMk2_C_129",
+                    "target": "Build_ConstructorMk1_C_128",
+                    "itemId": "Desc_Stone_C",
+                    "recipe": "Recipe_Limestone_C",
+                    "qty": 27.9,
+                    "label": "石灰石 (27.9 units/min)",
+                    "color": "#e3dac9"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_107_Desc_CopperSheet_C_105",
+                    "source": "Build_ConstructorMk1_C_107",
+                    "target": "Desc_CopperSheet_C_105",
+                    "itemId": "Desc_CopperSheet_C",
+                    "recipe": "Recipe_CopperSheet_C",
+                    "qty": 0.05,
+                    "label": "铜板 (0.05 units/min)",
+                    "color": "#39231d"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_1_Build_AssemblerMk1_C_76",
+                    "source": "merger_1",
+                    "target": "Build_AssemblerMk1_C_76",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 8.1,
+                    "label": "铁棒 (8.1 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_2_Build_AssemblerMk1_C_111",
+                    "source": "merger_2",
+                    "target": "Build_AssemblerMk1_C_111",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 25.5,
+                    "label": "螺丝 (25.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_3_Build_ConstructorMk1_C_120",
+                    "source": "merger_3",
+                    "target": "Build_ConstructorMk1_C_120",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 19.275,
+                    "label": "铁锭 (19.27 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_4_Build_ConstructorMk1_C_115",
+                    "source": "merger_4",
+                    "target": "Build_ConstructorMk1_C_115",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 9.8125,
+                    "label": "铁棒 (9.81 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_5_Build_ConstructorMk1_C_53",
+                    "source": "merger_5",
+                    "target": "Build_ConstructorMk1_C_53",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 8.75,
+                    "label": "铁棒 (8.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_6_Build_AssemblerMk1_C_38",
+                    "source": "merger_6",
+                    "target": "Build_AssemblerMk1_C_38",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 18.75,
+                    "label": "螺丝 (18.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_7_Build_ConstructorMk1_C_57",
+                    "source": "merger_7",
+                    "target": "Build_ConstructorMk1_C_57",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 13.4375,
+                    "label": "铁锭 (13.44 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "merger_8_Build_AssemblerMk1_C_38",
+                    "source": "merger_8",
+                    "target": "Build_AssemblerMk1_C_38",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 3.75,
+                    "label": "铁棒 (3.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_13_merger_8",
+                    "source": "Build_ConstructorMk1_C_13",
+                    "target": "merger_8",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 2.5,
+                    "label": "铁棒 (2.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_34_splitter_1",
+                    "source": "Build_ConstructorMk1_C_34",
+                    "target": "splitter_1",
+                    "itemId": "Desc_Wire_C",
+                    "qty": 28.4,
+                    "label": "电线 (28.4 units/min)",
+                    "color": "#9e6b43"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_1_Desc_Wire_C_5",
+                    "source": "splitter_1",
+                    "target": "Desc_Wire_C_5",
+                    "itemId": "Desc_Wire_C",
+                    "qty": 6,
+                    "label": "电线 (6 units/min)",
+                    "color": "#9e6b43"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_1_Build_AssemblerMk1_C_29",
+                    "source": "splitter_1",
+                    "target": "Build_AssemblerMk1_C_29",
+                    "itemId": "Desc_Wire_C",
+                    "qty": 4.4,
+                    "label": "电线 (4.4 units/min)",
+                    "color": "#9e6b43"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_1_Build_ConstructorMk1_C_2",
+                    "source": "splitter_1",
+                    "target": "Build_ConstructorMk1_C_2",
+                    "itemId": "Desc_Wire_C",
+                    "qty": 18,
+                    "label": "电线 (18 units/min)",
+                    "color": "#9e6b43"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_108_splitter_2",
+                    "source": "Build_SmelterMk1_C_108",
+                    "target": "splitter_2",
+                    "itemId": "Desc_CopperIngot_C",
+                    "qty": 14.299999999999999,
+                    "label": "铜锭 (14.3 units/min)",
+                    "color": "#39231d"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_2_Build_ConstructorMk1_C_107",
+                    "source": "splitter_2",
+                    "target": "Build_ConstructorMk1_C_107",
+                    "itemId": "Desc_CopperIngot_C",
+                    "qty": 0.1,
+                    "label": "铜锭 (0.1 units/min)",
+                    "color": "#39231d"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_2_Build_ConstructorMk1_C_34",
+                    "source": "splitter_2",
+                    "target": "Build_ConstructorMk1_C_34",
+                    "itemId": "Desc_CopperIngot_C",
+                    "qty": 14.2,
+                    "label": "铜锭 (14.2 units/min)",
+                    "color": "#39231d"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_38_splitter_3",
+                    "source": "Build_AssemblerMk1_C_38",
+                    "target": "splitter_3",
+                    "itemId": "Desc_Rotor_C",
+                    "qty": 0.75,
+                    "label": "转子 (0.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_3_Desc_Rotor_C_36",
+                    "source": "splitter_3",
+                    "target": "Desc_Rotor_C_36",
+                    "itemId": "Desc_Rotor_C",
+                    "qty": 0.25,
+                    "label": "转子 (0.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_3_Build_AssemblerMk1_C_11",
+                    "source": "splitter_3",
+                    "target": "Build_AssemblerMk1_C_11",
+                    "itemId": "Desc_Rotor_C",
+                    "qty": 0.5,
+                    "label": "转子 (0.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_125_splitter_4",
+                    "source": "Build_SmelterMk1_C_125",
+                    "target": "splitter_4",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 29.787499999999998,
+                    "label": "铁锭 (29.79 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_4_Build_ConstructorMk1_C_124",
+                    "source": "splitter_4",
+                    "target": "Build_ConstructorMk1_C_124",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 14.575,
+                    "label": "铁锭 (14.58 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_4_merger_3",
+                    "source": "splitter_4",
+                    "target": "merger_3",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 2.4,
+                    "label": "铁锭 (2.4 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_4_splitter_5",
+                    "source": "splitter_4",
+                    "target": "splitter_5",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 12.812499999999998,
+                    "label": "铁锭 (12.81 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_5_merger_7",
+                    "source": "splitter_5",
+                    "target": "merger_7",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 10.3125,
+                    "label": "铁锭 (10.31 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_5_Build_ConstructorMk1_C_13",
+                    "source": "splitter_5",
+                    "target": "Build_ConstructorMk1_C_13",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 2.5,
+                    "label": "铁锭 (2.5 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_MinerMk2_C_126_splitter_6",
+                    "source": "Build_MinerMk2_C_126",
+                    "target": "splitter_6",
+                    "itemId": "Desc_OreIron_C",
+                    "qty": 78.9375,
+                    "label": "铁矿石 (78.94 units/min)",
+                    "color": "#cbcdcd"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_6_Build_SmelterMk1_C_51",
+                    "source": "splitter_6",
+                    "target": "Build_SmelterMk1_C_51",
+                    "itemId": "Desc_OreIron_C",
+                    "qty": 20,
+                    "label": "铁矿石 (20 units/min)",
+                    "color": "#cbcdcd"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_6_Build_FoundryMk1_C_103",
+                    "source": "splitter_6",
+                    "target": "Build_FoundryMk1_C_103",
+                    "itemId": "Desc_OreIron_C",
+                    "qty": 29.150000000000002,
+                    "label": "铁矿石 (29.15 units/min)",
+                    "color": "#cbcdcd"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_6_Build_SmelterMk1_C_125",
+                    "source": "splitter_6",
+                    "target": "Build_SmelterMk1_C_125",
+                    "itemId": "Desc_OreIron_C",
+                    "qty": 29.7875,
+                    "label": "铁矿石 (29.79 units/min)",
+                    "color": "#cbcdcd"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_102_splitter_7",
+                    "source": "Build_ConstructorMk1_C_102",
+                    "target": "splitter_7",
+                    "itemId": "Desc_SteelPipe_C",
+                    "qty": 6.9,
+                    "label": "钢管 (6.9 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_7_Build_ManufacturerMk1_C_47",
+                    "source": "splitter_7",
+                    "target": "Build_ManufacturerMk1_C_47",
+                    "itemId": "Desc_SteelPipe_C",
+                    "qty": 5,
+                    "label": "钢管 (5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_7_Desc_SteelPipe_C_100",
+                    "source": "splitter_7",
+                    "target": "Desc_SteelPipe_C_100",
+                    "itemId": "Desc_SteelPipe_C",
+                    "qty": 0.25,
+                    "label": "钢管 (0.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_7_Build_AssemblerMk1_C_29",
+                    "source": "splitter_7",
+                    "target": "Build_AssemblerMk1_C_29",
+                    "itemId": "Desc_SteelPipe_C",
+                    "qty": 1.65,
+                    "label": "钢管 (1.65 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_FoundryMk1_C_103_splitter_8",
+                    "source": "Build_FoundryMk1_C_103",
+                    "target": "splitter_8",
+                    "itemId": "Desc_SteelIngot_C",
+                    "qty": 29.15,
+                    "label": "钢锭 (29.15 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_8_Build_ConstructorMk1_C_97",
+                    "source": "splitter_8",
+                    "target": "Build_ConstructorMk1_C_97",
+                    "itemId": "Desc_SteelIngot_C",
+                    "qty": 18.8,
+                    "label": "钢锭 (18.8 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_8_Build_ConstructorMk1_C_102",
+                    "source": "splitter_8",
+                    "target": "Build_ConstructorMk1_C_102",
+                    "itemId": "Desc_SteelIngot_C",
+                    "qty": 10.35,
+                    "label": "钢锭 (10.35 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_76_splitter_9",
+                    "source": "Build_AssemblerMk1_C_76",
+                    "target": "splitter_9",
+                    "itemId": "Desc_ModularFrame_C",
+                    "qty": 1.35,
+                    "label": "模块化框架 (1.35 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_9_Desc_ModularFrame_C_74",
+                    "source": "splitter_9",
+                    "target": "Desc_ModularFrame_C_74",
+                    "itemId": "Desc_ModularFrame_C",
+                    "qty": 0.1,
+                    "label": "模块化框架 (0.1 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_9_Build_ManufacturerMk1_C_47",
+                    "source": "splitter_9",
+                    "target": "Build_ManufacturerMk1_C_47",
+                    "itemId": "Desc_ModularFrame_C",
+                    "qty": 1.25,
+                    "label": "模块化框架 (1.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_111_splitter_10",
+                    "source": "Build_AssemblerMk1_C_111",
+                    "target": "splitter_10",
+                    "itemId": "Desc_IronPlateReinforced_C",
+                    "qty": 2.125,
+                    "label": "强化铁板 (2.13 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_10_Desc_IronPlateReinforced_C_109",
+                    "source": "splitter_10",
+                    "target": "Desc_IronPlateReinforced_C_109",
+                    "itemId": "Desc_IronPlateReinforced_C",
+                    "qty": 0.1,
+                    "label": "强化铁板 (0.1 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_10_Build_AssemblerMk1_C_76",
+                    "source": "splitter_10",
+                    "target": "Build_AssemblerMk1_C_76",
+                    "itemId": "Desc_IronPlateReinforced_C",
+                    "qty": 2.025,
+                    "label": "强化铁板 (2.03 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_120_splitter_11",
+                    "source": "Build_ConstructorMk1_C_120",
+                    "target": "splitter_11",
+                    "itemId": "Desc_IronPlate_C",
+                    "qty": 12.85,
+                    "label": "铁板 (12.85 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_11_Desc_IronPlate_C_118",
+                    "source": "splitter_11",
+                    "target": "Desc_IronPlate_C_118",
+                    "itemId": "Desc_IronPlate_C",
+                    "qty": 0.1,
+                    "label": "铁板 (0.1 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_11_Build_AssemblerMk1_C_111",
+                    "source": "splitter_11",
+                    "target": "Build_AssemblerMk1_C_111",
+                    "itemId": "Desc_IronPlate_C",
+                    "qty": 12.75,
+                    "label": "铁板 (12.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_AssemblerMk1_C_89_splitter_12",
+                    "source": "Build_AssemblerMk1_C_89",
+                    "target": "splitter_12",
+                    "itemId": "Desc_SteelPlateReinforced_C",
+                    "qty": 1.5,
+                    "label": "钢筋混凝土梁 (1.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_12_Desc_SteelPlateReinforced_C_87",
+                    "source": "splitter_12",
+                    "target": "Desc_SteelPlateReinforced_C_87",
+                    "itemId": "Desc_SteelPlateReinforced_C",
+                    "qty": 0.25,
+                    "label": "钢筋混凝土梁 (0.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_12_Build_ManufacturerMk1_C_47",
+                    "source": "splitter_12",
+                    "target": "Build_ManufacturerMk1_C_47",
+                    "itemId": "Desc_SteelPlateReinforced_C",
+                    "qty": 1.25,
+                    "label": "钢筋混凝土梁 (1.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_97_splitter_13",
+                    "source": "Build_ConstructorMk1_C_97",
+                    "target": "splitter_13",
+                    "itemId": "Desc_SteelPlate_C",
+                    "qty": 4.7,
+                    "label": "钢梁 (4.7 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_13_Desc_SteelPlate_C_95",
+                    "source": "splitter_13",
+                    "target": "Desc_SteelPlate_C_95",
+                    "itemId": "Desc_SteelPlate_C",
+                    "qty": 0.2,
+                    "label": "钢梁 (0.2 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_13_Build_AssemblerMk1_C_89",
+                    "source": "splitter_13",
+                    "target": "Build_AssemblerMk1_C_89",
+                    "itemId": "Desc_SteelPlate_C",
+                    "qty": 4.5,
+                    "label": "钢梁 (4.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_128_splitter_14",
+                    "source": "Build_ConstructorMk1_C_128",
+                    "target": "splitter_14",
+                    "itemId": "Desc_Cement_C",
+                    "qty": 9.3,
+                    "label": "混凝土 (9.3 units/min)",
+                    "color": "#bcb5a3"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_14_Desc_Cement_C_126",
+                    "source": "splitter_14",
+                    "target": "Desc_Cement_C_126",
+                    "itemId": "Desc_Cement_C",
+                    "qty": 0.3,
+                    "label": "混凝土 (0.3 units/min)",
+                    "color": "#bcb5a3"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_14_Build_AssemblerMk1_C_89",
+                    "source": "splitter_14",
+                    "target": "Build_AssemblerMk1_C_89",
+                    "itemId": "Desc_Cement_C",
+                    "qty": 9,
+                    "label": "混凝土 (9 units/min)",
+                    "color": "#bcb5a3"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_115_splitter_15",
+                    "source": "Build_ConstructorMk1_C_115",
+                    "target": "splitter_15",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 39.25,
+                    "label": "螺丝 (39.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_15_merger_2",
+                    "source": "splitter_15",
+                    "target": "merger_2",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 3,
+                    "label": "螺丝 (3 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_15_merger_6",
+                    "source": "splitter_15",
+                    "target": "merger_6",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 6.25,
+                    "label": "螺丝 (6.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_15_Build_ManufacturerMk1_C_47",
+                    "source": "splitter_15",
+                    "target": "Build_ManufacturerMk1_C_47",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 30,
+                    "label": "螺丝 (30 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_124_splitter_16",
+                    "source": "Build_ConstructorMk1_C_124",
+                    "target": "splitter_16",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 14.575,
+                    "label": "铁棒 (14.58 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_16_merger_1",
+                    "source": "splitter_16",
+                    "target": "merger_1",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 0.6000000000000001,
+                    "label": "铁棒 (0.6 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_16_merger_4",
+                    "source": "splitter_16",
+                    "target": "merger_4",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 8.25,
+                    "label": "铁棒 (8.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_16_splitter_17",
+                    "source": "splitter_16",
+                    "target": "splitter_17",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 5.725,
+                    "label": "铁棒 (5.73 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_17_merger_5",
+                    "source": "splitter_17",
+                    "target": "merger_5",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 5.625,
+                    "label": "铁棒 (5.63 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_17_Desc_IronRod_C_122",
+                    "source": "splitter_17",
+                    "target": "Desc_IronRod_C_122",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 0.1,
+                    "label": "铁棒 (0.1 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_57_splitter_18",
+                    "source": "Build_ConstructorMk1_C_57",
+                    "target": "splitter_18",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 13.4375,
+                    "label": "铁棒 (13.44 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_18_merger_4",
+                    "source": "splitter_18",
+                    "target": "merger_4",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 1.5625,
+                    "label": "铁棒 (1.56 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_18_merger_5",
+                    "source": "splitter_18",
+                    "target": "merger_5",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 3.125,
+                    "label": "铁棒 (3.13 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_18_splitter_19",
+                    "source": "splitter_18",
+                    "target": "splitter_19",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 8.75,
+                    "label": "铁棒 (8.75 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_19_merger_8",
+                    "source": "splitter_19",
+                    "target": "merger_8",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 1.25,
+                    "label": "铁棒 (1.25 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_19_merger_1",
+                    "source": "splitter_19",
+                    "target": "merger_1",
+                    "itemId": "Desc_IronRod_C",
+                    "qty": 7.5,
+                    "label": "铁棒 (7.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_ConstructorMk1_C_53_splitter_20",
+                    "source": "Build_ConstructorMk1_C_53",
+                    "target": "splitter_20",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 35,
+                    "label": "螺丝 (35 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_20_merger_6",
+                    "source": "splitter_20",
+                    "target": "merger_6",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 12.5,
+                    "label": "螺丝 (12.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_20_merger_2",
+                    "source": "splitter_20",
+                    "target": "merger_2",
+                    "itemId": "Desc_IronScrew_C",
+                    "qty": 22.5,
+                    "label": "螺丝 (22.5 units/min)"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "Build_SmelterMk1_C_51_splitter_21",
+                    "source": "Build_SmelterMk1_C_51",
+                    "target": "splitter_21",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 20,
+                    "label": "铁锭 (20 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_21_merger_7",
+                    "source": "splitter_21",
+                    "target": "merger_7",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 3.125,
+                    "label": "铁锭 (3.13 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            },
+            {
+                "data": {
+                    "id": "splitter_21_merger_3",
+                    "source": "splitter_21",
+                    "target": "merger_3",
+                    "itemId": "Desc_IronIngot_C",
+                    "qty": 16.875,
+                    "label": "铁锭 (16.88 units/min)",
+                    "color": "#8b8b89"
+                },
+                "group": "edges"
+            }
+        ]
+    }
+}
+

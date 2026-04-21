@@ -8,14 +8,14 @@ function port(id: string, kind: PortDef['kind'], side: PortDef['side'], offset: 
 export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   smelter: {
     type: 'smelter', category: 'production', displayName: '冶炼炉',
-    dimensions: { width: 5, length: 10, height: 9 }, clearanceHeight: 9,
-    ports: [port('in-0', 'belt-in', 'back', 2.5), port('out-0', 'belt-out', 'front', 2.5)],
+    dimensions: { width: 6, length: 9, height: 10 }, clearanceHeight: 10,
+    ports: [port('in-0', 'belt-in', 'back', 3), port('out-0', 'belt-out', 'front', 3)],
     color: '--smelter', powerUsage: 4, stackable: false, wallMounted: false,
   },
   foundry: {
     type: 'foundry', category: 'production', displayName: '铸造厂',
-    dimensions: { width: 10, length: 9, height: 9 }, clearanceHeight: 9,
-    ports: [port('in-0', 'belt-in', 'back', 3), port('in-1', 'belt-in', 'back', 7), port('out-0', 'belt-out', 'front', 5)],
+    dimensions: { width: 8, length: 9, height: 9 }, clearanceHeight: 9,
+    ports: [port('in-0', 'belt-in', 'back', 2), port('in-1', 'belt-in', 'back', 6), port('out-0', 'belt-out', 'front', 4)],
     color: '--foundry', powerUsage: 16, stackable: false, wallMounted: false,
   },
   constructor: {
@@ -26,13 +26,13 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   assembler: {
     type: 'assembler', category: 'production', displayName: '组装机',
-    dimensions: { width: 9, length: 16, height: 11 }, clearanceHeight: 11,
+    dimensions: { width: 10, length: 15, height: 8 }, clearanceHeight: 8,
     ports: [port('in-0', 'belt-in', 'back', 2.5), port('in-1', 'belt-in', 'back', 6.5), port('out-0', 'belt-out', 'front', 4.5)],
     color: '--assembler', powerUsage: 15, stackable: false, wallMounted: false,
   },
   manufacturer: {
     type: 'manufacturer', category: 'production', displayName: '制造机',
-    dimensions: { width: 18, length: 20, height: 12 }, clearanceHeight: 8,
+    dimensions: { width: 20, length: 22, height: 12 }, clearanceHeight: 8,
     ports: [
       port('in-0', 'belt-in', 'front', 3), port('in-1', 'belt-in', 'front', 7),
       port('in-2', 'belt-in', 'front', 11), port('in-3', 'belt-in', 'front', 15),
@@ -42,7 +42,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   refinery: {
     type: 'refinery', category: 'production', displayName: '炼油厂',
-    dimensions: { width: 10, length: 22, height: 30 }, clearanceHeight: 30,
+    dimensions: { width: 10, length: 20, height: 31 }, clearanceHeight: 31,
     ports: [port('in-0', 'belt-in', 'back', 5), port('out-0', 'belt-out', 'front', 5)],
     color: '--refinery', powerUsage: 30, stackable: false, wallMounted: false,
   },
@@ -54,7 +54,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   blender: {
     type: 'blender', category: 'production', displayName: '混合机',
-    dimensions: { width: 18, length: 16, height: 15 }, clearanceHeight: 15,
+    dimensions: { width: 19, length: 16, height: 16 }, clearanceHeight: 16,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 13),
       port('out-0', 'belt-out', 'front', 9),
@@ -63,7 +63,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   'particle-accelerator': {
     type: 'particle-accelerator', category: 'production', displayName: '粒子加速器',
-    dimensions: { width: 24, length: 38, height: 32 }, clearanceHeight: 32,
+    dimensions: { width: 38, length: 24, height: 38 }, clearanceHeight: 38,
     ports: [
       port('in-0', 'belt-in', 'back', 8), port('in-1', 'belt-in', 'back', 16),
       port('out-0', 'belt-out', 'front', 12),
@@ -72,7 +72,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   'quantum-encoder': {
     type: 'quantum-encoder', category: 'production', displayName: '量子编码器',
-    dimensions: { width: 22, length: 50, height: 18 }, clearanceHeight: 18,
+    dimensions: { width: 22, length: 48, height: 8 }, clearanceHeight: 8,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 11),
       port('in-2', 'belt-in', 'back', 17),
@@ -82,7 +82,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   converter: {
     type: 'converter', category: 'production', displayName: '转换器',
-    dimensions: { width: 16, length: 16, height: 18 }, clearanceHeight: 18,
+    dimensions: { width: 16, length: 16, height: 16 }, clearanceHeight: 16,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 11),
       port('out-0', 'belt-out', 'front', 8),
@@ -127,13 +127,13 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   },
   storage: {
     type: 'storage', category: 'storage', displayName: '储存箱',
-    dimensions: { width: 5, length: 11, height: 4 }, clearanceHeight: 4,
+    dimensions: { width: 5, length: 10, height: 4 }, clearanceHeight: 4,
     ports: [port('in-0', 'belt-in', 'back', 2.5), port('out-0', 'belt-out', 'front', 2.5)],
     color: '--storage', powerUsage: 0, stackable: true, wallMounted: false,
   },
   'industrial-storage': {
     type: 'industrial-storage', category: 'storage', displayName: '工业储存箱',
-    dimensions: { width: 5, length: 11, height: 8 }, clearanceHeight: 8,
+    dimensions: { width: 5, length: 10, height: 8 }, clearanceHeight: 8,
     ports: [port('in-0', 'belt-in', 'back', 1.5), port('in-1', 'belt-in', 'back', 3.5), port('out-0', 'belt-out', 'front', 1.5), port('out-1', 'belt-out', 'front', 3.5)],
     color: '--industrial-storage', powerUsage: 0, stackable: true, wallMounted: false,
   },

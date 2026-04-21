@@ -690,23 +690,7 @@ describe('unified-base 方案校验', () => {
     const issues = validateSchemeDetailed(unifiedBase as unknown as Scheme);
     const warns = issues.filter(i => i.severity === 'warn');
 
-    const expectedTerminalUnderuse = new Set([
-      'Machine "sp-O1" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O2" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O3" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O4" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O5" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O6" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O7" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O8" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O9" (splitter): only 0 output port(s) connected',
-      'Machine "sp-O10" (splitter): only 0 output port(s) connected',
-    ]);
-
-    const unexpectedWarns = warns.filter(w => {
-      if (w.rule !== 'R25-splitter-underuse') return true;
-      return !expectedTerminalUnderuse.has(w.message);
-    });
+    const unexpectedWarns = warns;
 
     if (unexpectedWarns.length > 0) {
       console.error('Unexpected warns in unified-base:');
