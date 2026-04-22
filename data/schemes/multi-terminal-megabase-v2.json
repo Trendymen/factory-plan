@@ -15,7 +15,9 @@
     { "id": 2, "label": "2F 铁板/铁棒（plate + rod×3，facing=north）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 3, "label": "3F 钢/螺丝（beam/pipe facing=north + screw×2 facing=south）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 4, "label": "4F 铜/混凝土（wire/cable/sheet/concrete facing=north）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 5, "label": "5F 装配 A（RIP/rotor/stator facing=south，input 北 / output 南）", "gridSize": { "cols": 4, "rows": 4 } }
+    { "id": 5, "label": "5F 装配 A（RIP/rotor/stator facing=south，input 北 / output 南）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 6, "label": "6F 装配 B（mframe/EIB/motor 混 facing，EIB facing=south 接 N 侧 beam/concrete）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 7, "label": "7F 制造（manufacturer HMF，MVP 只接 mframe in-0）", "gridSize": { "cols": 4, "rows": 4 } }
   ],
   "machines": [
     {
@@ -276,7 +278,7 @@
       "pos": { "col": 0.6875, "row": 0 },
       "facing": "south",
       "floor": 3,
-      "label": "3F→6F 钢梁（对齐 6F EIB:in-0 col 0.8125）"
+      "label": "3F→6F 钢梁（6F EIB 用 L 型接入）"
     },
     {
       "id": "lift-bot-pipe",
@@ -376,7 +378,7 @@
       "pos": { "col": 1.1875, "row": 0 },
       "facing": "south",
       "floor": 4,
-      "label": "4F→6F 混凝土（对齐 6F EIB:in-1 col 1.3125）"
+      "label": "4F→6F 混凝土（6F EIB 用 L 型接入）"
     },
     {
       "id": "lift-bot-cable",
@@ -500,6 +502,130 @@
       "facing": "south",
       "floor": 5,
       "label": "5F→6F 定子（对齐 6F motor:in-1）"
+    },
+    {
+      "id": "lift-top-beam",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.6875, "row": 0 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 钢梁 入（来自 3F）→ EIB:in-0 via L"
+    },
+    {
+      "id": "lift-top-concrete",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.1875, "row": 0 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 混凝土 入（来自 4F）→ EIB:in-1 via L"
+    },
+    {
+      "id": "lift-top-rip",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.4375, "row": 3.75 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 强化铁板 入 → mframe:in-0"
+    },
+    {
+      "id": "lift-top-rotor",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.6875, "row": 3.75 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 转子 入 → motor:in-0 via L"
+    },
+    {
+      "id": "lift-top-stator",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 2.9375, "row": 3.75 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 定子 入 → motor:in-1 via L"
+    },
+    {
+      "id": "ass-mframe",
+      "type": "assembler",
+      "pos": { "col": 0, "row": 0.25 },
+      "facing": "north",
+      "floor": 6,
+      "label": "6F 模块化框架（RIP + 铁棒[未接]）",
+      "recipe": "modular-frame"
+    },
+    {
+      "id": "ass-eib",
+      "type": "assembler",
+      "pos": { "col": 1.5, "row": 0.25 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F 钢筋混凝土梁（钢梁 + 混凝土，facing=south 接 N 侧 lift）",
+      "recipe": "encased-industrial-beam"
+    },
+    {
+      "id": "ass-motor",
+      "type": "assembler",
+      "pos": { "col": 2.75, "row": 0.25 },
+      "facing": "north",
+      "floor": 6,
+      "label": "6F 电机（转子 + 定子）",
+      "recipe": "motor"
+    },
+    {
+      "id": "lift-bot-mframe",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0.4375, "row": 0 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F→8F 模块化框架（对齐 mframe out col 0.5625）"
+    },
+    {
+      "id": "lift-bot-eib",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.5, "row": 3.75 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F→7F 钢筋混凝土梁（HMF in-2）"
+    },
+    {
+      "id": "lift-bot-motor",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.1875, "row": 0 },
+      "facing": "south",
+      "floor": 6,
+      "label": "6F→8F 电机终端"
+    },
+    {
+      "id": "lift-top-mframe",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.4375, "row": 0 },
+      "facing": "south",
+      "floor": 7,
+      "label": "7F 模块化框架 入（来自 6F）→ HMF:in-0"
+    },
+    {
+      "id": "lift-top-eib",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.5, "row": 3.75 },
+      "facing": "south",
+      "floor": 7,
+      "label": "7F 钢筋混凝土梁 入 → HMF:in-2 via col 3.875 east detour"
+    },
+    {
+      "id": "ass-hmf",
+      "type": "manufacturer",
+      "pos": { "col": 0.75, "row": 0.25 },
+      "facing": "north",
+      "floor": 7,
+      "label": "7F 重型模块化框架（HMF）",
+      "recipe": "heavy-modular-frame"
+    },
+    {
+      "id": "lift-bot-hmf",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.75, "row": 3.75 },
+      "facing": "south",
+      "floor": 7,
+      "label": "7F→8F 重型模块化框架终端"
     }
   ],
   "belts": [
@@ -1112,6 +1238,145 @@
       ],
       "fromPort": "ass-stator:out-0",
       "toPort": "lift-bot-stator:bottom"
+    },
+    {
+      "id": "b-f6-beam-to-eib",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 0.8125, "row": 0.125 },
+        { "col": 0.8125, "row": 0 },
+        { "col": 1.8125, "row": 0 },
+        { "col": 1.8125, "row": 0.25 }
+      ],
+      "fromPort": "lift-top-beam:top",
+      "toPort": "ass-eib:in-0"
+    },
+    {
+      "id": "b-f6-concrete-to-eib",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 1.3125, "row": 0.125 },
+        { "col": 2.3125, "row": 0.125 },
+        { "col": 2.3125, "row": 0.25 }
+      ],
+      "fromPort": "lift-top-concrete:top",
+      "toPort": "ass-eib:in-1"
+    },
+    {
+      "id": "b-f6-rip-to-mframe",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 0.5625, "row": 3.875 },
+        { "col": 0.5625, "row": 2.25 },
+        { "col": 0.3125, "row": 2.25 },
+        { "col": 0.3125, "row": 2.125 }
+      ],
+      "fromPort": "lift-top-rip:top",
+      "toPort": "ass-mframe:in-0"
+    },
+    {
+      "id": "b-f6-rotor-to-motor",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 1.8125, "row": 3.875 },
+        { "col": 1.8125, "row": 4 },
+        { "col": 2.5, "row": 4 },
+        { "col": 2.5, "row": 2.25 },
+        { "col": 3.0625, "row": 2.25 },
+        { "col": 3.0625, "row": 2.125 }
+      ],
+      "fromPort": "lift-top-rotor:top",
+      "toPort": "ass-motor:in-0"
+    },
+    {
+      "id": "b-f6-stator-to-motor",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 3.0625, "row": 3.875 },
+        { "col": 3.5625, "row": 3.875 },
+        { "col": 3.5625, "row": 2.125 }
+      ],
+      "fromPort": "lift-top-stator:top",
+      "toPort": "ass-motor:in-1"
+    },
+    {
+      "id": "b-f6-mframe-to-lift",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 0.5625, "row": 0.25 },
+        { "col": 0.5625, "row": 0.125 }
+      ],
+      "fromPort": "ass-mframe:out-0",
+      "toPort": "lift-bot-mframe:bottom"
+    },
+    {
+      "id": "b-f6-eib-to-lift",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 2.0625, "row": 2.125 },
+        { "col": 2.0625, "row": 3.5 },
+        { "col": 3.625, "row": 3.5 },
+        { "col": 3.625, "row": 3.875 }
+      ],
+      "fromPort": "ass-eib:out-0",
+      "toPort": "lift-bot-eib:bottom"
+    },
+    {
+      "id": "b-f6-motor-to-lift",
+      "floor": 6,
+      "mark": 1,
+      "path": [
+        { "col": 3.3125, "row": 0.25 },
+        { "col": 3.3125, "row": 0.125 }
+      ],
+      "fromPort": "ass-motor:out-0",
+      "toPort": "lift-bot-motor:bottom"
+    },
+    {
+      "id": "b-f7-mframe-to-hmf",
+      "floor": 7,
+      "mark": 1,
+      "path": [
+        { "col": 0.5625, "row": 0.125 },
+        { "col": 0.5625, "row": 0 },
+        { "col": 1.125, "row": 0 },
+        { "col": 1.125, "row": 0.25 }
+      ],
+      "fromPort": "lift-top-mframe:top",
+      "toPort": "ass-hmf:in-0"
+    },
+    {
+      "id": "b-f7-eib-to-hmf",
+      "floor": 7,
+      "mark": 1,
+      "path": [
+        { "col": 3.625, "row": 3.875 },
+        { "col": 3.625, "row": 4 },
+        { "col": 3.875, "row": 4 },
+        { "col": 3.875, "row": 0 },
+        { "col": 2.125, "row": 0 },
+        { "col": 2.125, "row": 0.25 }
+      ],
+      "fromPort": "lift-top-eib:top",
+      "toPort": "ass-hmf:in-2"
+    },
+    {
+      "id": "b-f7-hmf-to-lift",
+      "floor": 7,
+      "mark": 1,
+      "path": [
+        { "col": 1.875, "row": 3 },
+        { "col": 1.875, "row": 3.875 }
+      ],
+      "fromPort": "ass-hmf:out-0",
+      "toPort": "lift-bot-hmf:bottom"
     }
   ],
   "liftPairs": [
@@ -1126,7 +1391,14 @@
     { "id": "lift-pipe", "bottomMachine": "lift-bot-pipe", "topMachine": "lift-top-pipe", "mark": 1 },
     { "id": "lift-wire", "bottomMachine": "lift-bot-wire", "topMachine": "lift-top-wire", "mark": 1 },
     { "id": "lift-screw-1", "bottomMachine": "lift-bot-screw-1", "topMachine": "lift-top-screw-1", "mark": 1 },
-    { "id": "lift-screw-2", "bottomMachine": "lift-bot-screw-2", "topMachine": "lift-top-screw-2", "mark": 1 }
+    { "id": "lift-screw-2", "bottomMachine": "lift-bot-screw-2", "topMachine": "lift-top-screw-2", "mark": 1 },
+    { "id": "lift-beam", "bottomMachine": "lift-bot-beam", "topMachine": "lift-top-beam", "mark": 1 },
+    { "id": "lift-concrete", "bottomMachine": "lift-bot-concrete", "topMachine": "lift-top-concrete", "mark": 1 },
+    { "id": "lift-rip", "bottomMachine": "lift-bot-rip", "topMachine": "lift-top-rip", "mark": 1 },
+    { "id": "lift-rotor", "bottomMachine": "lift-bot-rotor", "topMachine": "lift-top-rotor", "mark": 1 },
+    { "id": "lift-stator", "bottomMachine": "lift-bot-stator", "topMachine": "lift-top-stator", "mark": 1 },
+    { "id": "lift-mframe", "bottomMachine": "lift-bot-mframe", "topMachine": "lift-top-mframe", "mark": 1 },
+    { "id": "lift-eib", "bottomMachine": "lift-bot-eib", "topMachine": "lift-top-eib", "mark": 1 }
   ],
   "zones": []
 }
