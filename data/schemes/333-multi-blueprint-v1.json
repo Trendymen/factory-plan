@@ -1,0 +1,69 @@
+{
+  "id": "333-multi-blueprint-v1",
+  "name": "333 多蓝图方案 v1（5 蓝图 / 总出口汇流）",
+  "version": "1.0.0",
+  "category": "megabase",
+  "description": "把 333 生产链拆分为 5 个 4x4 蓝图，每个蓝图用 2 个 floor 表示双层结构。",
+  "designPrinciples": {
+    "preferWallOutlets": true,
+    "preferWallHoles": true,
+    "preferCeilingMounts": false,
+    "keepFloorClear": true
+  },
+  "floors": [
+    {
+      "id": 1,
+      "label": "BP1-A 铁系预处理（冶炼+板/棒）",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 2,
+      "label": "BP1-B 铁系物流夹层（螺丝+接口）",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 3,
+      "label": "BP2-A 铁系入料层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 4,
+      "label": "BP2-B 铁系装配层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 5,
+      "label": "BP3-A 铜钢基础件",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 6,
+      "label": "BP3-B 铜钢中间件/接口",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 7,
+      "label": "BP4-A 终装入料层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 8,
+      "label": "BP4-B 终装层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 9,
+      "label": "BP5-A 总出口入料层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    },
+    {
+      "id": 10,
+      "label": "BP5-B 总出口汇流层",
+      "gridSize": { "cols": 4, "rows": 4 }
+    }
+  ],
+  "machines": [],
+  "belts": [],
+  "liftPairs": [],
+  "zones": []
+}
