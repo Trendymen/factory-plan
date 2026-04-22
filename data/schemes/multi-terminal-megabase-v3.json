@@ -24,8 +24,188 @@
     { "id": 11, "label": "11F 终合流 L2", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 12, "label": "12F 总仓储", "gridSize": { "cols": 4, "rows": 4 } }
   ],
-  "machines": [],
-  "belts": [],
+  "machines": [
+    {
+      "id": "splitter-iron-ore",
+      "type": "splitter",
+      "pos": { "col": 2.125, "row": 0.0625 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F 铁矿 3 路分流"
+    },
+    {
+      "id": "smelter-copper",
+      "type": "smelter",
+      "pos": { "col": 0.1875, "row": 0.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F 冶炼炉·铜锭",
+      "recipe": "copper-ingot"
+    },
+    {
+      "id": "smelter-iron-1",
+      "type": "smelter",
+      "pos": { "col": 1.1875, "row": 0.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F 冶炼炉·铁锭 #1",
+      "recipe": "iron-ingot"
+    },
+    {
+      "id": "smelter-iron-2",
+      "type": "smelter",
+      "pos": { "col": 2, "row": 0.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F 冶炼炉·铁锭 #2",
+      "recipe": "iron-ingot"
+    },
+    {
+      "id": "foundry-steel",
+      "type": "foundry",
+      "pos": { "col": 2.75, "row": 0.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F 铸造厂·钢锭",
+      "recipe": "steel-ingot"
+    },
+    {
+      "id": "lift-bot-copper",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0.625, "row": 3.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F→4F 铜锭（skip 2F/3F，对齐 4F splitter-copper:in-0 col 0.75）"
+    },
+    {
+      "id": "lift-bot-iron-1",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.4375, "row": 3.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F→2F 铁锭 #1（重型链）"
+    },
+    {
+      "id": "lift-bot-iron-2",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2.25, "row": 3.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F→2F 铁锭 #2（plate/rod/screw 链）"
+    },
+    {
+      "id": "lift-bot-steel",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.125, "row": 3.75 },
+      "facing": "south",
+      "floor": 1,
+      "label": "1F→3F 钢锭（skip 2F）"
+    }
+  ],
+  "belts": [
+    {
+      "id": "b-edge-iron-ore",
+      "floor": 1,
+      "mark": 2,
+      "path": [{ "col": 2.375, "row": 0 }, { "col": 2.375, "row": 0.0625 }],
+      "toPort": "splitter-iron-ore:in-0"
+    },
+    {
+      "id": "b-edge-copper-ore",
+      "floor": 1,
+      "mark": 1,
+      "path": [{ "col": 0.5625, "row": 0 }, { "col": 0.5625, "row": 0.75 }],
+      "toPort": "smelter-copper:in-0"
+    },
+    {
+      "id": "b-edge-coal",
+      "floor": 1,
+      "mark": 1,
+      "path": [{ "col": 3.5, "row": 0 }, { "col": 3.5, "row": 0.75 }],
+      "toPort": "foundry-steel:in-1"
+    },
+    {
+      "id": "b-iron-ore-split-to-smelter1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.125, "row": 0.3125 },
+        { "col": 1.5625, "row": 0.3125 },
+        { "col": 1.5625, "row": 0.75 }
+      ],
+      "fromPort": "splitter-iron-ore:out-2",
+      "toPort": "smelter-iron-1:in-0"
+    },
+    {
+      "id": "b-iron-ore-split-to-smelter2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.375, "row": 0.5625 },
+        { "col": 2.375, "row": 0.75 }
+      ],
+      "fromPort": "splitter-iron-ore:out-0",
+      "toPort": "smelter-iron-2:in-0"
+    },
+    {
+      "id": "b-iron-ore-split-to-foundry",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.625, "row": 0.3125 },
+        { "col": 3, "row": 0.3125 },
+        { "col": 3, "row": 0.75 }
+      ],
+      "fromPort": "splitter-iron-ore:out-1",
+      "toPort": "foundry-steel:in-0"
+    },
+    {
+      "id": "b-copper-ingot-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 0.5625, "row": 1.875 },
+        { "col": 0.5625, "row": 3.5 },
+        { "col": 0.75, "row": 3.5 },
+        { "col": 0.75, "row": 3.875 }
+      ],
+      "fromPort": "smelter-copper:out-0",
+      "toPort": "lift-bot-copper:bottom"
+    },
+    {
+      "id": "b-iron-ingot-1-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5625, "row": 1.875 },
+        { "col": 1.5625, "row": 3.875 }
+      ],
+      "fromPort": "smelter-iron-1:out-0",
+      "toPort": "lift-bot-iron-1:bottom"
+    },
+    {
+      "id": "b-iron-ingot-2-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.375, "row": 1.875 },
+        { "col": 2.375, "row": 3.875 }
+      ],
+      "fromPort": "smelter-iron-2:out-0",
+      "toPort": "lift-bot-iron-2:bottom"
+    },
+    {
+      "id": "b-steel-ingot-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 3.25, "row": 1.875 },
+        { "col": 3.25, "row": 3.875 }
+      ],
+      "fromPort": "foundry-steel:out-0",
+      "toPort": "lift-bot-steel:bottom"
+    }
+  ],
   "lifts": [],
   "liftPairs": [],
   "zones": []
