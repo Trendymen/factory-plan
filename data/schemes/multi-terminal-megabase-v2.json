@@ -17,7 +17,8 @@
     { "id": 4, "label": "4F 铜/混凝土（wire/cable/sheet/concrete facing=north）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 5, "label": "5F 装配 A（RIP/rotor/stator facing=south，input 北 / output 南）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 6, "label": "6F 装配 B（mframe/EIB/motor 混 facing，EIB facing=south 接 N 侧 beam/concrete）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 7, "label": "7F 制造（manufacturer HMF，MVP 只接 mframe in-0）", "gridSize": { "cols": 4, "rows": 4 } }
+    { "id": 7, "label": "7F 制造（manufacturer HMF，MVP 只接 mframe in-0）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 8, "label": "8F 物流合并 MVP（接 5 悬空 lift-bot 至 merger tree → 1 storage 总出口）", "gridSize": { "cols": 4, "rows": 4 } }
   ],
   "machines": [
     {
@@ -626,6 +627,70 @@
       "facing": "south",
       "floor": 7,
       "label": "7F→8F 重型模块化框架终端"
+    },
+    {
+      "id": "lift-top-wire-term",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0, "row": 0 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 电线终端 入（来自 4F）"
+    },
+    {
+      "id": "lift-top-cable",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.4375, "row": 0 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 线缆终端 入（来自 4F）"
+    },
+    {
+      "id": "lift-top-copper-sheet",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 2.4375, "row": 0 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 铜板终端 入（来自 4F）"
+    },
+    {
+      "id": "lift-top-motor",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.1875, "row": 0 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 电机终端 入（来自 6F）"
+    },
+    {
+      "id": "lift-top-hmf",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.75, "row": 3.75 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 重型模块化框架终端 入（来自 7F）"
+    },
+    {
+      "id": "merger-a",
+      "type": "merger",
+      "pos": { "col": 1.25, "row": 1 },
+      "facing": "north",
+      "floor": 8,
+      "label": "8F merger-A（wire/cable/sheet 合流）"
+    },
+    {
+      "id": "merger-b",
+      "type": "merger",
+      "pos": { "col": 1.25, "row": 2.5 },
+      "facing": "north",
+      "floor": 8,
+      "label": "8F merger-B（merger-A + motor + hmf 合流）"
+    },
+    {
+      "id": "storage-final",
+      "type": "storage",
+      "pos": { "col": 2, "row": 2.5 },
+      "facing": "south",
+      "floor": 8,
+      "label": "8F 总出口 storage"
     }
   ],
   "belts": [
@@ -1377,6 +1442,99 @@
       ],
       "fromPort": "ass-hmf:out-0",
       "toPort": "lift-bot-hmf:bottom"
+    },
+    {
+      "id": "b-f8-wire-to-merger-a",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 0.125, "row": 0.125 },
+        { "col": 0.125, "row": 1.25 },
+        { "col": 1.25, "row": 1.25 }
+      ],
+      "fromPort": "lift-top-wire-term:top",
+      "toPort": "merger-a:in-1"
+    },
+    {
+      "id": "b-f8-cable-to-merger-a",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 1.5625, "row": 0.125 },
+        { "col": 1.5625, "row": 0.75 },
+        { "col": 1.75, "row": 0.75 },
+        { "col": 1.75, "row": 1.75 },
+        { "col": 1.5, "row": 1.75 },
+        { "col": 1.5, "row": 1.5 }
+      ],
+      "fromPort": "lift-top-cable:top",
+      "toPort": "merger-a:in-0"
+    },
+    {
+      "id": "b-f8-sheet-to-merger-a",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 2.5625, "row": 0.125 },
+        { "col": 2.5625, "row": 1.25 },
+        { "col": 1.75, "row": 1.25 }
+      ],
+      "fromPort": "lift-top-copper-sheet:top",
+      "toPort": "merger-a:in-2"
+    },
+    {
+      "id": "b-f8-merger-a-to-merger-b",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 1 },
+        { "col": 1.5, "row": 0.75 },
+        { "col": 2, "row": 0.75 },
+        { "col": 2, "row": 3.25 },
+        { "col": 1.5, "row": 3.25 },
+        { "col": 1.5, "row": 3 }
+      ],
+      "fromPort": "merger-a:out-0",
+      "toPort": "merger-b:in-0"
+    },
+    {
+      "id": "b-f8-motor-to-merger-b",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 3.3125, "row": 0.125 },
+        { "col": 3.3125, "row": 2.75 },
+        { "col": 1.75, "row": 2.75 }
+      ],
+      "fromPort": "lift-top-motor:top",
+      "toPort": "merger-b:in-2"
+    },
+    {
+      "id": "b-f8-hmf-to-merger-b",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 1.875, "row": 3.875 },
+        { "col": 1.875, "row": 2.5 },
+        { "col": 1, "row": 2.5 },
+        { "col": 1, "row": 2.75 },
+        { "col": 1.25, "row": 2.75 }
+      ],
+      "fromPort": "lift-top-hmf:top",
+      "toPort": "merger-b:in-1"
+    },
+    {
+      "id": "b-f8-merger-b-to-storage",
+      "floor": 8,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 2.5 },
+        { "col": 1.5, "row": 2.25 },
+        { "col": 2.3125, "row": 2.25 },
+        { "col": 2.3125, "row": 2.5 }
+      ],
+      "fromPort": "merger-b:out-0",
+      "toPort": "storage-final:in-0"
     }
   ],
   "liftPairs": [
@@ -1398,7 +1556,12 @@
     { "id": "lift-rotor", "bottomMachine": "lift-bot-rotor", "topMachine": "lift-top-rotor", "mark": 1 },
     { "id": "lift-stator", "bottomMachine": "lift-bot-stator", "topMachine": "lift-top-stator", "mark": 1 },
     { "id": "lift-mframe", "bottomMachine": "lift-bot-mframe", "topMachine": "lift-top-mframe", "mark": 1 },
-    { "id": "lift-eib", "bottomMachine": "lift-bot-eib", "topMachine": "lift-top-eib", "mark": 1 }
+    { "id": "lift-eib", "bottomMachine": "lift-bot-eib", "topMachine": "lift-top-eib", "mark": 1 },
+    { "id": "lift-wire-term", "bottomMachine": "lift-bot-wire-term", "topMachine": "lift-top-wire-term", "mark": 1 },
+    { "id": "lift-cable", "bottomMachine": "lift-bot-cable", "topMachine": "lift-top-cable", "mark": 1 },
+    { "id": "lift-copper-sheet", "bottomMachine": "lift-bot-copper-sheet", "topMachine": "lift-top-copper-sheet", "mark": 1 },
+    { "id": "lift-motor", "bottomMachine": "lift-bot-motor", "topMachine": "lift-top-motor", "mark": 1 },
+    { "id": "lift-hmf", "bottomMachine": "lift-bot-hmf", "topMachine": "lift-top-hmf", "mark": 1 }
   ],
   "zones": []
 }
