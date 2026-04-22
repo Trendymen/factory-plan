@@ -62,8 +62,681 @@
       "gridSize": { "cols": 4, "rows": 4 }
     }
   ],
-  "machines": [],
-  "belts": [],
-  "liftPairs": [],
+  "machines": [
+    {
+      "id": "bp1a-smelter-iron-1",
+      "type": "smelter",
+      "pos": { "col": 0.75, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "iron-ingot",
+      "label": "BP1-A 铁冶炼 1"
+    },
+    {
+      "id": "bp1a-smelter-iron-2",
+      "type": "smelter",
+      "pos": { "col": 1.5, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "iron-ingot",
+      "label": "BP1-A 铁冶炼 2"
+    },
+    {
+      "id": "bp1a-smelter-copper",
+      "type": "smelter",
+      "pos": { "col": 0, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "copper-ingot",
+      "label": "BP1-A 铜冶炼"
+    },
+    {
+      "id": "bp1a-foundry-steel",
+      "type": "foundry",
+      "pos": { "col": 2.25, "row": 0.25 },
+      "facing": "south",
+      "floor": 1,
+      "recipe": "steel-ingot",
+      "label": "BP1-A 钢锭铸造"
+    },
+    {
+      "id": "bp1a-con-plate",
+      "type": "constructor",
+      "pos": { "col": 0.25, "row": 2 },
+      "facing": "east",
+      "floor": 1,
+      "recipe": "iron-plate",
+      "label": "BP1-A 铁板"
+    },
+    {
+      "id": "bp1a-con-rod-1",
+      "type": "constructor",
+      "pos": { "col": 2.5, "row": 2 },
+      "facing": "west",
+      "floor": 1,
+      "recipe": "iron-rod",
+      "label": "BP1-A 铁棒 1"
+    },
+    {
+      "id": "bp1a-con-rod-2",
+      "type": "constructor",
+      "pos": { "col": 0.25, "row": 3 },
+      "facing": "east",
+      "floor": 1,
+      "recipe": "iron-rod",
+      "label": "BP1-A 铁棒 2"
+    },
+    {
+      "id": "bp1a-con-rod-3",
+      "type": "constructor",
+      "pos": { "col": 2.5, "row": 3 },
+      "facing": "west",
+      "floor": 1,
+      "recipe": "iron-rod",
+      "label": "BP1-A 铁棒 3"
+    },
+    {
+      "id": "bp1a-lift-copper-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0.125, "row": 1.625 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 铜锭上抬"
+    },
+    {
+      "id": "bp1a-lift-steel-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.625, "row": 1.625 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 钢锭上抬"
+    },
+    {
+      "id": "bp1a-lift-plate-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.625, "row": 2.875 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 铁板上抬"
+    },
+    {
+      "id": "bp1a-lift-rod-screw-1-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2.125, "row": 2.875 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 螺丝棒料 1 上抬"
+    },
+    {
+      "id": "bp1a-lift-rod-screw-2-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.625, "row": 3.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 螺丝棒料 2 上抬"
+    },
+    {
+      "id": "bp1a-lift-rod-export-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2.125, "row": 3.25 },
+      "facing": "south",
+      "floor": 1,
+      "label": "BP1-A 到 BP1-B 外送铁棒上抬"
+    },
+    {
+      "id": "bp1b-con-screw-1",
+      "type": "constructor",
+      "pos": { "col": 1.75, "row": 0.75 },
+      "facing": "north",
+      "floor": 2,
+      "recipe": "screw",
+      "label": "BP1-B 螺丝 1"
+    },
+    {
+      "id": "bp1b-con-screw-2",
+      "type": "constructor",
+      "pos": { "col": 0.5, "row": 1.75 },
+      "facing": "north",
+      "floor": 2,
+      "recipe": "screw",
+      "label": "BP1-B 螺丝 2"
+    },
+    {
+      "id": "bp1b-lift-copper-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.125, "row": 1.625 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 铜锭接入"
+    },
+    {
+      "id": "bp1b-lift-steel-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.625, "row": 1.625 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 钢锭接入"
+    },
+    {
+      "id": "bp1b-lift-plate-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.625, "row": 2.875 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 铁板接入"
+    },
+    {
+      "id": "bp1b-lift-rod-screw-1-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 2.125, "row": 2.875 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 螺丝棒料 1 接入"
+    },
+    {
+      "id": "bp1b-lift-rod-screw-2-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.625, "row": 3.25 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 螺丝棒料 2 接入"
+    },
+    {
+      "id": "bp1b-lift-rod-export-feed-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 2.125, "row": 3.25 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1-B 外送铁棒接入"
+    },
+    {
+      "id": "bp1b-split-rod-exports",
+      "type": "splitter",
+      "pos": { "col": 2.5, "row": 2.625 },
+      "facing": "north",
+      "floor": 2,
+      "label": "BP1-B 铁棒双路外送分流"
+    },
+    {
+      "id": "bp1b-lift-plate-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0.25, "row": 0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP2 铁板"
+    },
+    {
+      "id": "bp1b-lift-rod-frame-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.375, "row": 3 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP2 模块框架铁棒"
+    },
+    {
+      "id": "bp1b-lift-rod-rotor-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.125, "row": 3 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP2 转子铁棒"
+    },
+    {
+      "id": "bp1b-lift-screw-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.125, "row": 0 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP2 螺丝"
+    },
+    {
+      "id": "bp1b-lift-copper-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0.625, "row": 0.625 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP3 铜锭"
+    },
+    {
+      "id": "bp1b-lift-steel-in-bottom",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.125, "row": 0.625 },
+      "facing": "south",
+      "floor": 2,
+      "label": "BP1 到 BP3 钢锭"
+    },
+    {
+      "id": "bp2a-lift-plate-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.25, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "BP2-A 铁板落地接口"
+    },
+    {
+      "id": "bp2a-lift-rod-rotor-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.125, "row": 3 },
+      "facing": "south",
+      "floor": 3,
+      "label": "BP2-A 转子铁棒落地接口"
+    },
+    {
+      "id": "bp2a-lift-rod-frame-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 1.375, "row": 3 },
+      "facing": "south",
+      "floor": 3,
+      "label": "BP2-A 模块框架铁棒落地接口"
+    },
+    {
+      "id": "bp2a-lift-screw-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.125, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "BP2-A 螺丝落地接口"
+    },
+    {
+      "id": "bp3a-lift-copper-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.625, "row": 0.625 },
+      "facing": "south",
+      "floor": 5,
+      "label": "BP3-A 铜锭落地接口"
+    },
+    {
+      "id": "bp3a-lift-steel-out-top",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.125, "row": 0.625 },
+      "facing": "south",
+      "floor": 5,
+      "label": "BP3-A 钢锭落地接口"
+    }
+  ],
+  "belts": [
+    {
+      "id": "bp1a-edge-copper-ore",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 0.375, "row": 0 },
+        { "col": 0.375, "row": 0.25 }
+      ],
+      "toPort": "bp1a-smelter-copper:in-0"
+    },
+    {
+      "id": "bp1a-edge-iron-ore-1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.125, "row": 0 },
+        { "col": 1.125, "row": 0.25 }
+      ],
+      "toPort": "bp1a-smelter-iron-1:in-0"
+    },
+    {
+      "id": "bp1a-edge-iron-ore-2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.875, "row": 0 },
+        { "col": 1.875, "row": 0.25 }
+      ],
+      "toPort": "bp1a-smelter-iron-2:in-0"
+    },
+    {
+      "id": "bp1a-edge-iron-ore-steel",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 0 },
+        { "col": 2.5, "row": 0.25 }
+      ],
+      "toPort": "bp1a-foundry-steel:in-0"
+    },
+    {
+      "id": "bp1a-edge-coal",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 3, "row": 0 },
+        { "col": 3, "row": 0.25 }
+      ],
+      "toPort": "bp1a-foundry-steel:in-1"
+    },
+    {
+      "id": "bp1a-edge-ingot-plate",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 0, "row": 2.5 },
+        { "col": 0.25, "row": 2.5 }
+      ],
+      "toPort": "bp1a-con-plate:in-0"
+    },
+    {
+      "id": "bp1a-edge-ingot-rod-1",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 4, "row": 2.5 },
+        { "col": 3.75, "row": 2.5 }
+      ],
+      "toPort": "bp1a-con-rod-1:in-0"
+    },
+    {
+      "id": "bp1a-edge-ingot-rod-2",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 0, "row": 3.5 },
+        { "col": 0.25, "row": 3.5 }
+      ],
+      "toPort": "bp1a-con-rod-2:in-0"
+    },
+    {
+      "id": "bp1a-edge-ingot-rod-3",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 4, "row": 3.5 },
+        { "col": 3.75, "row": 3.5 }
+      ],
+      "toPort": "bp1a-con-rod-3:in-0"
+    },
+    {
+      "id": "bp1a-copper-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 0.375, "row": 1.375 },
+        { "col": 0.375, "row": 1.625 },
+        { "col": 0.25, "row": 1.625 }
+      ],
+      "fromPort": "bp1a-smelter-copper:out-0",
+      "toPort": "bp1a-lift-copper-in-bottom:bottom"
+    },
+    {
+      "id": "bp1a-steel-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.75, "row": 1.375 },
+        { "col": 2.75, "row": 1.625 },
+        { "col": 3.75, "row": 1.625 }
+      ],
+      "fromPort": "bp1a-foundry-steel:out-0",
+      "toPort": "bp1a-lift-steel-in-bottom:bottom"
+    },
+    {
+      "id": "bp1a-iron-1-overflow",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.125, "row": 1.375 },
+        { "col": 1.125, "row": 1.9375 },
+        { "col": 0, "row": 1.9375 }
+      ],
+      "fromPort": "bp1a-smelter-iron-1:out-0"
+    },
+    {
+      "id": "bp1a-iron-2-overflow",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.875, "row": 1.375 },
+        { "col": 1.875, "row": 1.9375 },
+        { "col": 4, "row": 1.9375 }
+      ],
+      "fromPort": "bp1a-smelter-iron-2:out-0"
+    },
+    {
+      "id": "bp1a-plate-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 2.5 },
+        { "col": 1.75, "row": 2.5 },
+        { "col": 1.75, "row": 2.875 }
+      ],
+      "fromPort": "bp1a-con-plate:out-0",
+      "toPort": "bp1a-lift-plate-in-bottom:bottom"
+    },
+    {
+      "id": "bp1a-rod-1-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 2.5 },
+        { "col": 2.25, "row": 2.5 },
+        { "col": 2.25, "row": 2.875 }
+      ],
+      "fromPort": "bp1a-con-rod-1:out-0",
+      "toPort": "bp1a-lift-rod-screw-1-in-bottom:bottom"
+    },
+    {
+      "id": "bp1a-rod-2-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 3.5 },
+        { "col": 1.75, "row": 3.5 },
+        { "col": 1.75, "row": 3.25 }
+      ],
+      "fromPort": "bp1a-con-rod-2:out-0",
+      "toPort": "bp1a-lift-rod-screw-2-in-bottom:bottom"
+    },
+    {
+      "id": "bp1a-rod-3-to-lift",
+      "floor": 1,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 3.5 },
+        { "col": 2.25, "row": 3.5 },
+        { "col": 2.25, "row": 3.25 }
+      ],
+      "fromPort": "bp1a-con-rod-3:out-0",
+      "toPort": "bp1a-lift-rod-export-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-rod-feed-1-to-screw-1",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 2.25, "row": 2.875 },
+        { "col": 2.25, "row": 2 }
+      ],
+      "fromPort": "bp1b-lift-rod-screw-1-feed-out-top:top",
+      "toPort": "bp1b-con-screw-1:in-0"
+    },
+    {
+      "id": "bp1b-rod-feed-2-to-screw-2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 1.75, "row": 3.25 },
+        { "col": 1.75, "row": 3.125 },
+        { "col": 1, "row": 3.125 },
+        { "col": 1, "row": 3 }
+      ],
+      "fromPort": "bp1b-lift-rod-screw-2-feed-out-top:top",
+      "toPort": "bp1b-con-screw-2:in-0"
+    },
+    {
+      "id": "bp1b-rod-feed-to-splitter",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 2.25, "row": 3.25 },
+        { "col": 2.25, "row": 3.1875 },
+        { "col": 2.75, "row": 3.1875 },
+        { "col": 2.75, "row": 3.125 }
+      ],
+      "fromPort": "bp1b-lift-rod-export-feed-out-top:top",
+      "toPort": "bp1b-split-rod-exports:in-0"
+    },
+    {
+      "id": "bp1b-plate-feed-to-bp2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 1.75, "row": 2.875 },
+        { "col": 1.75, "row": 1.5 },
+        { "col": 0.375, "row": 1.5 },
+        { "col": 0.375, "row": 0 }
+      ],
+      "fromPort": "bp1b-lift-plate-feed-out-top:top",
+      "toPort": "bp1b-lift-plate-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-copper-feed-to-bp3",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 0.25, "row": 1.625 },
+        { "col": 0.25, "row": 0.875 },
+        { "col": 0.75, "row": 0.875 },
+        { "col": 0.75, "row": 0.625 }
+      ],
+      "fromPort": "bp1b-lift-copper-feed-out-top:top",
+      "toPort": "bp1b-lift-copper-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-steel-feed-to-bp3",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 3.75, "row": 1.625 },
+        { "col": 3.75, "row": 0.875 },
+        { "col": 3.25, "row": 0.875 },
+        { "col": 3.25, "row": 0.625 }
+      ],
+      "fromPort": "bp1b-lift-steel-feed-out-top:top",
+      "toPort": "bp1b-lift-steel-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-screw-1-to-bp2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 2.25, "row": 0.75 },
+        { "col": 2.25, "row": 0.5 },
+        { "col": 3.25, "row": 0.5 },
+        { "col": 3.25, "row": 0 }
+      ],
+      "fromPort": "bp1b-con-screw-1:out-0",
+      "toPort": "bp1b-lift-screw-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-screw-2-overflow",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 1, "row": 1.75 },
+        { "col": 1, "row": 1 },
+        { "col": 0, "row": 1 }
+      ],
+      "fromPort": "bp1b-con-screw-2:out-0"
+    },
+    {
+      "id": "bp1b-rod-frame-to-bp2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 2.875 },
+        { "col": 1.5, "row": 2.875 },
+        { "col": 1.5, "row": 3 }
+      ],
+      "fromPort": "bp1b-split-rod-exports:out-1",
+      "toPort": "bp1b-lift-rod-frame-in-bottom:bottom"
+    },
+    {
+      "id": "bp1b-rod-rotor-to-bp2",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        { "col": 3, "row": 2.875 },
+        { "col": 3.25, "row": 2.875 },
+        { "col": 3.25, "row": 3 }
+      ],
+      "fromPort": "bp1b-split-rod-exports:out-2",
+      "toPort": "bp1b-lift-rod-rotor-in-bottom:bottom"
+    }
+  ],
+  "liftPairs": [
+    {
+      "id": "bp1a-copper-to-bp1b",
+      "bottomMachine": "bp1a-lift-copper-in-bottom",
+      "topMachine": "bp1b-lift-copper-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1a-steel-to-bp1b",
+      "bottomMachine": "bp1a-lift-steel-in-bottom",
+      "topMachine": "bp1b-lift-steel-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1a-plate-to-bp1b",
+      "bottomMachine": "bp1a-lift-plate-in-bottom",
+      "topMachine": "bp1b-lift-plate-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1a-rod-screw-1-to-bp1b",
+      "bottomMachine": "bp1a-lift-rod-screw-1-in-bottom",
+      "topMachine": "bp1b-lift-rod-screw-1-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1a-rod-screw-2-to-bp1b",
+      "bottomMachine": "bp1a-lift-rod-screw-2-in-bottom",
+      "topMachine": "bp1b-lift-rod-screw-2-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1a-rod-export-to-bp1b",
+      "bottomMachine": "bp1a-lift-rod-export-in-bottom",
+      "topMachine": "bp1b-lift-rod-export-feed-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-plate-to-bp2",
+      "bottomMachine": "bp1b-lift-plate-in-bottom",
+      "topMachine": "bp2a-lift-plate-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-rod-rotor-to-bp2",
+      "bottomMachine": "bp1b-lift-rod-rotor-in-bottom",
+      "topMachine": "bp2a-lift-rod-rotor-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-rod-frame-to-bp2",
+      "bottomMachine": "bp1b-lift-rod-frame-in-bottom",
+      "topMachine": "bp2a-lift-rod-frame-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-screw-to-bp2",
+      "bottomMachine": "bp1b-lift-screw-in-bottom",
+      "topMachine": "bp2a-lift-screw-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-copper-to-bp3",
+      "bottomMachine": "bp1b-lift-copper-in-bottom",
+      "topMachine": "bp3a-lift-copper-out-top",
+      "mark": 1
+    },
+    {
+      "id": "bp1-steel-to-bp3",
+      "bottomMachine": "bp1b-lift-steel-in-bottom",
+      "topMachine": "bp3a-lift-steel-out-top",
+      "mark": 1
+    }
+  ],
   "zones": []
 }
