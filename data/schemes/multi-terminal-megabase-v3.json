@@ -1,9 +1,9 @@
 {
   "id": "multi-terminal-megabase-v3",
-  "name": "综合多终点产线 v3（12 层全终端汇流）",
-  "version": "0.1.0",
+  "name": "综合多终点产线 v3（15 层全终端汇流）",
+  "version": "0.2.0",
   "category": "megabase",
-  "description": "按 333 cytoscape 源重新设计，12 楼层 4×4，15 个 mainNode 全部汇入 12F 总 storage。1F-7F 生产 + 8F-10F 三组 L1 汇流 + 11F L2 终合流 + 12F 总仓储。",
+  "description": "按 333 cytoscape 源重新设计，15 楼层 4×4（拆分密集楼层避免 R13/R19 挤爆）。1F-10F 生产 + 11F-13F 三组 L1 汇流 + 14F L2 终合流 + 15F 总仓储。15 个 mainNode 全部接入终端。",
   "designPrinciples": {
     "preferWallOutlets": false,
     "preferWallHoles": false,
@@ -12,17 +12,20 @@
   },
   "floors": [
     { "id": 1, "label": "1F 冶炼", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 2, "label": "2F 铁基础", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 3, "label": "3F 钢/螺丝", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 4, "label": "4F 铜/混凝土", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 5, "label": "5F 装配 A（RIP/rotor/stator）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 6, "label": "6F 装配 B（mframe/EIB/motor）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 7, "label": "7F 制造（HMF）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 8, "label": "8F 物流 L1a（plate/rod/beam/pipe/sheet 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 9, "label": "9F 物流 L1b（concrete/wire/cable/RIP/rotor 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 10, "label": "10F 物流 L1c（stator/mframe/EIB/motor/HMF 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 11, "label": "11F 终合流 L2", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 12, "label": "12F 总仓储", "gridSize": { "cols": 4, "rows": 4 } }
+    { "id": 2, "label": "2F 铁基础（plate + rod×3）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 3, "label": "3F 钢（beam + pipe）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 4, "label": "4F 螺丝（screw×2）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 5, "label": "5F 铜/混凝土（wire/cable/sheet/concrete）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 6, "label": "6F 装配 A（RIP + rotor）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 7, "label": "7F 装配 A'（stator 单独 + 终端分流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 8, "label": "8F 装配 B（mframe + EIB）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 9, "label": "9F 装配 B'（motor 单独）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 10, "label": "10F 制造（HMF）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 11, "label": "11F 物流 L1a（plate/rod/beam/pipe/sheet 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 12, "label": "12F 物流 L1b（concrete/wire/cable/RIP/rotor 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 13, "label": "13F 物流 L1c（stator/mframe/EIB/motor/HMF 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 14, "label": "14F 终合流 L2", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 15, "label": "15F 总仓储", "gridSize": { "cols": 4, "rows": 4 } }
   ],
   "machines": [
     {

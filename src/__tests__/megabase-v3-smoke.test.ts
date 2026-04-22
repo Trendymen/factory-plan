@@ -4,10 +4,10 @@ import { validateSchemeDetailed } from '../core/schema';
 import type { Scheme } from '../core/types';
 
 describe('multi-terminal-megabase-v3', () => {
-  it('loads and has 12 floors', () => {
+  it('loads and has 15 floors', () => {
     const s = scheme as unknown as Scheme;
     expect(s.id).toBe('multi-terminal-megabase-v3');
-    expect(s.floors).toHaveLength(12);
+    expect(s.floors).toHaveLength(15);
     expect(s.floors.every(f => f.gridSize.cols === 4 && f.gridSize.rows === 4)).toBe(true);
   });
 
