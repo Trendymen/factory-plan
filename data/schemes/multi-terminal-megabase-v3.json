@@ -1,0 +1,32 @@
+{
+  "id": "multi-terminal-megabase-v3",
+  "name": "综合多终点产线 v3（12 层全终端汇流）",
+  "version": "0.1.0",
+  "category": "megabase",
+  "description": "按 333 cytoscape 源重新设计，12 楼层 4×4，15 个 mainNode 全部汇入 12F 总 storage。1F-7F 生产 + 8F-10F 三组 L1 汇流 + 11F L2 终合流 + 12F 总仓储。",
+  "designPrinciples": {
+    "preferWallOutlets": false,
+    "preferWallHoles": false,
+    "preferCeilingMounts": false,
+    "keepFloorClear": false
+  },
+  "floors": [
+    { "id": 1, "label": "1F 冶炼", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 2, "label": "2F 铁基础", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 3, "label": "3F 钢/螺丝", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 4, "label": "4F 铜/混凝土", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 5, "label": "5F 装配 A（RIP/rotor/stator）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 6, "label": "6F 装配 B（mframe/EIB/motor）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 7, "label": "7F 制造（HMF）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 8, "label": "8F 物流 L1a（plate/rod/beam/pipe/sheet 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 9, "label": "9F 物流 L1b（concrete/wire/cable/RIP/rotor 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 10, "label": "10F 物流 L1c（stator/mframe/EIB/motor/HMF 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 11, "label": "11F 终合流 L2", "gridSize": { "cols": 4, "rows": 4 } },
+    { "id": 12, "label": "12F 总仓储", "gridSize": { "cols": 4, "rows": 4 } }
+  ],
+  "machines": [],
+  "belts": [],
+  "lifts": [],
+  "liftPairs": [],
+  "zones": []
+}
