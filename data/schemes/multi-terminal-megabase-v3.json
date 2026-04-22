@@ -11,27 +11,135 @@
     "keepFloorClear": false
   },
   "floors": [
-    { "id": 1, "label": "1F 冶炼", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 2, "label": "2F 铁基础（plate + rod×3）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 3, "label": "3F 钢（beam + pipe）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 4, "label": "4F 螺丝（screw×2）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 5, "label": "5F 铜/混凝土（wire/cable/sheet/concrete）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 6, "label": "6F 装配 A（RIP + rotor）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 7, "label": "7F 装配 A'（stator 单独 + 终端分流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 8, "label": "8F 装配 B（mframe + EIB）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 9, "label": "9F 装配 B'（motor 单独）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 10, "label": "10F 制造（HMF）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 11, "label": "11F 物流 L1a（plate/rod/beam/pipe/sheet 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 12, "label": "12F 物流 L1b（concrete/wire/cable/RIP/rotor 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 13, "label": "13F 物流 L1c（stator/mframe/EIB/motor/HMF 汇流）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 14, "label": "14F 终合流 L2", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 15, "label": "15F 总仓储", "gridSize": { "cols": 4, "rows": 4 } }
+    {
+      "id": 1,
+      "label": "1F 冶炼",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 2,
+      "label": "2F 铁基础（plate + rod×3）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 3,
+      "label": "3F 钢（beam + pipe）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 4,
+      "label": "4F 螺丝（screw×2）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 5,
+      "label": "5F 铜/混凝土（wire/cable/sheet/concrete）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 6,
+      "label": "6F 装配 A（RIP + rotor）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 7,
+      "label": "7F 装配 A'（stator 单独 + 终端分流）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 8,
+      "label": "8F 装配 B（mframe + EIB）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 9,
+      "label": "9F 装配 B'（motor 单独）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 10,
+      "label": "10F 制造（HMF）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 11,
+      "label": "11F 物流 L1a（plate/rod/beam/pipe/sheet 汇流）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 12,
+      "label": "12F 物流 L1b（concrete/wire/cable/RIP/rotor 汇流）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 13,
+      "label": "13F 物流 L1c（stator/mframe/EIB/motor/HMF 汇流）",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 14,
+      "label": "14F 终合流 L2",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    },
+    {
+      "id": 15,
+      "label": "15F 总仓储",
+      "gridSize": {
+        "cols": 4,
+        "rows": 4
+      }
+    }
   ],
   "machines": [
     {
       "id": "splitter-iron-ore",
       "type": "splitter",
-      "pos": { "col": 2.125, "row": 0.0625 },
+      "pos": {
+        "col": 2.125,
+        "row": 0.0625
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F 铁矿 3 路分流"
@@ -39,7 +147,10 @@
     {
       "id": "smelter-copper",
       "type": "smelter",
-      "pos": { "col": 0.1875, "row": 0.75 },
+      "pos": {
+        "col": 0.1875,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F 冶炼炉·铜锭",
@@ -48,7 +159,10 @@
     {
       "id": "smelter-iron-1",
       "type": "smelter",
-      "pos": { "col": 1.1875, "row": 0.75 },
+      "pos": {
+        "col": 1.1875,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F 冶炼炉·铁锭 #1",
@@ -57,7 +171,10 @@
     {
       "id": "smelter-iron-2",
       "type": "smelter",
-      "pos": { "col": 2, "row": 0.75 },
+      "pos": {
+        "col": 2,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F 冶炼炉·铁锭 #2",
@@ -66,7 +183,10 @@
     {
       "id": "foundry-steel",
       "type": "foundry",
-      "pos": { "col": 2.75, "row": 0.75 },
+      "pos": {
+        "col": 2.75,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F 铸造厂·钢锭",
@@ -75,7 +195,10 @@
     {
       "id": "lift-bot-copper",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0.625, "row": 3.75 },
+      "pos": {
+        "col": 0.625,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F→4F 铜锭（skip 2F/3F，对齐 4F splitter-copper:in-0 col 0.75）"
@@ -83,7 +206,10 @@
     {
       "id": "lift-bot-iron-1",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.4375, "row": 3.75 },
+      "pos": {
+        "col": 1.4375,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F→2F 铁锭 #1（重型链）"
@@ -91,7 +217,10 @@
     {
       "id": "lift-bot-iron-2",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2.25, "row": 3.75 },
+      "pos": {
+        "col": 2.25,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F→2F 铁锭 #2（plate/rod/screw 链）"
@@ -99,7 +228,10 @@
     {
       "id": "lift-bot-steel",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.125, "row": 3.75 },
+      "pos": {
+        "col": 3.125,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 1,
       "label": "1F→3F 钢锭（skip 2F）"
@@ -107,7 +239,10 @@
     {
       "id": "lift-top-iron-1",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 1.4375, "row": 3.75 },
+      "pos": {
+        "col": 1.4375,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F 铁锭#1 入（来自 1F）"
@@ -115,7 +250,10 @@
     {
       "id": "lift-top-iron-2",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 2.25, "row": 3.75 },
+      "pos": {
+        "col": 2.25,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F 铁锭#2 入（来自 1F）"
@@ -123,7 +261,10 @@
     {
       "id": "con-plate",
       "type": "constructor",
-      "pos": { "col": 0, "row": 0.75 },
+      "pos": {
+        "col": 0,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁板",
@@ -132,7 +273,10 @@
     {
       "id": "con-rod-1",
       "type": "constructor",
-      "pos": { "col": 1, "row": 0.75 },
+      "pos": {
+        "col": 1,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁棒 #1（→ 3F screw-1）",
@@ -141,7 +285,10 @@
     {
       "id": "con-rod-2",
       "type": "constructor",
-      "pos": { "col": 2, "row": 0.75 },
+      "pos": {
+        "col": 2,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁棒 #2（→ 3F screw-2）",
@@ -150,7 +297,10 @@
     {
       "id": "con-rod-3",
       "type": "constructor",
-      "pos": { "col": 3, "row": 0.75 },
+      "pos": {
+        "col": 3,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁棒 #3（→ 5F rotor + 6F mframe + 8F 终端）",
@@ -159,7 +309,10 @@
     {
       "id": "merger-iron",
       "type": "merger",
-      "pos": { "col": 1.25, "row": 2.75 },
+      "pos": {
+        "col": 1.25,
+        "row": 2.75
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁锭合流"
@@ -167,7 +320,10 @@
     {
       "id": "splitter-A-iron",
       "type": "splitter",
-      "pos": { "col": 1.25, "row": 2.125 },
+      "pos": {
+        "col": 1.25,
+        "row": 2.125
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F 铁锭分流 A（rod-1/plate/→B）"
@@ -175,7 +331,10 @@
     {
       "id": "splitter-B-iron",
       "type": "splitter",
-      "pos": { "col": 2.25, "row": 2.25 },
+      "pos": {
+        "col": 2.25,
+        "row": 2.25
+      },
       "facing": "east",
       "floor": 2,
       "label": "2F 铁锭分流 B（rod-2/rod-3）"
@@ -183,7 +342,10 @@
     {
       "id": "lift-bot-plate",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0, "row": 0 },
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F→5F 铁板（col 0 以避开 splitter-plate-term，5F RIP 需随后对齐）"
@@ -191,7 +353,10 @@
     {
       "id": "lift-bot-rod-1",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.375, "row": 0 },
+      "pos": {
+        "col": 1.375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F→4F 铁棒 #1（skip 3F，对齐 4F screw-1:in-0 col 1.5）"
@@ -199,7 +364,10 @@
     {
       "id": "lift-bot-rod-3",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.9375, "row": 0 },
+      "pos": {
+        "col": 1.9375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F→5F 铁棒 #3（对齐 5F rotor:in-1 col 2.0625）"
@@ -207,7 +375,10 @@
     {
       "id": "lift-bot-rod-2",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2.375, "row": 0 },
+      "pos": {
+        "col": 2.375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F→4F 铁棒 #2（skip 3F，对齐 4F screw-2:in-0 col 2.5）"
@@ -215,47 +386,32 @@
     {
       "id": "splitter-plate-term",
       "type": "splitter",
-      "pos": { "col": 0.25, "row": 0.125 },
+      "pos": {
+        "col": 0.25,
+        "row": 0.125
+      },
       "facing": "north",
       "floor": 2,
       "label": "2F plate 终端分流（→ 5F RIP + 8F term，in-0 col 与 con-plate 对齐）"
     },
     {
-      "id": "splitter-rod-3-term",
-      "type": "splitter",
-      "pos": { "col": 3.25, "row": 0.125 },
-      "facing": "north",
-      "floor": 2,
-      "label": "2F rod-3 终端分流（→ 5F rotor + 6F mframe + 8F term，3-way，in-0 col 与 con-rod-3 对齐）"
-    },
-    {
       "id": "lift-bot-plate-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0.75, "row": 0 },
+      "pos": {
+        "col": 0.75,
+        "row": 0
+      },
       "facing": "south",
       "floor": 2,
       "label": "2F→8F 铁板终端（col 0.75 以贴近 splitter-plate-term:out-2）"
     },
     {
-      "id": "lift-bot-rod-mframe",
-      "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.625, "row": 0 },
-      "facing": "south",
-      "floor": 2,
-      "label": "2F→6F 铁棒（skip lift，到 mframe:in-1）"
-    },
-    {
-      "id": "lift-bot-rod-term",
-      "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.75, "row": 0 },
-      "facing": "south",
-      "floor": 2,
-      "label": "2F→8F 铁棒终端（col 3.75 以贴近 splitter-rod-3-term:out-2）"
-    },
-    {
       "id": "lift-top-steel",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 3.125, "row": 3.75 },
+      "pos": {
+        "col": 3.125,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F 钢锭 入（来自 1F，skip 2F）"
@@ -263,7 +419,10 @@
     {
       "id": "con-steel-beam",
       "type": "constructor",
-      "pos": { "col": 0, "row": 0.75 },
+      "pos": {
+        "col": 0,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 3,
       "label": "3F 钢梁 beam（→ 8F EIB + 11F 终端）",
@@ -272,7 +431,10 @@
     {
       "id": "con-steel-pipe",
       "type": "constructor",
-      "pos": { "col": 3, "row": 0.75 },
+      "pos": {
+        "col": 3,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 3,
       "label": "3F 钢管 pipe（→ 7F stator + 10F HMF + 11F 终端）",
@@ -281,7 +443,10 @@
     {
       "id": "splitter-steel",
       "type": "splitter",
-      "pos": { "col": 3, "row": 2.5 },
+      "pos": {
+        "col": 3,
+        "row": 2.5
+      },
       "facing": "north",
       "floor": 3,
       "label": "3F 钢锭 2 路分流 → beam + pipe cons"
@@ -289,7 +454,10 @@
     {
       "id": "splitter-beam-term",
       "type": "splitter",
-      "pos": { "col": 0.25, "row": 0 },
+      "pos": {
+        "col": 0.25,
+        "row": 0
+      },
       "facing": "north",
       "floor": 3,
       "label": "3F beam 2 路分流（→ 8F EIB + 11F term，in-0 col 0.5 与 con-beam out 对齐）"
@@ -297,7 +465,10 @@
     {
       "id": "splitter-pipe-term",
       "type": "splitter",
-      "pos": { "col": 2.5, "row": 0.125 },
+      "pos": {
+        "col": 2.5,
+        "row": 0.125
+      },
       "facing": "north",
       "floor": 3,
       "label": "3F pipe 3-way 终端分流（→ 7F stator + 10F HMF + 11F term；row 0.125 以腾出 out-0 top 可用，产生 1 R2 warn 可接受）"
@@ -305,7 +476,10 @@
     {
       "id": "lift-bot-beam",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0, "row": 0 },
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F→8F 钢梁（→ EIB:in-0）"
@@ -313,7 +487,10 @@
     {
       "id": "lift-bot-beam-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1, "row": 0 },
+      "pos": {
+        "col": 1,
+        "row": 0
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F→11F 钢梁终端"
@@ -321,7 +498,10 @@
     {
       "id": "lift-bot-pipe",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2, "row": 0 },
+      "pos": {
+        "col": 2,
+        "row": 0
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F→7F 钢管（→ stator:in-0）"
@@ -329,7 +509,10 @@
     {
       "id": "lift-bot-pipe-hmf",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3, "row": 0 },
+      "pos": {
+        "col": 3,
+        "row": 0
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F→10F 钢管（→ HMF:in-1）"
@@ -337,7 +520,10 @@
     {
       "id": "lift-bot-pipe-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.75, "row": 0 },
+      "pos": {
+        "col": 3.75,
+        "row": 0
+      },
       "facing": "south",
       "floor": 3,
       "label": "3F→11F 钢管终端（col 3.75 以对齐 splitter-pipe-term:out-0 顶出后绕行到）"
@@ -345,7 +531,10 @@
     {
       "id": "lift-top-rod-1",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 1.375, "row": 0 },
+      "pos": {
+        "col": 1.375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F 铁棒 #1 入（来自 2F，对齐 screw-1:in-0 col 1.5）"
@@ -353,7 +542,10 @@
     {
       "id": "lift-top-rod-2",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 2.375, "row": 0 },
+      "pos": {
+        "col": 2.375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F 铁棒 #2 入（来自 2F，对齐 screw-2:in-0 col 2.5）"
@@ -361,7 +553,10 @@
     {
       "id": "con-screw-1",
       "type": "constructor",
-      "pos": { "col": 1, "row": 0.75 },
+      "pos": {
+        "col": 1,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F 螺丝 #1（→ 6F RIP:in-1）",
@@ -370,7 +565,10 @@
     {
       "id": "con-screw-2",
       "type": "constructor",
-      "pos": { "col": 2, "row": 0.75 },
+      "pos": {
+        "col": 2,
+        "row": 0.75
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F 螺丝 #2（→ 6F rotor:in-0 + 10F HMF:in-3 split）",
@@ -379,7 +577,10 @@
     {
       "id": "splitter-screw-hmf",
       "type": "splitter",
-      "pos": { "col": 1.75, "row": 2.25 },
+      "pos": {
+        "col": 1.75,
+        "row": 2.25
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F 螺丝 #2 分流（→ 6F rotor + 10F HMF）"
@@ -387,7 +588,10 @@
     {
       "id": "lift-bot-screw-1",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0.5, "row": 3.75 },
+      "pos": {
+        "col": 0.5,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F→6F 螺丝 #1（→ RIP:in-1）"
@@ -395,7 +599,10 @@
     {
       "id": "lift-bot-screw-2",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.5, "row": 3.75 },
+      "pos": {
+        "col": 1.5,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F→6F 螺丝 #2（→ rotor:in-0）"
@@ -403,7 +610,10 @@
     {
       "id": "lift-bot-screw-hmf",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2.5, "row": 3.75 },
+      "pos": {
+        "col": 2.5,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 4,
       "label": "4F→10F 螺丝（skip 5F-9F，→ HMF:in-3）"
@@ -411,7 +621,10 @@
     {
       "id": "lift-top-copper",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 0.625, "row": 3.75 },
+      "pos": {
+        "col": 0.625,
+        "row": 3.75
+      },
       "facing": "south",
       "floor": 5,
       "label": "5F 铜锭 入（来自 1F，skip 2F-4F）"
@@ -419,7 +632,10 @@
     {
       "id": "con-wire",
       "type": "constructor",
-      "pos": { "col": 0, "row": 0.75 },
+      "pos": {
+        "col": 0,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 电线（→ cable + 7F stator + 12F term）",
@@ -428,7 +644,10 @@
     {
       "id": "con-cable",
       "type": "constructor",
-      "pos": { "col": 1, "row": 0.75 },
+      "pos": {
+        "col": 1,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 线缆（→ 12F 终端）",
@@ -437,7 +656,10 @@
     {
       "id": "con-copper-sheet",
       "type": "constructor",
-      "pos": { "col": 2, "row": 0.75 },
+      "pos": {
+        "col": 2,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 铜板（→ 11F 终端）",
@@ -446,7 +668,10 @@
     {
       "id": "con-concrete",
       "type": "constructor",
-      "pos": { "col": 3, "row": 0.75 },
+      "pos": {
+        "col": 3,
+        "row": 0.75
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 混凝土（→ 8F EIB + 12F 终端）",
@@ -455,7 +680,10 @@
     {
       "id": "splitter-copper",
       "type": "splitter",
-      "pos": { "col": 0.5, "row": 3 },
+      "pos": {
+        "col": 0.5,
+        "row": 3
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 铜锭分流（→ wire + sheet）"
@@ -463,7 +691,10 @@
     {
       "id": "splitter-wire",
       "type": "splitter",
-      "pos": { "col": 0.25, "row": 0.1875 },
+      "pos": {
+        "col": 0.25,
+        "row": 0.1875
+      },
       "facing": "north",
       "floor": 5,
       "label": "5F 电线 3 路分流（→ cable + 7F stator + 12F term）"
@@ -471,7 +702,10 @@
     {
       "id": "lift-bot-wire-stator",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.1875, "row": 0 },
+      "pos": {
+        "col": 3.1875,
+        "row": 0
+      },
       "facing": "south",
       "floor": 5,
       "label": "5F→7F 电线（→ stator:in-1）"
@@ -479,15 +713,21 @@
     {
       "id": "lift-bot-concrete",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2.1875, "row": 0 },
+      "pos": {
+        "col": 2.6875,
+        "row": 0
+      },
       "facing": "south",
       "floor": 5,
-      "label": "5F→8F 混凝土（→ EIB:in-1）"
+      "label": "5F→8F 混凝土（col 2.6875 在 sheet vert col 2.5/2.5625 之东，避 R19）"
     },
     {
       "id": "lift-bot-cable-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.4375, "row": 0 },
+      "pos": {
+        "col": 1.4375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 5,
       "label": "5F→12F 线缆终端"
@@ -495,7 +735,10 @@
     {
       "id": "lift-bot-sheet-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 2.4375, "row": 0 },
+      "pos": {
+        "col": 2.4375,
+        "row": 0
+      },
       "facing": "south",
       "floor": 5,
       "label": "5F→11F 铜板终端"
@@ -503,7 +746,10 @@
     {
       "id": "lift-bot-wire-term",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0, "row": 0 },
+      "pos": {
+        "col": 0,
+        "row": 0
+      },
       "facing": "south",
       "floor": 5,
       "label": "5F→12F 电线终端"
@@ -514,21 +760,48 @@
       "id": "b-edge-iron-ore",
       "floor": 1,
       "mark": 2,
-      "path": [{ "col": 2.375, "row": 0 }, { "col": 2.375, "row": 0.0625 }],
+      "path": [
+        {
+          "col": 2.375,
+          "row": 0
+        },
+        {
+          "col": 2.375,
+          "row": 0.0625
+        }
+      ],
       "toPort": "splitter-iron-ore:in-0"
     },
     {
       "id": "b-edge-copper-ore",
       "floor": 1,
       "mark": 1,
-      "path": [{ "col": 0.5625, "row": 0 }, { "col": 0.5625, "row": 0.75 }],
+      "path": [
+        {
+          "col": 0.5625,
+          "row": 0
+        },
+        {
+          "col": 0.5625,
+          "row": 0.75
+        }
+      ],
       "toPort": "smelter-copper:in-0"
     },
     {
       "id": "b-edge-coal",
       "floor": 1,
       "mark": 1,
-      "path": [{ "col": 3.5, "row": 0 }, { "col": 3.5, "row": 0.75 }],
+      "path": [
+        {
+          "col": 3.5,
+          "row": 0
+        },
+        {
+          "col": 3.5,
+          "row": 0.75
+        }
+      ],
       "toPort": "foundry-steel:in-1"
     },
     {
@@ -536,9 +809,18 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 2.125, "row": 0.3125 },
-        { "col": 1.5625, "row": 0.3125 },
-        { "col": 1.5625, "row": 0.75 }
+        {
+          "col": 2.125,
+          "row": 0.3125
+        },
+        {
+          "col": 1.5625,
+          "row": 0.3125
+        },
+        {
+          "col": 1.5625,
+          "row": 0.75
+        }
       ],
       "fromPort": "splitter-iron-ore:out-2",
       "toPort": "smelter-iron-1:in-0"
@@ -548,8 +830,14 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 2.375, "row": 0.5625 },
-        { "col": 2.375, "row": 0.75 }
+        {
+          "col": 2.375,
+          "row": 0.5625
+        },
+        {
+          "col": 2.375,
+          "row": 0.75
+        }
       ],
       "fromPort": "splitter-iron-ore:out-0",
       "toPort": "smelter-iron-2:in-0"
@@ -559,9 +847,18 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 2.625, "row": 0.3125 },
-        { "col": 3, "row": 0.3125 },
-        { "col": 3, "row": 0.75 }
+        {
+          "col": 2.625,
+          "row": 0.3125
+        },
+        {
+          "col": 3,
+          "row": 0.3125
+        },
+        {
+          "col": 3,
+          "row": 0.75
+        }
       ],
       "fromPort": "splitter-iron-ore:out-1",
       "toPort": "foundry-steel:in-0"
@@ -571,10 +868,22 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 0.5625, "row": 1.875 },
-        { "col": 0.5625, "row": 3.5 },
-        { "col": 0.75, "row": 3.5 },
-        { "col": 0.75, "row": 3.875 }
+        {
+          "col": 0.5625,
+          "row": 1.875
+        },
+        {
+          "col": 0.5625,
+          "row": 3.5
+        },
+        {
+          "col": 0.75,
+          "row": 3.5
+        },
+        {
+          "col": 0.75,
+          "row": 3.875
+        }
       ],
       "fromPort": "smelter-copper:out-0",
       "toPort": "lift-bot-copper:bottom"
@@ -584,8 +893,14 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 1.5625, "row": 1.875 },
-        { "col": 1.5625, "row": 3.875 }
+        {
+          "col": 1.5625,
+          "row": 1.875
+        },
+        {
+          "col": 1.5625,
+          "row": 3.875
+        }
       ],
       "fromPort": "smelter-iron-1:out-0",
       "toPort": "lift-bot-iron-1:bottom"
@@ -595,8 +910,14 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 2.375, "row": 1.875 },
-        { "col": 2.375, "row": 3.875 }
+        {
+          "col": 2.375,
+          "row": 1.875
+        },
+        {
+          "col": 2.375,
+          "row": 3.875
+        }
       ],
       "fromPort": "smelter-iron-2:out-0",
       "toPort": "lift-bot-iron-2:bottom"
@@ -606,8 +927,14 @@
       "floor": 1,
       "mark": 1,
       "path": [
-        { "col": 3.25, "row": 1.875 },
-        { "col": 3.25, "row": 3.875 }
+        {
+          "col": 3.25,
+          "row": 1.875
+        },
+        {
+          "col": 3.25,
+          "row": 3.875
+        }
       ],
       "fromPort": "foundry-steel:out-0",
       "toPort": "lift-bot-steel:bottom"
@@ -617,10 +944,22 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.5625, "row": 3.875 },
-        { "col": 1.5625, "row": 3.5 },
-        { "col": 1.5, "row": 3.5 },
-        { "col": 1.5, "row": 3.25 }
+        {
+          "col": 1.5625,
+          "row": 3.875
+        },
+        {
+          "col": 1.5625,
+          "row": 3.5
+        },
+        {
+          "col": 1.5,
+          "row": 3.5
+        },
+        {
+          "col": 1.5,
+          "row": 3.25
+        }
       ],
       "fromPort": "lift-top-iron-1:top",
       "toPort": "merger-iron:in-0"
@@ -630,9 +969,18 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 2.375, "row": 3.875 },
-        { "col": 2.375, "row": 3 },
-        { "col": 1.75, "row": 3 }
+        {
+          "col": 2.375,
+          "row": 3.875
+        },
+        {
+          "col": 2.375,
+          "row": 3
+        },
+        {
+          "col": 1.75,
+          "row": 3
+        }
       ],
       "fromPort": "lift-top-iron-2:top",
       "toPort": "merger-iron:in-2"
@@ -642,8 +990,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 2.75 },
-        { "col": 1.5, "row": 2.625 }
+        {
+          "col": 1.5,
+          "row": 2.75
+        },
+        {
+          "col": 1.5,
+          "row": 2.625
+        }
       ],
       "fromPort": "merger-iron:out-0",
       "toPort": "splitter-A-iron:in-0"
@@ -653,8 +1007,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 2.125 },
-        { "col": 1.5, "row": 2 }
+        {
+          "col": 1.5,
+          "row": 2.125
+        },
+        {
+          "col": 1.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-A-iron:out-0",
       "toPort": "con-rod-1:in-0"
@@ -664,9 +1024,18 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.25, "row": 2.375 },
-        { "col": 0.5, "row": 2.375 },
-        { "col": 0.5, "row": 2 }
+        {
+          "col": 1.25,
+          "row": 2.375
+        },
+        {
+          "col": 0.5,
+          "row": 2.375
+        },
+        {
+          "col": 0.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-A-iron:out-1",
       "toPort": "con-plate:in-0"
@@ -676,10 +1045,22 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.75, "row": 2.375 },
-        { "col": 2, "row": 2.375 },
-        { "col": 2, "row": 2.5 },
-        { "col": 2.25, "row": 2.5 }
+        {
+          "col": 1.75,
+          "row": 2.375
+        },
+        {
+          "col": 2,
+          "row": 2.375
+        },
+        {
+          "col": 2,
+          "row": 2.5
+        },
+        {
+          "col": 2.25,
+          "row": 2.5
+        }
       ],
       "fromPort": "splitter-A-iron:out-2",
       "toPort": "splitter-B-iron:in-0"
@@ -689,8 +1070,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 2.25 },
-        { "col": 2.5, "row": 2 }
+        {
+          "col": 2.5,
+          "row": 2.25
+        },
+        {
+          "col": 2.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-B-iron:out-2",
       "toPort": "con-rod-2:in-0"
@@ -700,9 +1087,18 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 2.75, "row": 2.5 },
-        { "col": 3.5, "row": 2.5 },
-        { "col": 3.5, "row": 2 }
+        {
+          "col": 2.75,
+          "row": 2.5
+        },
+        {
+          "col": 3.5,
+          "row": 2.5
+        },
+        {
+          "col": 3.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-B-iron:out-0",
       "toPort": "con-rod-3:in-0"
@@ -712,8 +1108,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 0.75 },
-        { "col": 1.5, "row": 0.125 }
+        {
+          "col": 1.5,
+          "row": 0.75
+        },
+        {
+          "col": 1.5,
+          "row": 0.125
+        }
       ],
       "fromPort": "con-rod-1:out-0",
       "toPort": "lift-bot-rod-1:bottom"
@@ -723,8 +1125,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 0.75 },
-        { "col": 2.5, "row": 0.125 }
+        {
+          "col": 2.5,
+          "row": 0.75
+        },
+        {
+          "col": 2.5,
+          "row": 0.125
+        }
       ],
       "fromPort": "con-rod-2:out-0",
       "toPort": "lift-bot-rod-2:bottom"
@@ -734,8 +1142,14 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 0.5, "row": 0.75 },
-        { "col": 0.5, "row": 0.625 }
+        {
+          "col": 0.5,
+          "row": 0.75
+        },
+        {
+          "col": 0.5,
+          "row": 0.625
+        }
       ],
       "fromPort": "con-plate:out-0",
       "toPort": "splitter-plate-term:in-0"
@@ -745,9 +1159,18 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 0.25, "row": 0.375 },
-        { "col": 0.125, "row": 0.375 },
-        { "col": 0.125, "row": 0.125 }
+        {
+          "col": 0.25,
+          "row": 0.375
+        },
+        {
+          "col": 0.125,
+          "row": 0.375
+        },
+        {
+          "col": 0.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-plate-term:out-1",
       "toPort": "lift-bot-plate:bottom"
@@ -757,70 +1180,35 @@
       "floor": 2,
       "mark": 1,
       "path": [
-        { "col": 0.75, "row": 0.375 },
-        { "col": 0.875, "row": 0.375 },
-        { "col": 0.875, "row": 0.125 }
+        {
+          "col": 0.75,
+          "row": 0.375
+        },
+        {
+          "col": 0.875,
+          "row": 0.375
+        },
+        {
+          "col": 0.875,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-plate-term:out-2",
       "toPort": "lift-bot-plate-term:bottom"
-    },
-    {
-      "id": "b-f2-rod-3-to-splitterTerm",
-      "floor": 2,
-      "mark": 1,
-      "path": [
-        { "col": 3.5, "row": 0.75 },
-        { "col": 3.5, "row": 0.625 }
-      ],
-      "fromPort": "con-rod-3:out-0",
-      "toPort": "splitter-rod-3-term:in-0"
-    },
-    {
-      "id": "b-f2-splitterRod3-to-rotor",
-      "floor": 2,
-      "mark": 1,
-      "path": [
-        { "col": 3.25, "row": 0.375 },
-        { "col": 2.0625, "row": 0.375 },
-        { "col": 2.0625, "row": 0.125 }
-      ],
-      "fromPort": "splitter-rod-3-term:out-1",
-      "toPort": "lift-bot-rod-3:bottom"
-    },
-    {
-      "id": "b-f2-splitterRod3-to-mframe",
-      "floor": 2,
-      "mark": 1,
-      "path": [
-        { "col": 3.5, "row": 0.125 },
-        { "col": 3.5, "row": 0.0625 },
-        { "col": 3.0, "row": 0.0625 },
-        { "col": 3.0, "row": 0.3125 },
-        { "col": 1.75, "row": 0.3125 },
-        { "col": 1.75, "row": 0.125 }
-      ],
-      "fromPort": "splitter-rod-3-term:out-0",
-      "toPort": "lift-bot-rod-mframe:bottom"
-    },
-    {
-      "id": "b-f2-splitterRod3-to-term",
-      "floor": 2,
-      "mark": 1,
-      "path": [
-        { "col": 3.75, "row": 0.375 },
-        { "col": 3.875, "row": 0.375 },
-        { "col": 3.875, "row": 0.125 }
-      ],
-      "fromPort": "splitter-rod-3-term:out-2",
-      "toPort": "lift-bot-rod-term:bottom"
     },
     {
       "id": "b-f3-steel-to-splitterSteel",
       "floor": 3,
       "mark": 2,
       "path": [
-        { "col": 3.25, "row": 3.875 },
-        { "col": 3.25, "row": 3 }
+        {
+          "col": 3.25,
+          "row": 3.875
+        },
+        {
+          "col": 3.25,
+          "row": 3
+        }
       ],
       "fromPort": "lift-top-steel:top",
       "toPort": "splitter-steel:in-0"
@@ -830,11 +1218,26 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 3.5, "row": 2.75 },
-        { "col": 3.75, "row": 2.75 },
-        { "col": 3.75, "row": 2.25 },
-        { "col": 3.5, "row": 2.25 },
-        { "col": 3.5, "row": 2 }
+        {
+          "col": 3.5,
+          "row": 2.75
+        },
+        {
+          "col": 3.75,
+          "row": 2.75
+        },
+        {
+          "col": 3.75,
+          "row": 2.25
+        },
+        {
+          "col": 3.5,
+          "row": 2.25
+        },
+        {
+          "col": 3.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-steel:out-2",
       "toPort": "con-steel-pipe:in-0"
@@ -844,9 +1247,18 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 3, "row": 2.75 },
-        { "col": 0.5, "row": 2.75 },
-        { "col": 0.5, "row": 2 }
+        {
+          "col": 3,
+          "row": 2.75
+        },
+        {
+          "col": 0.5,
+          "row": 2.75
+        },
+        {
+          "col": 0.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-steel:out-1",
       "toPort": "con-steel-beam:in-0"
@@ -856,8 +1268,14 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 0.5, "row": 0.75 },
-        { "col": 0.5, "row": 0.5 }
+        {
+          "col": 0.5,
+          "row": 0.75
+        },
+        {
+          "col": 0.5,
+          "row": 0.5
+        }
       ],
       "fromPort": "con-steel-beam:out-0",
       "toPort": "splitter-beam-term:in-0"
@@ -867,9 +1285,18 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 0.25, "row": 0.25 },
-        { "col": 0.125, "row": 0.25 },
-        { "col": 0.125, "row": 0.125 }
+        {
+          "col": 0.25,
+          "row": 0.25
+        },
+        {
+          "col": 0.125,
+          "row": 0.25
+        },
+        {
+          "col": 0.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-beam-term:out-1",
       "toPort": "lift-bot-beam:bottom"
@@ -879,9 +1306,18 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 0.75, "row": 0.25 },
-        { "col": 1.125, "row": 0.25 },
-        { "col": 1.125, "row": 0.125 }
+        {
+          "col": 0.75,
+          "row": 0.25
+        },
+        {
+          "col": 1.125,
+          "row": 0.25
+        },
+        {
+          "col": 1.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-beam-term:out-2",
       "toPort": "lift-bot-beam-term:bottom"
@@ -891,10 +1327,22 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 3.5, "row": 0.75 },
-        { "col": 3.5, "row": 0.6875 },
-        { "col": 2.75, "row": 0.6875 },
-        { "col": 2.75, "row": 0.625 }
+        {
+          "col": 3.5,
+          "row": 0.75
+        },
+        {
+          "col": 3.5,
+          "row": 0.6875
+        },
+        {
+          "col": 2.75,
+          "row": 0.6875
+        },
+        {
+          "col": 2.75,
+          "row": 0.625
+        }
       ],
       "fromPort": "con-steel-pipe:out-0",
       "toPort": "splitter-pipe-term:in-0"
@@ -904,9 +1352,18 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 0.375 },
-        { "col": 2.125, "row": 0.375 },
-        { "col": 2.125, "row": 0.125 }
+        {
+          "col": 2.5,
+          "row": 0.375
+        },
+        {
+          "col": 2.125,
+          "row": 0.375
+        },
+        {
+          "col": 2.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-pipe-term:out-1",
       "toPort": "lift-bot-pipe:bottom"
@@ -916,9 +1373,18 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 3, "row": 0.375 },
-        { "col": 3.125, "row": 0.375 },
-        { "col": 3.125, "row": 0.125 }
+        {
+          "col": 3,
+          "row": 0.375
+        },
+        {
+          "col": 3.125,
+          "row": 0.375
+        },
+        {
+          "col": 3.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-pipe-term:out-2",
       "toPort": "lift-bot-pipe-hmf:bottom"
@@ -928,10 +1394,22 @@
       "floor": 3,
       "mark": 1,
       "path": [
-        { "col": 2.75, "row": 0.125 },
-        { "col": 2.75, "row": 0 },
-        { "col": 3.875, "row": 0 },
-        { "col": 3.875, "row": 0.125 }
+        {
+          "col": 2.75,
+          "row": 0.125
+        },
+        {
+          "col": 2.75,
+          "row": 0
+        },
+        {
+          "col": 3.875,
+          "row": 0
+        },
+        {
+          "col": 3.875,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-pipe-term:out-0",
       "toPort": "lift-bot-pipe-term:bottom"
@@ -941,8 +1419,14 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 0.125 },
-        { "col": 1.5, "row": 0.75 }
+        {
+          "col": 1.5,
+          "row": 0.125
+        },
+        {
+          "col": 1.5,
+          "row": 0.75
+        }
       ],
       "fromPort": "lift-top-rod-1:top",
       "toPort": "con-screw-1:in-0"
@@ -952,8 +1436,14 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 0.125 },
-        { "col": 2.5, "row": 0.75 }
+        {
+          "col": 2.5,
+          "row": 0.125
+        },
+        {
+          "col": 2.5,
+          "row": 0.75
+        }
       ],
       "fromPort": "lift-top-rod-2:top",
       "toPort": "con-screw-2:in-0"
@@ -963,10 +1453,22 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 2 },
-        { "col": 1.5, "row": 3.5 },
-        { "col": 0.625, "row": 3.5 },
-        { "col": 0.625, "row": 3.875 }
+        {
+          "col": 1.5,
+          "row": 2
+        },
+        {
+          "col": 1.5,
+          "row": 3.5
+        },
+        {
+          "col": 0.625,
+          "row": 3.5
+        },
+        {
+          "col": 0.625,
+          "row": 3.875
+        }
       ],
       "fromPort": "con-screw-1:out-0",
       "toPort": "lift-bot-screw-1:bottom"
@@ -976,10 +1478,22 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 2 },
-        { "col": 2.5, "row": 2.125 },
-        { "col": 2, "row": 2.125 },
-        { "col": 2, "row": 2.25 }
+        {
+          "col": 2.5,
+          "row": 2
+        },
+        {
+          "col": 2.5,
+          "row": 2.125
+        },
+        {
+          "col": 2,
+          "row": 2.125
+        },
+        {
+          "col": 2,
+          "row": 2.25
+        }
       ],
       "fromPort": "con-screw-2:out-0",
       "toPort": "splitter-screw-hmf:in-0"
@@ -989,10 +1503,22 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 2, "row": 2.75 },
-        { "col": 2, "row": 3.5 },
-        { "col": 1.625, "row": 3.5 },
-        { "col": 1.625, "row": 3.875 }
+        {
+          "col": 2,
+          "row": 2.75
+        },
+        {
+          "col": 2,
+          "row": 3.5
+        },
+        {
+          "col": 1.625,
+          "row": 3.5
+        },
+        {
+          "col": 1.625,
+          "row": 3.875
+        }
       ],
       "fromPort": "splitter-screw-hmf:out-0",
       "toPort": "lift-bot-screw-2:bottom"
@@ -1002,9 +1528,18 @@
       "floor": 4,
       "mark": 1,
       "path": [
-        { "col": 2.25, "row": 2.5 },
-        { "col": 2.625, "row": 2.5 },
-        { "col": 2.625, "row": 3.875 }
+        {
+          "col": 2.25,
+          "row": 2.5
+        },
+        {
+          "col": 2.625,
+          "row": 2.5
+        },
+        {
+          "col": 2.625,
+          "row": 3.875
+        }
       ],
       "fromPort": "splitter-screw-hmf:out-1",
       "toPort": "lift-bot-screw-hmf:bottom"
@@ -1014,8 +1549,14 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 3.5, "row": 4 },
-        { "col": 3.5, "row": 2 }
+        {
+          "col": 3.5,
+          "row": 4
+        },
+        {
+          "col": 3.5,
+          "row": 2
+        }
       ],
       "toPort": "con-concrete:in-0"
     },
@@ -1024,8 +1565,14 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.75, "row": 3.875 },
-        { "col": 0.75, "row": 3.5 }
+        {
+          "col": 0.75,
+          "row": 3.875
+        },
+        {
+          "col": 0.75,
+          "row": 3.5
+        }
       ],
       "fromPort": "lift-top-copper:top",
       "toPort": "splitter-copper:in-0"
@@ -1035,10 +1582,22 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.75, "row": 3 },
-        { "col": 0.75, "row": 2.25 },
-        { "col": 0.5, "row": 2.25 },
-        { "col": 0.5, "row": 2 }
+        {
+          "col": 0.75,
+          "row": 3
+        },
+        {
+          "col": 0.75,
+          "row": 2.25
+        },
+        {
+          "col": 0.5,
+          "row": 2.25
+        },
+        {
+          "col": 0.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-copper:out-0",
       "toPort": "con-wire:in-0"
@@ -1048,11 +1607,26 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 1, "row": 3.25 },
-        { "col": 1.5, "row": 3.25 },
-        { "col": 1.5, "row": 2.5 },
-        { "col": 2.5, "row": 2.5 },
-        { "col": 2.5, "row": 2 }
+        {
+          "col": 1,
+          "row": 3.25
+        },
+        {
+          "col": 1.5,
+          "row": 3.25
+        },
+        {
+          "col": 1.5,
+          "row": 2.5
+        },
+        {
+          "col": 2.5,
+          "row": 2.5
+        },
+        {
+          "col": 2.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-copper:out-2",
       "toPort": "con-copper-sheet:in-0"
@@ -1062,8 +1636,14 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.5, "row": 0.75 },
-        { "col": 0.5, "row": 0.6875 }
+        {
+          "col": 0.5,
+          "row": 0.75
+        },
+        {
+          "col": 0.5,
+          "row": 0.6875
+        }
       ],
       "fromPort": "con-wire:out-0",
       "toPort": "splitter-wire:in-0"
@@ -1073,10 +1653,22 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.5, "row": 0.1875 },
-        { "col": 0.5, "row": 0 },
-        { "col": 3.3125, "row": 0 },
-        { "col": 3.3125, "row": 0.125 }
+        {
+          "col": 0.5,
+          "row": 0.1875
+        },
+        {
+          "col": 0.5,
+          "row": 0
+        },
+        {
+          "col": 3.3125,
+          "row": 0
+        },
+        {
+          "col": 3.3125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-wire:out-0",
       "toPort": "lift-bot-wire-stator:bottom"
@@ -1086,11 +1678,26 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.75, "row": 0.4375 },
-        { "col": 1, "row": 0.4375 },
-        { "col": 1, "row": 2.25 },
-        { "col": 1.5, "row": 2.25 },
-        { "col": 1.5, "row": 2 }
+        {
+          "col": 0.75,
+          "row": 0.4375
+        },
+        {
+          "col": 1,
+          "row": 0.4375
+        },
+        {
+          "col": 1,
+          "row": 2.25
+        },
+        {
+          "col": 1.5,
+          "row": 2.25
+        },
+        {
+          "col": 1.5,
+          "row": 2
+        }
       ],
       "fromPort": "splitter-wire:out-2",
       "toPort": "con-cable:in-0"
@@ -1100,9 +1707,18 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 0.25, "row": 0.4375 },
-        { "col": 0.125, "row": 0.4375 },
-        { "col": 0.125, "row": 0.125 }
+        {
+          "col": 0.25,
+          "row": 0.4375
+        },
+        {
+          "col": 0.125,
+          "row": 0.4375
+        },
+        {
+          "col": 0.125,
+          "row": 0.125
+        }
       ],
       "fromPort": "splitter-wire:out-1",
       "toPort": "lift-bot-wire-term:bottom"
@@ -1112,10 +1728,22 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 0.75 },
-        { "col": 1.5, "row": 0.625 },
-        { "col": 1.5625, "row": 0.625 },
-        { "col": 1.5625, "row": 0.125 }
+        {
+          "col": 1.5,
+          "row": 0.75
+        },
+        {
+          "col": 1.5,
+          "row": 0.625
+        },
+        {
+          "col": 1.5625,
+          "row": 0.625
+        },
+        {
+          "col": 1.5625,
+          "row": 0.125
+        }
       ],
       "fromPort": "con-cable:out-0",
       "toPort": "lift-bot-cable-term:bottom"
@@ -1125,10 +1753,22 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 2.5, "row": 0.75 },
-        { "col": 2.5, "row": 0.375 },
-        { "col": 2.5625, "row": 0.375 },
-        { "col": 2.5625, "row": 0.125 }
+        {
+          "col": 2.5,
+          "row": 0.75
+        },
+        {
+          "col": 2.5,
+          "row": 0.375
+        },
+        {
+          "col": 2.5625,
+          "row": 0.375
+        },
+        {
+          "col": 2.5625,
+          "row": 0.125
+        }
       ],
       "fromPort": "con-copper-sheet:out-0",
       "toPort": "lift-bot-sheet-term:bottom"
@@ -1138,23 +1778,90 @@
       "floor": 5,
       "mark": 1,
       "path": [
-        { "col": 3.5, "row": 0.75 },
-        { "col": 3.5, "row": 0.25 },
-        { "col": 2.3125, "row": 0.25 },
-        { "col": 2.3125, "row": 0.125 }
+        {
+          "col": 3.5,
+          "row": 0.75
+        },
+        {
+          "col": 3.5,
+          "row": 0.5
+        },
+        {
+          "col": 2.8125,
+          "row": 0.5
+        },
+        {
+          "col": 2.8125,
+          "row": 0.125
+        }
       ],
       "fromPort": "con-concrete:out-0",
       "toPort": "lift-bot-concrete:bottom"
+    },
+    {
+      "id": "b-f2-rod-3-to-lift",
+      "floor": 2,
+      "mark": 1,
+      "path": [
+        {
+          "col": 3.5,
+          "row": 0.75
+        },
+        {
+          "col": 3.5,
+          "row": 0
+        },
+        {
+          "col": 2.0625,
+          "row": 0
+        },
+        {
+          "col": 2.0625,
+          "row": 0.125
+        }
+      ],
+      "fromPort": "con-rod-3:out-0",
+      "toPort": "lift-bot-rod-3:bottom"
     }
   ],
   "lifts": [],
   "liftPairs": [
-    { "id": "lift-iron-1", "bottomMachine": "lift-bot-iron-1", "topMachine": "lift-top-iron-1", "mark": 1 },
-    { "id": "lift-iron-2", "bottomMachine": "lift-bot-iron-2", "topMachine": "lift-top-iron-2", "mark": 1 },
-    { "id": "lift-steel", "bottomMachine": "lift-bot-steel", "topMachine": "lift-top-steel", "mark": 2 },
-    { "id": "lift-rod-1", "bottomMachine": "lift-bot-rod-1", "topMachine": "lift-top-rod-1", "mark": 1 },
-    { "id": "lift-rod-2", "bottomMachine": "lift-bot-rod-2", "topMachine": "lift-top-rod-2", "mark": 1 },
-    { "id": "lift-copper", "bottomMachine": "lift-bot-copper", "topMachine": "lift-top-copper", "mark": 1 }
+    {
+      "id": "lift-iron-1",
+      "bottomMachine": "lift-bot-iron-1",
+      "topMachine": "lift-top-iron-1",
+      "mark": 1
+    },
+    {
+      "id": "lift-iron-2",
+      "bottomMachine": "lift-bot-iron-2",
+      "topMachine": "lift-top-iron-2",
+      "mark": 1
+    },
+    {
+      "id": "lift-steel",
+      "bottomMachine": "lift-bot-steel",
+      "topMachine": "lift-top-steel",
+      "mark": 2
+    },
+    {
+      "id": "lift-rod-1",
+      "bottomMachine": "lift-bot-rod-1",
+      "topMachine": "lift-top-rod-1",
+      "mark": 1
+    },
+    {
+      "id": "lift-rod-2",
+      "bottomMachine": "lift-bot-rod-2",
+      "topMachine": "lift-top-rod-2",
+      "mark": 1
+    },
+    {
+      "id": "lift-copper",
+      "bottomMachine": "lift-bot-copper",
+      "topMachine": "lift-top-copper",
+      "mark": 1
+    }
   ],
   "zones": []
 }
