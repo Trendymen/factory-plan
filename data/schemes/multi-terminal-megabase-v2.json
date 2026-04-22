@@ -376,7 +376,7 @@
     {
       "id": "lift-bot-concrete",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 1.1875, "row": 0 },
+      "pos": { "col": 2.1875, "row": 0 },
       "facing": "south",
       "floor": 4,
       "label": "4F→6F 混凝土（6F EIB 用 L 型接入）"
@@ -515,7 +515,7 @@
     {
       "id": "lift-top-concrete",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 1.1875, "row": 0 },
+      "pos": { "col": 2.1875, "row": 0 },
       "facing": "south",
       "floor": 6,
       "label": "6F 混凝土 入（来自 4F）→ EIB:in-1 via L"
@@ -672,25 +672,25 @@
       "id": "merger-a",
       "type": "merger",
       "pos": { "col": 1.25, "row": 1 },
-      "facing": "north",
+      "facing": "south",
       "floor": 8,
-      "label": "8F merger-A（wire/cable/sheet 合流）"
+      "label": "8F merger-A（wire/cable/sheet 合流，facing=south 使 out 向下直通 merger-B）"
     },
     {
       "id": "merger-b",
       "type": "merger",
       "pos": { "col": 1.25, "row": 2.5 },
-      "facing": "north",
+      "facing": "south",
       "floor": 8,
-      "label": "8F merger-B（merger-A + motor + hmf 合流）"
+      "label": "8F merger-B（merger-A + motor + hmf 合流，facing=south 便于上方 merger-A 直通）"
     },
     {
       "id": "storage-final",
       "type": "storage",
       "pos": { "col": 2, "row": 2.5 },
-      "facing": "south",
+      "facing": "north",
       "floor": 8,
-      "label": "8F 总出口 storage"
+      "label": "8F 总出口 storage（facing=north，in-0 下侧便于 merger-B 直通）"
     }
   ],
   "belts": [
@@ -941,8 +941,8 @@
       "mark": 1,
       "path": [
         { "col": 3.5, "row": 0.75 },
-        { "col": 3.5, "row": 0.5 },
-        { "col": 2.0625, "row": 0.5 },
+        { "col": 3.5, "row": 0 },
+        { "col": 2.0625, "row": 0 },
         { "col": 2.0625, "row": 0.125 }
       ],
       "fromPort": "con-rod-3:out-0",
@@ -979,8 +979,8 @@
       "path": [
         { "col": 3, "row": 2.75 },
         { "col": 2.75, "row": 2.75 },
-        { "col": 2.75, "row": 3.75 },
-        { "col": 0.5, "row": 3.75 },
+        { "col": 2.75, "row": 4 },
+        { "col": 0.5, "row": 4 },
         { "col": 0.5, "row": 2 }
       ],
       "fromPort": "splitter-steel:out-1",
@@ -1191,8 +1191,8 @@
       "path": [
         { "col": 3.5, "row": 0.75 },
         { "col": 3.5, "row": 0.25 },
-        { "col": 1.3125, "row": 0.25 },
-        { "col": 1.3125, "row": 0.125 }
+        { "col": 2.3125, "row": 0.25 },
+        { "col": 2.3125, "row": 0.125 }
       ],
       "fromPort": "con-concrete:out-0",
       "toPort": "lift-bot-concrete:bottom"
@@ -1322,7 +1322,6 @@
       "floor": 6,
       "mark": 1,
       "path": [
-        { "col": 1.3125, "row": 0.125 },
         { "col": 2.3125, "row": 0.125 },
         { "col": 2.3125, "row": 0.25 }
       ],
@@ -1349,13 +1348,13 @@
       "path": [
         { "col": 1.8125, "row": 3.875 },
         { "col": 1.8125, "row": 4 },
-        { "col": 2.5, "row": 4 },
-        { "col": 2.5, "row": 2.25 },
-        { "col": 3.0625, "row": 2.25 },
-        { "col": 3.0625, "row": 2.125 }
+        { "col": 3.875, "row": 4 },
+        { "col": 3.875, "row": 2.5 },
+        { "col": 3.5625, "row": 2.5 },
+        { "col": 3.5625, "row": 2.125 }
       ],
       "fromPort": "lift-top-rotor:top",
-      "toPort": "ass-motor:in-0"
+      "toPort": "ass-motor:in-1"
     },
     {
       "id": "b-f6-stator-to-motor",
@@ -1363,11 +1362,10 @@
       "mark": 1,
       "path": [
         { "col": 3.0625, "row": 3.875 },
-        { "col": 3.5625, "row": 3.875 },
-        { "col": 3.5625, "row": 2.125 }
+        { "col": 3.0625, "row": 2.125 }
       ],
       "fromPort": "lift-top-stator:top",
-      "toPort": "ass-motor:in-1"
+      "toPort": "ass-motor:in-0"
     },
     {
       "id": "b-f6-mframe-to-lift",
@@ -1453,7 +1451,7 @@
         { "col": 1.25, "row": 1.25 }
       ],
       "fromPort": "lift-top-wire-term:top",
-      "toPort": "merger-a:in-1"
+      "toPort": "merger-a:in-2"
     },
     {
       "id": "b-f8-cable-to-merger-a",
@@ -1461,11 +1459,9 @@
       "mark": 1,
       "path": [
         { "col": 1.5625, "row": 0.125 },
-        { "col": 1.5625, "row": 0.75 },
-        { "col": 1.75, "row": 0.75 },
-        { "col": 1.75, "row": 1.75 },
-        { "col": 1.5, "row": 1.75 },
-        { "col": 1.5, "row": 1.5 }
+        { "col": 1.5625, "row": 0.5 },
+        { "col": 1.5, "row": 0.5 },
+        { "col": 1.5, "row": 1 }
       ],
       "fromPort": "lift-top-cable:top",
       "toPort": "merger-a:in-0"
@@ -1480,19 +1476,15 @@
         { "col": 1.75, "row": 1.25 }
       ],
       "fromPort": "lift-top-copper-sheet:top",
-      "toPort": "merger-a:in-2"
+      "toPort": "merger-a:in-1"
     },
     {
       "id": "b-f8-merger-a-to-merger-b",
       "floor": 8,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 1 },
-        { "col": 1.5, "row": 0.75 },
-        { "col": 2, "row": 0.75 },
-        { "col": 2, "row": 3.25 },
-        { "col": 1.5, "row": 3.25 },
-        { "col": 1.5, "row": 3 }
+        { "col": 1.5, "row": 1.5 },
+        { "col": 1.5, "row": 2.5 }
       ],
       "fromPort": "merger-a:out-0",
       "toPort": "merger-b:in-0"
@@ -1503,8 +1495,10 @@
       "mark": 1,
       "path": [
         { "col": 3.3125, "row": 0.125 },
-        { "col": 3.3125, "row": 2.75 },
-        { "col": 1.75, "row": 2.75 }
+        { "col": 3.3125, "row": 2.25 },
+        { "col": 1, "row": 2.25 },
+        { "col": 1, "row": 2.75 },
+        { "col": 1.25, "row": 2.75 }
       ],
       "fromPort": "lift-top-motor:top",
       "toPort": "merger-b:in-2"
@@ -1515,10 +1509,8 @@
       "mark": 1,
       "path": [
         { "col": 1.875, "row": 3.875 },
-        { "col": 1.875, "row": 2.5 },
-        { "col": 1, "row": 2.5 },
-        { "col": 1, "row": 2.75 },
-        { "col": 1.25, "row": 2.75 }
+        { "col": 1.875, "row": 2.75 },
+        { "col": 1.75, "row": 2.75 }
       ],
       "fromPort": "lift-top-hmf:top",
       "toPort": "merger-b:in-1"
@@ -1528,10 +1520,10 @@
       "floor": 8,
       "mark": 1,
       "path": [
-        { "col": 1.5, "row": 2.5 },
-        { "col": 1.5, "row": 2.25 },
-        { "col": 2.3125, "row": 2.25 },
-        { "col": 2.3125, "row": 2.5 }
+        { "col": 1.5, "row": 3 },
+        { "col": 1.5, "row": 4 },
+        { "col": 2.3125, "row": 4 },
+        { "col": 2.3125, "row": 3.75 }
       ],
       "fromPort": "merger-b:out-0",
       "toPort": "storage-final:in-0"
