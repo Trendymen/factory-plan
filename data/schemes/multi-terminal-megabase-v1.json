@@ -3,7 +3,7 @@
   "name": "综合多终点产线 v1（重型框架/马达/电缆等 15 终点）",
   "version": "0.4.0",
   "category": "megabase",
-  "description": "从 Satisfactory Calculator 图 (333) 转换的多层综合产线。1F 冶炼（含钢分流）→ 2F 铁链（plate + rod×3）→ 3F 钢/螺丝链（4 cons 并排）→ 4F 铜 → 5F 装配 → 6F 制造 → 7F 物流。每层 4×4 格。1F foundry 后接 splitter 分 2 路 skip-floor lift 直送 3F beam/pipe，免去 3F 内部钢分流。当前完成：1F、2F、3F。",
+  "description": "从 Satisfactory Calculator 图 (333) 转换的多层综合产线。1F 冶炼（含钢分流）→ 2F 铁链（plate + rod×3）→ 3F 钢/螺丝链（4 cons 并排）→ 4F 铜 → 5F 装配 → 6F 制造 → 7F 物流。每层 4×4 格。1F foundry 后接 splitter 分 2 路 skip-floor lift 直送 3F beam/pipe，免去 3F 内部钢分流。当前完成：1F/2F/3F/4F；5F lift 迁移：rod-3/pipe/beam 已对齐 assembler input col。",
   "designPrinciples": {
     "preferWallOutlets": false,
     "preferWallHoles": false,
@@ -197,10 +197,10 @@
     {
       "id": "lift-bot-rod-3",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.375, "row": 0 },
+      "pos": { "col": 3.1875, "row": 0 },
       "facing": "south",
       "floor": 2,
-      "label": "2F→4F 铁棒 #3"
+      "label": "2F→5F 铁棒 #3（对齐 5F rotor:in-1 col 3.3125）"
     },
     {
       "id": "lift-top-steel",
@@ -245,10 +245,10 @@
     {
       "id": "lift-top-rod-3",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 3.375, "row": 0 },
+      "pos": { "col": 3.1875, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 铁棒 入 → ass-rotor:in-1（L 形）"
+      "label": "5F 铁棒 入 → ass-rotor:in-1（对齐 col 3.3125）"
     },
     {
       "id": "lift-top-copper",
@@ -313,18 +313,18 @@
     {
       "id": "lift-bot-beam",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 0.625, "row": 0 },
+      "pos": { "col": 3.6875, "row": 0 },
       "facing": "south",
       "floor": 3,
-      "label": "3F→5F 装配 钢梁（北出）"
+      "label": "3F→5F 钢梁（挪到东侧，让出 col 0.6875 给 pipe）"
     },
     {
       "id": "lift-bot-pipe",
       "type": "conveyor-lift-in-bottom",
-      "pos": { "col": 3.625, "row": 0 },
+      "pos": { "col": 0.6875, "row": 0 },
       "facing": "south",
       "floor": 3,
-      "label": "3F→5F 装配 钢管（北出）"
+      "label": "3F→5F 钢管（对齐 5F stator:in-1 col 0.8125）"
     },
     {
       "id": "lift-top-screw-1",
@@ -345,18 +345,18 @@
     {
       "id": "lift-top-beam",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 0.625, "row": 0 },
+      "pos": { "col": 3.6875, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 钢梁过境（EIB 未在 5F 实现，待定）"
+      "label": "5F 钢梁过境（东侧）"
     },
     {
       "id": "lift-top-pipe",
       "type": "conveyor-lift-out-top",
-      "pos": { "col": 3.625, "row": 0 },
+      "pos": { "col": 0.6875, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 钢管 入 → ass-stator:in-1（长 L 形横跨）"
+      "label": "5F 钢管 入 → ass-stator:in-1（对齐 col 0.8125）"
     },
     {
       "id": "con-wire",
@@ -721,7 +721,9 @@
       "mark": 1,
       "path": [
         { "col": 3.5, "row": 0.75 },
-        { "col": 3.5, "row": 0 }
+        { "col": 3.5, "row": 0.5 },
+        { "col": 3.3125, "row": 0.5 },
+        { "col": 3.3125, "row": 0.125 }
       ],
       "fromPort": "con-rod-3:out-0",
       "toPort": "lift-bot-rod-3:bottom"
@@ -814,9 +816,9 @@
       "mark": 1,
       "path": [
         { "col": 0.5, "row": 0.75 },
-        { "col": 0.5, "row": 0.5 },
-        { "col": 0.75, "row": 0.5 },
-        { "col": 0.75, "row": 0.125 }
+        { "col": 0.5, "row": 0.625 },
+        { "col": 3.8125, "row": 0.625 },
+        { "col": 3.8125, "row": 0.125 }
       ],
       "fromPort": "con-steel-beam:out-0",
       "toPort": "lift-bot-beam:bottom"
@@ -828,8 +830,8 @@
       "path": [
         { "col": 3.5, "row": 0.75 },
         { "col": 3.5, "row": 0.5 },
-        { "col": 3.75, "row": 0.5 },
-        { "col": 3.75, "row": 0.125 }
+        { "col": 0.8125, "row": 0.5 },
+        { "col": 0.8125, "row": 0.125 }
       ],
       "fromPort": "con-steel-pipe:out-0",
       "toPort": "lift-bot-pipe:bottom"
