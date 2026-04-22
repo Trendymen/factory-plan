@@ -15,7 +15,7 @@
     { "id": 2, "label": "2F 铁链（plate + rod×3）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 3, "label": "3F 钢/螺丝链（4 cons 并排）", "gridSize": { "cols": 4, "rows": 4 } },
     { "id": 4, "label": "4F 铜链（占位）", "gridSize": { "cols": 4, "rows": 4 } },
-    { "id": 5, "label": "5F 装配层（占位）", "gridSize": { "cols": 4, "rows": 4 } }
+    { "id": 5, "label": "5F 装配层（占位，需 port 对齐重构方能落地）", "gridSize": { "cols": 4, "rows": 4 } }
   ],
   "machines": [
     {
@@ -224,7 +224,7 @@
       "pos": { "col": 0.375, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 铁板 入（skip 3F/4F）"
+      "label": "5F 铁板 入 → ass-RIP:in-0（L 形）"
     },
     {
       "id": "lift-top-rod-1",
@@ -248,7 +248,7 @@
       "pos": { "col": 3.375, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 铁棒 #3 入（skip 3F/4F）"
+      "label": "5F 铁棒 入 → ass-rotor:in-1（L 形）"
     },
     {
       "id": "lift-top-copper",
@@ -332,7 +332,7 @@
       "pos": { "col": 1.375, "row": 3.5 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 螺丝 #1 入（skip 4F）"
+      "label": "5F 螺丝 #1（在南侧，RIP:in-1 暂未接入）"
     },
     {
       "id": "lift-top-screw-2",
@@ -340,7 +340,7 @@
       "pos": { "col": 2.375, "row": 3.5 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 螺丝 #2 入（skip 4F）"
+      "label": "5F 螺丝 #2（在南侧，rotor:in-0 暂未接入）"
     },
     {
       "id": "lift-top-beam",
@@ -348,7 +348,7 @@
       "pos": { "col": 0.625, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 钢梁 入（skip 4F）"
+      "label": "5F 钢梁过境（EIB 未在 5F 实现，待定）"
     },
     {
       "id": "lift-top-pipe",
@@ -356,7 +356,7 @@
       "pos": { "col": 3.625, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 钢管 入（skip 4F）"
+      "label": "5F 钢管 入 → ass-stator:in-1（长 L 形横跨）"
     },
     {
       "id": "con-wire",
@@ -448,7 +448,7 @@
       "pos": { "col": 0, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 电线 入（北角）"
+      "label": "5F 电线 入 → ass-stator:in-0（L 形）"
     },
     {
       "id": "lift-top-cable",
@@ -464,7 +464,7 @@
       "pos": { "col": 2.125, "row": 0 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 铜板 入"
+      "label": "5F 铜板过境（非 5F 消耗，未来接 7F 物流）"
     },
     {
       "id": "lift-top-concrete",
@@ -472,7 +472,7 @@
       "pos": { "col": 3.375, "row": 3.75 },
       "facing": "south",
       "floor": 5,
-      "label": "5F 装配 混凝土 入"
+      "label": "5F 混凝土过境（EIB 未在 5F 实现，待定）"
     }
   ],
   "belts": [
