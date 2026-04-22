@@ -251,6 +251,96 @@
       "facing": "south",
       "floor": 2,
       "label": "2F→8F 铁棒终端（col 3.75 以贴近 splitter-rod-3-term:out-2）"
+    },
+    {
+      "id": "lift-top-steel",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 3.125, "row": 3.75 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F 钢锭 入（来自 1F，skip 2F）"
+    },
+    {
+      "id": "con-steel-beam",
+      "type": "constructor",
+      "pos": { "col": 0, "row": 0.75 },
+      "facing": "north",
+      "floor": 3,
+      "label": "3F 钢梁 beam（→ 8F EIB + 11F 终端）",
+      "recipe": "steel-beam"
+    },
+    {
+      "id": "con-steel-pipe",
+      "type": "constructor",
+      "pos": { "col": 3, "row": 0.75 },
+      "facing": "north",
+      "floor": 3,
+      "label": "3F 钢管 pipe（→ 7F stator + 10F HMF + 11F 终端）",
+      "recipe": "steel-pipe"
+    },
+    {
+      "id": "splitter-steel",
+      "type": "splitter",
+      "pos": { "col": 3, "row": 2.5 },
+      "facing": "north",
+      "floor": 3,
+      "label": "3F 钢锭 2 路分流 → beam + pipe cons"
+    },
+    {
+      "id": "splitter-beam-term",
+      "type": "splitter",
+      "pos": { "col": 0.25, "row": 0 },
+      "facing": "north",
+      "floor": 3,
+      "label": "3F beam 2 路分流（→ 8F EIB + 11F term，in-0 col 0.5 与 con-beam out 对齐）"
+    },
+    {
+      "id": "splitter-pipe-term",
+      "type": "splitter",
+      "pos": { "col": 2.5, "row": 0.125 },
+      "facing": "north",
+      "floor": 3,
+      "label": "3F pipe 3-way 终端分流（→ 7F stator + 10F HMF + 11F term；row 0.125 以腾出 out-0 top 可用，产生 1 R2 warn 可接受）"
+    },
+    {
+      "id": "lift-bot-beam",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F→8F 钢梁（→ EIB:in-0）"
+    },
+    {
+      "id": "lift-bot-beam-term",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F→11F 钢梁终端"
+    },
+    {
+      "id": "lift-bot-pipe",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F→7F 钢管（→ stator:in-0）"
+    },
+    {
+      "id": "lift-bot-pipe-hmf",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F→10F 钢管（→ HMF:in-1）"
+    },
+    {
+      "id": "lift-bot-pipe-term",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.75, "row": 0 },
+      "facing": "south",
+      "floor": 3,
+      "label": "3F→11F 钢管终端（col 3.75 以对齐 splitter-pipe-B:out-1 右出）"
     }
   ],
   "belts": [
@@ -557,12 +647,135 @@
       ],
       "fromPort": "splitter-rod-3-term:out-2",
       "toPort": "lift-bot-rod-term:bottom"
+    },
+    {
+      "id": "b-f3-steel-to-splitterSteel",
+      "floor": 3,
+      "mark": 2,
+      "path": [
+        { "col": 3.25, "row": 3.875 },
+        { "col": 3.25, "row": 3 }
+      ],
+      "fromPort": "lift-top-steel:top",
+      "toPort": "splitter-steel:in-0"
+    },
+    {
+      "id": "b-f3-splitterSteel-to-pipeCon",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 2.75 },
+        { "col": 3.75, "row": 2.75 },
+        { "col": 3.75, "row": 2.25 },
+        { "col": 3.5, "row": 2.25 },
+        { "col": 3.5, "row": 2 }
+      ],
+      "fromPort": "splitter-steel:out-2",
+      "toPort": "con-steel-pipe:in-0"
+    },
+    {
+      "id": "b-f3-splitterSteel-to-beamCon",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 3, "row": 2.75 },
+        { "col": 0.5, "row": 2.75 },
+        { "col": 0.5, "row": 2 }
+      ],
+      "fromPort": "splitter-steel:out-1",
+      "toPort": "con-steel-beam:in-0"
+    },
+    {
+      "id": "b-f3-beamCon-to-splitterBeam",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 0.5, "row": 0.75 },
+        { "col": 0.5, "row": 0.5 }
+      ],
+      "fromPort": "con-steel-beam:out-0",
+      "toPort": "splitter-beam-term:in-0"
+    },
+    {
+      "id": "b-f3-splitterBeam-to-liftBeam",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 0.25, "row": 0.25 },
+        { "col": 0.125, "row": 0.25 },
+        { "col": 0.125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-beam-term:out-1",
+      "toPort": "lift-bot-beam:bottom"
+    },
+    {
+      "id": "b-f3-splitterBeam-to-liftBeamTerm",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 0.75, "row": 0.25 },
+        { "col": 1.125, "row": 0.25 },
+        { "col": 1.125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-beam-term:out-2",
+      "toPort": "lift-bot-beam-term:bottom"
+    },
+    {
+      "id": "b-f3-pipeCon-to-splitterPipe",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 0.75 },
+        { "col": 3.5, "row": 0.6875 },
+        { "col": 2.75, "row": 0.6875 },
+        { "col": 2.75, "row": 0.625 }
+      ],
+      "fromPort": "con-steel-pipe:out-0",
+      "toPort": "splitter-pipe-term:in-0"
+    },
+    {
+      "id": "b-f3-splitterPipe-to-liftPipe",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 0.375 },
+        { "col": 2.125, "row": 0.375 },
+        { "col": 2.125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-pipe-term:out-1",
+      "toPort": "lift-bot-pipe:bottom"
+    },
+    {
+      "id": "b-f3-splitterPipe-to-liftPipeHmf",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 3, "row": 0.375 },
+        { "col": 3.125, "row": 0.375 },
+        { "col": 3.125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-pipe-term:out-2",
+      "toPort": "lift-bot-pipe-hmf:bottom"
+    },
+    {
+      "id": "b-f3-splitterPipe-to-liftPipeTerm",
+      "floor": 3,
+      "mark": 1,
+      "path": [
+        { "col": 2.75, "row": 0.125 },
+        { "col": 2.75, "row": 0 },
+        { "col": 3.875, "row": 0 },
+        { "col": 3.875, "row": 0.125 }
+      ],
+      "fromPort": "splitter-pipe-term:out-0",
+      "toPort": "lift-bot-pipe-term:bottom"
     }
   ],
   "lifts": [],
   "liftPairs": [
     { "id": "lift-iron-1", "bottomMachine": "lift-bot-iron-1", "topMachine": "lift-top-iron-1", "mark": 1 },
-    { "id": "lift-iron-2", "bottomMachine": "lift-bot-iron-2", "topMachine": "lift-top-iron-2", "mark": 1 }
+    { "id": "lift-iron-2", "bottomMachine": "lift-bot-iron-2", "topMachine": "lift-top-iron-2", "mark": 1 },
+    { "id": "lift-steel", "bottomMachine": "lift-bot-steel", "topMachine": "lift-top-steel", "mark": 2 }
   ],
   "zones": []
 }
