@@ -407,6 +407,106 @@
       "facing": "south",
       "floor": 4,
       "label": "4F→10F 螺丝（skip 5F-9F，→ HMF:in-3）"
+    },
+    {
+      "id": "lift-top-copper",
+      "type": "conveyor-lift-out-top",
+      "pos": { "col": 0.625, "row": 3.75 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F 铜锭 入（来自 1F，skip 2F-4F）"
+    },
+    {
+      "id": "con-wire",
+      "type": "constructor",
+      "pos": { "col": 0, "row": 0.75 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 电线（→ cable + 7F stator + 12F term）",
+      "recipe": "wire"
+    },
+    {
+      "id": "con-cable",
+      "type": "constructor",
+      "pos": { "col": 1, "row": 0.75 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 线缆（→ 12F 终端）",
+      "recipe": "cable"
+    },
+    {
+      "id": "con-copper-sheet",
+      "type": "constructor",
+      "pos": { "col": 2, "row": 0.75 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 铜板（→ 11F 终端）",
+      "recipe": "copper-sheet"
+    },
+    {
+      "id": "con-concrete",
+      "type": "constructor",
+      "pos": { "col": 3, "row": 0.75 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 混凝土（→ 8F EIB + 12F 终端）",
+      "recipe": "concrete"
+    },
+    {
+      "id": "splitter-copper",
+      "type": "splitter",
+      "pos": { "col": 0.5, "row": 3 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 铜锭分流（→ wire + sheet）"
+    },
+    {
+      "id": "splitter-wire",
+      "type": "splitter",
+      "pos": { "col": 0.25, "row": 0.1875 },
+      "facing": "north",
+      "floor": 5,
+      "label": "5F 电线 3 路分流（→ cable + 7F stator + 12F term）"
+    },
+    {
+      "id": "lift-bot-wire-stator",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 3.1875, "row": 0 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F→7F 电线（→ stator:in-1）"
+    },
+    {
+      "id": "lift-bot-concrete",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2.1875, "row": 0 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F→8F 混凝土（→ EIB:in-1）"
+    },
+    {
+      "id": "lift-bot-cable-term",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 1.4375, "row": 0 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F→12F 线缆终端"
+    },
+    {
+      "id": "lift-bot-sheet-term",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 2.4375, "row": 0 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F→11F 铜板终端"
+    },
+    {
+      "id": "lift-bot-wire-term",
+      "type": "conveyor-lift-in-bottom",
+      "pos": { "col": 0, "row": 0 },
+      "facing": "south",
+      "floor": 5,
+      "label": "5F→12F 电线终端"
     }
   ],
   "belts": [
@@ -908,6 +1008,143 @@
       ],
       "fromPort": "splitter-screw-hmf:out-1",
       "toPort": "lift-bot-screw-hmf:bottom"
+    },
+    {
+      "id": "b-f5-edge-limestone",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 4 },
+        { "col": 3.5, "row": 2 }
+      ],
+      "toPort": "con-concrete:in-0"
+    },
+    {
+      "id": "b-f5-copper-to-splitter",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.75, "row": 3.875 },
+        { "col": 0.75, "row": 3.5 }
+      ],
+      "fromPort": "lift-top-copper:top",
+      "toPort": "splitter-copper:in-0"
+    },
+    {
+      "id": "b-f5-splitterCopper-to-wire",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.75, "row": 3 },
+        { "col": 0.75, "row": 2.25 },
+        { "col": 0.5, "row": 2.25 },
+        { "col": 0.5, "row": 2 }
+      ],
+      "fromPort": "splitter-copper:out-0",
+      "toPort": "con-wire:in-0"
+    },
+    {
+      "id": "b-f5-splitterCopper-to-sheet",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 1, "row": 3.25 },
+        { "col": 1.5, "row": 3.25 },
+        { "col": 1.5, "row": 2.5 },
+        { "col": 2.5, "row": 2.5 },
+        { "col": 2.5, "row": 2 }
+      ],
+      "fromPort": "splitter-copper:out-2",
+      "toPort": "con-copper-sheet:in-0"
+    },
+    {
+      "id": "b-f5-wire-to-splitterWire",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.5, "row": 0.75 },
+        { "col": 0.5, "row": 0.6875 }
+      ],
+      "fromPort": "con-wire:out-0",
+      "toPort": "splitter-wire:in-0"
+    },
+    {
+      "id": "b-f5-splitterWire-to-stator",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.5, "row": 0.1875 },
+        { "col": 0.5, "row": 0 },
+        { "col": 3.3125, "row": 0 },
+        { "col": 3.3125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-wire:out-0",
+      "toPort": "lift-bot-wire-stator:bottom"
+    },
+    {
+      "id": "b-f5-splitterWire-to-cable",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.75, "row": 0.4375 },
+        { "col": 1, "row": 0.4375 },
+        { "col": 1, "row": 2.25 },
+        { "col": 1.5, "row": 2.25 },
+        { "col": 1.5, "row": 2 }
+      ],
+      "fromPort": "splitter-wire:out-2",
+      "toPort": "con-cable:in-0"
+    },
+    {
+      "id": "b-f5-splitterWire-to-term",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 0.25, "row": 0.4375 },
+        { "col": 0.125, "row": 0.4375 },
+        { "col": 0.125, "row": 0.125 }
+      ],
+      "fromPort": "splitter-wire:out-1",
+      "toPort": "lift-bot-wire-term:bottom"
+    },
+    {
+      "id": "b-f5-cable-to-lift-term",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 1.5, "row": 0.75 },
+        { "col": 1.5, "row": 0.625 },
+        { "col": 1.5625, "row": 0.625 },
+        { "col": 1.5625, "row": 0.125 }
+      ],
+      "fromPort": "con-cable:out-0",
+      "toPort": "lift-bot-cable-term:bottom"
+    },
+    {
+      "id": "b-f5-sheet-to-lift-term",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 2.5, "row": 0.75 },
+        { "col": 2.5, "row": 0.375 },
+        { "col": 2.5625, "row": 0.375 },
+        { "col": 2.5625, "row": 0.125 }
+      ],
+      "fromPort": "con-copper-sheet:out-0",
+      "toPort": "lift-bot-sheet-term:bottom"
+    },
+    {
+      "id": "b-f5-concrete-to-lift",
+      "floor": 5,
+      "mark": 1,
+      "path": [
+        { "col": 3.5, "row": 0.75 },
+        { "col": 3.5, "row": 0.25 },
+        { "col": 2.3125, "row": 0.25 },
+        { "col": 2.3125, "row": 0.125 }
+      ],
+      "fromPort": "con-concrete:out-0",
+      "toPort": "lift-bot-concrete:bottom"
     }
   ],
   "lifts": [],
@@ -916,7 +1153,8 @@
     { "id": "lift-iron-2", "bottomMachine": "lift-bot-iron-2", "topMachine": "lift-top-iron-2", "mark": 1 },
     { "id": "lift-steel", "bottomMachine": "lift-bot-steel", "topMachine": "lift-top-steel", "mark": 2 },
     { "id": "lift-rod-1", "bottomMachine": "lift-bot-rod-1", "topMachine": "lift-top-rod-1", "mark": 1 },
-    { "id": "lift-rod-2", "bottomMachine": "lift-bot-rod-2", "topMachine": "lift-top-rod-2", "mark": 1 }
+    { "id": "lift-rod-2", "bottomMachine": "lift-bot-rod-2", "topMachine": "lift-top-rod-2", "mark": 1 },
+    { "id": "lift-copper", "bottomMachine": "lift-bot-copper", "topMachine": "lift-top-copper", "mark": 1 }
   ],
   "zones": []
 }
