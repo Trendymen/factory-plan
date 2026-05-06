@@ -15,7 +15,7 @@
 | **当前 Tier 6** | 250 台 | **95 台**（关闭其余 ~155 台 Power Switch）| **~2 GW** | 26 mainNode |
 | Tier 7 解锁 | 250 台（不变）| ~170 台 | ~10 GW | 26 mainNode（产能加大）|
 | Tier 8 解锁 | 250 + 新建 ~20 台（粒子/混料/Tier 7+ 装配）| ~240 台 | ~18 GW | 26 + 部分 Tier 7+ |
-| Tier 9 全开 | 250 + 32 台（量子编码/转化/虚构链）= **282 台** | 282 台 | **~25 GW** | 37 mainNode |
+| Tier 9 全开 | 250 + 32 台（量子编码/转化/虚构链）= **282 台** | 282 台 | **~26-27 GW** | 37 mainNode |
 
 ### 关键策略
 
@@ -37,7 +37,7 @@
 - **机器总数（当前激活）**：95 台（按 26-plan 跑）
 - **电力碎片需求（当前激活）**：231 个（来自全图蛞蝓 ~2,659 上限 + 合成碎片配方）
 - **当前耗电**：~2 GW（当前 95 台机器）
-- **目标耗电（Tier 9 全开）**：~25 GW
+- **目标耗电（Tier 9 全开）**：~26-27 GW（含 4-5 台 converter × 400 MW base + 粒子加速站 + 量子编码站）
 - **SAM 矿石需求**：当前 360/min；Tier 7+ 全开后 ~600/min
 - **铁矿石需求**：当前 1140/min；Tier 7+ 全开后 ~3000/min（**矿场选址必按此**）
 
@@ -354,7 +354,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 **预期手接节数：0**
 
-## 蓝图详细规格（15 生产蓝图 + 1 终端 + 0-1 filler = 16-17 个唯一蓝图）
+## 蓝图详细规格（15 生产蓝图 + 2 终端 + 0-1 filler = 17-18 个唯一蓝图）
 
 ### Option A 物理建造 vs 当前激活机器数对照
 
@@ -756,11 +756,11 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **用途**: 当集群之间有空隙（如做走道、扩容预留）时填充，保持总线连续
 - **预期使用**: 0-2 个（如果 14 个生产蓝图首尾紧贴，**完全不需要**）
 
-### BP-TERM: 终端汇流（位面存储 + sink overflow，单 Mk2 蓝图）
+### BP-TERM-A / BP-TERM-B: 终端汇流（位面存储 + sink overflow，2 个 Mk2 蓝图）
 
 - **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **27 个 awesome-sink**（26 mainNode + 1 残渣）+ 若干 smart splitter
 - **位置**: 工厂街最末端（紧贴 BP15 之后）
-- **占地评估**: Dim Depot Uploader ~2×4m × 26 个 = 208m² + sink 4×4m × 27 = 432m² + 路由 ~400m² ≈ **1,040m²，单 Mk2（1,600m²）装下**
+- **占地评估**: Dim Depot Uploader **5×10m** × 26 个 = 1,300m² + AWESOME Sink 4×6m × 27 = 648m² + 路由 ~200m² ≈ **2,150m²，超过单 Mk2 1,600m²**。**实际需 2 个 Mk2 蓝图**：BP-TERM-A（13 mainNode Uploader + sink）+ BP-TERM-B（13 mainNode + 1 残渣 sink）
 - **Tier 7+ 预留 11 个槽位**：未来铝壳/铝包铝板/超级计算机/RCU/冷却系统/涡轮电机/融合模块框架/叠加振荡器/时间晶体/神经处理器/虚构三角 解锁后接入。BP-TERM 实际部署 **27 个 Uploader 槽位 + 11 个预留 slot**，27 路分流器树最多可分 27 路（用 1→3→9→27 三级树）。Tier 7+ 扩容时把分流器树扩成 1→3→9→27→81 四级树（最多 81 路，覆盖 37 mainNode 充分有余）。
 
 #### 每个 mainNode 的本地结构
@@ -960,7 +960,7 @@ Tier 9 解锁后这些产物会被启用：
 
 ### 阶段 4：装配 + 终端（C6 + BP-TERM）
 
-12. **物理建造**：BP12（7 assembler 单 Mk2）+ BP13（6 assembler 单 Mk2）+ BP14a/b（6 manufacturer 分两 Mk2）+ BP15a/b（6 manufacturer 分两 Mk2）+ BP-TERM 单 Mk2
+12. **物理建造**：BP12（7 assembler 单 Mk2）+ BP13（6 assembler 单 Mk2）+ BP14a/b（6 manufacturer 分两 Mk2）+ BP15a/b（6 manufacturer 分两 Mk2）+ **BP-TERM-A/B 双 Mk2**（Dim Depot Uploader 5×10m，超出单 Mk2 容量）
 13. **当前激活**：转子 2 + 定子 2 + 电机 1 + 模框 3 + 包裹 2 + HMF 1 + 电脑 1 + 晶振 1 + HSC 1 = 14 台
 14. 全部 ~22 个 Mk2 蓝图首尾紧贴（**Auto Connect 自动续接屋顶 8 条总线 belt + 集群内侧墙短 belt**）
 15. 验证总线 B1-B6 流量符合预期，B7/B8 reserved 暂时空跑
@@ -1023,7 +1023,7 @@ Tier 9 解锁后这些产物会被启用：
 | 燃煤 | 26 台 燃煤发电机 × 75 MW | ~2 GW | 简单可靠，Tier 3 解锁 |
 | **混合（推荐 Tier 6）** | 燃煤 + 部分燃料 | 2-2.5 GW | 灵活，启动期燃煤 + 油上线后燃料 |
 
-### Tier 9 全开后（~25 GW）
+### Tier 9 全开后（~26-27 GW）
 
 | 来源 | 数量 | 总功率 |
 |---|---:|---:|
@@ -1060,6 +1060,32 @@ Tier 9 解锁后这些产物会被启用：
 | 时钟 | 100% | **超频 ≤250%（Plan C）** |
 | 机器数 | 27（仅 15 mainNode 子集）| **95（26 mainNode 子集，含 MAM Caterium/Quartz/Alien Tech 解锁）** |
 | Tier 6 限制 | 未明确 | **明确 ≤Mk4 belt** |
+
+## 实施前置条件
+
+### registry.ts 需添加的建筑
+
+设计文档引用的几种建筑当前**不在 `src/core/registry.ts`**，schema 校验会报 R1 unknown machine type。实施前必须先注册：
+
+| 建筑 | 维度 (W × L × H) | powerUsage | category | 端口约定 |
+|---|---|---:|---|---|
+| `dim-depot-uploader` | 5 × 10 × 8 m | TBD | logistics | 1 belt-in 'back' |
+| `awesome-sink` | 4 × 6 × 4 m | TBD | logistics | 1 belt-in 'back' |
+| `power-switch` | 2 × 1 × 4 m | 0 | logistics | 无 belt 端口（电力网建筑）|
+| `wall-conveyor-outlet` | 0.8 × 2 × 2 m | 0 | logistics | 1 belt-out 'front'，墙嵌入式 |
+| `wall-conveyor-inlet` | 0.8 × 2 × 2 m | 0 | logistics | 1 belt-in 'back'，墙嵌入式 |
+
+> **Conveyor Wall Mount**（墙面悬挂传送带挂座）不入 registry——使用频率低，需要用时再手动建模。
+
+### Tier 9 量子编码站布置策略
+
+Quantum Encoder 尺寸 22 × 48 × 8 m，**长 48m 超出 Mk2 内部 40m**，无法塞入 Mk2 蓝图。
+
+解锁 Tier 9 时的处理：
+- **方案 1（推荐）**：用 **Mk3 蓝图设计器**（内部 48 × 48 × 48m，刚好装下）。Mk3 解锁条件就是 Tier 9 Quantum Encoding milestone，所以时机对得上
+- **方案 2**：手动放置 quantum encoder 在 C9 集群空地，外接 belt（不入蓝图）
+
+至于其他大型建筑：粒子加速器 38×24×38（fits Mk2）、转化站 16×16×16（fits）、混合机 19×16×16（fits）—— 都能装 Mk2，无需 Mk3。
 
 ## 文件交付物
 
