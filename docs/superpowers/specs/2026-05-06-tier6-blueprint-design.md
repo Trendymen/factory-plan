@@ -1,4 +1,4 @@
-# Tier 6 全产物蓝图设计（方案 C / Mk2 / 集群 + 6 belt 总线）
+# Tier 6 全产物蓝图设计（方案 C / Mk2 / 集群 + 屋顶集成总线）
 
 ## 背景与上下文
 
@@ -26,7 +26,7 @@
 3. **总线 belt 等级 ≤ Mk4**（480/min，Tier 6 milestone 上限）
 4. **零过量生产**：每个 mainNode 的外部输出 = 该配方单台 100% 产能
 5. **超频上限 250%**：每台机器 1-3 个电力碎片
-6. **副产品**：重油残渣全废弃（预期，Tier 6 没有消费配方）
+6. **副产品 重油残渣**：Tier 5 已解锁 `residual-fuel`（60 重油残渣 → 40 燃料）和 `petroleum-coke`（40 重油残渣 → 120 石油焦）。当前设计**保留处理选择**：见"重油残渣处理"小节
 
 ### 可验证成功标准
 
@@ -74,20 +74,34 @@
 
 ## 架构总览
 
-### 集群式工厂布局 + 极薄总线
+### 集群式 + 屋顶集成总线（方案 B）
 
-工厂分为 **6 个生产集群** + **1 条总线带**。集群内部用短 belt/lift 直连（高流量物料不上总线），集群之间靠 6 条 Mk4 混合总线 belt + 智能/可编程分流器调度。
+**关键设计决定**：放弃独立的"总线楼"。每个生产蓝图自带屋顶总线层（35-40m），蓝图间通过侧墙的 Wall Outlet/Inlet + Auto Connect 自动续接 6 条总线 belt。**没有独立的 BP-BUS 蓝图**——总线分布在每个生产蓝图的屋顶里。
 
 ```
-                ┌── 总线楼（5 条 Mk4 active + 1 备用 = 6 belt 横穿）──┐
-                │  B1 螺丝→转子 │B2 螺丝+铁棒+RIP→C6        │
-                │  B3a 电线+钢管│B3b 塑料+混凝土+电路板+线缆 │
-                │  B4 终端 mainNode │ B5 备用                │
-                └─┬──┬──┬──┬──┬──┬──────────────────────────┘
-                  │  │  │  │  │  │
-              [C1铁系][C2钢][C3铜电][C4油][C5MAM][C6装配+终端]
-                  │  │  │  │  │  │
-              ←矿场喂入─→  油田  原始石英 石灰石
+   每个生产蓝图（Mk2 40×40×40m）
+   ┌───────────────────────────────┐ 40m
+   │  35-40m  屋顶总线层           │
+   │  · 6 条 Mk4 belt 东西向贯穿   │
+   │  · 自带 smart splitter 取货   │
+   │  · 自带 merger 注入产物       │
+   │  · 自带 lift 下到机器层       │
+   ├───────────────────────────────┤ 35m
+   │  0-35m   机器层（多层堆叠）   │
+   │  按各蓝图的产线分层布置       │
+   └───────────────────────────────┘ 0m
+       ↑                          ↑
+   左 Wall Inlet            右 Wall Outlet
+   接前一个蓝图的右 Outlet  接下一个蓝图的左 Inlet
+        (Auto Connect 自动续接)
+```
+
+工厂分为 **6 个生产集群**，集群内部用短 belt/lift 直连（高流量物料不上总线），集群之间靠 6 条 Mk4 混合总线 belt + 各蓝图屋顶的智能/可编程分流器调度。
+
+```
+[BP1][BP2][BP3]──[BP4][BP5]──[BP6][BP7][BP8]──[BP9]──[BP10]──[BP11][BP12][BP13]──[BP-TERM-A][BP-TERM-B]
+ └──C1 铁系──┘   └C2 钢┘     └──C3 铜电──┘   C4    C5     └──C6 装配 + 终端──┘
+   每个蓝图屋顶 35-40m 跑 6 条 Mk4 belt 全程贯穿（Auto Connect 续接）
 ```
 
 ### 6 个生产集群
@@ -136,12 +150,27 @@ C5 MAM ──B3b(混凝土→C6)────────┤
                             B4 终端总线 → 仓储/sink
 ```
 
-### 总线楼物理形态
+### 屋顶总线层在蓝图内的物理形态
 
-- 总线楼 = 1 个独特 Mk2 蓝图（40m 长，5×5 cells，5 条 active belt + 1 备用 = 6 条 belt 横穿）
-- 总线楼复制 N 次首尾相接覆盖整条工厂街（按集群间距决定 N，预期 N=6-9）
-- 总线楼贴在 6 个集群上方/中间，每个集群从底部 lift 上接到总线
-- **总线段之间 belt 端点对齐边界面 → 段间手接 = 0**（关键工程优化）
+每个生产蓝图的 35-40m 区域是**自带的总线层**：
+
+- 6 条 Mk4 belt（B1, B2, B3a, B3b, B4, B5 备用）东西向横穿，从左 Wall Inlet 进、右 Wall Outlet 出
+- 智能分流器 / 可编程分流器：从总线 belt 上 tap 出本蓝图需要的物料
+- 合流器：把本蓝图的产物注入对应总线 belt
+- conveyor-lift-bot：从总线层 35m 下到机器层（机器在 0-35m 内不同高度）
+- conveyor-lift-top：从机器层向上把成品送到 35m 总线层
+
+蓝图之间的总线连续性：**Wall Outlet ↔ Wall Inlet 对齐 + Auto Connect → 自动续接**。**没有独立的 BP-BUS 蓝图**。
+
+### 集群间填充段（按需）
+
+如果集群之间需要留走道或空间（不连续紧贴），用一个**空填充蓝图 BP-BUS-FILLER**：
+
+- 5×5 cells，35-40m 屋顶层只跑 6 条 belt 直通（无机器、无分流器）
+- 0-35m 完全空着
+- 仅在集群有空隙时填充使用
+
+如果 13 个生产蓝图首尾紧贴，**完全不需要 filler**。
 
 ## 蓝图边界 / 连接锚点策略
 
@@ -170,8 +199,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 | **Conveyor Wall Outlet**（墙面传送带出口）| 蓝图内 → 蓝图外 | 1×1 m，墙体内 | 边界面墙体 |
 | **Conveyor Wall Inlet**（墙面传送带入口）| 蓝图外 → 蓝图内 | 1×1 m，墙体内 | 边界面墙体 |
 | **Pipeline Wall Hole**（管道墙洞）| 流体跨蓝图（油田 → BP9）| 1×1 m，墙体内 | 边界面墙体 |
-| **Conveyor Ceiling Mount**（顶面传送带挂座）| 蓝图屋顶 → 总线楼底面（向上送料）| 1×1 m，顶面 | 蓝图屋顶 |
-| **Conveyor Wall Mount**（墙面传送带挂座，反向）| 总线楼底面 → 蓝图顶部下方（向下取料）| 1×1 m，底面 | 总线楼底面 |
+| ~~Conveyor Ceiling Mount~~（已不需要）| ~~蓝图屋顶 → 独立总线楼~~ | — | — |
+| ~~Conveyor Wall Mount~~（已不需要）| ~~总线楼 → 蓝图~~ | — | — |
+
+> 注：方案 B（屋顶集成总线）下，**Ceiling Mount 已不再需要**——总线直接在每个蓝图自带的屋顶层（35-40m）水平贯穿，蓝图之间通过侧墙 Wall Outlet/Inlet 续接，没有独立总线楼。
 
 ### 为什么不用 splitter / merger 当锚点
 
@@ -207,16 +238,19 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 蓝图悬停时即可看到自动连接的预览（virtual belt 高亮显示）。如果对齐成功 → 直接放下，连接完成；如果自动失败（罕见，比如方向不匹配）→ 退出 Auto Connect，手动画 1 节 belt 兜底。
 
-### 总线楼接入：使用 Ceiling Mount
+### 屋顶总线层的接入方式
 
-蓝图屋顶用 **Conveyor Ceiling Mount** 作为锚点（朝向天花板）：
-- 生产蓝图顶部装 N 个 Ceiling Mount，每个对应一个出/入物料
-- 总线楼底面同样装 N 个 Wall Mount（朝下）
-- 中间用 conveyor-lift 段连接（lift 是必要的，因为总线楼比生产蓝图高出 ~10m）
+每个蓝图屋顶（35-40m）的总线 belt 是 6 条 Mk4 平行 belt：
+- **左边界面 (col=0, h=35-40m)**: 6 个 **Conveyor Wall Inlet**（每条 belt 1 个），固定坐标位置（如 row=0,1,2,3,4 各 1 个）
+- **右边界面 (col=5, h=35-40m)**: 6 个 **Conveyor Wall Outlet**，与左边界面镜像位置
 
-### 总线段之间端点对齐 = 0 节手接
+蓝图设计时，6 条 belt 从左 Wall Inlet 横穿到右 Wall Outlet。中间在需要的位置放 splitter / merger / lift 做 tap-off / 注入。
 
-总线段（BP-BUS）内部 6 条 Mk4 belt 经过 **Wall Pass-Through**（墙面通孔，1×1 m）穿过前后边界面。两段总线背靠背放置时，对应的 Wall Pass-Through 中心重合，**belt 自动连续**（无需手工 belt）。
+### 蓝图间总线 belt 的自动续接
+
+两个生产蓝图紧贴放置时，A 的右 Wall Outlet（h=35-40m）和 B 的左 Wall Inlet（h=35-40m）在 6 个高度位置上一一对应。**Auto Connect 模式** 会逐一检测这 6 对，自动续接全部 6 条总线 belt。**手接节数：0**。
+
+如果蓝图间留间隙（中间塞 BP-BUS-FILLER），FILLER 同样有左右两面 6 个 Wall Outlet/Inlet，连续 Auto Connect 即可。
 
 ### 集群内"紧贴"的具体含义
 
@@ -243,7 +277,34 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 **预期手接节数：0**
 
-## 蓝图详细规格（13 个生产蓝图 + 1 总线段 + 1 终端 = 15 个唯一蓝图）
+## 蓝图详细规格（13 个生产蓝图 + 1 终端 + 0-1 filler = 14-15 个唯一蓝图）
+
+### 通用约定（所有生产蓝图共享）
+
+- **总线层（35-40m，5m 厚）**：6 条 Mk4 belt（B1, B2, B3a, B3b, B4, B5 备用）东西向贯穿
+  - 左 Wall Inlet（col=0 边界面，6 个高度位置）：接前一个蓝图的 6 条 belt
+  - 右 Wall Outlet（col=5 边界面，6 个高度位置）：接下一个蓝图
+  - 内置 smart splitter / programmable splitter：从总线 belt 上 tap 出本蓝图需要的物料
+  - 内置 merger：把本蓝图的产物注入对应总线 belt
+  - 内置 conveyor-lift-bot：从总线层下到机器层
+- **机器层（0-35m）**：按各蓝图的产线分层布置（多层堆叠时含 4m 地基）
+- **集群内部直连**：高流量物料（如铁锭、铁棒、铜锭）走集群内 lift / 短 belt 直连，不上总线（不在屋顶总线层）
+
+#### 机器净高（按 src/core/registry.ts 实际数据）
+
+| 机器 | 净高(m) | 1F 占高 | 2F+ 占高（含 4m 地基）| 0-35m 内最多层数 |
+|---|---:|---:|---:|---:|
+| smelter | 10 | 10 | 14 | **2 层**（10+14=24m） |
+| foundry | 9 | 9 | 13 | **3 层**（9+13+13=35m，刚好满）|
+| constructor | 8 | 8 | 12 | **3 层**（8+12+12=32m）|
+| assembler | 8 | 8 | 12 | **3 层**（8+12+12=32m）|
+| manufacturer | 12 | 12 | 16 | **2 层**（12+16=28m）|
+| refinery | 31 | 31 | — | **1 层**（31m，剩 4m 给屋顶下走线）|
+| blender | 16 | 16 | 20 | **1 层**（2 层 = 36m，超 35m 1m，Tier 6 plan 无 blender 不影响）|
+
+> 公式：1F 占高 = 机器净高（assume 顶面 0 余量）；2F+ 占高 = 4m 地基 + 机器净高。
+
+
 
 ### BP1: 铁锭
 
@@ -251,13 +312,12 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 9 smelter（铁锭配方）
 - **超频**: 226.11% × 9 台
 - **产能**: 610.5/min 铁锭
-- **内部分层**:
-  - 1F (0-10m): 3 smelter
-  - 2F (10-24m, 含 4m 地基): 3 smelter
-  - 3F (24-38m, 含 4m 地基): 3 smelter
+- **机器层 (0-35m)**:
+  - 1F (0-10m): 5 smelter（6m 宽 × 9m 长，5 台一字排 30m 宽，行距 30m）
+  - 2F (14-24m, 4m 地基 10-14): 4 smelter
+- **屋顶总线层 (35-40m)**: 6 条 belt 直通；本蓝图不取/不注总线
 - **输入**: 铁矿石 610.5/min（**矿场直接喂，不上总线**）
-- **输出**:
-  - 铁锭 610/min → 直接 lift-top 到 BP2 楼下（**集群内部，不上总线**）
+- **集群内部输出**: 铁锭 610/min → 通过侧墙 Wall Outlet（机器层 24m 高度）直连 BP2 的 Wall Inlet（**集群内部短 belt，不上总线**）
 - **总线接入**: 无
 
 ### BP2: 铁板 + 铁棒 + 强化铁板
@@ -269,17 +329,19 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
   - 铁棒 10 × 249.0%
   - RIP 2 × 230.0%
 - **产能**: 铁板 158/min · 铁棒 374/min · RIP 23/min
-- **内部分层**:
-  - 1F (0-9m): 4 plate + 5 rod = 9 constructor
-  - 2F (9-22m): 5 rod constructor
-  - 3F (22-38m): 2 RIP assembler（assembler 占高 16m + 4m 地基 = 20m，紧）
-- **输入**: 铁锭 610/min（从 BP1 lift-down 内部直连）
+- **机器层 (0-35m)**:
+  - 1F (0-8m): 4 plate + 5 rod = 9 constructor
+  - 2F (12-20m, 4m 地基 8-12): 5 rod constructor
+  - 3F (24-32m, 4m 地基 20-24): 2 RIP assembler（assembler 8m）
+- **屋顶总线层 (35-40m)**:
+  - 自带 merger 把 RIP 和 铁棒 注入 B2
+  - 自带 lift-top 把 铁棒/RIP 从机器层送上来
+- **输入**: 铁锭 610/min（**集群内部短 belt** ← BP1 的 Wall Outlet）
 - **输出**:
-  - 铁板 → mainNode 终端 20/min（B4）+ 内部消费给 RIP / HMF（138/min 给 RIP，0/min 给 HMF）
-  - 铁棒 → mainNode 终端 15/min（B4）+ 内部 BP3 螺丝 250/min + 总线 B2 (180/min 给 C6 转子+模框)
-  - 强化铁板 → mainNode 终端 5/min（B4）+ 总线 B2 给 C6 模框（18/min）
-- **总线接入**:
-  - 输出 B2: 铁棒（180）+ RIP（18）+ 螺丝（来自 BP3）
+  - 铁板 → 内部消费给 RIP（138/min）+ 屋顶总线 B4 终端（20/min mainNode）
+  - 铁棒 → 集群内部 BP3 螺丝（250/min）+ 屋顶总线 B2（142/min 给 C6 转子+模框）+ 屋顶总线 B4 终端（15/min mainNode）
+  - 强化铁板 → 屋顶总线 B2（18/min 给 C6 模框）+ 屋顶总线 B4 终端（5/min mainNode）
+- **屋顶总线接入**: 输出 B2（铁棒 142 + RIP 18）+ 输出 B4（铁板 20 + 铁棒 15 + RIP 5）
 
 ### BP3: 螺丝双线
 
@@ -287,17 +349,19 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 9 screw constructor
 - **超频**: 240.56% × 9 台
 - **产能**: 866/min 螺丝
-- **内部分层**:
-  - 1F (0-9m): 5 constructor
-  - 2F (9-22m): 4 constructor
-- **输入**: 铁棒 250/min（从 BP2 lift-down 内部直连）
+- **机器层 (0-35m)**:
+  - 1F (0-8m): 5 constructor
+  - 2F (12-20m, 4m 地基 8-12): 4 constructor
+- **屋顶总线层 (35-40m)**:
+  - 自带 merger 把 螺丝 注入 B1（350/min）和 B2（240/min）
+  - 自带 lift-top 从机器层向上送料
+- **输入**: 铁棒 216.5/min（**集群内部短 belt** ← BP2 的 Wall Outlet，等于 866 螺丝产能 ÷ 4 = 216.5）
 - **输出**:
-  - 螺丝 → 内部消费给 RIP（276/min 内部）
-  - 螺丝 → 总线 B1 给 C6 转子（350/min）
-  - 螺丝 → 总线 B2 给 C6 HMF（240/min）
-- **总线接入**:
-  - 输出 B1（螺丝 350）
-  - 输出 B2（螺丝 240）
+  - 螺丝 → 集群内部回流给 BP2 RIP（276/min，C1 内部）
+  - 螺丝 → 屋顶总线 B1（350/min 给 C6 BP11 转子）
+  - 螺丝 → 屋顶总线 B2（240/min 给 C6 BP13 HMF）
+  - 总产 866 = 276（回流 BP2）+ 350（→B1）+ 240（→B2）✓
+- **屋顶总线接入**: 输出 B1（螺丝 350）+ 输出 B2（螺丝 240）
 
 ### BP4: 钢锭
 
@@ -305,13 +369,14 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 4 foundry（钢锭配方）
 - **超频**: 227.50% × 4 台
 - **产能**: 410/min 钢锭
-- **内部分层**:
-  - 1F (0-10m): 2 foundry
-  - 2F (10-24m): 2 foundry
+- **机器层 (0-35m)**:
+  - 1F (0-9m): 2 foundry
+  - 2F (13-22m, 4m 地基 9-13): 2 foundry
+- **屋顶总线层 (35-40m)**: 6 条 belt 直通；本蓝图不取/不注总线
 - **输入**:
   - 铁矿石 410/min（**矿场直接喂，不上总线**）
   - 煤 410/min（**矿场直接喂，不上总线**）
-- **输出**: 钢锭 410/min → 直接 lift-top 到 BP5（**集群内部**）
+- **集群内部输出**: 钢锭 410/min → 通过侧墙 Wall Outlet 直连 BP5（**集群内部短 belt**）
 - **总线接入**: 无
 
 ### BP5: 钢梁 + 钢管
@@ -320,12 +385,13 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 钢梁 + 3 钢管 constructor = **5 台**
 - **超频**: 钢梁 2 × 210.0% / 钢管 3 × 175.0%
 - **产能**: 钢梁 63/min · 钢管 105/min
-- **内部分层**: 1F (0-9m): 5 constructor
-- **输入**: 钢锭 410/min（从 BP4 lift 内部直连）
+- **机器层 (0-35m)**: 1F (0-8m) 5 constructor 一字排开
+- **屋顶总线层 (35-40m)**: 自带 merger 把 钢梁 + 钢管 注入 B3a 和 B4
+- **输入**: 钢锭 410/min（**集群内部短 belt** ← BP4 的 Wall Outlet）
 - **输出**:
-  - 钢梁 → mainNode 终端 15/min（B4）+ 总线 B3a 给 C6 BP12 包裹工业梁（48/min）
-  - 钢管 → mainNode 终端 20/min（B4）+ 总线 B3a 给 C6 BP11 定子（45/min）+ 总线 B3a 给 C6 BP13 HMF（40/min）
-- **总线接入**: 输出 B3a（钢梁 48 + 钢管 85）+ 输出 B4（钢梁 + 钢管 mainNode）
+  - 钢梁 → 屋顶总线 B3a（48/min 给 C6 BP12 包裹工业梁）+ B4 终端（15/min mainNode）
+  - 钢管 → 屋顶总线 B3a（45/min 给 BP11 定子 + 40/min 给 BP13 HMF = 85/min 总）+ B4 终端（20/min mainNode）
+- **屋顶总线接入**: 输出 B3a（钢梁 48 + 钢管 85）+ 输出 B4（钢梁 15 + 钢管 20 = 35）
 
 ### BP6: 铜锭 + 铜金锭
 
@@ -333,14 +399,17 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 3 铜锭 smelter + 1 铜金锭 smelter = **4 台**
 - **超频**: 铜锭 3 × 205.56% / 铜金锭 1 × 80%
 - **产能**: 铜锭 185/min · 铜金锭 12/min
-- **内部分层**: 1F (0-10m): 4 smelter
+- **机器层 (0-35m)**: 1F (0-10m) 4 smelter 一字排开（4 × 6m 宽 = 24m，行距 9m，单层放下）
+- **屋顶总线层 (35-40m)**: 自带 merger 把 铜金锭 mainNode 量注入 B4
 - **输入**:
   - 铜矿石 185/min（**矿场直接喂**）
   - 铜金矿石 36/min（**矿场直接喂**）
 - **输出**:
-  - 铜锭 185/min → 内部到 BP7（直连，集群内部）
-  - 铜金锭 12/min → 内部到 BP10（短跨集群 belt，因 BP10 紧贴 C3，~10m 距离）+ mainNode 终端 12/min（B4）
-- **总线接入**: 输出 B4（铜金锭 mainNode）
+  - 铜锭 185/min → 集群内部 BP7（**集群内部短 belt**）
+  - 铜金锭 12/min → 屋顶总线 B5 备用 belt（**短跨集群运输到 BP10**，省一条专线）+ B4 终端（12/min mainNode）
+- **屋顶总线接入**: 输出 B5 备用（铜金锭 12）+ 输出 B4（铜金锭 12）
+
+> 注：铜金锭走 B5 备用 belt 做 BP6→BP10 的跨集群中转。这样集群间不需要"短跨集群 belt"。
 
 ### BP7: 铜板 + 电线 + 线缆
 
@@ -348,13 +417,21 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 铜板 + 4 电线 + 1 线缆 constructor = **7 台**
 - **超频**: 铜板 2 × 150.0% / 电线 4 × 208.33% / 线缆 1 × 166.67%
 - **产能**: 铜板 30/min · 电线 250/min · 线缆 50/min
-- **内部分层**: 1F (0-9m): 7 constructor
-- **输入**: 铜锭 185/min（BP6 内部直连）+ 部分电线 60/min（BP7 内部 → 线缆）
+- **机器层 (0-35m)**:
+  - constructor 8m × 10m，5 台一行 40m 刚好满，需要 2 行
+  - 1F (0-8m): 4 constructor（4 × 8 = 32m 宽，1 行）
+  - 2F (12-20m, 4m 地基 8-12): 3 constructor
+- **屋顶总线层 (35-40m)**:
+  - 自带 merger 把 电线 注入 B3a，线缆 注入 B3b
+  - 自带 merger 把 铜板/电线/线缆 mainNode 量注入 B4
+- **输入**:
+  - 铜锭 185/min（**集群内部短 belt** ← BP6）
+  - 电线 100/min（BP7 内部回流给线缆）
 - **输出**:
-  - 铜板 → mainNode 终端 10/min（B4）+ 内部消费给 BP8 电路板（15/min）
-  - 电线 → mainNode 终端 30/min（B4）+ 内部消费给 BP7 线缆（100/min）+ 总线 B3a 给 C6 BP11 定子（120/min）
-  - 线缆 → mainNode 终端 30/min（B4）+ 总线 B3b 给 C6 BP13 电脑（20/min）
-- **总线接入**: 输出 B3a（电线 120）+ 输出 B3b（线缆 20）+ 输出 B4（mainNode 70）
+  - 铜板 → 集群内部 BP8 电路板（15/min）+ B4 终端（10/min mainNode）
+  - 电线 → BP7 内部线缆（100/min）+ 屋顶总线 B3a（120/min 给 C6 BP11 定子）+ B4 终端（30/min mainNode）
+  - 线缆 → 屋顶总线 B3b（20/min 给 C6 BP13 电脑）+ B4 终端（30/min mainNode）
+- **屋顶总线接入**: 输出 B3a（电线 120）+ 输出 B3b（线缆 20）+ 输出 B4（铜板 10 + 电线 30 + 线缆 30 = 70）
 
 ### BP8: 电路板
 
@@ -362,10 +439,15 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 1 电路板 assembler
 - **超频**: 1 × 133.33%
 - **产能**: 10/min 电路板
-- **内部分层**: 1F (0-12m): 1 assembler
-- **输入**: 铜板 15/min（BP7 内部）+ 塑料 30/min（**B3b 总线**，从 C4 来）
-- **输出**: 电路板 → 总线 B3b 给 C6 电脑（10/min，全外发）
-- **总线接入**: 输入 B3b（塑料 30）+ 输出 B3b（电路板 10）
+- **机器层 (0-35m)**: 1F (0-8m) 1 assembler
+- **屋顶总线层 (35-40m)**:
+  - 自带 smart splitter 从 B3b 取 塑料（30/min）
+  - 自带 lift-bot 把 塑料 送下到 assembler
+  - 自带 lift-top 把 电路板 送上来
+  - 自带 merger 注入 B3b（电路板 10/min）
+- **输入**: 铜板 15/min（**集群内部短 belt** ← BP7）+ 塑料 30/min（**屋顶总线 B3b** ← C4 BP9）
+- **输出**: 电路板 → 屋顶总线 B3b（10/min 给 C6 BP13 电脑）
+- **屋顶总线接入**: 输入 B3b（塑料 30）+ 输出 B3b（电路板 10）
 
 ### BP9: 塑料 + 橡胶
 
@@ -373,13 +455,18 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 塑料 refinery + 1 橡胶 refinery = **3 台**
 - **超频**: 塑料 2 × 250.0% / 橡胶 1 × 100%
 - **产能**: 塑料 100/min · 橡胶 20/min
-- **内部分层**: 1F (0-22m): 3 refinery（refinery 占高 22m，单层占满）
-- **输入**: 原油 150/min（**油田直接喂**）+ 水（refinery 内部循环不需输入）
+- **机器层 (0-35m)**:
+  - 1F (0-31m): 3 refinery（refinery **31m 高** × 10m 宽 × 20m 长；3 台并排 30m 宽 × 20m 长）
+  - 1F 角落 (0-4m, 4×4m): **1 awesome-sink** 处理重油残渣 269.5/min（默认废弃方案）
+  - **关键约束**：refinery 占高 31m，机器层顶 31m，离屋顶总线（35m）只有 4m 空间。lift-top（成品上送）和 lift-bot（原油喂入）都要挤在这 4m 内
+- **屋顶总线层 (35-40m)**:
+  - 自带 merger 把 塑料 注入 B3b（80/min），橡胶 + 塑料 mainNode 量注入 B4（40/min）
+- **输入**: 原油 150/min（**油田直接喂**）+ 水（refinery 内部循环不需要外部输入）
 - **输出**:
-  - 塑料 → mainNode 终端 20/min（B4）+ 总线 B3b 给 C3 BP8 电路板（30/min）+ 总线 B3b 给 C6 BP13 电脑（50/min）
-  - 橡胶 → mainNode 终端 20/min（B4）（橡胶在 Tier 6 plan 没有内部消费）
-  - **副产品 重油残渣**：直接 awesome sink 废弃
-- **总线接入**: 输出 B3b（塑料 80）+ 输出 B4（mainNode 40）
+  - 塑料 → 屋顶总线 B3b（30/min 给 C3 BP8 + 50/min 给 C6 BP13 = 80/min 总）+ B4 终端（20/min mainNode）
+  - 橡胶 → 屋顶总线 B4 终端（20/min mainNode；Tier 6 plan 中橡胶无内部消费）
+  - **副产品 重油残渣 269.5/min**：Tier 5 有消费配方，处理方式见下方"重油残渣处理"
+- **屋顶总线接入**: 输出 B3b（塑料 80）+ 输出 B4（塑料 20 + 橡胶 20 = 40）
 
 ### BP10: 石英晶体 + 硅土 + 快速线 + 混凝土
 
@@ -387,17 +474,23 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 1 石英晶体 + 1 硅土 + 1 快速线 + 3 混凝土 constructor = **6 台**
 - **超频**: 石英晶体 100% / 硅土 100% / 快速线 100% / 混凝土 3 × 246.67%
 - **产能**: 石英晶体 22.5/min · 硅土 37.5/min · 快速线 60/min · 混凝土 111/min
-- **内部分层**: 1F (0-9m): 6 constructor
+- **机器层 (0-35m)**:
+  - constructor 8m × 10m，6 台分 1-2 行
+  - 1F (0-8m): 6 constructor（2 行 × 3 台，30m 宽 × 20m 长）
+- **屋顶总线层 (35-40m)**:
+  - 自带 smart splitter 从 B5 备用 belt 取 铜金锭（12/min ← BP6）
+  - 自带 lift-bot 送 铜金锭 下到 快速线 constructor
+  - 自带 merger 把 混凝土 注入 B3b（96/min）+ 全部 mainNode 量注入 B4（135/min）
 - **输入**:
   - 原始石英 60/min（**矿场喂**，22.5/min 给石英晶体 + 37.5/min 给硅土）
-  - 铜金锭 12/min（来自 BP6 短跨集群 belt）
+  - 铜金锭 12/min（**屋顶总线 B5 备用** ← BP6）
   - 石灰石 333/min（**矿场喂**）
 - **输出**:
-  - 石英晶体 22.5/min → mainNode 终端（B4）
-  - 硅土 37.5/min → mainNode 终端（B4）
-  - 快速线 60/min → mainNode 终端（B4）
-  - 混凝土 → mainNode 终端 15/min（B4）+ 总线 B3b 给 C6 BP12 包裹工业梁（96/min）
-- **总线接入**: 输出 B3b（混凝土 96）+ 输出 B4（mainNode 135）
+  - 石英晶体 22.5/min → 屋顶总线 B4（mainNode 22.5）
+  - 硅土 37.5/min → 屋顶总线 B4（mainNode 37.5）
+  - 快速线 60/min → 屋顶总线 B4（mainNode 60）
+  - 混凝土 → 屋顶总线 B3b（96/min 给 C6 BP12）+ B4 终端（15/min mainNode）
+- **屋顶总线接入**: 输入 B5（铜金锭 12）+ 输出 B3b（混凝土 96）+ 输出 B4（135）
 
 ### BP11: 转子 + 定子 + 电机
 
@@ -405,21 +498,27 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 转子 + 2 定子 + 1 电机 assembler = **5 台**
 - **超频**: 转子 2 × 175.0% / 定子 2 × 150.0% / 电机 1 × 100%
 - **产能**: 转子 14/min · 定子 15/min · 电机 5/min
-- **内部分层**:
-  - 1F (0-12m): 2 转子 + 2 定子 = 4 assembler
-  - 2F (12-28m, 含 4m 地基): 1 电机 assembler
+- **机器层 (0-35m)**:
+  - assembler 10m × 15m × 8m
+  - 1F (0-8m): 4 assembler（2 转子 + 2 定子；2 行 × 2 台，20m 宽 × 30m 长）
+  - 2F (12-20m, 4m 地基 8-12): 1 电机 assembler
+- **屋顶总线层 (35-40m)**:
+  - 自带 smart splitter 从 B1 取 螺丝（350/min）→ 转子
+  - 自带 smart splitter 从 B2 取 铁棒（70/min）→ 转子
+  - 自带 programmable splitter 从 B3a 取 钢管（45）+ 电线（120）→ 定子
+  - 自带 lift-bot 送上述物料下到机器层
+  - 自带 merger 把 转子/定子/电机 mainNode 量注入 B4（24/min）
 - **输入**:
-  - 铁棒 50/min（**总线 B2** → 转子）
-  - 螺丝 350/min（**总线 B1** → 转子）
-  - 钢管 45/min（**总线 B3a** → 定子）
-  - 电线 120/min（**总线 B3a** → 定子）
-  - 转子 10/min（BP11 内部 → 电机）
-  - 定子 10/min（BP11 内部 → 电机）
+  - 螺丝 350/min（**屋顶总线 B1** ← BP3）
+  - 铁棒 70/min（**屋顶总线 B2** ← BP2）
+  - 钢管 45/min（**屋顶总线 B3a** ← BP5）
+  - 电线 120/min（**屋顶总线 B3a** ← BP7）
+  - 转子 10/min + 定子 10/min（C6 BP11 内部回流给电机 assembler）
 - **输出**:
-  - 转子 14/min → mainNode 终端（B4）+ BP11 内部 10/min（电机）
-  - 定子 15/min → mainNode 终端（B4）+ BP11 内部 10/min（电机）
-  - 电机 5/min → mainNode 终端（B4）（Tier 6 plan 中电机无其他下游）
-- **总线接入**: 输入 B1（螺丝 350）+ 输入 B2（铁棒 70）+ 输入 B3a（钢管 45 + 电线 120）+ 输出 B4（mainNode 24）
+  - 转子 14/min → 内部 10 给电机 + 屋顶总线 B4（4 mainNode）
+  - 定子 15/min → 内部 10 给电机 + 屋顶总线 B4（5 mainNode）
+  - 电机 5/min → 屋顶总线 B4（5 mainNode）
+- **屋顶总线接入**: 输入 B1（螺丝 350）+ 输入 B2（铁棒 70）+ 输入 B3a（钢管 45 + 电线 120）+ 输出 B4（24 mainNode）
 
 ### BP12: 模块化框架 + 包裹工业梁
 
@@ -427,19 +526,25 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 3 模块化框架 + 2 包裹工业梁 assembler = **5 台**
 - **超频**: 模块化框架 3 × 200.0% / 包裹工业梁 2 × 133.33%
 - **产能**: 模块化框架 12/min · 包裹工业梁 16/min
-- **内部分层**:
-  - 1F (0-12m): 3 模框 assembler
-  - 2F (12-28m): 2 包裹 assembler
+- **机器层 (0-35m)**:
+  - assembler 10m × 15m × 8m
+  - 1F (0-8m): 3 模框 assembler（3 台一行 30m 宽 × 15m 长）
+  - 2F (12-20m, 4m 地基 8-12): 2 包裹 assembler（2 台一行 20m 宽 × 15m 长）
+- **屋顶总线层 (35-40m)**:
+  - 自带 programmable splitter 从 B2 取 强化铁板 + 铁棒（共 90/min）
+  - 自带 smart splitter 从 B3a 取 钢梁（48/min）
+  - 自带 smart splitter 从 B3b 取 混凝土（96/min）
+  - 自带 lift-bot 送下到机器层
+  - 自带 merger 把 模框/包裹 mainNode 量注入 B4（8/min）
 - **输入**:
-  - 强化铁板 18/min（**总线 B2** → 模框）
-  - 铁棒 132/min（**总线 B2** → 模框）
-  - 钢梁 48/min（**总线 B3a** ← BP5 / C2）
-  - 混凝土 96/min（**总线 B3b** ← BP10 / C5）
-  - 模块化框架 10/min（BP12 内部 → BP13 HMF）
+  - 强化铁板 18/min（**屋顶总线 B2** ← BP2）
+  - 铁棒 72/min（**屋顶总线 B2** ← BP2）
+  - 钢梁 48/min（**屋顶总线 B3a** ← BP5）
+  - 混凝土 96/min（**屋顶总线 B3b** ← BP10）
 - **输出**:
-  - 模块化框架 → mainNode 终端 2/min（B4）+ BP12 内部 10/min（BP13 HMF）
-  - 包裹工业梁 → mainNode 终端 6/min（B4）+ BP13 HMF 内部消费 10/min（C6 集群内部）
-- **总线接入**: 输入 B2（强化铁板 18 + 铁棒 72）+ 输入 B3a（钢梁 48）+ 输入 B3b（混凝土 96）+ 输出 B4（mainNode 8）
+  - 模块化框架 → 集群内部 BP13 HMF（10/min）+ 屋顶总线 B4（2 mainNode）
+  - 包裹工业梁 → 集群内部 BP13 HMF（10/min）+ 屋顶总线 B4（6 mainNode）
+- **屋顶总线接入**: 输入 B2（强化铁板 18 + 铁棒 72 = 90）+ 输入 B3a（钢梁 48）+ 输入 B3b（混凝土 96）+ 输出 B4（8 mainNode）
 
 ### BP13: 重型模块框架 + 电脑
 
@@ -447,40 +552,79 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 1 HMF + 1 电脑 manufacturer = **2 台**
 - **超频**: HMF 1 × 100% / 电脑 1 × 100%
 - **产能**: HMF 2/min · 电脑 2.5/min
-- **内部分层**:
-  - 1F (0-14m): 1 HMF manufacturer
-  - 2F (14-32m, 含 4m 地基): 1 电脑 manufacturer
+- **机器层 (0-35m)**:
+  - manufacturer 20m × 22m × 12m
+  - 1F (0-12m): 1 HMF + 1 电脑 manufacturer 并排（2 台共 40m 宽 × 22m 长，刚好满 1 层）
+- **屋顶总线层 (35-40m)**:
+  - 自带 smart splitter 从 B2 取 螺丝（240/min）→ HMF
+  - 自带 smart splitter 从 B3a 取 钢管（40/min）→ HMF
+  - 自带 programmable splitter 从 B3b 取 电路板（10）+ 线缆（20）+ 塑料（50）→ 电脑
+  - 自带 merger 把 HMF + 电脑 mainNode 量注入 B4（4.5/min）
 - **输入**（HMF）:
-  - 模块化框架 10/min（BP12 内部）
-  - 钢管 40/min（**总线 B3a**）
-  - 包裹工业梁 10/min（BP12 内部）
-  - 螺丝 240/min（**总线 B2**）
+  - 模块化框架 10/min（**集群内部短 belt** ← BP12）
+  - 包裹工业梁 10/min（**集群内部短 belt** ← BP12）
+  - 钢管 40/min（**屋顶总线 B3a** ← BP5）
+  - 螺丝 240/min（**屋顶总线 B2** ← BP3）
 - **输入**（电脑）:
-  - 电路板 10/min（**总线 B3b** ← BP8）
-  - 线缆 20/min（**总线 B3b** ← BP7）
-  - 塑料 50/min（**总线 B3b** ← BP9）
+  - 电路板 10/min（**屋顶总线 B3b** ← BP8）
+  - 线缆 20/min（**屋顶总线 B3b** ← BP7）
+  - 塑料 50/min（**屋顶总线 B3b** ← BP9）
 - **输出**:
-  - HMF 2/min → mainNode 终端（B4）
-  - 电脑 2.5/min → mainNode 终端（B4）
-- **总线接入**: 输入 B2（螺丝 240）+ 输入 B3a（钢管 40）+ 输入 B3b（电路板 10 + 线缆 20 + 塑料 50）+ 输出 B4（mainNode 4.5）
+  - HMF 2/min → 屋顶总线 B4（mainNode）
+  - 电脑 2.5/min → 屋顶总线 B4（mainNode）
+- **屋顶总线接入**: 输入 B2（螺丝 240）+ 输入 B3a（钢管 40）+ 输入 B3b（电路板 10 + 线缆 20 + 塑料 50 = 80）+ 输出 B4（4.5 mainNode）
 
-### BP-BUS: 总线段
+### BP-BUS-FILLER（按需，集群间留空隙才用）
 
 - **机器**: 0
-- **内部**: 6 条 Mk4 belt（B1, B2, B3a, B3b, B4, B5 备用）笔直穿过 5×5 cells，每条经过 Wall Pass-Through 嵌入前后边界面（col=0 / col=5）
-- **预期复制次数**: 6-9 次（覆盖 6 个集群的总宽度，每集群约 1-1.5 个总线段）
-- **段间手接**: 0 节（端点边界对齐）
-- **生产蓝图接入**: 通过总线段中部预设的 lift-top 接口（每段 5 个 lift 接口位置）
+- **内部**:
+  - 屋顶总线层（35-40m）：6 条 Mk4 belt 直通，左 Wall Inlet ↔ 右 Wall Outlet
+  - 机器层（0-35m）：完全空着（仅地坪）
+- **用途**: 当集群之间有空隙（如做走道、扩容预留）时填充，保持总线连续
+- **预期使用**: 0-2 个（如果 13 个生产蓝图首尾紧贴，**完全不需要**）
 
-### BP-TERM: 终端汇流（mainNode 21 路分流仓储）
+### BP-TERM: 终端汇流（mainNode 21 路分流仓储 + sink）
 
-- **机器**: 0（全 splitter + storage）
-- **位置**: 总线楼末端
-- **结构**:
-  - 1 条 Mk4 belt（B4）输入
-  - 3 级可编程分流器树：1→3→9→27（27 输出，21 个 mainNode + 6 备用）
-  - 每个 mainNode 输出连 1 个 industrial-storage（双输入双输出）
-- **输出**: 21 个 mainNode 各自落地仓储（双 Mk1 输出供玩家拾取或 awesome sink）
+- **机器**: 0 生产建筑 + 21 industrial-storage + 21 awesome-sink + 若干 splitter
+- **位置**: 工厂街最末端（紧贴 BP13 之后）
+- **占地评估**: 21 mainNode × (storage 5×11m + sink 4×4m + 路由间隔 ~6m) ≈ 21 × 100m² = 2,100m²。单 Mk2 蓝图 1,600m² 不够，**BP-TERM 需要 2 个 Mk2 蓝图**：BP-TERM-A（前 11 mainNode）+ BP-TERM-B（后 10 mainNode）
+- **每个 mainNode 的本地结构**:
+  ```
+   屋顶总线 B4 ──split── lift-bot ──┐
+                                     ▼
+                                  splitter（双输出）
+                                     ├── storage（默认装满）
+                                     └── awesome-sink（溢出后兜底，长期吃货赚 ticket）
+  ```
+- **屋顶总线层 (35-40m)**:
+  - 6 条 belt 仅 B4 在 BP-TERM-B 末端终止（B1, B2, B3a, B3b, B5 直通到 BP-TERM-B 右边界面悬空，作为 Tier 7+ 扩容预留）
+  - 3 级可编程分流器树：1→3→9→27（27 输出，21 mainNode + 6 备用）—— 跨越 BP-TERM-A 和 BP-TERM-B
+  - 27 路分流后 lift-bot 下到对应机器层 storage 入口
+- **机器层 (0-35m)**: 11 + 10 = 21 个 storage + sink 对，分 2-3 层堆叠
+
+## 重油残渣处理
+
+BP9 副产 重油残渣 269.5/min。Tier 5 解锁了两条消费配方：
+
+| 配方 | 输入 | 输出 | 单台消耗重油残渣 | 处理 269.5/min 需要 |
+|---|---|---|---:|---:|
+| `residual-fuel`（refinery）| 重油残渣 60/min | 燃料 40/min | 60/min | **4.49 台** → 燃料 ~180/min |
+| `petroleum-coke`（refinery）| 重油残渣 40/min | 石油焦 120/min | 40/min | 6.74 台 → 石油焦 ~810/min |
+| `awesome-sink`（默认）| — | 0 ticket | — | 0 台（直接丢弃）|
+
+### 推荐方案：BP9 内置 5 台 residual-fuel refinery
+
+**改 BP9 为：2 塑料 + 1 橡胶 + 5 residual-fuel = 8 refinery**（取整 5 台 × 90% 时钟，消耗 270/min 残渣 = 4.5 × 60 = 270 ≈ 269.5）
+
+- 输出 燃料 ~180/min → 用于燃料发电站发电（180 × 25 MW/燃料 ≈ **4500 MW** 自给电力，省去近 1/4 总耗电的核电规模）
+- BP9 高度仍 31m（refinery），单层 8 台 refinery × 10m 宽 = 80m 超 40m 横向。需要分 2 个 BP9 蓝图：
+  - **BP9a 油精炼-塑料橡胶**：2 塑料 + 1 橡胶 = 3 refinery
+  - **BP9b 油精炼-残渣回收**：5 residual-fuel refinery
+- 整体 C4 集群从 1 个蓝图变为 2 个，但减少电力需求
+
+### 备选：维持 BP9 = 3 refinery + awesome sink 处理残渣
+
+简化设计，承担 21,835 MW 全部由独立电厂供电的代价。设计文档默认采用此方案；用户可自行决定升级到推荐方案。
 
 ## 蓝图实例与坐标
 
@@ -499,22 +643,22 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 | 11 | BP11（动力装配）| 唯一 | 1 | C6 |
 | 12 | BP12（框架装配）| 唯一 | 1 | C6 |
 | 13 | BP13（终端制造）| 唯一 | 1 | C6 |
-| 14 | BP-BUS（总线段）| 复制 | 6-9 | 跨集群 |
-| 15 | BP-TERM（终端汇流）| 唯一 | 1 | 总线尾端 |
+| 14 | BP-BUS-FILLER（按需）| 复制 | 0-2 | 集群间空隙 |
+| 15 | BP-TERM-A（前 11 mainNode 仓储+sink）| 唯一 | 1 | 总线尾端 |
+| 16 | BP-TERM-B（后 10 mainNode 仓储+sink）| 唯一 | 1 | 总线最末 |
 
-**唯一蓝图设计数**: 15 个
-**实际放置数**: 19-22 个（含 BP-BUS 复制）
+**唯一蓝图设计数**: **15-16 个**（13 生产 + 2 终端，可选 1 filler）
+**实际放置数**: **15-17 个**（13 生产 + 2 终端 + 0-2 filler）
 
 ## 跨蓝图连接清单（Auto Connect 后）
 
 | 连接类型 | 手接节数（无 Auto Connect） | 手接节数（Auto Connect 1.1） | 备注 |
 |---|---:|---:|---|
-| 总线段间（Wall Pass-Through 端点对齐）| 0 | **0** | 段间 belt 端点重合自动续接 |
-| 集群内蓝图间（C1+C2+C3+C6 共 7 对相邻）| ~12 | **0** | Auto Connect 全部自动 |
-| 生产蓝图屋顶 → 总线楼接入（13 蓝图 × 1-3 个 lift IO）| ~30 | **0-5** | Auto Connect 检测高度差（1.1.0.3+），lift 也支持 |
-| 矿场 → 集群（铁矿×2 / 铜矿 / 铜金矿 / 煤 / 原始石英 / 石灰石 / 原油）| 8 | **8** | 矿场不是蓝图，仍需手接 |
+| 蓝图屋顶总线 belt 间续接（6 belt × 13 蓝图边界 = 78 对）| 78 | **0** | Auto Connect 自动 |
+| 集群内蓝图侧墙短 belt（C1: BP1↔BP2 铁锭 + BP2↔BP3 铁棒 + BP3↔BP2 螺丝回流；C2: BP4↔BP5 钢锭；C3: BP6↔BP7 铜锭 + BP7↔BP8 铜板；C6: BP12↔BP13 模框 + 包裹）| ~10 | **0** | Auto Connect 自动 |
+| 矿场 → 集群（铁矿×3 / 铜矿 / 铜金矿 / 煤 / 原始石英 / 石灰石 / 原油）| 9 | **9** | 矿场不是蓝图，仍需手接 |
 | BP-TERM 内部 21 路分流到仓储 | 21 | **0** | 在 BP-TERM 蓝图内部，已包含在蓝图设计 |
-| **合计** | **~71 节** | **8-13 节** | Auto Connect 把工作量降低 ~85% |
+| **合计** | **~118 节** | **9 节** | Auto Connect 把工作量降低 ~92% |
 
 ## 实施分阶段
 
@@ -535,30 +679,25 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 7. BP9 油精炼（接油田）
 8. BP10 MAM + 混凝土（接原始石英、石灰石；从 C3 取铜金锭）
 
-### 阶段 4：总线楼建设
+### 阶段 4：装配 + 终端（C6）
 
-9. 设计 BP-BUS 蓝图（5 条 Mk4 + 1 备用 belt 笔直穿过 40m）
-10. 复制 BP-BUS 6-9 次组成总线楼
-11. 接通各生产蓝图的输入/输出 lift（**Auto Connect 模式自动续接，预计 0-5 节兜底手接**）
+9. BP11 动力装配 → BP12 框架装配 → BP13 终端制造
+10. 13 个生产蓝图 + BP-TERM 全部首尾紧贴（**Auto Connect 自动续接屋顶 6 条总线 belt + 集群内侧墙短 belt**）
+11. 验证总线 B1/B2/B3a/B3b/B4 流量符合预期
 
-### 阶段 5：装配 + 终端（C6）
+### 阶段 5：验证与电力
 
-12. BP11 动力装配 → BP12 框架装配 → BP13 终端制造
-13. 验证总线 B1/B2/B3a/B3b 流量符合预期
-14. 接通 mainNode 终端：BP-TERM 蓝图 + 21 路分流仓储
-
-### 阶段 6：验证与电力
-
-15. 计算总耗电（按方案 C 数据 ~21,835 MW）
-16. 部署 177 个电力碎片到对应超频机器
-17. 副产品（重油残渣）接 awesome sink
+12. 计算总耗电（按方案 C 数据 ~21,835 MW）
+13. 部署 177 个电力碎片到对应超频机器
+14. 副产品 重油残渣处理（按"重油残渣处理"小节选 awesome sink 默认 / residual-fuel 升级）
+15. （可选）如果验证发现集群间空隙，放置 BP-BUS-FILLER 填充总线连续性
 
 ## 验收标准
 
 - 76 台机器全部部署且时钟值匹配方案 C 计算结果
 - 所有 21 个 mainNode 在 BP-TERM 仓储有可见的稳定输入流
-- 总线 B1-B4 在长期运行下不出现满载/卡顿（B2 92% 利用是已知风险点，预留 B5 应急）
-- 副产品 重油残渣 不在生产蓝图内堆积（直接 awesome sink）
+- 总线 B1/B2/B3a/B3b/B4 在长期运行下不出现满载/卡顿（B2 83% 利用是当前最紧 belt，预留 B5 应急）
+- 副产品 重油残渣 不在生产蓝图内堆积（默认 awesome sink；可选升级为 residual-fuel 自给电力）
 - 工厂启动 30 分钟后达到稳态产能
 
 ## 已知风险与应对
@@ -587,13 +726,14 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 实施完成后需要的工件：
 
-- `data/schemes/tier6-cluster-c1-iron.json`（C1 铁系，3 个蓝图实例）
-- `data/schemes/tier6-cluster-c2-steel.json`（C2 钢系，2 个）
-- `data/schemes/tier6-cluster-c3-copper.json`（C3 铜电，3 个）
-- `data/schemes/tier6-cluster-c4-oil.json`（C4 油精炼，1 个）
-- `data/schemes/tier6-cluster-c5-mam.json`（C5 MAM+混凝土，1 个）
-- `data/schemes/tier6-cluster-c6-assembly.json`（C6 装配+终端，3 个）
-- `data/schemes/tier6-bus-segment.json`（BP-BUS 单段）
-- `data/schemes/tier6-terminal.json`（BP-TERM 终端汇流）
-- `data/schemes/tier6-megabase.json`（汇总，引用以上 8 个）
+- `data/schemes/tier6-cluster-c1-iron.json`（C1 铁系，BP1-BP3 = 3 个蓝图）
+- `data/schemes/tier6-cluster-c2-steel.json`（C2 钢系，BP4-BP5 = 2 个）
+- `data/schemes/tier6-cluster-c3-copper.json`（C3 铜电，BP6-BP8 = 3 个）
+- `data/schemes/tier6-cluster-c4-oil.json`（C4 油精炼，BP9 = 1 个）
+- `data/schemes/tier6-cluster-c5-mam.json`（C5 MAM+混凝土，BP10 = 1 个）
+- `data/schemes/tier6-cluster-c6-assembly.json`（C6 装配+终端，BP11-BP13 = 3 个）
+- `data/schemes/tier6-bus-filler.json`（BP-BUS-FILLER 空填充段，按需）
+- `data/schemes/tier6-terminal-a.json`（BP-TERM-A 前 11 mainNode 仓储+sink）
+- `data/schemes/tier6-terminal-b.json`（BP-TERM-B 后 10 mainNode 仓储+sink）
+- `data/schemes/tier6-megabase.json`（汇总，引用以上）
 - `scripts/validate-tier6-megabase.ts`（验证脚本，0 error）
