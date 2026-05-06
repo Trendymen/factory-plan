@@ -1,23 +1,24 @@
-# BP-TERM-B 终端汇流（后 13 mainNode + 残渣）
+# BP-TERM-B 终端汇流（后 13 mainNode）
 
 ## 概要
 
 - **集群**: 总线最末端（紧贴 BP-TERM-A 之后）
 - **规格**: Mk2 单实例
-- **建筑**: 13 个 Dim Depot Uploader + 13 个 awesome-sink + **1 个独立残渣 sink** + 多 splitter
-- **作用**: 26 mainNode 的**后 13 个**送入位面存储 + 集中处理重油残渣 78/min
+- **建筑**: 13 个 Dim Depot Uploader + 13 个 awesome-sink + 多 splitter
+- **作用**: 26 mainNode 的**后 13 个**送入位面存储
+
+> ⚠ **架构修正历史**：原方案有「重油残渣 sink」。残渣是流体不能上 belt，AWESOME Sink 也不接受流体。修正方案是 BP9 内部用 coke refinery 转石油焦后**就地 sink**，**不上 B6**（避免 B6 流量超 Mk4 容量）。所以 BP-TERM-B 现在仅处理 mainNode，**不再有残渣/石油焦 sink**。
 
 ## 物料 I/O
 
 **输入**：
 - **B5 终端总线** ← BP-TERM-A 末端（剩 14 路 mainNode belt 接入）
-- **B6 末端**（残渣 78 + 部分剩余 mainNode）：屋顶 smart splitter 拦截残渣 → 1F 残渣 sink
 
 **输出**：
 - 13 个 Dim Depot Uploader → 位面仓
-- 13 个 awesome-sink overflow + 1 残渣 sink
+- 13 个 awesome-sink overflow
 
-## 13 mainNode 分配（后半批 + 残渣）
+## 13 mainNode 分配（后半批 + 石油焦）
 
 | # | mainNode | 流量 (T6) | Tier 7+ 流量 |
 |---|---|---:|---:|
@@ -34,8 +35,9 @@
 | 24 | 高速连接器 | 3.75 | 18 |
 | 25 | 重生 SAM | 30 | 200 |
 | 26 | SAM 波动器 | 10 | 10 |
-| **副产** | 重油残渣 (sink only) | 78 | — |
-| **合计** | | **187 + 78 残** | **2620+ 未含残渣** |
+| **合计** | | **187/min（13 mainNode）** | **2620/min** |
+
+> 石油焦 234/min（BP9 副产）已在 BP9 内部就地 sink，**不进 BP-TERM-B**。
 
 > Tier 7+ 时硅土 + 快速线 流量极大，需要拆为 2-3 个 Uploader 并联（每个吃 < 780 Mk5 容量）。
 
@@ -43,9 +45,9 @@
 
 | 层 | 高度 | 内容 |
 |---|---|---|
-| 1F | 0-12m | 中央分流器树（下游 14 路）+ 13 Uploader + 13 sink + 1 残渣 sink |
+| 1F | 0-12m | 中央分流器树（下游 14 路）+ 13 Uploader + 13 sink |
 | 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/RCU/超级计算机/涡轮电机/融合模块/冷却系统/神经处理器/叠加振荡器/虚构三角）|
-| 屋顶 | 35-40m | B1-B6 直通 + B5 splitter 子树 + B6 末端 smart splitter（残渣拦截）|
+| 屋顶 | 35-40m | B1-B6 直通 + B5 splitter 子树 |
 
 ## 1F 平面（0-12m）
 
@@ -60,9 +62,9 @@ r=2   │┌──┐  │┌──┐  │┌──┐  │┌──┐  │┌
       ││S14│ ││S15│ ││S16│ ││S17│ ││S18│ │
       │└──┘  │└──┘  │└──┘  │└──┘  │└──┘  │
       ├──────┼──────┼──────┼──────┼──────┤
-r=3   │┌──┐ ┌──┐  ┌──┐ ┌──┐ ┌──┐ ┌──┐    │  Row 3: 5 Uploader (19-23) + 1 残渣 sink
-      ││U19│ │U20│ │U21│ │U22│ │U23│ │R│ │
-      │└──┘  └──┘  └──┘  └──┘  └──┘ └─┘  │  R = 残渣 sink（独立）
+r=3   │┌──┐ ┌──┐  ┌──┐ ┌──┐ ┌──┐         │  Row 3: 5 Uploader (19-23)
+      ││U19│ │U20│ │U21│ │U22│ │U23│      │
+      │└──┘  └──┘  └──┘  └──┘  └──┘       │
       ├──────┼──────┼──────┼──────┼──────┤
 r=4   │┌──┐ ┌──┐ ┌──┐ │       │       │  │  Row 4: 3 Uploader (24-26) + sink + splitter 树
       ││U24│ │U25│ │U26│ │       │       │
@@ -70,7 +72,7 @@ r=4   │┌──┐ ┌──┐ ┌──┐ │       │       │  │  Ro
       └──────┴──────┴──────┴──────┴──────┘
 ```
 
-> 13 对 Uploader+sink + 1 独立残渣 sink = 14 个建筑；分流器树占 col=3-4 row=4 区域。
+> 13 对 Uploader+sink = 13 组 = 26 个建筑；分流器树占 col=3-4 row=4 区域。
 
 ## 屋顶总线层（35-40m）
 
@@ -84,30 +86,26 @@ B5 ═══[14 路 belt（来自 BP-TERM-A 残余 splitter）]═══┐
                                               lift-bot ↓
                                                      │
                                        1F sub-splitter 1→3→9→14 输出
-B6 ═══[smart split (filter=重油残渣)──78┐ ]═════════> B6 余 (-78)
-                                         │
-                                      lift-bot ↓
-                                         │
-                                       1F 独立残渣 sink (R)
+B6 ═════════════════════════════════════════> B6 直通到右边界（悬空，无生产）
 ```
 
 - B5 在 BP-TERM-A 已分为 27 路；前 13 在 BP-TERM-A 处理，剩 14 路（13 mainNode + 1 备用）跨集群短 belt 进 BP-TERM-B
 - 或更简：BP-TERM-A 屋顶 B5 splitter 树仅做 1→3 一级，剩下子树推到 BP-TERM-B
-- B6 末端 smart splitter（filter=重油残渣 78）→ lift-bot → 残渣 sink（独立 R 建筑）
+- **B6 在 BP-TERM-B 不再分流**（石油焦已在 BP9 就地 sink，B6 末端剩余流量直接悬空）
 
 ## 建造步骤
 
 1. **1F (0-12m)**:
    - row=0 5 Uploader（U14-18，电机/模框/包裹梁/HMF/电脑）
    - row=1 5 sink（S14-18）
-   - row=3 5 Uploader（U19-23）+ 1 独立残渣 sink R（col=5 row=3）
+   - row=3 5 Uploader（U19-23）
    - row=4 3 Uploader（U24-26）+ sink
    - col=3-4 row=4 splitter cascade（接 B5 进料 14 路）
 2. **B5 进料**:
    - 14 路 belt 从 BP-TERM-A 右 Wall Outlet 出来（如果 splitter 树在 A）
    - **或** B5 belt 直接进入 BP-TERM-B 屋顶（如果 splitter 树整体在 B）
    - 2 选 1，**推荐**：BP-TERM-A 做 1→3 一级 splitter（27→9 路），其中 14 路在 A 处理；剩 13 路 belt 跨集群进 B → B 内 1→2 二级 splitter
-3. **B6 残渣**: 屋顶 smart splitter (filter=重油残渣 78) → lift-bot → 1F 独立残渣 sink R
+3. **B6 末端**: 直通到右边界悬空（无 splitter 无 sink，因石油焦已在 BP9 就地 sink）
 4. **每对 Uploader+sink**:
    - smart splitter (filter=item) 第一输出 → Uploader
    - 第二输出 → sink overflow
@@ -122,15 +120,14 @@ B6 ═══[smart split (filter=重油残渣)──78┐ ]═══════
 | T8 | 涡轮电机 + 融合模块 + 冷却系统 → 2F slots 4-6 |
 | T9 | 神经处理器 + 叠加振荡器 + 虚构三角 → 2F slots 7-9 |
 
-T9 总数 BP-TERM-A 16 + BP-TERM-B 22 = 38（含残渣 1）= **37 mainNode + 1 残渣**。
+T9 总数 BP-TERM-A 16 + BP-TERM-B 22 = 38（含 1 个备用 slot）= **37 mainNode**。石油焦 sink 在 BP9 就地处理，不计入。
 
 如 9 个 2F 槽位不够，启用 BP-TERM-C 第 3 实例（紧贴 BP-TERM-B 末）。
 
 ## 验证
 
-- [ ] 13 mainNode + 1 残渣 sink 全部接 belt
+- [ ] 13 mainNode 全部接 belt
 - [ ] B5 splitter 树覆盖所有 26 mainNode（A 13 + B 13）
-- [ ] B6 末端 smart splitter 拦截残渣 78（不要让残渣过流到右边界）
-- [ ] 残渣 sink 独立（不接 Uploader，纯 sink）
+- [ ] **B6 在 BP-TERM-B 内无任何 splitter / sink**（石油焦已在 BP9 就地处理）
 - [ ] 右边界 col=5 上 B1-B4/B6 belt 悬空（在边界面终结）
 - [ ] 2F 槽位 lift 通孔预留

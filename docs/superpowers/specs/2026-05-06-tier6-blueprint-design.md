@@ -77,7 +77,7 @@
 3. **总线 belt 等级 ≤ Mk4**（480/min，Tier 6 milestone 上限）
 4. **零过量生产**：每个 mainNode 的外部输出 = 该配方单台 100% 产能
 5. **超频上限 250%**：每台机器 1-3 个电力碎片
-6. **副产品 重油残渣**：默认通过 B6 总线集中送 BP-TERM-B sink 回收（~78/min）。Tier 5 解锁的 `residual-fuel` / `petroleum-coke` 升级路径见"重油残渣处理"小节
+6. **副产品 重油残渣**（流体）：每个 BP9 实例**本地**用 1 台 refinery 跑 `petroleum-coke` 配方转固体石油焦（每实例 ~47/min），**就地 sink**（每实例配 1 个 awesome-sink）。残渣本身是流体不能上 belt，AWESOME Sink 也不接受流体，必须就地转固体；同时石油焦 234/min 上 B6 会让 B6 BP10→BP15 段达 96% Mk4 几近溢出，**不上总线**。详见"重油残渣处理"小节
 
 ### 可验证成功标准
 
@@ -162,7 +162,7 @@
 | **C1 铁系** | 铁锭(BP1) → 铁板/铁棒/RIP(BP2) → 螺丝(BP3) | 铁矿石 1,140 / 铁锭 640 / 铁棒 380 / 螺丝 306（C1 内部消费 RIP）|
 | **C2 钢系** | 钢锭(BP4) → 钢梁/钢管(BP5) | 铁矿石 410（独立矿场喂） / 钢锭 410 / 煤 410 |
 | **C3 铜+电链** | 铜锭+铜金锭(BP6) → 铜板/电线/线缆(BP7) → 电路板+AI限制器(BP8) | 铜矿石 302 / 铜金锭 74 / 铜锭 302 / 电线 200（C3 内部部分消费）|
-| **C4 油+橡塑** | 塑料/橡胶(BP9) | 原油 / 水（重油残渣走 B6 总线到 BP-TERM-B sink）|
+| **C4 油+橡塑** | 塑料/橡胶+石油焦(BP9) | 原油 / 水（残渣 pipe 内部转石油焦 → 就地 sink，不上总线）|
 | **C5 MAM+混凝土+SAM** | 石英晶体/硅土/快速线/混凝土+AI限制器(BP10) → **重生SAM/SAM波动器(BP11)** | 原始石英 / 石灰石 / SAM 矿（360/min） |
 | **C6 装配+终端** | 转子/定子/电机(BP12) → 模块化框架/包裹工业梁(BP13) → 重型模块框架/电脑(BP14) → 晶体振荡器/高速连接器(BP15) | C6 内部装配链 |
 
@@ -178,8 +178,8 @@
 | **B2** | 螺丝（C1 → BP14 HMF）240 + 铁棒（C1 → BP12/BP13）140 + RIP（C1 → BP13/BP15）20.5 | 400.5 | 83% ⚠ | 可编程分流器（3 路 filter） |
 | **B3** | 电线（C3 → BP12 定子）120 + 电线（C3 → BP11 SAM波动器）50 + 钢管（C2 → BP12/BP14/BP11）115 + 钢梁（C2 → BP13）48 | 333（最大段）| 69% | 可编程分流器（4 路 filter） |
 | **B4** | 塑料（C4 → BP8 + BP14）95 + 混凝土（C5 → BP13）96 + 电路板（C3 → BP14/BP15）13.75 + 线缆（C3 → BP14/BP15）71.5 | 276 | 58% | 可编程分流器（4 路 filter） |
-| **B5** | **终端 mainNode 总线**（26 种产物混合 → BP-TERM Dim Depot Uploader + sink overflow）| 396.25 | 83% ⚠ | 可编程分流器树（4 级 → 27 路输出，含残渣 1 路） |
-| **B6** | 铜金锭 74 + 铜板 25 + 快速线 210 + 石英晶体 18 + 重油残渣 78 | 306（最大段 BP10→BP15）| 64% | 可编程分流器（多 filter）|
+| **B5** | **终端 mainNode 总线**（26 种产物混合 → BP-TERM Dim Depot Uploader + sink overflow）| 396.25 | 83% ⚠ | 可编程分流器树（4 级 → 27 路输出，仅 mainNode） |
+| **B6** | 铜金锭 74 + 铜板 25 + 快速线 210 + 石英晶体 18 | 306（最大段 BP10→BP15）| 64% | 可编程分流器（多 filter）|
 
 #### Tier 7+ 预留 2 条 reserved belt
 
@@ -370,7 +370,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 | BP6 | 铜锭/铜金锭 (smelter) | 23+8 = **31** | 5+2 = 7 | 24 | **拆 2 个 Mk2** (BP6a/BP6b) |
 | BP7 | 铜板/电线/线缆 (constructor) | 18+20+8 = **46** | 3+6+2 = 11 | 35 | **拆 3 个 Mk2** (BP7a/b/c) |
 | BP8 | 电路板 (assembler) | 8 × 219% | 1 × 183% | 7 | 单 Mk2（assembler 8m × 15m，2 行 × 4 = 8 装下）|
-| BP9 | 塑料/橡胶 (refinery) | 23+2 = **25** | 3+1 = 4 | 21 | **拆 5 个 Mk2** (BP9a-e，refinery 31m 高 × 10m 宽，1 Mk2 装 5 台 ≈ 5 个蓝图)|
+| BP9 | 塑料/橡胶 + coke (refinery) | 23+2+13 = **38** | 3+1+1 = **5（全在 BP9a）** | 33 | **拆 5 个 Mk2** (BP9a-e，单实例 5 槽位)；T6 仅 BP9a 满载，BP9b-e 物理建造但 0 激活；T9 需扩到 **8 实例** |
 | BP10 | MAM+混凝土+AI限制器 | 4+7+10+5+2 = 28 | 1+1+3+3+1 = 9 | 19 | **拆 2 个 Mk2** (BP10a/b) |
 | BP11 | 重生SAM+SAM波动器 | 2+1 = 3 | 2+1 = 3 | 0 | 单 Mk2，无扩容 |
 | BP12 | 转子/定子/电机 (assembler) | 3+3+1 = 7 | 2+2+1 = 5 | 2 | 单 Mk2 |
@@ -565,24 +565,24 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **集群**: C4
 - **机器**: 3 塑料 refinery + 1 橡胶 refinery = **4 refinery**
 - **超频**: 塑料 3 × 191.67% / 橡胶 1 × 100%
-- **产能**: 塑料 115/min · 橡胶 20/min · 重油残渣 ~78/min（副产品）
+- **产能**: 塑料 115/min · 橡胶 20/min · **石油焦 ~234/min**（残渣 ~78/min 本地转化，就地 sink）
 - **机器层 (0-35m)**:
   - 1F (0-31m): 4 refinery（refinery **31m 高** × 10m 宽 × 20m 长；4 台并排 40m 宽 × 20m 长，刚好满 1 行）
-  - **关键约束**：refinery 占高 31m，机器层顶 31m，离屋顶总线（35m）只有 4m 空间。lift-top（成品上送）和 lift-bot（原油 + 重油残渣 上送）都要挤在这 4m 内
+  - **关键约束**：refinery 占高 31m，机器层顶 31m，离屋顶总线（35m）只有 4m 空间。lift-top（塑料/橡胶上送）需要挤在这 4m 内。**残渣 pipe 在 1F 内部**（不上屋顶）。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 塑料 注入 B4（95/min：55 给 BP8 + 40 给 BP14）和 B5 mainNode（20/min）
   - 自带 merger 把 橡胶 注入 B5 mainNode（20/min）
-  - 自带 merger 把 **重油残渣 注入 B6（78/min 给 BP-TERM-B 集中 sink 回收）**
+  - **本地 sink 石油焦**（每实例 1F 角落配 1 awesome-sink，处理本实例 ~47/min 石油焦；不上 B6）
 - **输入**: 原油 172.5/min（**油田直接喂**）+ 水（refinery 内部循环不需要外部输入）
 - **输出**:
   - 塑料 115/min → 屋顶总线 B4（55 给 BP8 + 40 给 BP14 = 95/min）+ B5 终端（20/min mainNode）
   - 橡胶 20/min → 屋顶总线 B5 终端（20/min mainNode；Tier 6 plan 中橡胶无内部消费）
-  - 重油残渣 78/min → 屋顶总线 B6（→ BP-TERM-B 统一 sink 回收）
-- **屋顶总线接入**: 输出 B4（塑料 95）+ 输出 B5（塑料 20 + 橡胶 20 = 40）+ 输出 B6（重油残渣 78）
+  - 重油残渣 ~78/min → **本地 coke refinery 转石油焦** ~234/min → 本地 awesome-sink（每实例 1 个）
+- **屋顶总线接入**: 输出 B4（塑料 95）+ 输出 B5（塑料 20 + 橡胶 20 = 40）；**B6 不接入**（残渣/石油焦不上总线）
 
-> **重油残渣处理改为统一回收**：方案默认走 B6 集中到 BP-TERM-B sink，**BP9 内部不再含 awesome-sink**（释放 BP9 1F 4×4m 空间，集中废料管理）。
+> **重油残渣处理（最终方案）**：BP9 每实例**本地** 1 台 coke refinery 转石油焦 + 1 个本地 awesome-sink；**残渣是流体不能上 belt**，**石油焦 234/min 上 B6 会让 BP10→BP15 段达 96% Mk4 几近溢出**，因此就地 sink。BP-TERM-B 不再有残渣/石油焦 sink。
 >
-> **后期升级 residual-fuel 路径**：想消化 78/min 残渣转为燃料发电时，在 C4 旁加 1 个 "BP9b 残渣→燃料" 蓝图（约 1.3 台 residual-fuel refinery），从 B6 上的 BP9→BP10 段拦截残渣 78/min，发电 ~1,300 MW（几乎覆盖整厂 1,907 MW），无需拆 BP9 主蓝图。
+> **后期升级 residual-fuel 路径**：想消化 78/min 残渣转为燃料发电时，把 BP9 每实例的 coke refinery 切换为 `residual-fuel` 配方（残渣→燃料 fluid），燃料管道接到旁挂的燃料发电机（每台 250 MW × 5-8 台），自给 ~1,300 MW（覆盖整厂 ~70%）。无需拆 BP9 主蓝图，仅切换配方 + 加燃料发电机厂区。
 
 ### BP10: 石英晶体 + 硅土 + 快速线 + 混凝土 + AI 限制器
 
@@ -758,28 +758,28 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 ### BP-TERM-A / BP-TERM-B: 终端汇流（位面存储 + sink overflow，2 个 Mk2 蓝图）
 
-- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **27 个 awesome-sink**（26 mainNode + 1 残渣）+ 若干 smart splitter
+- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **26 个 awesome-sink**（26 mainNode）+ 若干 smart splitter
 - **位置**: 工厂街最末端（紧贴 BP15 之后）
-- **占地评估**: Dim Depot Uploader **5×10m** × 26 个 = 1,300m² + AWESOME Sink 4×6m × 27 = 648m² + 路由 ~200m² ≈ **2,150m²，超过单 Mk2 1,600m²**。**实际需 2 个 Mk2 蓝图**：BP-TERM-A（13 mainNode Uploader + sink）+ BP-TERM-B（13 mainNode + 1 残渣 sink）
+- **占地评估**: Dim Depot Uploader **5×10m** × 26 个 = 1,300m² + AWESOME Sink 4×6m × 26 = 624m² + 路由 ~200m² ≈ **2,124m²，超过单 Mk2 1,600m²**。**实际需 2 个 Mk2 蓝图**：BP-TERM-A（13 mainNode Uploader + sink）+ BP-TERM-B（13 mainNode）。**残渣 sink 不在这里**（已在 BP9 内部就地处理）
 - **Tier 7+ 预留 11 个槽位**：未来铝壳/铝包铝板/超级计算机/RCU/冷却系统/涡轮电机/融合模块框架/叠加振荡器/时间晶体/神经处理器/虚构三角 解锁后接入。BP-TERM 实际部署 **27 个 Uploader 槽位 + 11 个预留 slot**，27 路分流器树最多可分 27 路（用 1→3→9→27 三级树）。Tier 7+ 扩容时把分流器树扩成 1→3→9→27→81 四级树（最多 81 路，覆盖 37 mainNode 充分有余）。
 
 #### 每个 mainNode 的本地结构
 
 ```
-                ┌─ 25 mainNode 重油残渣（1）── awesome-sink（直接吃，无 storage）
-   屋顶总线 B5 ─┤
-   屋顶总线 B6 ─┴─ 26 mainNode（含残渣）
+   屋顶总线 B5 ─── 26 mainNode 终端汇流
        │
        smart splitter (filter=item)
        ├── Dim Depot Uploader → 位面仓（独立容量上限 50-5000 视研究等级）
        └── overflow → awesome-sink（位面仓满后兜底，长期赚 ticket）
+
+> 残渣处理在 BP9 内部完成（残渣 → coke → 石油焦 → 本地 sink），不进 BP-TERM
 ```
 
 #### 屋顶总线层 (35-40m)
 
 - 8 条 belt 在 BP-TERM 末端依次处理：
   - **B5（mainNode）**：可编程分流器 1→3→9→27 树（26 mainNode + 1 备用），每路接 1 个 Uploader + 1 个 sink overflow
-  - **B6**：smart splitter 末端拦截 重油残渣 78/min → 1 个独立 sink
+  - **B6**：在 BP-TERM 内**无 splitter**（直通悬空，不再有残渣处理）
   - **B1, B2, B3, B4**：直通到 BP-TERM 右边界面悬空（生产蓝图未消耗的 0 流量物料 belt 直通）
   - **B7, B8**（reserved）：直通备用，Tier 7+ 时扩出新 Uploader / 分流器树
 
@@ -787,14 +787,13 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 - 1F (0-12m): 中央 27 路分流器树（4-5 级 splitter cascade，覆盖 1→3→9→27 输出）
 - 1F (0-8m) 周围：26 个 Dim Depot Uploader + 26 个 mainNode sink overflow（每对 Uploader+sink ~6×4m，环绕中央分流器树）
-- 1F 角落：1 个独立残渣 sink
 - 2F (16-32m, 4m 地基 12-16): 预留 11 个 Tier 7+ Uploader + sink 槽位
 
 #### 玩家取材体验
 
 - **不必到 BP-TERM 取货**：26 mainNode 全部已上传位面仓，玩家任何位置 build gun 直接调用
 - **位面仓装满后自动 sink**：根据电力蛞蝓研究等级，每物料 50-5000 容量；满后 overflow 持续赚 ticket
-- **唯一例外残渣**：纯 sink，不上传位面（不需要使用）
+- **残渣处理**：在 BP9 内部本地 sink，不送 BP-TERM
 
 ## 未来扩容预留：37-mainNode 全开后的真实产能需求
 
@@ -872,26 +871,40 @@ Tier 9 解锁后这些产物会被启用：
 
 ## 重油残渣处理
 
-24 mainNode 方案下 BP9 副产 重油残渣 ~78/min（4 refinery 组合产物）。**默认设计已固化为通过 B6 总线送到 BP-TERM-B sink 集中回收**。
+26 mainNode 方案下 BP9 副产 重油残渣 ~78/min（3 plastic refinery × 191.67% + 1 rubber × 100% 的副产物）。
 
-### 默认方案：B6 总线 → BP-TERM-B sink
+### 关键约束
 
-- BP9 屋顶把 78/min 残渣注入 B6
-- B6 流量段 BP9→BP10 = 99 + 78 = 177（37% Mk4），最大段 BP10→BP15 = 306（64% Mk4）
-- BP-TERM-B 屋顶 smart splitter 拦截 残渣 → 1 个独立 sink
+1. **重油残渣是流体**（refinery out-1 是 pipe），不能上传送带 belt
+2. **AWESOME Sink 不接受流体**，只能 sink 固体
+3. **流体不能跨蓝图 pipe 汇流**（pipeline wall hole 仅油田水管单向进料用），所以集中处理方案行不通
 
-### 备选升级：BP9b residual-fuel 自给电力
+### 默认方案：BP9 内部本地 coke + 本地 sink
 
-如果想消化 78/min 残渣转为电力（Tier 5 已解锁 `residual-fuel` 配方）：
+每个 BP9 实例**自包含**：
+- 1 台 refinery 跑 `petroleum-coke` 配方（40 残渣 → 120 石油焦），处理本实例 78 残渣（@250% 超频 = 100 残渣处理能力，余量 22）
+- 1 台 awesome-sink @250% 超频（吃本实例产出的 234 石油焦/min；sink 上限 60 × 4 = 240/min @250%，刚好够）
+- 残渣 pipe 在 1F 内部短管直连，不出蓝图
+
+**T6 最简实施**：BP9a 单实例满载 5 槽位（3 plastic + 1 rubber + 1 coke）+ 1 sink；BP9b-e 物理建造但 Power Switch 全关。
+
+### 为什么不上 B6 总线
+
+- 234 石油焦/min 上 B6 → BP10→BP15 段流量 = 306 + 234 = 540/min = **112% Mk4 容量**（溢出）
+- 升 Mk5 (780/min) 才够，但 Mk5 在 Tier 6 不可用（需要 Tier 7+）
+- 就地 sink 让 B6 流量保持 306（64% Mk4）安全水平
+- 副产物 sink 放源头是常见的 Satisfactory 设计模式
+
+### 备选方案：residual-fuel 自给电力
+
+如果想把 78/min 残渣转为电力发电（Tier 5 已解锁 `residual-fuel` 配方）：
 
 | 配方 | 输入/输出 | 处理 78/min 需要 |
 |---|---|---:|
-| `residual-fuel`（refinery）| 60 残渣 → 40 燃料 | **2 台 refinery × ~65%**（生成 ~52/min 燃料 → ~1300 MW 发电）|
-| `petroleum-coke`（refinery）| 40 残渣 → 120 石油焦 | 2 台 refinery × ~98%（生成 ~234/min 石油焦）|
+| `residual-fuel`（refinery）| 60 残渣 → 40 燃料 | 2 台 refinery × ~65%（生成 ~52/min 燃料 → ~1,300 MW 发电）|
+| `petroleum-coke`（refinery，**本设计默认**）| 40 残渣 → 120 石油焦 | 1 台 refinery × ~195%（约 250% 余量充足）|
 
-**升级路径**：在 C4 旁加 1 个 **BP9b** 蓝图（2 refinery），从 B6 上的 BP9→BP10 段拦截 78/min 残渣 → 输出燃料/石油焦。BP-TERM-B 不再回收残渣（B6 段 78 流量去除）。
-
-不必在 BP9 主蓝图内做改动，**主蓝图保持稳定**。
+**升级路径**：把 BP9 每实例的 coke refinery 切换为 `residual-fuel` 配方，输出燃料 fluid → 燃料管道接到旁挂的燃料发电机厂区（5-8 台 × 250 MW）。本地 sink 撤掉。**主蓝图 BP9 不需要改**，仅切换配方 + 加燃料发电机即可，自给率 ~70%（覆盖整厂 1,907 MW 的大部分）。
 
 ## Tier 7+ 扩容详细规划
 
@@ -911,7 +924,7 @@ Tier 9 解锁后这些产物会被启用：
 | BP6a/b | 铜锭/铜金锭 | 5+2 | 14+4 | 20+6 | 23+8 | 铜金锭因 RCU/HSC uplift 显著 |
 | BP7a/b/c | 铜板/电线/线缆 | 3+6+2 | 8+12+4 | 14+16+6 | 18+20+8 | 拆 3 个 Mk2，电线最紧张 |
 | BP8 | 电路板 | 1 | 4 | 6 | 8 | 电脑 uplift 11x，电路板大头 |
-| BP9a-e | 塑料/橡胶 | 3+1 | 11+1 | 18+2 | 23+2 | 拆 5 个 Mk2，塑料 9.9x |
+| BP9a-e | 塑料/橡胶/coke | 3+1+1 | 11+1+4 | 18+2+7 | 23+2+13 | T6 BP9a 单实例满载（5 台）；T7 3 实例；T8 6 实例；T9 **8 实例**（BP9a-h）|
 | BP10a/b | 石英/硅土/快速线/混凝土/AI 限制器 | 1+1+3+3+1 | 2+3+5+4+1 | 3+5+8+5+2 | 4+7+10+5+2 | 拆 2 个 Mk2，硅土最高 18x |
 | BP11 | 重生SAM/SAM波动器 | 2+1 | 2+1 | 2+1 | 2+1 | uplift 1.0-2.2x，无变化 |
 | BP12 | 转子/定子/电机 | 2+2+1 | 3+3+1 | 3+3+1 | 3+3+1 | T7 起满载 |
@@ -933,7 +946,7 @@ Tier 6 用 B1-B6 active + B7-B8 reserved。Tier 7+ 启用更多 belt：
 | **B3** | 钢管/钢梁/电线 → C6 | 钢管/电线流量翻倍 | → Mk5 升级 | 同左 |
 | **B4** | 塑料/混凝土/电路板/线缆 → C6 | 塑料 ~10x（B4 必须 Mk5）| 电路板/线缆 倍增 | — |
 | **B5** | 26 mainNode → BP-TERM | — | 部分 mainNode 流量倍增 | 拆为 **B5a + B5b**（如不升 Mk5） |
-| **B6** | 铜金锭/铜板/快速线/石英/重油残渣 | 流量翻倍，Mk5 必要 | — | — |
+| **B6** | 铜金锭/铜板/快速线/石英 | 流量翻倍，Mk5 必要 | — | — |
 | **B7**（reserved）| 0 | **铝壳/铝包铝板/铝中间品**（C7→C8/C9）| — | — |
 | **B8**（reserved）| 0 | **超级计算机/RCU 上行 + 散热器**（C7/C8→BP-TERM/C9）| — | — |
 | **B9**（新增）| — | — | **粒子加速中间品 + 涡轮电机/融合模块/冷却系统**（C8→BP-TERM/C9）| — |
@@ -943,17 +956,17 @@ Tier 6 用 B1-B6 active + B7-B8 reserved。Tier 7+ 启用更多 belt：
 
 ### 3. BP-TERM 37-mainNode 最终布局
 
-Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 38 个 awesome-sink**（37 mainNode + 1 残渣 sink）。
+Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-sink**（37 mainNode；残渣 sink 在 BP9 本地不计入）。
 
 | 实例 | Tier 6 | Tier 7 | Tier 8 | Tier 9 |
 |---|---|---|---|---|
 | **BP-TERM-A** | 13 mainNode（前半批：铁/钢/铜电系列）| +1 铝包铝板 | +1 散热器 | +1 时间晶体 |
-| **BP-TERM-B** | 13 mainNode（后半批：装配/MAM/SAM）+ 残渣 sink | +1 铝壳 +1 RCU +1 超级计算机 | +1 涡轮电机 +1 融合模块 +1 冷却系统 | +1 神经量子处理器 +1 叠加振荡器 +1 虚构三角 |
+| **BP-TERM-B** | 13 mainNode（后半批：装配/MAM/SAM）| +1 铝壳 +1 RCU +1 超级计算机 | +1 涡轮电机 +1 融合模块 +1 冷却系统 | +1 神经量子处理器 +1 叠加振荡器 +1 虚构三角 |
 | **BP-TERM-C**（新增）| — | — | — | 用于装下溢出的 11 Tier 7+ Uploader（如 BP-TERM-A/B 已满）|
 
 **屋顶分流器树扩容**：
-- T6: 1→3→9→27 三级树（覆盖 26 + 1 残渣 = 27 路）
-- T9: 1→3→9→27→**81** 四级树（覆盖 37 + 残渣 + 备用 = 38+ 路），仅在 BP-TERM-A 屋顶补 1 级 splitter
+- T6: 1→3→9→27 三级树（覆盖 26 mainNode + 1 备用 = 27 路）
+- T9: 1→3→9→27→**81** 四级树（覆盖 37 mainNode + 备用 ≈ 40 路），仅在 BP-TERM-A 屋顶补 1 级 splitter
 
 > **物理位置**：BP-TERM-A/B 紧贴 BP15 之后；如果 Tier 9 槽位不够，C-tail 末端（C9 之后）追加 1 个 BP-TERM-C，新建 5×5 cell Mk2 蓝图。
 
@@ -1160,7 +1173,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 38 个 awesome-
 | 15 | BP15（晶振+高速连接器）| 唯一 | 1 | C6 |
 | 16 | BP-BUS-FILLER（按需）| 复制 | 0-2 | 集群间空隙 |
 | 17 | BP-TERM-A（前 13 mainNode 仓储+sink）| 唯一 | 1 | 总线尾端 |
-| 18 | BP-TERM-B（后 13 mainNode 仓储+sink + 残渣 sink）| 唯一 | 1 | 总线最末 |
+| 18 | BP-TERM-B（后 13 mainNode 仓储+sink）| 唯一 | 1 | 总线最末 |
 | 19 | BP9b（residual-fuel 旁挂，可选）| 唯一 | 0-1 | C4 旁 |
 | **Tier 7+ 新增** | | | | |
 | 20 | BP16a/b/c（氧化铝/铝碎片 refinery）| 复制 | 3 | C7 |
@@ -1234,7 +1247,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 38 个 awesome-
 16. 电力供应 **~2 GW**（约 1 座 2.5 GW 核电站 / 8 台 250 MW 燃料发电）
 17. 部署 231 个电力碎片到激活机器
 18. 启用 26 个 Dim Depot Uploader（位面存储研究升级容量到合适等级）
-19. 副产品 重油残渣 → B6 → BP-TERM 残渣 sink（已固化）
+19. 副产品 重油残渣 → BP9 内部 coke refinery 转石油焦 → BP9 内部 sink（每实例自包含）
 
 ### 阶段 6 / 7 / 8：Tier 7-9 升级（按解锁顺序）
 
@@ -1253,7 +1266,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 38 个 awesome-
 - SAM 矿场 360/min 持续供应 BP11
 - 总线 B1-B6 active belt 在长期运行下不出现满载/卡顿（B2/B5 83% 是当前最紧 belt）
 - B7/B8 reserved belt 物理已建但 0 流量
-- 副产品 重油残渣 通过 B6 总线集中到 BP-TERM 残渣 sink 回收
+- 副产品 重油残渣 在 BP9 内部 coke refinery 转石油焦 → 本地 awesome-sink（每实例自包含，不上 B6 总线）
 - 工厂启动 30 分钟后达到稳态产能
 
 ## 矿场需求（按 Tier 7+ 上限选址）
@@ -1297,7 +1310,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 38 个 awesome-
 
 ### residual-fuel 自给路径（可选）
 
-如启用 **BP9 旁挂的"BP9-residual" 蓝图**（2 台 residual-fuel refinery + 燃料发电机），从 B6 拦截 78/min 重油残渣 → 燃料 ~52/min → 发电 ~1,300 MW：
+如把 BP9 每实例的 coke refinery **切换为 `residual-fuel` 配方**（残渣 → 燃料 fluid），燃料管道接到旁挂的燃料发电机厂区（5-8 台 × 250 MW），从 78/min 残渣发电 ~1,300 MW：
 - Tier 6 阶段几乎覆盖整厂（**自给率 ~70%**）
 - Tier 7+ 后比例下降但仍补充
 
@@ -1363,6 +1376,6 @@ Quantum Encoder 尺寸 22 × 48 × 8 m，**长 48m 超出 Mk2 内部 40m**，无
 - `data/schemes/tier6-cluster-c6-assembly.json`（C6 装配+终端，BP12-BP15 = 4 个）
 - `data/schemes/tier6-bus-filler.json`（BP-BUS-FILLER 空填充段，按需）
 - `data/schemes/tier6-terminal-a.json`（BP-TERM-A 前 13 mainNode 仓储+sink）
-- `data/schemes/tier6-terminal-b.json`（BP-TERM-B 后 13 mainNode 仓储+sink + 残渣 sink）
+- `data/schemes/tier6-terminal-b.json`（BP-TERM-B 后 13 mainNode 仓储+sink）
 - `data/schemes/tier6-megabase.json`（汇总，引用以上）
 - `scripts/validate-tier6-megabase.ts`（验证脚本，0 error）
