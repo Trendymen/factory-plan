@@ -1,0 +1,72 @@
+# Satisfactory 全 37-mainNode 终极产物清单
+# 单台 100% 满载产能版（每条主输出 = 该配方 1 台机器满载产能 /min）
+# 当前 Tier 6 + MAM 已生产 26 个；剩 12 个等 Tier 7+ 解锁
+
+## 当前 Tier 6 + MAM 已生产（26 个）
+
+# 基础链
+铁板        20/min
+铁棒        15/min
+螺丝        （内部，不直接外部输出）
+电线        30/min
+线缆        30/min
+铜板        10/min
+混凝土       15/min
+钢梁        15/min
+钢管        20/min
+
+# 装配链
+强化铁板      5/min
+转子        4/min
+定子        5/min
+电机        5/min
+模块化框架     2/min
+包裹工业梁     6/min
+重型模块框架    2/min
+
+# 油+电子
+塑料        20/min
+橡胶        20/min
+电脑        2.5/min
+
+# MAM Caterium 链
+快速线       60/min
+AI限制器     5/min
+高速连接器     3.75/min
+
+# MAM Quartz 链
+石英晶体      22.5/min
+硅土        37.5/min
+晶体振荡器     1/min
+
+# MAM Alien Tech 链
+重生SAM     30/min
+SAM波动器    10/min
+
+
+## Tier 7+ 解锁后追加（12 个）
+
+# Tier 7 Bauxite Refinement（铝链）
+铝壳        60/min
+铝包铝板      30/min
+
+# Tier 7 Control System Development
+无线电控制单元   2.5/min
+超级计算机     1.875/min
+
+# Tier 8 Leading-edge Production / 粒子加速
+冷却系统      6/min
+涡轮电机      1.875/min
+融合模块框架    1.5/min
+
+# Tier 9 Matter Conversion
+时间晶体      6/min
+虚构锭       30/min
+虚构三角      30/min
+
+# Tier 9 Quantum Encoding
+神经量子处理器   3/min
+叠加振荡器     5/min
+
+
+# 总计 37 个 mainNode，覆盖 1.0/1.1 全部空间电梯交付物 + 主要建筑施工材料
