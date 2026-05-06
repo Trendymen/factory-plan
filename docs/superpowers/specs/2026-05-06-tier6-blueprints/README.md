@@ -18,14 +18,14 @@
 | C3 铜电 | **BP6** 铜锭/铜金锭 | 7 | 31 | 2 Mk2 (a/b) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
 | C3 | **BP7** 铜板/电线/线缆 | 11 | 46 | 3 Mk2 (a/b/c) | [BP07-wire-cable.md](BP07-wire-cable.md) |
 | C3 | **BP8** 电路板 | 1 | 8 | 1 Mk2 | [BP08-circuit-board.md](BP08-circuit-board.md) |
-| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 38 | 5 Mk2 (a-e), T9 扩 8 | [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
+| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 32 | 5 Mk2 (a-e), T9 扩 7 (a-g) | [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
 | C5 MAM | **BP10** 石英/硅土/快速线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
 | C5 末 | **BP11** 重生 SAM/SAM 波动器 | 3 | 3 | 1 Mk2 | [BP11-sam.md](BP11-sam.md) |
 | C6 装配 | **BP12** 转子/定子/电机 | 5 | 7 | 1 Mk2 | [BP12-rotor-stator-motor.md](BP12-rotor-stator-motor.md) |
 | C6 | **BP13** 模块化框架/包裹工业梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
 | C6 | **BP14** HMF/电脑 | 2 | 6 | 2 Mk2 (a/b) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
 | C6 | **BP15** 晶振/HSC | 2 | 6 | 2 Mk2 (a/b) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
-| **小计** | | **96** | **263** | T9 时新增 BP9f-h 扩到 8 实例 + 各 BP coke 池 | |
+| **小计** | | **96** | **257** | T9 时新增 BP9f-g 扩到 7 实例 + 各 BP coke 内置 | |
 
 ### 终端蓝图（2 个）
 
