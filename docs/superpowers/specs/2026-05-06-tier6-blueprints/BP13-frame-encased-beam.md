@@ -45,48 +45,95 @@
 
 > 1F 3 台一行（30m × 15m，剩 10m 给 belt）；2F 2 台（20m × 15m，剩更多）。
 
-## 俯视图（1F, 0-8m）
+## 俯视图（按实际比例，每层独立 — 视觉正方形）
+
+**比例约定**：
+- 横向：**1 字符 = 1m**
+- 纵向：**1 行 = 2m**
+- 蓝图 40×40m → 40 字符宽 × 20 行高
+
+**机器实际尺寸** → ASCII 占位：
+
+| 机器 | 实际 | ASCII 占位（W × H） |
+|---|---|---|
+| assembler | 10m × 15m | 10 字符 × 7-8 行 |
+
+### 1F (0-8m): 3 模块化框架 assembler
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌────┐ ┌────┐ ┌────┐               │  3 模块化框架 assembler
-      │ │M1  │ │M2  │ │M3  │               │  10m × 15m × 8m
-r=1   │ │Frame│ │Frame│ │Frame│             │
-r=2   │ └────┘ └────┘ └────┘               │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │ === collect 框架 row →─────────────│
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌─────────┐┌─────────┐┌─────────┐                 │
+        ││   M1    ││   M2    ││   M3    │                 │
+ 4      ││ frame   ││ frame   ││ frame   │  T9 +1 reserve  │
+        ││ 10x15   ││ 10x15   ││ 10x15   │  (col 3 row 0)  │
+ 8      ││  v      ││  v      ││  v      │                 │
+        │└─────────┘└─────────┘└─────────┘                 │
+12      │─────────── frame collect belt h=2m ──────────────│
+        │ in: RIP 18 + iron-rod 72 (each split to 3 in-0)  │
+16      │ all 2 lift-bot from roof B2 prog splitter        │
+        │                                                  │
+20      │ out: frame 12/min >> central splitter            │
+        │   10 -> right-wall outlet to BP14 HMF            │
+24      │   2  -> lift-out-top to roof merger (B5)         │
+        │                                                  │
+32      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-## 俯视图（2F, 12-20m）
+- M1-M3: modular-frame assembler 10m W × 15m L × 8m H（模块化框架）
+- T9 满载加 1 台（col 3 row 0 预留）
+
+### 2F (12-20m): 2 包裹工业梁 assembler
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌────┐ ┌────┐                     │  2 包裹工业梁 assembler
-      │ │E1  │ │E2  │                     │
-r=1   │ │EncB│ │EncB│                     │
-r=2   │ └────┘ └────┘                     │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │ === collect 包裹梁 row ───────────│
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌─────────┐┌─────────┐                            │
+        ││   E1    ││   E2    │                            │
+ 4      ││ encased ││ encased │                            │
+        ││ 10x15   ││ 10x15   │                            │
+ 8      ││  v      ││  v      │                            │
+        │└─────────┘└─────────┘                            │
+12      │─────────── beam collect belt h=14m ──────────────│
+        │ in: steel-beam 48 + concrete 96 (each split 2)   │
+16      │ steel-beam from B3 splitter, concrete from B4    │
+        │ both via lift-bot to 2F manifold                 │
+20      │                                                  │
+        │ out: beam 16/min >> central splitter             │
+24      │   10 -> right-wall outlet to BP14 HMF            │
+        │   6  -> lift-out-top to roof merger (B5)         │
+32      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-## 屋顶总线层（35-40m）
+- E1-E2: encased-industrial-beam assembler 10m W × 15m L × 8m H（包裹工业梁）
+
+### 屋顶 (35-40m): B1-B6 + 3 splitter + 1 merger
 
 ```
-B1 ═════════════════════════════════════════> B1
-B2 ═══[programmable split (RIP18+铁棒72)─90┐]═> B2 余 (-90)
-B3 ═══[smart split (filter=钢梁48)──48┐ ]═══> B3 余 (-48)
-B4 ═══[smart split (filter=混凝土96)──96┐]═> B4 余 (-96)
-B5 ═══[merger ←──模框2 + 包裹梁6]═════════> B5 (+8 mainNode)
-B6 ═════════════════════════════════════════> B6
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ──────────────────────────────────────── o  │
+ 4      │ o B2 ───[prog split: RIP 18 + rod 72 = 90]─── o  │
+ 8      │ o B3 ───[smart split: steel-beam 48]──────── o   │
+12      │ o B4 ───[smart split: concrete 96]────────── o   │
+16      │ o B5 ───[merger << lift-top mainNode 8]──── o    │
+20      │ o B6 ──────────────────────────────────────── o  │
+24      │                                                  │
+28      │ 4 lift-bot: RIP+rod / beam / concrete to 1F/2F   │
+32      │ 2 lift-top: frame + beam mainNode to B5          │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 屋顶 3 个 splitter（B2/B3/B4 各 1 个）
-- 屋顶 1 个 merger（注 B5）
-- 4 路 lift-bot（4 物料下到机器层）+ 2 路 lift-top（2 mainNode 上行）
+- B2 取强化铁板 18 + 铁棒 72 = 90（programmable splitter）
+- B3 取钢梁 48（smart splitter）
+- B4 取混凝土 96（smart splitter，来自 BP10 跨 C5 段）
+- B5 merger 注入：模框 2 + 包裹梁 6 = 8 mainNode
 
 ## 建造步骤
 

@@ -47,70 +47,81 @@
 | 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/铝包铝板/RCU/超级计算机/散热器/时间晶体）|
 | 屋顶 | 35-40m | B1-B6 直通 + B5 上的 1→27 splitter 树（前 13 路下 1F，其余 14 路继续到 BP-TERM-B）|
 
-## 1F 平面（0-12m，按实际比例 16×8 字符≈占地）
+## 俯视图（按实际比例，每层独立）
+
+### 1F (0-12m): 13 Uploader + 13 smart splitter + overflow merger
 
 ```
-       col=0   col=1   col=2   col=3   col=4
-       0       8      16      24      32      40m
-       ┌────────────────────────────────────────┐  0m
-       │ U1   U2   U3   U4   U5                 │
-       │┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐                │  Uploader 5×10m
-   4m  ││  │ │  │ │  │ │  │ │  │   T7+ 预留     │  Row 0: 5 Uploader
-       │└──┘ └──┘ └──┘ └──┘ └──┘                │
-       │ sp   sp   sp   sp   sp  ←13 smart splitter│
-  10m  │ ━━━ overflow merger belt → 右 Outlet ━━━│
-  12m  │ U6   U7   U8   U9   U10                │
-       │┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐                │
-  16m  ││  │ │  │ │  │ │  │ │  │   <空地>       │  Row 1: 5 Uploader
-       │└──┘ └──┘ └──┘ └──┘ └──┘                │
-       │ sp   sp   sp   sp   sp                 │
-  22m  │ ━━━ overflow merger belt ━━━━━━━━━━━━━━│
-  24m  │ U11  U12  U13                          │
-       │┌──┐ ┌──┐ ┌──┐                          │
-  28m  ││  │ │  │ │  │  splitter cascade 1→3→9→27│  Row 2: 3 Uploader + 树
-       │└──┘ └──┘ └──┘  (B5 来料 13/27 路下 1F) │
-       │ sp   sp   sp                           │
-  34m  │                                        │
-  40m  └────────────────────────────────────────┘
-       右 Wall Outlet (col=5, h=8m): overflow 汇流 → BP-TERM-B
-       右 Wall Outlet (col=5, h=屋顶层): B1-B6 + B5 剩余 14 路
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌────┐  ┌────┐  ┌────┐  ┌────┐  ┌────┐            │
+        ││ U1 │  │ U2 │  │ U3 │  │ U4 │  │ U5 │            │
+ 4      ││5x10│  │5x10│  │5x10│  │5x10│  │5x10│            │
+        │└────┘  └────┘  └────┘  └────┘  └────┘            │
+ 8      │ sp     sp      sp      sp      sp                │
+        │── overflow belt >> right Wall Outlet h=8m ──────│
+12      │┌────┐  ┌────┐  ┌────┐  ┌────┐  ┌────┐            │
+        ││ U6 │  │ U7 │  │ U8 │  │ U9 │  │ U10│            │
+16      ││5x10│  │5x10│  │5x10│  │5x10│  │5x10│            │
+        │└────┘  └────┘  └────┘  └────┘  └────┘            │
+20      │ sp     sp      sp      sp      sp                │
+        │── overflow merger belt ─────────────────────────│
+24      │┌────┐  ┌────┐  ┌────┐    [B5 splitter cascade]   │
+        ││ U11│  │ U12│  │ U13│    1->3->9->27 (in roof)   │
+28      ││5x10│  │5x10│  │5x10│    13 paths down to 1F     │
+        │└────┘  └────┘  └────┘    14 paths to BP-TERM-B   │
+32      │ sp     sp      sp                                │
+        │ 13 smart splitters: priority=Uploader, ovf>>merge│
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> 13 mainNode 用前 13 个 Uploader；每 Uploader 前 1 个 smart splitter（priority=Uploader，overflow→merger belt）。
+- U1-U13：Dim Depot Uploader 5m W × 10m L × 8m H
+- sp：smart splitter（filter=该路 mainNode 物料），紧贴 Uploader back
+- overflow merger belt：13 路 overflow 汇流 → 右 Wall Outlet (h=8m) → BP-TERM-B 共享 sink
+- B5 splitter cascade 在屋顶做 1→27 树，前 13 路下到 1F 各 Uploader，剩 14 路右贯穿到 BP-TERM-B
 
-## Uploader + smart splitter 单元布局
-
-每个单元：
-- **Uploader** 5m W × 10m L × 8m H = 50 m²
-- **smart splitter** 4m W × 4m L = 16 m²，紧贴 Uploader back 端口
-
-13 个单元 ≈ 13 × 70 m² = 910 m²，加 splitter cascade 树 ~200 m² + merger overflow belt 路由 ~150 m² ≈ 1,260 m² < 1,600 m² ✓
+### 2F (16-32m): T7+ 备用 Uploader 槽位
 
 ```
-[B5 主 belt 一路下来] ─→ smart splitter (filter=item)
-                            │
-                            ├─→ Uploader (item) ── 位面仓（优先吃）
-                            │
-                            └─→ overflow belt ── 1F merger → 右 Wall Outlet → BP-TERM-B 共享 sink
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ T7+ reserve slots (do NOT place Uploader at T6)  │
+ 8      │   slot 1: aluminum-casing                        │
+        │   slot 2: alclad-aluminum-sheet                  │
+16      │   slot 3: heat-sink                              │
+        │   slot 4: time-crystal                           │
+24      │   slot 5: radio-control-unit                     │
+        │   slot 6: supercomputer                          │
+32      │                                                  │
+        │ lift-bot/top access holes preserved for T7+      │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-**关键**：smart splitter 配置 priority=Uploader 输出端 + overflow 默认输出端走 merger belt。
-
-## 屋顶总线层（35-40m）
+### 屋顶 (35-40m): B5 splitter cascade + B1-B4/B6 直通
 
 ```
-B1 ═════════════════════════════════════════> B1 直通到 BP-TERM-B
-B2 ═════════════════════════════════════════> B2 直通到 BP-TERM-B
-B3 ═════════════════════════════════════════> B3 直通到 BP-TERM-B
-B4 ═════════════════════════════════════════> B4 直通到 BP-TERM-B
-B5 ═══[programmable splitter cascade 1→3→9→27]═══┐
-                                                  ↓
-                                          13 路下到 1F Uploader 树
-                                          其余 14 路继续到 BP-TERM-B
-B6 ═════════════════════════════════════════> B6 直通到 BP-TERM-B
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ────────────────────────────────────── o   │
+ 4      │ o B2 ────────────────────────────────────── o   │
+ 8      │ o B3 ────────────────────────────────────── o   │
+12      │ o B4 ────────────────────────────────────── o   │
+16      │ o B5 ───[1->27 splitter cascade tree]────── o   │
+20      │   13 paths >> 1F Uploaders                  │   │
+        │   14 paths >> right Outlet >> BP-TERM-B     │   │
+24      │ o B6 ────────────────────────────────────── o   │
+28      │                                                 │
+32      │ B1-B4 + B6 pass-through to BP-TERM-B            │
+36      │ B5 splitter tree consumes 13/27 paths here      │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> B5 在 BP-TERM-A 屋顶做 1→3→9→27 三级 splitter 树；前 13 路下到本蓝图 1F Uploader，剩余 14 路 belt 继续向右到 BP-TERM-B 屋顶处理。
+- B5 屋顶 1→3→9→27 三级 cascade splitter 树
+- 27 路输出中前 13 路 lift-bot 下到本蓝图 1F；剩 14 路右贯穿到 BP-TERM-B
 
 ## 建造步骤
 

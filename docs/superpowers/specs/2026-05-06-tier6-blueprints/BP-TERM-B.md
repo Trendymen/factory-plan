@@ -52,37 +52,41 @@
 | 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/RCU/超级计算机/涡轮电机/融合模块/冷却系统/神经处理器/叠加振荡器/虚构三角）— 仅 sink 占用区之外 |
 | 屋顶 | 35-40m | B1-B6 直通 + B5 splitter 子树 |
 
-## 1F 平面（0-12m，按实际比例）
+## 俯视图（按实际比例，每层独立）
+
+### 1F (0-12m): 13 Uploader + shared AWESOME Sink + B5 splitter cascade
 
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ U14   U15   U16   U17   U18                      │  Row 0:
-        │┌──┐  ┌──┐  ┌──┐  ┌──┐  ┌──┐                      │  5 Uploader (5×10m)
- 4      ││  │  │  │  │  │  │  │  │  │   B5 splitter 树     │  电机/模框/包裹梁
-        │└──┘  └──┘  └──┘  └──┘  └──┘   1→14 路下到此处   │  HMF/电脑
- 8      │ sp    sp    sp    sp    sp                       │
-        │━━━━━━━ overflow merger belt 来自 BP-TERM-A ━━━━━│  ← 左 Wall Inlet h=8m
-12      │ U19   U20   U21   U22   U23                      │
-        │┌──┐  ┌──┐  ┌──┐  ┌──┐  ┌──┐  ┌──────────────┐   │  Row 1: 5 Uploader
-16      ││  │  │  │  │  │  │  │  │  │  │              │   │  + 共享 sink (右下角)
-        │└──┘  └──┘  └──┘  └──┘  └──┘  │  AWESOME     │   │
-20      │ sp    sp    sp    sp    sp   │  Sink 共享   │   │
-        │━━━━━━━ overflow merger ━━━━━━│  16×13m      │   │  sink 跨 1F-2F 高度 (0-24m)
-24      │ U24   U25   U26              │   24m H      │   │
-        │┌──┐  ┌──┐  ┌──┐              │              │   │  Row 2: 3 Uploader
-28      ││  │  │  │  │  │              │  接收所有    │   │
-        │└──┘  └──┘  └──┘              │  26 路       │   │
-32      │ sp    sp    sp               │  overflow    │   │
-        │━━━━━━ overflow merger ━━━━━━━│  汇流 →      │   │
-36      │  splitter cascade 1→3→9→14   │  back in-0   │   │
-        │  (B5 进料 14 路下到 1F)       └──────────────┘   │
+ 0      │┌────┐  ┌────┐  ┌────┐  ┌────┐  ┌────┐            │
+        ││ U14│  │ U15│  │ U16│  │ U17│  │ U18│            │
+ 4      ││5x10│  │5x10│  │5x10│  │5x10│  │5x10│            │
+        │└────┘  └────┘  └────┘  └────┘  └────┘            │
+ 8      │ sp     sp      sp      sp      sp                │
+        │── overflow merger belt (in: BP-TERM-A 13 paths) ─│
+12      │┌────┐  ┌────┐  ┌────┐  ┌────┐  ┌────────────┐    │
+        ││ U19│  │ U20│  │ U21│  │ U22│  │            │    │
+16      ││5x10│  │5x10│  │5x10│  │5x10│  │ AWESOME    │    │
+        │└────┘  └────┘  └────┘  └────┘  │ Sink x1    │    │
+20      │ sp     sp      sp      sp      │ (shared)   │    │
+        │── overflow merger belt continues│ 16W x 13L  │    │
+24      │┌────┐  ┌────┐  ┌────┐          │ x 24m H    │    │
+        ││ U23│  │ U24│  │ U25│   ┌────┐ │ in-0 back  │    │
+28      ││5x10│  │5x10│  │5x10│   │ U26│ │ << 26 paths│    │
+        │└────┘  └────┘  └────┘   │5x10│ │ overflow   │    │
+32      │ sp     sp      sp       │    │ │ merge      │    │
+        │── B5 splitter cascade ──└────┘ └────────────┘    │
+36      │  1->3->9->14 (in roof, 14 down to Uploaders)     │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> **共享 sink** 占 col=3.5-5 row=2-3.6（16×13m），高度 0-24m（跨 1F+2F vertical 占用）。
-> 26 个 smart splitter 各 priority=Uploader / overflow→merger，13 路本蓝图 + 13 路 BP-TERM-A 来料 = 26 路全部 merger 汇流到共享 sink。
+- U14-U26：13 Dim Depot Uploader（5m W × 10m L × 8m H）
+- sp：smart splitter（priority=Uploader / overflow→merger）
+- AWESOME Sink (shared)：col=3.5-5 row=2-3.6（16×13m × 24m H）
+- 26 路 overflow（13 本蓝图 + 13 BP-TERM-A 来）多级 merger 汇流 → sink in-0
+- B5 splitter cascade 在屋顶做 14 路输出，下到 13 个 Uploader（剩 1 路备用）
 
 ## smart splitter filter 配置（13 路）
 

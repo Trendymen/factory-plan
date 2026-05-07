@@ -48,39 +48,104 @@
 | **BP15a** | 1 晶振 manufacturer | T7+ +1 晶振 | 多 splitter/merger |
 | **BP15b** | 1 HSC manufacturer | T7+ +1 HSC | 同 BP15a |
 
-## 俯视图（1F BP15a, 0-12m）
+## 俯视图（按实际比例，每实例独立 — 视觉正方形）
+
+**比例约定**：
+- 横向：**1 字符 = 1m**
+- 纵向：**1 行 = 2m**
+- 蓝图 40×40m → 40 字符宽 × 20 行高
+
+**机器实际尺寸** → ASCII 占位：
+
+| 机器 | 实际 | ASCII 占位（W × H） |
+|---|---|---|
+| manufacturer | 20m × 22m | 20 字符 × 11 行 |
+
+> **facing=north 端口反转**：4 输入朝南 (row=2.75)，1 输出朝北 (row=0)。
+
+### BP15a 1F (0-12m): 1 晶体振荡器 manufacturer
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌──────────────────────────────┐ │  1 晶振 manufacturer
-      │ │ Crystal-Oscillator manufact. │ │  20m × 22m × 12m
-r=1   │ │  4-input front (south)       │ │  facing=north
-      │ │  1-output back (north)       │ │
-r=2   │ │  ↑ ↑ ↑ . (in 0-2, in-3 空)   │ │
-      │ │                              │ │  晶振配方 3 输入：RIP+线缆+石英
-r=2.75│ │  out-0 ↓                     │ │
-      │ └──────────────────────────────┘ │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │ ===collect mainNode lift─────── │
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────────────────┐                             │
+        ││         ^         │  out-0 -> roof merger (B5)  │
+ 4      ││ Crystal-Osc manuf.│  oscillator 1/min mainNode  │
+        ││  20m W x 22m L    │                             │
+ 8      ││  facing=north     │                             │
+        ││  port reversed    │                             │
+12      ││                   │  in 0-3 (south, row=2.75):  │
+        ││                   │    in-0 RIP 2.5             │
+16      ││                   │    in-1 cable 14            │
+        ││                   │    in-2 quartz-crystal 18   │
+20      ││                   │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                             │
+24      │└───────────────────┘                             │
+        │ RIP via lift-bot from roof B2 smart split        │
+28      │ cable via lift-bot from roof B4 prog split       │
+        │ quartz via lift-bot from roof B6 smart split     │
+32      │                                                  │
+        │ osc out-0 (row=0) >> lift-out-top to roof merger │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-## 屋顶总线层（35-40m）
+- crystal-oscillator manufacturer 20m W × 22m L × 12m H，3 输入 + 1 空
+- T7+ 加 1 台晶振（2F），单实例物理上限 2 台
+
+### BP15b 1F (0-12m): 1 HSC manufacturer
 
 ```
-B1 ═════════════════════════════════════════> B1 余
-B2 ═══[smart split (filter=RIP 2.5)──2.5┐]═> B2 余
-B3 ═════════════════════════════════════════> B3 余
-B4 ═══[programmable split (Cab51.5+CB3.75)─55.25┐]═> B4 余
-B5 ═══[merger ←──晶振 1 + HSC 3.75 lift]═══> B5 (+4.75)
-B6 ═══[smart split (filter=石英18+快速线210)─228┐]═> B6 余 (-228)
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────────────────┐                             │
+        ││         ^         │  out-0 -> roof merger (B5)  │
+ 4      ││  HSC  manufacturer│  HSC 3.75/min mainNode      │
+        ││  20m W x 22m L    │                             │
+ 8      ││  facing=north     │                             │
+        ││  port reversed    │                             │
+12      ││                   │  in 0-3 (south, row=2.75):  │
+        ││                   │    in-0 quickwire 210       │
+16      ││                   │    in-1 cable 37.5          │
+        ││                   │    in-2 circuit-board 3.75  │
+20      ││                   │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                             │
+24      │└───────────────────┘                             │
+        │ quickwire via lift-bot from roof B6 smart split  │
+28      │ cable + CB via lift-bot from roof B4 prog split  │
+        │                                                  │
+32      │                                                  │
+        │ HSC out-0 (row=0) >> lift-out-top to roof merger │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 屋顶 3 个 splitter（B2/B4/B6）
-- 屋顶 1 个 merger（注 B5）
-- 7 路 lift-bot（7 物料分别下 BP15a 晶振 / BP15b HSC）
-- 2 路 lift-top（晶振 + HSC mainNode 上行）
+- HSC manufacturer 20m W × 22m L × 12m H，3 输入 + 1 空
+
+### 屋顶 (35-40m): B1-B6 + 3 splitter + 1 merger（每实例屋顶相同）
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ──────────────────────────────────────── o  │
+ 4      │ o B2 ───[smart split: RIP 2.5]────────────── o   │
+ 8      │ o B3 ──────────────────────────────────────── o  │
+12      │ o B4 ───[prog split: cable 51.5 + CB 3.75]── o   │
+16      │ o B5 ───[merger << lift-top mainNode 4.75]── o   │
+20      │ o B6 ───[smart split: quartz 18 + qwire 210] o   │
+24      │                                                  │
+28      │ BP15a lift-bot: RIP / cable / quartz to osc      │
+        │ BP15b lift-bot: qwire / cable / CB to HSC        │
+32      │ lift-top: osc 1 (BP15a) + HSC 3.75 (BP15b)       │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- B2 取强化铁板 2.5（smart splitter）
+- B4 取线缆 14+37.5=51.5 + 电路板 3.75 = 55.25（programmable splitter）
+- B6 取石英 18 + 快速线 210 = 228（smart splitter，B6 最大段）
+- B5 merger 注入：晶振 1 + HSC 3.75 = 4.75 mainNode
 
 ## 建造步骤（BP15a 晶振，BP15b HSC 类似）
 

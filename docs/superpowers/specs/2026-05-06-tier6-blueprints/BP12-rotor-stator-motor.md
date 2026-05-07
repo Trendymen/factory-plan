@@ -44,44 +44,105 @@
 | 2F | 12-20m | 1 电机 assembler（T7+ 加 1 转子 + 1 定子）| 1-3 |
 | 屋顶 | 35-40m | B1-B6 + 4 splitter + 1 merger + 多 lift | — |
 
-## 俯视图（1F, 0-8m）
+## 俯视图（按实际比例，每层独立 — 视觉正方形）
+
+**比例约定**：
+- 横向：**1 字符 = 1m**
+- 纵向：**1 行 = 2m**
+- 蓝图 40×40m → 40 字符宽 × 20 行高
+
+**机器实际尺寸** → ASCII 占位：
+
+| 机器 | 实际 | ASCII 占位（W × H） |
+|---|---|---|
+| assembler | 10m × 15m | 10 字符 × 7-8 行 |
+
+### 1F (0-8m): 2 转子 + 2 定子 assembler = 4 台
+
+> 盒内仅单宽字符，中文注释在盒外。`v` = 输出 front (south)。
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌────┐ ┌────┐                     │  2 转子 assembler
-      │ │R1  │ │R2  │                     │  10m × 15m × 8m
-r=1   │ │Rotor│ │Rotor│                   │
-r=2   │ └────┘ └────┘                     │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=2.5 │ ┌────┐ ┌────┐                     │  2 定子 assembler
-      │ │S1  │ │S2  │                     │
-r=3.5 │ │Stat│ │Stat│                     │
-r=4   │ └────┘ └────┘                     │
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌─────────┐┌─────────┐                            │
+        ││   R1    ││   R2    │                            │
+ 4      ││ rotor   ││ rotor   │                            │
+        ││ 10x15   ││ 10x15   │                            │
+ 8      ││  v      ││  v      │                            │
+        │└─────────┘└─────────┘                            │
+12      │─────────── rotor collect belt h=2m ──────────────│
+        │┌─────────┐┌─────────┐                            │
+        ││   S1    ││   S2    │                            │
+16      ││ stator  ││ stator  │                            │
+        ││ 10x15   ││ 10x15   │                            │
+20      ││  v      ││  v      │                            │
+        │└─────────┘└─────────┘                            │
+24      │─────────── stator collect belt h=2m ─────────────│
+        │ in: screw 350  + iron-rod 70  (rotor in-0/in-1)  │
+28      │ in: steel-pipe 45 + wire 120  (stator in-0/in-1) │
+        │ all 4 lift-bot from roof splitter manifold       │
+32      │                                                  │
+        │ out >> central splitter:                         │
+36      │   rotor 14 (10 to motor + 4 mainNode)            │
+        │   stator 15 (10 to motor + 5 mainNode)           │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> assembler 10m × 15m，4 台 2×2 grid（20m × 30m），剩 col 2-4 空。
+- R1-R2: rotor assembler 10m W × 15m L × 8m H（转子）
+- S1-S2: stator assembler 10m W × 15m L × 8m H（定子）
+- T7+ 各加 1 台 R3 / S3，col 2-3 row 0/2.5 预留
 
-## 屋顶总线层（35-40m）
+### 2F (12-20m): 1 电机 assembler
 
 ```
-B1 ═══[smart split (filter=螺丝 350)──350┐]═> B1 余 (-350)
-B2 ═══[split (filter=铁棒 70)──70┐  ]═══════> B2 余 (-70)
-B3 ═══[programmable split (钢管45+电线120)─165┐]═> B3 余 (-165)
-B4 ═════════════════════════════════════════> B4
-B5 ═══[merger ←──14 mainNode lift]═════════> B5 (+14)
-B6 ═════════════════════════════════════════> B6
-                       │ │ │
-                  lift-bot (3-4 路)
-                       ↓ ↓ ↓
-                    1F splitter manifold
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌─────────┐                                       │
+        ││   M1    │  T7+ R3 / S3 reserve                  │
+ 4      ││ motor   │  (col 1-2 row 0 / row 2.5)            │
+        ││ 10x15   │                                       │
+ 8      ││  v      │                                       │
+        │└─────────┘                                       │
+12      │─────────── motor output belt h=14m ──────────────│
+        │ in: rotor 10 (lift-bot from 1F splitter)         │
+16      │ in: stator 10 (lift-bot from 1F splitter)        │
+        │                                                  │
+20      │ out: motor 5/min >> lift-out-top to roof merger  │
+        │                                                  │
+24      │                                                  │
+        │                                                  │
+32      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 屋顶 3 个 splitter（B1 取螺丝、B2 取铁棒、B3 取钢管+电线）
-- 屋顶 1 个 merger（注 B5）
-- 4 路 lift-bot（螺丝/铁棒/钢管/电线分别下到 1F manifold）
-- 2 路 lift-top（mainNode 转子+定子+电机 上行 → merger）
+- M1: motor assembler 10m W × 15m L × 8m H（电机）
+- T7+ 加 1 转子 + 1 定子（满载 7 台），col 1-2 row 0 / 2.5 预留
+
+### 屋顶 (35-40m): B1-B6 + 4 splitter + 1 merger
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ───[smart split: screw 350]──────────── o   │
+ 4      │ o B2 ───[split: iron-rod 70]─────────────── o    │
+ 8      │ o B3 ───[prog split: pipe 45 + wire 120]── o     │
+12      │ o B4 ──────────────────────────────────────── o  │
+16      │ o B5 ───[merger << lift-top mainNode 14]─── o    │
+20      │ o B6 ──────────────────────────────────────── o  │
+24      │                                                  │
+28      │ 4 lift-bot: screw / rod / pipe / wire to 1F      │
+32      │ 2 lift-top: rotor+stator+motor mainNode to B5    │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- B1 取螺丝 350 → BP12（B1 流量在此清零）
+- B2 取铁棒 70（来自 BP2）
+- B3 取钢管 45 + 电线 120 = 165（programmable splitter）
+- B5 merger 注入：转子 4 + 定子 5 + 电机 5 = 14 mainNode
 
 ## 建造步骤
 

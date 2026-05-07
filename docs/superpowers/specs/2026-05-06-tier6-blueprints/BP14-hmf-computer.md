@@ -50,44 +50,104 @@
 > manufacturer 20m × 22m × 12m，1 Mk2 装 2 台并排（共 40m × 22m，刚好满 1 行 row=0-2.75）。
 > T9 满载需 6 台 = 3 台 × 2 实例（BP14a 3 台 = 1 HMF + 2 电脑 多层；BP14b 3 台 = 3 电脑 多层）。
 
-## 俯视图（1F BP14a, 0-12m）
+## 俯视图（按实际比例，每实例独立 — 视觉正方形）
+
+**比例约定**：
+- 横向：**1 字符 = 1m**
+- 纵向：**1 行 = 2m**
+- 蓝图 40×40m → 40 字符宽 × 20 行高
+
+**机器实际尺寸** → ASCII 占位：
+
+| 机器 | 实际 | ASCII 占位（W × H） |
+|---|---|---|
+| manufacturer | 20m × 22m | 20 字符 × 11 行 |
+
+> manufacturer 占地大，单实例 1F 仅装 1 台（占 col 0-2.5 / row 0-2.75）。
+> **facing=north 端口反转**：4 输入朝南 (row=2.75)，1 输出朝北 (row=0)。
+
+### BP14a 1F (0-12m): 1 HMF manufacturer
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌──────────────────────────────┐ │  1 HMF manufacturer
-      │ │ HMF manufacturer (T6 active) │ │  20m × 22m × 12m
-r=1   │ │  4-input front (south)       │ │  facing=north (端口反转)
-      │ │  1-output back (north)       │ │
-r=2   │ │  ↑ ↑ ↑ ↑ (in 0-3, row=2.75)  │ │
-      │ │                              │ │
-r=2.75│ │  out-0 ↓ back (row=0)        │ │
-      │ └──────────────────────────────┘ │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │ ===collect HMF mainNode lift──── │
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────────────────┐                             │
+        ││         ^         │  out-0 -> roof merger (B5)  │
+ 4      ││  HMF  manufacturer│  HMF 2/min mainNode         │
+        ││  20m W x 22m L    │                             │
+ 8      ││  facing=north     │                             │
+        ││  port reversed    │                             │
+12      ││                   │  in 0-3 (south, row=2.75):  │
+        ││                   │    in-0 screw 240           │
+16      ││                   │    in-1 steel-pipe 40       │
+        ││                   │    in-2 modular-frame 10    │
+20      ││                   │    in-3 encased-beam 10     │
+        ││  v  v  v  v       │                             │
+24      │└───────────────────┘                             │
+        │ screw + pipe via lift-bot from roof B2/B3 split  │
+28      │ frame + beam via left-wall inlet h=4m from BP13  │
+        │                                                  │
+32      │ HMF out-0 (row=0) >> lift-out-top to roof merger │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> **manufacturer 端口反转**：facing=north，让 4 输入朝南、1 输出朝北。
-> 输入 4 槽（screw 240, steel-pipe 40, modular-frame 10, encased-beam 10）从 row=2.75 进。
+- HMF manufacturer 20m W × 22m L × 12m H，4 输入 1 输出
+- T7+ 加 1 电脑 manufacturer（2F），单实例物理上限 2 台（28+16=44m 顶限）
 
-## 屋顶总线层（35-40m）
+### BP14b 1F (0-12m): 1 电脑 manufacturer
 
 ```
-B1 ═════════════════════════════════════════> B1 余
-B2 ═══[smart split (filter=螺丝240)──240┐]═> B2 余 (-240)
-B3 ═══[smart split (filter=钢管40)──40┐ ]═> B3 余 (-40)
-B4 ═══[programmable split (CB10+Cab20+Plas50)─80┐]═> B4 余 (-80)
-B5 ═══[merger ←──HMF2 + 电脑2.5 lift]══════> B5 (+4.5)
-B6 ═════════════════════════════════════════> B6
-                                          │
-                                       lift-bot (3-7 路)
-                                          ↓
-                                       1F manufacturer in
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────────────────┐                             │
+        ││         ^         │  out-0 -> roof merger (B5)  │
+ 4      ││ Computer manufact.│  computer 2.5/min mainNode  │
+        ││  20m W x 22m L    │                             │
+ 8      ││  facing=north     │                             │
+        ││  port reversed    │                             │
+12      ││                   │  in 0-3 (south, row=2.75):  │
+        ││                   │    in-0 circuit-board 10    │
+16      ││                   │    in-1 cable 20            │
+        ││                   │    in-2 plastic 50          │
+20      ││                   │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                             │
+24      │└───────────────────┘                             │
+        │ all 3 inputs via lift-bot from roof B4 prog split│
+28      │ in-3 lift omitted (no fourth ingredient)         │
+        │                                                  │
+32      │ computer out-0 (row=0) >> lift-out-top to merger │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 屋顶 3 个 splitter（B2/B3/B4）
-- 屋顶 1 个 merger（注 B5）
+- computer manufacturer 20m W × 22m L × 12m H，3 输入实用 + 1 槽空
+
+### 屋顶 (35-40m): B1-B6 + 3 splitter + 1 merger（每实例屋顶相同）
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ──────────────────────────────────────── o  │
+ 4      │ o B2 ───[smart split: screw 240]──────────── o   │
+ 8      │ o B3 ───[smart split: steel-pipe 40]──────── o   │
+12      │ o B4 ───[prog split: CB 10 + Cab 20 + P 50]── o  │
+16      │ o B5 ───[merger << lift-top mainNode 4.5]── o    │
+20      │ o B6 ──────────────────────────────────────── o  │
+24      │                                                  │
+28      │ BP14a lift-bot: screw / pipe to 1F HMF in-0/1    │
+        │ BP14b lift-bot: CB / cable / plastic to 1F in-0-2│
+32      │ lift-top: HMF 2 (BP14a) + computer 2.5 (BP14b)   │
+36      │                                                  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- BP14a 取 B2 (240 螺丝) + B3 (40 钢管) + 集群内部模框 10 + 包裹梁 10
+- BP14b 取 B4 (电路板 10 + 线缆 20 + 塑料 50 = 80)
+- B5 merger 注入：HMF 2 + 电脑 2.5 = 4.5 mainNode
 
 ## 建造步骤（BP14a）
 
