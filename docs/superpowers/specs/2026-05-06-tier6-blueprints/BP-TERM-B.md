@@ -109,28 +109,29 @@
 ## 共享 sink 连接路由
 
 ```
-本蓝图 13 个 smart splitter overflow → 1F merger A → 共享 sink in-0 (back)
-                                          ↑
-BP-TERM-A 13 个 splitter overflow → 左 Wall Inlet (h=8m) → 1F merger B → merger A
+This blueprint 13 smart splitter overflow >> 1F merger A >> shared sink in-0 (back)
+                                                ^
+BP-TERM-A 13 splitter overflow >> left Wall Inlet h=8m >> 1F merger B >> merger A
 ```
 
 26 路 → 多级 merger 汇流 → 1 个 belt → sink in-0
 
-## 屋顶总线层（35-40m）
+### 屋顶 (35-40m): B5 splitter子树 + B1-B6 直通
 
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ ◯ B1 ══════════════════════════════════════ ◯   │  B1-B6 直通到右边界悬空
- 8      │ ◯ B2 ══════════════════════════════════════ ◯   │  (无生产，BP-TERM 末端)
-16      │ ◯ B3 ══════════════════════════════════════ ◯   │
-20      │ ◯ B4 ══════════════════════════════════════ ◯   │
-24      │ ◯ B5 ═══[14 路 belt 来自 BP-TERM-A splitter]   │
-        │                            │                   │
-28      │                       lift-bot ↓ 到 1F          │
-        │                                                  │
-32      │ ◯ B6 ══════════════════════════════════════ ◯   │  B6 也悬空 (石油焦在 BP9)
+ 0      │ o B1 ────────────────────────────────────── o   │
+ 4      │ o B2 ────────────────────────────────────── o   │
+ 8      │ o B3 ────────────────────────────────────── o   │
+12      │ o B4 ────────────────────────────────────── o   │
+16      │ o B5 ───[14 paths from BP-TERM-A splitter]── o   │
+20      │     14 paths >> lift-bot to 1F splitter cascade │
+24      │     >> 13 Uploader smart splitters              │
+28      │     last path: idle (reserve)                   │
+32      │ o B6 ────────────────────────────────────── o   │
+36      │ B1-B4 + B6 pass-through to right edge (idle)    │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
