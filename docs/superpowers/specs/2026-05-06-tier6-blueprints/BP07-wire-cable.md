@@ -99,6 +99,20 @@ B6 ═══[merger ←──铜板 25 lift]════════════
 8. **屋顶 (35m)**: 6 belt 直通 + 4 merger
 9. **Power Switch**: 关闭闲置（T6 单实例 ≈ 4 台开，剩 11+台关）
 
+## 多实例侧墙续接
+
+BP7 是**纯同向流**集群（铜锭从 BP6→BP7a→BP7b→BP7c→BP8）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
+
+蓝图侧墙集群内 mount（机器层）：
+
+| 高度 | 物料 | 左 Wall | 右 Wall |
+|---|---|---|---|
+| h=4m row=2.5 | 铜锭 | **Inlet** | **Outlet**（剩余给下游 BP7b/c）|
+| h=4m row=3.5 | 铜板 | — | **Outlet**（仅 BP7c 用，给 BP8）|
+
+> BP7c 右 Outlet 铜板接 BP8（C3 末端）；BP7a/b 右 Outlet 铜板悬空（这些实例的铜板内部消耗 + 屋顶 B6 走，不出右墙）。
+> 电线内部回流（自给线缆配方）**仅在同蓝图内部 lift**，不跨实例。
+
 ## 集群内部短 belt
 
 - BP7 → BP8 铜板 27.5：右 Wall Outlet (col=5, h=24m, row=2) → BP8 左 Wall Inlet (h=24m, row=2)

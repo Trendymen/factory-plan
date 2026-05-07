@@ -21,14 +21,14 @@
 
 | 方向 | 物料 | 流量 (T6) | 路径 |
 |---|---|---|---|
-| 输入 | 铁棒 | 216.5/min | **集群内部** ← BP2b 右 Wall Outlet (h=12m) → BP3 左 Wall Inlet (h=12m) |
-| 输出 | 螺丝 → BP2 RIP（C1 内部）| 276 | 集群内部 ← BP3 → BP2b 3F (lift 上 24m+ → BP2b 右 Wall Inlet) |
+| 输入 | 铁棒 | 216.5/min | **集群内部** ← BP2b 右 Wall Outlet (h=6m, row=2.5) → BP3 **左 Wall Inlet** (h=6m, row=2.5) |
+| 输出 | 螺丝 → BP2 RIP（C1 内部，**反向流**）| 276 | BP3 **左 Wall Outlet** (h=28m, row=3) → BP2b 右 Wall Inlet (h=28m, row=3) → BP2b 内部反向 belt → BP2a RIP |
 | 输出 | 螺丝 → B1 (BP12 转子) | 350 | 屋顶 merger → B1 |
 | 输出 | 螺丝 → B2 (BP14 HMF) | 240 | 屋顶 merger → B2 |
 
 **屋顶总线接入**: 注入 B1 (350) + B2 (240)
 
-> 集群内部 螺丝回流到 BP2 RIP 是反向路由：BP3 输出 → BP3 右 Wall Outlet (h=24m) → 跨 BP2b 右 Wall Inlet (h=24m) 进入 BP2b 3F RIP。BP3 必须紧贴 BP2b 之后才能让此路径短。
+> ⚠ **关键**：螺丝回流到 BP2 RIP 是**反向路由**——BP3 是 C1 集群最右端，给左边 BP2 的 belt 必须从 **左 Wall Outlet** 出（向左流）。出口在 h=28m 是为了对齐 BP2 蓝图的 3F (24-32m) RIP 螺丝输入。BP2 蓝图自带"右 Inlet 28m → 左 Outlet 28m"反向直通 belt，让螺丝跨 BP2b 到 BP2a。
 
 ## 楼层占用
 
@@ -54,8 +54,9 @@ r=2   │ ====== Mk4 收集 belt（螺丝）======│
 r=3   │      │      │      │      │      │  T7+ 第二行 5 台
 r=4   │      │      │      │      │      │
       └──────┴──────┴──────┴──────┴──────┘
-                                ← 左 Wall Inlet (h=12m, 铁棒)
-                                → 右 Wall Outlet (h=24m, 螺丝回流给 BP2b RIP)
+                                ← 左 Wall Inlet (h=6m, row=2.5, 铁棒来自 BP2b)
+                                ← 左 Wall Outlet (h=28m, row=3, 螺丝**反向**给 BP2b → BP2a RIP)
+                                → 右 Wall Outlet/Inlet 仅屋顶 6 belt 续接 BP4
 ```
 
 2F (12-20m): 4 台 screw constructor 一字排（同 1F row=0 布局，col=0→3）+ T7+ 加 5 台第二行
@@ -80,14 +81,14 @@ B6 ═════════════════════════�
 
 1. **1F (0-8m)**: 5 台 screw constructor 一字排 row=0
 2. **1F belt 收集**: row=2 横向 Mk4 主 belt 收集 5 台输出（合流后 ~480/min）
-3. **铁棒进料**: 左 Wall Inlet (h=12m) ← BP2b 右 Wall Outlet → lift-bot 下到 1F → splitter manifold 喂 5 台 (T6) / 10 台 (T9)
+3. **铁棒进料**: 左 Wall Inlet (h=6m, row=2.5) ← BP2b 右 Wall Outlet → 同高度 belt 直通 1F → splitter manifold 喂 5 台 (T6) / 10 台 (T9)
 4. **1F→2F**: 4m 地基 (8-12m)
 5. **2F (12-20m)**: 4 台 screw constructor 一字排 row=0；同样 row=2 收集 belt
 6. **2F 铁棒进料**: 与 1F 共用同一进料 lift（左 Wall Inlet 在 12m，自然进 2F 高度；再下行到 1F）
 7. **3 路分配**:
-   - 1F + 2F 主 belt 末端 → lift-out-top 上送到 24m
-   - 24m 一个 1→3 programmable splitter（filter=螺丝，按 276 / 350 / 240 比例）
-   - 276 → lift-out-top → 右 Wall Outlet (col=5, h=24m)（回流给 BP2b RIP）
+   - 1F + 2F 主 belt 末端 → lift-out-top 上送到 28m
+   - 28m 一个 1→3 programmable splitter（filter=螺丝，按 276 / 350 / 240 比例）
+   - 276 → 短 belt → **左 Wall Outlet (col=0, h=28m, row=3)**（**反向**给 BP2b → BP2a 3F RIP）
    - 350 + 240 = 590 → lift-out-top → 屋顶 (35m)
 8. **屋顶 (35-40m)**:
    - 6 条 Mk4 belt 直通
@@ -98,9 +99,9 @@ B6 ═════════════════════════�
 
 ## 同轴对齐关键
 
-- BP3 右 Wall Outlet (h=24m, 螺丝 276 → BP2b RIP) 与 BP2b 3F RIP 螺丝输入端口必须**同 row**对齐
-- BP3 左 Wall Inlet (h=12m, 铁棒) 与 BP2b 右 Wall Outlet (h=12m, 铁棒) 也必须**同 row**对齐
-- 这两个 row 用 row=2 一致即可（铁棒 12m + 螺丝 24m，高度不同，row 同）
+- **BP3 左 Wall Outlet (h=28m, row=3, 螺丝反向)** 与 BP2b 右 Wall Inlet (h=28m, row=3) 高度+row 完全镜像对齐 → Auto Connect 自动续接
+- BP3 左 Wall Inlet (h=6m, row=2.5, 铁棒) 与 BP2b 右 Wall Outlet (h=6m, row=2.5) 镜像对齐
+- BP3 右侧（接 BP4）只有屋顶 6 belt mount + 6m 高度铁棒/24m 高度铁锭 mount 作为继承（这两个 mount 接 BP4 时悬空，BP4 不会取）
 
 ## Tier 7+ 扩容点
 

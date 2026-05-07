@@ -183,9 +183,16 @@ B6 ═════════════════════════�
 9. **本地 sink**: 1F col=4 row=4 处放 1 个 awesome-sink，R5 石油焦 belt 直连
 10. **Power Switch**: T6 阶段**BP9a 5 台全开**（3 plastic @191.67% + 1 rubber @100% + 1 coke @250%）；BP9b-e 5 实例**全部 Power Switch 关闭**（物理建造 25 台 refinery + 5 sink，仅 BP9a 5 台运行）
 
-## 集群内部连接
+## 集群内部连接 / 多实例侧墙
 
-无 belt 跨蓝图（C4 仅 BP9 自己）。原油从外部油田 pipe 接入。
+无 belt 跨蓝图（C4 仅 BP9 自己；每实例完全独立、油田直进、残渣本地处理）。
+
+**蓝图侧墙集群内 mount（机器层）：无**。BP9 蓝图侧墙仅有：
+- 屋顶 6 belt mount（B1-B6 续接相邻 BP9 实例）
+- 左 Wall Pipeline Hole（h=4m，原油 pipe 进料）
+
+> BP9a-e 之间机器层完全不互通——每实例独立的油田 pipe（或共享油田主 pipe + 各实例分支）。
+> 详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
 ## 残渣 → 石油焦 → 本地 sink（默认）
 

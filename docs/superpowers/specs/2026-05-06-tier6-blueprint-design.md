@@ -333,6 +333,49 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 集群内相邻蓝图在游戏世界中**直接挨着放**：center-to-center 间距 = 40m（一个 Mk2 宽度），两个蓝图边界面对齐贴合。每对相邻蓝图的对应 Wall Outlet ↔ Wall Inlet 距离 ~2m，**用 Auto Connect 模式一键续接**。集群内不需要手画 belt。
 
+### 多实例集群侧墙 mount 对偶规则（关键设计约定）
+
+多实例集群（BP2a/b、BP6a/b、BP7a/b/c、BP9a-e、BP10a/b、BP14a/b、BP15a/b）的所有副本都是**同一个蓝图设计**复制粘贴。这意味着每个副本侧墙的 Wall mount 配置**完全一致**，物料流方向通过 mount 类型决定：
+
+#### 同向流（占多数）
+
+**当前游戏顺序**：上游 → BP_a → BP_b → ... → 下游。物料从左到右流动：
+- 蓝图设计左 Wall = **Inlet**（接上游来料）
+- 蓝图设计右 Wall = **Outlet**（送给下游）
+- 蓝图内部 belt：左 Inlet → splitter manifold（取本实例消耗份额）→ 右 Outlet（剩余直通到下游）
+- Auto Connect 自动续接 BP_a 右 → BP_b 左 → BP_c 左 ...
+
+**示例**：
+- C3 铜锭 BP6a → BP6b → BP7a → BP7b → BP7c（左→右）
+- C5 铜金锭 BP6 → BP10（屋顶 B6，同样左→右）
+
+#### 反向流（少数，需特殊设计）
+
+**反向**指：物料从右边 BP（下游）流回左边 BP（上游）。例如 C1 螺丝 BP3→BP2 反向给 RIP。
+
+**蓝图必须自带正反两对 mount**：
+- 蓝图设计左 Wall = Outlet（反向出口给上游）+ Inlet（同向入口）
+- 蓝图设计右 Wall = Inlet（反向入口接下游）+ Outlet（同向出口）
+- 蓝图内部反向 belt：右 Inlet → splitter manifold → 左 Outlet（直通到上游 BP）
+
+**实例使用差异**：相同蓝图复制后，**不同实例的某些 mount 会悬空**（取决于物理位置）：
+- 集群最左端的实例（如 BP2a）：左侧反向 Outlet 悬空（无更左的 BP 接收），但 mount 必须存在（蓝图相同）
+- 集群最右端的实例（如 BP2b）：右侧反向 Inlet 悬空（无更右的 BP 提供）—— 实际 BP2b 右接 BP3，BP3 提供螺丝 ✓，所以 BP2b 不悬空
+
+**唯一确认有反向流的集群**：C1 螺丝（BP3→BP2 RIP，详见 BP02-iron-base.md）。
+
+#### 高度约定（避免冲突）
+
+集群内多种物料并行的多 belt，用**不同高度** + 不同 row 区分（避免侧墙 mount 物理冲突）：
+- 屋顶 35-40m：6 条总线 belt（B1-B6，固定 row=0.5/1.5/.../4.5）
+- 机器层低位 4-8m：1F constructor 平面进料（同向流，如铁锭/铁棒）
+- 机器层中位 22-28m：多层蓝图 2F-3F 进料（如 RIP 螺丝在 28m）
+
+**示例（C1）**：
+- h=4m row=2.5 铁锭（同向 BP1→BP2→BP2b 直通，BP3 不取）
+- h=6m row=2.5 铁棒（同向 BP2→BP3，BP2 内部产）
+- h=28m row=3 螺丝（**反向** BP3→BP2，跨 BP2b 直通到 BP2a RIP）
+
 ### 蓝图设计器工作流（Wall Mount + Auto Connect）
 
 设计 BP1（铁锭）时：
