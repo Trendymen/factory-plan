@@ -46,40 +46,138 @@
 
 > constructor 8m × 10m，1F 装 5 台一行；T9 单实例 ≈ 15 台需 1F+2F+3F 各 5 台。
 
-## 俯视图（1F BP7a, 0-8m）
+## 俯视图（按实际比例，每层独立 — 视觉正方形）
+
+**比例约定**：
+- 横向：**1 字符 = 1m**
+- 纵向：**1 行 = 2m**（补偿 monospace 字符宽高比 1:2）
+- 蓝图 40×40m → **40 字符宽 × 20 行高**
+- 每 cell (8×8m) = 8 字符宽 × 4 行高
+
+**机器实际尺寸** → ASCII 占位：
+
+| 机器 | 实际 | ASCII 占位（W × H） |
+|---|---|---|
+| constructor | 8m × 10m | 8 字符 × 5 行 |
+
+### 1F (0-8m): 5 constructor (1 sheet + 2 wire + 1 cable + 1 reserve)
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │┌──┐  │┌──┐  │┌──┐  │┌──┐  │┌──┐  │  5 constructor row=0
-      ││Cu│  ││Wi│  ││Wi│  ││Cb│  ││  │  │  Cu=copper-sheet, Wi=wire, Cb=cable
-r=1   │└─↓┘  │└─↓┘  │└─↓┘  │└─↓┘  │└─↓┘  │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=2   │ === collect 铜板/电线/线缆 row =1 ─│  共用 row=2 主 belt（按 col 分段不同物料）
-r=3   │ ── 三种独立 belt ───────────────── │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=4   │      │      │      │      │      │
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │
+        ││  Cu1  ││  Wi1  ││  Wi2  ││  Cb1  ││  --   │    │
+ 4      ││ sheet ││ wire  ││ wire  ││ cable ││reserve│    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │    │
+ 8      ││  v    ││  v    ││  v    ││  v    ││       │    │
+        │└───────┘└───────┘└───────┘└───────┘└───────┘    │
+12      │── sheet collect belt h=2m  (Cu1)         ───────│
+        │── wire  collect belt h=4m  (Wi1,Wi2)     ───────│
+16      │── cable collect belt h=6m  (Cb1)         ───────│
+        │                                                 │
+20      │ IN  h=24m row=2.5: copper-ingot (BP6 > BP7)     │
+        │ OUT h=24m row=2.5: copper-ingot (BP7 > BP8)     │
+24      │ OUT h=24m row=3.5: copper-sheet (BP7c > BP8)    │
+        │                                                 │
+28      │ wire internal feedback: 1F wire -> lift -> Cb1  │
+        │   in-0 (replace external supply for cable feed) │
+32      │                                                 │
+36      │ central splitter ingot -> 4 constructor in-0    │
+        │                                                 │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> 三种产物用三条独立 row belt 收集（避免混料）：
-> - row=2 铜板 belt
-> - row=3 电线 belt
-> - row=4 线缆 belt（线缆 constructor 在 col=3 一台，但其铜板进料 row 已固定 row=2 上方）
+- Cu1：copper-sheet constructor 8m W × 10m L × 8m H
+- Wi1-Wi2：wire constructor 8m W × 10m L × 8m H
+- Cb1：cable constructor 8m W × 10m L × 8m H
+- reserve：col=4 预留（T7+ 第 5 台占用）
+- 三种 row 独立 belt（铜板/电线/线缆）防混料
+- 电线内部回流：1F wire 部分输出 lift-bot 喂 cable in-0
 
-## 屋顶总线层（35-40m）
+### 2F (12-20m): 5 constructor (剩余分布)
 
 ```
-B1 ═════════════════════════════════════════> B1
-B2 ═════════════════════════════════════════> B2
-B3 ═══[merger ←──电线 170 lift]═════════════> B3 (+170)
-B4 ═══[merger ←──线缆 71.5 lift]═══════════> B4 (+71.5)
-B5 ═══[merger ←──mainNode 70 lift]═════════> B5 (+70)
-B6 ═══[merger ←──铜板 25 lift]═════════════> B6 (+25)
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │
+        ││  Cu2  ││  Wi3  ││  Wi4  ││  Cb2  ││  --   │    │
+ 4      ││ sheet ││ wire  ││ wire  ││ cable ││reserve│    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │    │
+ 8      ││  v    ││  v    ││  v    ││  v    ││       │    │
+        │└───────┘└───────┘└───────┘└───────┘└───────┘    │
+12      │── sheet collect belt h=14m (Cu2)         ───────│
+        │── wire  collect belt h=16m (Wi3,Wi4)     ───────│
+16      │── cable collect belt h=18m (Cb2)         ───────│
+        │                                                 │
+20      │ ingot in:  lift-bot from 1F splitter manifold   │
+        │ products:  lift-out-top to roof 4 mergers       │
+24      │                                                 │
+28      │ T7+ 加 Cu3 / Wi5 / Cb3 (col=4 reserve 启用)     │
+        │                                                 │
+32      │                                                 │
+36      │                                                 │
+        │                                                 │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 4 个 merger（B3、B4、B5、B6 各 1 个）
-- 各产物 1F+2F+3F 收集后 → lift-out-top → 4 路上行（按 mainNode/总线分配）
+- 2F 同 1F 布局：1 sheet + 2 wire + 1 cable + 1 reserve
+- 三种产物上行 lift-out-top 到屋顶 4 个 merger
+
+### 3F (24-32m): 5 constructor (T8/T9 才用)
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │
+        ││  Cu3  ││  Wi5  ││  Wi6  ││  Cb3  ││  --   │    │
+ 4      ││ sheet ││ wire  ││ wire  ││ cable ││reserve│    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │    │
+ 8      ││  v    ││  v    ││  v    ││  v    ││       │    │
+        │└───────┘└───────┘└───────┘└───────┘└───────┘    │
+12      │── sheet collect belt h=26m (Cu3)         ───────│
+        │── wire  collect belt h=28m (Wi5,Wi6)     ───────│
+16      │── cable collect belt h=30m (Cb3)         ───────│
+        │                                                 │
+20      │ T6 idle (Power Switch off); T8/T9 启用          │
+        │ 3F products lift-out-top to roof 4 mergers      │
+24      │                                                 │
+28      │ T9 满载单实例 ≈ 15-16 台分布 1F+2F+3F 各 5      │
+        │ 3 实例 BP7a/b/c 共 46 台                        │
+32      │                                                 │
+36      │                                                 │
+        │                                                 │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- 3F 全部 T6 物理建造 Power Switch 关，T8/T9 渐次启用
+- 1F+2F+3F 单实例最多 15 台，3 实例覆盖 T9 46 台
+
+### 屋顶 (35-40m): B1-B6 + 4 merger (B3 + B4 + B5 + B6)
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ────────────────────────────────────── o   │
+ 4      │ o B2 ────────────────────────────────────── o   │
+ 8      │ o B3 ───[merger << wire 170]─────────────── o   │
+12      │ o B4 ───[merger << cable 71.5]───────────── o   │
+16      │ o B5 ───[merger << mainNode 70]──────────── o   │
+20      │ o B6 ───[merger << copper-sheet 25]──────── o   │
+24      │                                                 │
+28      │ B3 inject 170/min (wire to BP12 + BP11)         │
+        │ B4 inject  71.5   (cable to BP14 + BP15)        │
+32      │ B5 inject  70     (mainNode: sheet/wire/cable)  │
+        │ B6 inject  25     (sheet to BP10 AI limiter)    │
+36      │                                                 │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- 4 个 merger（B3=电线、B4=线缆、B5=mainNode 三合一、B6=铜板）
+- 各产物 1F+2F+3F 收集 → lift-out-top → 4 路注入
 
 ## 建造步骤（BP7a，BP7b/c 完全复制）
 
