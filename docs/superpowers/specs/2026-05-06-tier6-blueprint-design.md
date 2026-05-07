@@ -801,9 +801,15 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 ### BP-TERM-A / BP-TERM-B: 终端汇流（位面存储 + sink overflow，2 个 Mk2 蓝图）
 
-- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **26 个 awesome-sink**（26 mainNode）+ 若干 smart splitter
+- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **1 个共享 AWESOME Sink**（所有 26 mainNode 的 overflow 汇流到此）+ 26 个 smart splitter（每个 Uploader 前 1 个，filter=该物料，priority=Uploader / overflow→sink）
 - **位置**: 工厂街最末端（紧贴 BP15 之后）
-- **占地评估**: Dim Depot Uploader **5×10m** × 26 个 = 1,300m² + AWESOME Sink 4×6m × 26 = 624m² + 路由 ~200m² ≈ **2,124m²，超过单 Mk2 1,600m²**。**实际需 2 个 Mk2 蓝图**：BP-TERM-A（13 mainNode Uploader + sink）+ BP-TERM-B（13 mainNode）。**残渣 sink 不在这里**（已在 BP9 内部就地处理）
+- **占地评估**:
+  - Dim Depot Uploader **5×10m** × 26 = 1,300m²
+  - AWESOME Sink **16×13m × 24m高** × 1 共享 = 208m²
+  - smart splitter 26 个 + merger 1 个 + 路由 ≈ 250m²
+  - 总 ≈ **1,758m²，仍稍超单 Mk2 1,600m²** → **拆 2 个 Mk2**：BP-TERM-A（13 Uploader）+ BP-TERM-B（13 Uploader + 1 共享 sink + 26 路 overflow 汇流）
+- **设计哲学**：26 mainNode → 26 Uploader 1:1（位面仓优先吃料）；overflow 时通过 merger 汇流到**唯一的共享 sink**（满载理论 396/min 远超 1 sink 容量 60-150/min，但实际 Uploader 持续传送，溢流速率远低于此，1 个 sink 足够）
+- **残渣 sink 不在这里**（已在 BP9 内部就地处理）
 - **Tier 7+ 预留 11 个槽位**：未来铝壳/铝包铝板/超级计算机/RCU/冷却系统/涡轮电机/融合模块框架/叠加振荡器/时间晶体/神经处理器/虚构三角 解锁后接入。BP-TERM 实际部署 **27 个 Uploader 槽位 + 11 个预留 slot**，27 路分流器树最多可分 27 路（用 1→3→9→27 三级树）。Tier 7+ 扩容时把分流器树扩成 1→3→9→27→81 四级树（最多 81 路，覆盖 37 mainNode 充分有余）。
 
 #### 每个 mainNode 的本地结构
@@ -811,11 +817,12 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 ```
    屋顶总线 B5 ─── 26 mainNode 终端汇流
        │
-       smart splitter (filter=item)
-       ├── Dim Depot Uploader → 位面仓（独立容量上限 50-5000 视研究等级）
-       └── overflow → awesome-sink（位面仓满后兜底，长期赚 ticket）
+       smart splitter (filter=item) × 26
+       ├── 1 路 (priority): Dim Depot Uploader → 位面仓（独立容量上限 50-5000 视研究等级）
+       └── 2 路 (overflow): merger 汇流 → **唯一共享 awesome-sink**
 
 > 残渣处理在 BP9 内部完成（残渣 → coke → 石油焦 → 本地 sink），不进 BP-TERM
+> 共享 sink 设计依据：26 个 Uploader 持续向位面仓传送，溢流速率远低于 mainNode 总产能。1 个 sink @ 250% (≈150/min) 可消化绝大多数场景溢流；位面仓研究升级后 Uploader 容量大，溢流极少触发。
 ```
 
 #### 屋顶总线层 (35-40m)
@@ -1390,7 +1397,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 | 建筑 | 维度 (W × L × H) | powerUsage | category | 端口约定 |
 |---|---|---:|---|---|
 | `dim-depot-uploader` | 5 × 10 × 8 m | TBD | logistics | 1 belt-in 'back' |
-| `awesome-sink` | 4 × 6 × 4 m | TBD | logistics | 1 belt-in 'back' |
+| `awesome-sink` | 16 × 13 × 24 m | TBD | logistics | 1 belt-in 'back' |
 | `power-switch` | 2 × 1 × 4 m | 0 | logistics | 无 belt 端口（电力网建筑）|
 | `wall-conveyor-outlet` | 0.8 × 2 × 2 m | 0 | logistics | 1 belt-out 'front'，墙嵌入式 |
 | `wall-conveyor-inlet` | 0.8 × 2 × 2 m | 0 | logistics | 1 belt-in 'back'，墙嵌入式 |

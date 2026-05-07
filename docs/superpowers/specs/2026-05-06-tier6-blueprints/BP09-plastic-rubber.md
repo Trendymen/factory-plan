@@ -22,7 +22,7 @@
 | **合计 (T6)** | 5 | — | — | 3×2 + 0 + 1 = **7** |
 
 > 总产能验证: 3 × 38.33 = 115 塑料 ✓ | 1 × 20 = 20 橡胶 ✓ | 残渣 3×19.17 + 20 = 77.5 ≈ 78 ✓ | coke 78×3 = 234 石油焦 ✓
-> sink 配 1 台 awesome-sink @ 250%（3 shard）吃 234 石油焦（240/min 容量，余 6/min）
+> sink 配 1 台 awesome-sink **16m × 13m × 24m高** @ 250%（3 shard）吃 234 石油焦（240/min 容量，余 6/min）
 
 > ⚠ **架构修正**：重油残渣是**流体**（refinery out-1 是 pipe），不能上 belt，AWESOME Sink 也不接受流体。
 > **解决方案**：每个 BP9 实例内部加 1 台 coke refinery 跑 `petroleum-coke` 配方（40 残渣 → 120 石油焦），残渣**本地转固体石油焦** → **就地 sink**（每实例配 1 个 awesome-sink）。
@@ -90,54 +90,43 @@
 > T6 阶段 BP9a 满载 5 台（3 plastic + 1 rubber + 1 coke），其余 BP9b-e 全 Power Switch 关。
 > T9 满载需 32 台 (23 plas + 2 rub + 7 coke @ 250%) → 7 实例 BP9a-g（每实例 5 槽位刚好用满）。
 
-## 俯视图（1F BP9a, 0-31m，按精确尺寸绘制）
-
-每字符 = 2m（每 cell 8m = 4 字符宽 × 4 字符高）。**refinery 10m W × 20m L = 5 字符 × 10 字符**（跨 1.25 cell × 2.5 cell）。
+## 俯视图（1F BP9a, 0-31m，按实际比例 BP09 风格）
 
 ```
-        col=0       col=1       col=2       col=3       col=4    col=5
+        col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐    │ row=0
-        ││  R1    │ │  R2    │ │  R3    │ │  R4    │    │
- 4      ││Plastic │ │Plastic │ │Plastic │ │Rubber  │    │ row=0.5
-        ││ 10m W  │ │        │ │        │ │        │    │
- 8      ││ × 20m L│ │        │ │        │ │        │    │ row=1
-        ││        │ │        │ │        │ │        │    │
-12      ││  out-0 │ │  out-0 │ │  out-0 │ │  out-0 │    │ row=1.5
-        ││   ↓    │ │   ↓    │ │   ↓    │ │   ↓    │    │  (产物 belt)
-16      ││ out-1→ │ │ out-1→ │ │ out-1→ │ │ out-1→ │    │ row=2
-        │└────────┘ └────────┘ └────────┘ └────────┘    │  (残渣 pipe)
-20      ├─── 残渣 pipe 汇流 (junction)──────────────────┤ row=2.5
-        │                                               │
-24      │      ┌────────┐                               │ row=3
-        │      │  R5    │                               │
-28      │      │  Coke  │      [本地 sink]              │ row=3.5
-        │      │ 10m W  │      ┌──────┐                 │
-32      │      │ × 20m L│      │AwSink│ 4×6m            │ row=4
-        │      │        │      │ ←──── R5 out-0 (固体)  │
-36      │      │  out-0→│      └──────┘                 │ row=4.5
-        │      └────────┘                               │
-40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴┘
+ 0      │┌────────┐┌────────┐┌────────┐┌────────┐         │  R1-R4: 4 refinery
+        ││  R1    ││  R2    ││  R3    ││  R4    │         │  10m W × 20m L × 31m H
+ 4      ││Plastic ││Plastic ││Plastic ││Rubber  │         │  row=0-2.5 (0-20m)
+        ││ 10×20m ││ 10×20m ││ 10×20m ││ 10×20m │         │  3 plastic + 1 rubber
+ 8      ││ ×31m H ││        ││        ││        │         │
+        ││        ││        ││        ││        │         │  out-0 ↓ 产物 belt
+12      ││ out-0↓ ││ out-0↓ ││ out-0↓ ││ out-0↓ │         │  out-1 → 残渣 pipe
+        ││ out-1→ ││ out-1→ ││ out-1→ ││ out-1→ │         │
+16      │└────────┘└────────┘└────────┘└────────┘         │
+20      ├──── 残渣 pipe 汇流 junction (row=2.5) ─────────│  4 → 1 → R5 in-0
+        │┌────────┐                                      │
+24      ││  R5    │  ┌────────────────┐                  │  R5: coke refinery
+        ││  Coke  │  │  AWESOME Sink  │                  │  10m W × 20m L × 31m H
+28      ││ 10×20m │  │  16m W × 13m L │  <空地>          │  row=2.75-5 (22-40m)
+        ││ ×31m H │  │  × 24m H       │                  │  col=0-1.25
+32      ││ in-0← │  │  in-0 (back)   │                  │
+        ││ 残渣   │  │  ← 共享接 R5   │                  │  Sink: 16×13m × 24m高
+36      ││ out-0→ │  │  out-0 (石油焦)│                  │  col=1.5-3.5
+        │└────────┘  └────────────────┘                  │  row=3-4.625 (24-37m)
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-**关键尺寸**：
-- R1-R4: 各 10m W × 20m L，row=0-2.5（即 0-20m），col 起点 0/10/20/30m → cell col=0/1.25/2.5/3.75
-- R5 (coke): 10m W × 20m L，col=10-20m（cell 1.25-2.5），row=22-42m → 截到 row=2.75-5（22-40m）
-- 本地 sink: 4m W × 6m L（很小），col=22-26m，row=3.5-4.25
-- 4 台 R1-R4 的残渣 pipe 在 row=2.5（20m）处用 junction 汇流到 R5 in-0
-- R5 输出固体石油焦 → 短 belt 直连本地 sink
+**关键尺寸**（按 registry 实际值）：
+- R1-R4 (plastic/rubber refinery)：各 **10m W × 20m L × 31m H**，row=0-2.5（0-20m），4 台一字排满 col=0-5（0-40m）
+- R5 (coke refinery)：**10m W × 20m L × 31m H**，col=0-1.25（0-10m），row=2.75-5（22-40m）
+- AWESOME Sink (共享)：**16m W × 13m L × 24m H**，col=1.5-3.5（12-28m），row=3-4.625（24-37m）
+- 4 台 R1-R4 的残渣 pipe 在 row=2.5（20m）处 junction 汇流 → R5 in-0
+- R5 输出石油焦（固体 belt）→ 短 belt 跨 col=1.25→1.5（≈2m）→ Sink in-0
 
-> **注意**：R5 长度 20m 实际超出 row=4.5（36m）一点；实际需要 R5 起点 row=2.75（22m）→ 终点 row=5.25（42m），稍超 1F 上限 40m。**解决**：把 R5 旋转 90°（10m 长 × 20m 宽，朝向 east），改为 col=10-30m × row=27-37m，刚好落在 1F 内。
->
-> 旋转后版本：
-> ```
-> 22m ┌──────────────┐
-> 27m │ R5 横放      │  20m W × 10m L (facing=east)
-> 37m │ in-0← out-0→ │
->     └──────────────┘
-> ```
-> col=22-32m row=3.4-4.6（10m 长）。具体定位看玩家偏好。
+> **垂直空间**：refinery 31m + sink 24m 共存于 1F (0-31m)。Sink 24m 高度落在 0-24m 范围内（refinery 0-31m 占据，但二者在水平方向不重叠）。
+> **占地核算**：4×R1-4 (200m²×4) + R5 (200m²) + Sink (208m²) = 1208m² < 1600m² 1F 容量 ✓
 
 ## 屋顶总线层（35-40m）
 
@@ -166,8 +155,8 @@ B6 ═════════════════════════�
 4. **残渣 pipe 汇流**: R1-R4 out-1（残渣 fluid）→ pipe junction（4 输入 → 1 输出）→ R5 in-0
    > pipe junction 用 Pipeline Junction Cross 或 Industrial Pipeline Support，4 台合 1 路
    > 注意 pipe 容量：Mk1 pipe 300/min，78 残渣远低于上限 ✓
-5. **R5 石油焦输出**: R5 out-0（固体 belt）→ 短 belt 直连本地 1 台 awesome-sink（在 1F 角落 col=4 row=4 处放置，4m × 6m × 4m）
-   > 1 台 sink 上限 60/min；47/实例 < 60，单 sink 即可（保险起见装 power shard 提速到 250%）
+5. **R5 石油焦输出**: R5 out-0（固体 belt）→ 短 belt（~2m）直连本地 1 台 **AWESOME Sink (16m × 13m × 24m高)**（位于 col=1.5-3.5 row=3-4.625）
+   > 1 台 sink @ 100% = 60/min；@ 250% (3 power shard) = 240/min。47/min 单实例石油焦远低于 sink 容量 ✓
 6. **1F belt 收集**:
    - row=2 plastic 主 belt（R1-R3 out-0 合流）
    - row=2 rubber 主 belt（R4 out-0）
@@ -180,7 +169,7 @@ B6 ═════════════════════════�
    - 塑料 lift-top → 1→2 splitter (95:20) → 一支 merger 注 B4，一支 merger 注 B5
    - 橡胶 lift-top → 直接 merger 注 B5
    - 共 2 个 merger（B4、B5 各 1）
-9. **本地 sink**: 1F col=4 row=4 处放 1 个 awesome-sink，R5 石油焦 belt 直连
+9. **本地 sink**: 1F col=1.5-3.5 row=3-4.625 处放 1 个 AWESOME Sink (16×13m × 24m高)，R5 石油焦 belt 直连，装 3 power shard @ 250%
 10. **Power Switch**: T6 阶段**BP9a 5 台全开**（3 plastic @191.67% + 1 rubber @100% + 1 coke @250%）；BP9b-e 5 实例**全部 Power Switch 关闭**（物理建造 25 台 refinery + 5 sink，仅 BP9a 5 台运行）
 
 ## 集群内部连接 / 多实例侧墙

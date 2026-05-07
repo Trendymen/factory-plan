@@ -54,8 +54,8 @@
 
 | 蓝图 | 内容 | 文件 |
 |---|---|---|
-| **BP-TERM-A** | 前 13 mainNode Dim Depot Uploader + sink overflow | [BP-TERM-A.md](BP-TERM-A.md) |
-| **BP-TERM-B** | 后 13 mainNode + 残渣 sink | [BP-TERM-B.md](BP-TERM-B.md) |
+| **BP-TERM-A** | 前 13 mainNode Dim Depot Uploader（无 sink，overflow 走 belt 到 BP-TERM-B 共享 sink）| [BP-TERM-A.md](BP-TERM-A.md) |
+| **BP-TERM-B** | 后 13 mainNode Dim Depot Uploader + **1 个共享 AWESOME Sink (16×13×24m)** 接 26 路 overflow | [BP-TERM-B.md](BP-TERM-B.md) |
 
 ### 填充蓝图（按需，0-2 个）
 

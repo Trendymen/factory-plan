@@ -1,11 +1,11 @@
-# BP-TERM-A 终端汇流（前 13 mainNode）
+# BP-TERM-A 终端汇流（前 13 mainNode，无 sink）
 
 ## 概要
 
 - **集群**: 总线尾端（紧贴 BP15 之后）
 - **规格**: Mk2 单实例
-- **建筑**: 13 个 Dim Depot Uploader + 13 个 awesome-sink + 多 splitter
-- **作用**: 26 mainNode 的**前 13 个**送入位面存储，满后 sink overflow
+- **建筑**: 13 个 Dim Depot Uploader + 13 个 smart splitter（每 mainNode 1 个，filter=该物料，priority=Uploader / overflow→ overflow belt）
+- **作用**: 26 mainNode 中的**前 13 个**送入位面仓；**overflow 不在本蓝图 sink，全部走 belt 反向到 BP-TERM-B 共享 sink**
 
 ## 物料 I/O
 
@@ -14,7 +14,7 @@
 
 **输出**：
 - 13 个 Dim Depot Uploader → 位面仓（玩家 build gun 直接调用）
-- 13 个 awesome-sink overflow → 长期赚 ticket
+- 13 路 overflow belt → 1F merger → 右 Wall Outlet (h=8m) → BP-TERM-B 共享 sink
 
 **屋顶 B1-B4 + B6 直通**（在 BP-TERM-A 内不分流，继续到 BP-TERM-B）
 
@@ -43,45 +43,58 @@
 
 | 层 | 高度 | 内容 |
 |---|---|---|
-| 1F | 0-12m | 中央分流器树 + 13 Uploader + 13 sink |
+| 1F | 0-12m | 中央分流器树 + 13 Uploader + 13 smart splitter + 1 merger（汇流 13 路 overflow → 右 Wall Outlet）|
 | 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/铝包铝板/RCU/超级计算机/散热器/时间晶体）|
-| 屋顶 | 35-40m | B1-B6 直通 + B5 末端 splitter 树 |
+| 屋顶 | 35-40m | B1-B6 直通 + B5 上的 1→27 splitter 树（前 13 路下 1F，其余 14 路继续到 BP-TERM-B）|
 
-## 1F 平面（0-12m）
-
-```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │┌──┐  │┌──┐  │┌──┐  │┌──┐  │┌──┐  │  Row 0: 5 Uploader（Dim Depot）
-      ││U1│  ││U2│  ││U3│  ││U4│  ││U5│  │  5m × 10m × 8m (≈industrial-storage)
-r=1   ││  │  ││  │  ││  │  ││  │  ││  │  │  in-0 back
-      │└──┘  │└──┘  │└──┘  │└──┘  │└──┘  │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=2   │┌──┐  │┌──┐  │┌──┐  │┌──┐  │┌──┐  │  Row 1: 5 sink（awesome-sink）
-      ││S1│  ││S2│  ││S3│  ││S4│  ││S5│  │  4m × 6m × 4m
-      │└──┘  │└──┘  │└──┘  │└──┘  │└──┘  │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │┌──┐ ┌─┴──── 中央分流器树 ─────┐ │  4 级 splitter cascade
-      ││S│  │  1→3→9→27 输出 (24 active)│  │
-      │└──┘ │                          │ │
-r=4   │     └──────────────────────────┘ │
-      └──────┴──────┴──────┴──────┴──────┘
-```
-
-> 13 mainNode 用前 13 输出槽（剩 14 槽给 BP-TERM-B 的 13 + 1 备用）。
-> 实际 BP-TERM-A 内只放 13 对 Uploader+sink。
-
-## Uploader + sink 单元布局
-
-每对 Uploader+sink 占 ~5×10m + 4×6m = 50+24 = 74 m²，13 对 ≈ 1000 m²，加分流器树 ~200 m² ≈ 1200 m² < 1600 m² (单 Mk2)。
+## 1F 平面（0-12m，按实际比例 16×8 字符≈占地）
 
 ```
-[B5 main belt] ─── smart splitter (filter=item) ───┬─→ Uploader (item) → 位面仓
-                                                   │
-                                                   └─→ awesome-sink (item) ← overflow
+       col=0   col=1   col=2   col=3   col=4
+       0       8      16      24      32      40m
+       ┌────────────────────────────────────────┐  0m
+       │ U1   U2   U3   U4   U5                 │
+       │┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐                │  Uploader 5×10m
+   4m  ││  │ │  │ │  │ │  │ │  │   T7+ 预留     │  Row 0: 5 Uploader
+       │└──┘ └──┘ └──┘ └──┘ └──┘                │
+       │ sp   sp   sp   sp   sp  ←13 smart splitter│
+  10m  │ ━━━ overflow merger belt → 右 Outlet ━━━│
+  12m  │ U6   U7   U8   U9   U10                │
+       │┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐                │
+  16m  ││  │ │  │ │  │ │  │ │  │   <空地>       │  Row 1: 5 Uploader
+       │└──┘ └──┘ └──┘ └──┘ └──┘                │
+       │ sp   sp   sp   sp   sp                 │
+  22m  │ ━━━ overflow merger belt ━━━━━━━━━━━━━━│
+  24m  │ U11  U12  U13                          │
+       │┌──┐ ┌──┐ ┌──┐                          │
+  28m  ││  │ │  │ │  │  splitter cascade 1→3→9→27│  Row 2: 3 Uploader + 树
+       │└──┘ └──┘ └──┘  (B5 来料 13/27 路下 1F) │
+       │ sp   sp   sp                           │
+  34m  │                                        │
+  40m  └────────────────────────────────────────┘
+       右 Wall Outlet (col=5, h=8m): overflow 汇流 → BP-TERM-B
+       右 Wall Outlet (col=5, h=屋顶层): B1-B6 + B5 剩余 14 路
 ```
 
-**关键**：smart splitter 第一输出 = Uploader（**优先送 Uploader**），第二输出 = sink（仅当 Uploader 满才走）。
+> 13 mainNode 用前 13 个 Uploader；每 Uploader 前 1 个 smart splitter（priority=Uploader，overflow→merger belt）。
+
+## Uploader + smart splitter 单元布局
+
+每个单元：
+- **Uploader** 5m W × 10m L × 8m H = 50 m²
+- **smart splitter** 4m W × 4m L = 16 m²，紧贴 Uploader back 端口
+
+13 个单元 ≈ 13 × 70 m² = 910 m²，加 splitter cascade 树 ~200 m² + merger overflow belt 路由 ~150 m² ≈ 1,260 m² < 1,600 m² ✓
+
+```
+[B5 主 belt 一路下来] ─→ smart splitter (filter=item)
+                            │
+                            ├─→ Uploader (item) ── 位面仓（优先吃）
+                            │
+                            └─→ overflow belt ── 1F merger → 右 Wall Outlet → BP-TERM-B 共享 sink
+```
+
+**关键**：smart splitter 配置 priority=Uploader 输出端 + overflow 默认输出端走 merger belt。
 
 ## 屋顶总线层（35-40m）
 
@@ -92,34 +105,46 @@ B3 ═════════════════════════�
 B4 ═════════════════════════════════════════> B4 直通到 BP-TERM-B
 B5 ═══[programmable splitter cascade 1→3→9→27]═══┐
                                                   ↓
-                                          13 路下到 1F Uploader+sink 树
+                                          13 路下到 1F Uploader 树
                                           其余 14 路继续到 BP-TERM-B
 B6 ═════════════════════════════════════════> B6 直通到 BP-TERM-B
 ```
 
-> B5 在 BP-TERM-A 屋顶 1→3→9 一级 splitter 把 mainNode 分到前 13 路（Uploader 树）；剩 14 路走 belt 继续到 BP-TERM-B 屋顶继续分。
->
-> 实际上为了简单：可以把整个 1→3→9→27 树**全部放在 BP-TERM-A 屋顶**（27 路输出），然后用 belt 把"BP-TERM-B 那 13 路"走集群内短 belt 接到 BP-TERM-B Uploader。但**更实用方案**：BP-TERM-A 只负责前 13 路 Uploader/sink，B5 继续流到 BP-TERM-B 处理剩下的。
+> B5 在 BP-TERM-A 屋顶做 1→3→9→27 三级 splitter 树；前 13 路下到本蓝图 1F Uploader，剩余 14 路 belt 继续向右到 BP-TERM-B 屋顶处理。
 
 ## 建造步骤
 
 1. **1F (0-12m)**:
-   - row=0 摆 5 个 Uploader 一字排
-   - row=1 摆 5 个 sink 一字排
-   - row=2 摆 5 个 Uploader（共 10 台）
-   - row=3 摆 5 个 sink（共 10 台）
-   - col=0-2 row=4 中央 splitter 树 + 剩余 3 对 Uploader+sink
-2. **B5 → splitter 树**: 屋顶 B5 belt 在 col=2.5 处 lift-bot 下到 1F → splitter 1→3→9→27 cascade
-3. **每路输出**: 27 路中前 13 路接 smart splitter → Uploader + sink
-4. **剩余 14 路输出**:
-   - 13 路用 belt 拉到右 Wall Outlet (col=5, h=2m, 13 个 Wall Outlet 一排) → BP-TERM-B 接
-   - 1 路留作 Tier 7+ 扩容
-5. **2F (16-32m)**:
-   - 预留 6 对 Uploader+sink 槽位（铝壳/铝包铝板/RCU/超级计算机/散热器/时间晶体）
-   - **不必预先放 Uploader/sink 建筑**——T7+ 解锁后再补
-   - 留 lift-bot/lift-top 通孔
-6. **屋顶 (35-40m)**: 6 belt 直通 + B5 上的 splitter 一级 cascade
-7. **Power Switch**: 不需要（Uploader/sink 0 W 耗电）
+   - row=0 (col=0-4) 摆 5 个 Uploader (U1-U5)
+   - row=0.75 (col=0-4) 紧贴 5 个 smart splitter (filter 配置见下表)
+   - row=1.5-3.5 摆 8 个 Uploader (U6-U13) + 8 个 smart splitter
+   - col=0-4 row=4 中央 splitter cascade（1→3→9→27 树）
+   - 13 路 overflow belt 汇到 1 个 merger → 右 Wall Outlet (col=5, h=8m, row=2)
+2. **B5 → 屋顶 splitter 树**: 屋顶 B5 belt 在 col=2.5 处不动，**屋顶上**做 1→27 splitter cascade（不下 1F）
+   - 27 路输出中前 13 路 lift-bot 下到 1F 各对应 Uploader+splitter
+   - 剩 14 路 belt 继续右贯穿到 BP-TERM-B 屋顶
+3. **smart splitter filter 配置**（重要）：13 个 splitter 各 filter 1 个 mainNode 物料
+4. **2F (16-32m)**: 预留 6 对槽位（不放建筑，T7+ 加铝包铝板/散热器/时间晶体等）
+5. **屋顶 (35-40m)**: 6 belt 直通 + B5 上的 1→27 splitter cascade（共 4 级）
+6. **Power Switch**: 不需要（Uploader 0 W 耗电）
+
+## smart splitter filter 配置（13 路）
+
+| 路 | mainNode | smart splitter filter |
+|---|---|---|
+| 1 | 铁板 | iron-plate |
+| 2 | 铁棒 | iron-rod |
+| 3 | 强化铁板 | reinforced-iron-plate |
+| 4 | 钢梁 | steel-beam |
+| 5 | 钢管 | steel-pipe |
+| 6 | 铜板 | copper-sheet |
+| 7 | 电线 | wire |
+| 8 | 线缆 | cable |
+| 9 | 混凝土 | concrete |
+| 10 | 塑料 | plastic |
+| 11 | 橡胶 | rubber |
+| 12 | 转子 | rotor |
+| 13 | 定子 | stator |
 
 ## Tier 7+ 扩容点
 
@@ -129,13 +154,15 @@ B6 ═════════════════════════�
 | T8 | 散热器 → 2F slot 2 |
 | T9 | 时间晶体 → 2F slot 3 |
 
-> BP-TERM-A 共 13（T6）+ 3（T7-9）= **16 mainNode**，剩 21 个全在 BP-TERM-B。如 21 太多可启用 BP-TERM-C。
+> BP-TERM-A 共 13（T6）+ 3（T7-9）= **16 mainNode**，剩 21 个全在 BP-TERM-B（含共享 sink）。如 21 太多可启用 BP-TERM-C。
 
 ## 验证
 
 - [ ] 13 个 mainNode 全 Uploader 接 belt（不漏）
-- [ ] smart splitter Uploader 第一优先级（满后才 sink）
-- [ ] B5 splitter 配置为前 13 路 filter（剩 14 路 catch-all 流到 BP-TERM-B）
+- [ ] **本蓝图无 sink**（所有 overflow 汇流走右 Wall Outlet → BP-TERM-B 共享 sink）
+- [ ] smart splitter priority 配置正确（Uploader 优先、overflow 默认）
+- [ ] B5 在屋顶做 1→27 splitter，13 路下 1F + 14 路 belt 继续右贯穿
 - [ ] 2F 6 个 Uploader 槽位预留（不放建筑）
-- [ ] B1-B4/B6 直通无分流（仅 B5 分流）
+- [ ] B1-B4/B6 屋顶直通无分流
 - [ ] **位面存储研究升到合适等级**（默认 50 容量 → 升级 5000 容量）
+- [ ] 右 Wall Outlet (h=8m) overflow belt 与 BP-TERM-B 左 Wall Inlet 对齐
