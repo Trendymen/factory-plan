@@ -55,46 +55,75 @@
 
 > 9 台机器 + 1 assembler ≈ 9 × 80 + 150 = 870 m²，1F 1600m² 装下。
 
-## 俯视图（1F BP10a, 0-8m）
+## 俯视图（按实际比例，每层独立 — 视觉正方形）
+
+**比例约定**：横向 1 字符 = 1m，纵向 1 行 = 2m；蓝图 40×40m → 51 字符 × 20 行画布。
+
+机器 ASCII 占位：constructor 8m × 10m → 9 字符宽 × 5 行；assembler 10m × 15m → 11 字符宽 × 7-8 行。
+
+### 1F (0-8m): 5 constructor row=0 + 3 concrete + 1 AI-limiter row=2 = 9 台（T6 满载，混排）
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌──┐ │ ┌──┐ │ ┌──┐ │ ┌──┐ │ ┌──┐ │  row 1: 1 quartz + 1 silica + 3 quickwire = 5 constructor
-      │ │Qz│ │ │Si│ │ │Qw│ │ │Qw│ │ │Qw│ │  Qz=quartz, Si=silica, Qw=quickwire
-r=1   │ └─↓┘ │ └─↓┘ │ └─↓┘ │ └─↓┘ │ └─↓┘ │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=2   │ ┌──┐ │ ┌──┐ │ ┌──┐ │ ┌─────┐  │  │  row 2: 3 concrete + 1 AI 限制器 assembler
-      │ │Cn│ │ │Cn│ │ │Cn│ │ │AILim│  │  │  Cn=concrete, AILim=AI 限制器 (10m×15m)
-r=3   │ │  │ │ │  │ │ │  │ │ │     │  │  │
-      │ └─↓┘ │ └─↓┘ │ └─↓┘ │ │     │  │  │
-      ├──────┼──────┼──────┼─└─────┘──┤  │
-r=4   │ ===collect (5 物料 row 各独立)│  │
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │
+        ││  Qz   ││  Si   ││  Qw1  ││  Qw2  ││  Qw3  │    │
+ 4      ││quartz ││silica ││quickwr││quickwr││quickwr│    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │    │
+ 8      ││   v   ││   v   ││   v   ││   v   ││   v   │    │
+        │└───────┘└───────┘└───────┘└───────┘└───────┘    │
+12      │──── row1 collect: 5 mat lanes (Qz/Si/Qw) ───────│
+        │┌───────┐┌───────┐┌───────┐┌─────────┐           │
+16      ││  Cn1  ││  Cn2  ││  Cn3  ││  AILim  │           │
+        ││concret││concret││concret││ai-limit │           │
+20      ││ 8x10  ││ 8x10  ││ 8x10  ││ 10x15   │           │
+        ││   v   ││   v   ││   v   ││  in*2   │           │
+24      │└───────┘└───────┘└───────┘│   v     │           │
+        │                            └─────────┘          │
+28      │──── row2 collect: concrete + AI-limiter ────────│
+32      │ in raw-quartz 78:  left Wall Inlet h=4m row=0   │
+        │ in limestone 333:  left Wall Inlet h=4m row=2   │
+36      │ in copper-ingot 74 + copper-plate 25: B6 split  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> AI 限制器 assembler 占 row=2-4 (15m 长 = 1.875 cells)，与 constructor 错开。
+- row=0 (0-10m): Qz/Si + 3 Qw 共 5 constructor 一字排（5 × 8m = 40m 满）
+- row=2 (12-22m): 3 concrete constructor + 1 AI-limiter assembler；AI-limiter 10m W × 15m L 占 col=3.75-4.875、row=12-26m，比 concrete 长 5m，整体下沉
+- 5 物料独立 row 收集：Qz/Si 走 row=1，3 Qw 走 row=1（共享 row=1 lane 但物料独立 belt），concrete 走 row=2.5，AI-limiter 走 row=3.5
+- T7+ 第 6-7 台 quickwire / 第 4-5 台 concrete / 第 2 台 AI-limiter 在 2F 扩容（12-20m）
 
-## 屋顶总线层（35-40m）
+### 屋顶 (35-40m): B6 上 smart-split + 4 merger（B4/B5/B6 注入）
 
 ```
-B1 ═════════════════════════════════════════> B1
-B2 ═════════════════════════════════════════> B2
-B3 ═════════════════════════════════════════> B3
-B4 ═══[merger ←──混凝土 96 lift]═══════════> B4 (+96)
-B5 ═══[merger ←──mainNode 140 lift]═════════> B5 (+140)
-B6 ═══[smart split (filter=铜金74 + 铜板25)──99┐ ]═> B6 余 (-99 +228)
-                                             │
-                                          lift-bot ↓
-                                             │
-                                  → 1F quickwire/AI 限制器 进料
-B6 (after merger) ═══[merger ←──石英18 + 快速线210]═══>
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ───────────────────────────────────────── o│
+        │                                                 │
+ 4      │ o B2 ───────────────────────────────────────── o│
+        │                                                 │
+ 8      │ o B3 ───────────────────────────────────────── o│
+        │                                                 │
+12      │ o B4 ──────────────[merger ← concrete 96]───── o│
+        │                            ↑ lift-top from 1F   │
+16      │ o B5 ──────────────[merger ← mainNode 140]──── o│
+        │                            ↑ Qz22.5+Si37.5+Qw60 │
+20      │                              +Cn15+AI5 = 140    │
+        │                                                 │
+24      │ o B6 ─[smart f=Cu-ingot74+Cu-plate25]─[merger]─o│
+        │          │ 99/min                  ↑            │
+28      │       lift-bot                Qz18+Qw210        │
+        │          ↓                       = 228          │
+32      │       1F Qw in-0 + AI in-0     after split      │
+36      │ B7/B8 reserved (T7+ slots)                      │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- 屋顶 1 个 smart splitter（filter=铜金锭 74 + 铜板 25 共 99）从 B6 取
-- 屋顶 1 个 merger 注 B4（混凝土 96）
-- 屋顶 1 个 merger 注 B5（5 种 mainNode 余量混合 140）
-- 屋顶 1 个 merger 注 B6（石英 18 + 快速线 210 = 228，在 splitter 之后）
+- B4 merger: 注入混凝土 96 → BP13 包裹下游取
+- B5 merger: 5 物料 mainNode 余量混合 140（石英 22.5 + 硅土 37.5 + 快速线 60 + 混凝土 15 + AI 限制器 5）
+- B6 上**先 smart-splitter 后 merger**：splitter 取铜金锭 74 + 铜板 25 共 99 给 1F quickwire 三台 in-0 + AI-limiter in-0；merger 在 splitter 下游注入石英 18 + 快速线 210 = 228（避免新注入的快速线被 splitter 误取）
+- B6 上 BP7→BP10 段流量必须 ≥ 99（满足铜金 74 + 铜板 25）
 
 ## 建造步骤（BP10a，BP10b 复制）
 

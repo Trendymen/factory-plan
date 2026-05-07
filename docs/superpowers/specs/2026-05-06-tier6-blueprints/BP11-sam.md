@@ -44,58 +44,102 @@
 
 > manufacturer 20×22m 占 1F 几乎一半（1600m² × 12m）；2F 上 2 台 constructor 一字排（16m × 10m，剩 24m 空地）。
 
-## 俯视图（1F, 0-12m）
+## 俯视图（按实际比例，每层独立 — 视觉正方形）
+
+**比例约定**：横向 1 字符 = 1m，纵向 1 行 = 2m；蓝图 40×40m → 51 字符 × 20 行画布。
+
+机器 ASCII 占位：manufacturer 20m × 22m → 21 字符宽 × ~12 行（占 1F 一半）；constructor 8m × 10m → 9 字符宽 × 5 行。
+
+> manufacturer 端口反转: facing=north 让 input 在 front (南/row=10-11) 朝下、output 在 back (北/row=0) 朝上，方便配料从 1F 南侧 manifold 进、产物从 row=0 出顶上 lift。
+
+### 1F (0-12m): 1 SAM-fluctuator manufacturer (20m W × 22m L × 12m H)
 
 ```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌────────────────────┐         │  1 SAM 波动器 manufacturer
-      │ │ M1 SAM-fluctuator  │         │  20m × 22m × 12m
-r=1   │ │                    │         │  4 inputs front (south)
-      │ │   front 4-input    │         │  1 output back (north)
-r=2   │ │ ↑ ↑ ↑ ↑ (in 0-3)   │         │
-      │ │                    │         │
-r=3   │ │  out-0 ↓ back      │         │
-      │ └────────────────────┘         │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=4   │      │      │      │      │      │  空地（manufacturer 输出走 row=3-4）
-      └──────┴──────┴──────┴──────┴──────┘
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────────────────┐                            │
+        ││    M1 (out N)     │  facing=north              │
+ 4      ││ sam-fluctuator    │  out-0 -> back -> row=0    │
+        ││ manufacturer      │  in 0..3 -> front (S)      │
+ 8      ││    20 x 22 m      │  4-input slots row=10      │
+        ││                   │                            │
+12      ││ out-0  ^ (north)  │                            │
+        ││                   │                            │
+16      ││ in-0 wire 50      │  via lift-bot from B3      │
+        ││ in-1 pipe 30      │  via lift-bot from B3      │
+20      ││ in-2 reSAM 60     │  via lift-bot from 2F      │
+        ││ in-3 (empty)      │                            │
+24      │└───────────────────┘                            │
+        │                                                 │
+28      │ in raw-SAM 360 -> 2F (Wall Inlet h=20m row=0)   │
+32      │ out SAM-fluctuator 10 -> lift-top -> roof B5    │
+36      │ out reSAM 30 -> lift-top -> roof B5 (mainNode)  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> ⚠ **manufacturer 反转端口**：input 在 front (row=2-3)，output 在 back (row=0)。布局时把 manufacturer 反转（facing=north）让 input 朝南、output 朝北，方便配料从 1F 中央 manifold 进、产物从 row=0 出顶。
+- 占 col=0-2.5、row=0-2.75（20×22m，21 字符 × 11-12 行），1F 另一半（col=2.5-4）留空作 lift 通道
+- 配方 sam-fluctuator = 6 reSAM + 5 wire + 3 steel-pipe → 1/min。100% 1 台需 60 reSAM + 50 wire + 30 pipe，仅 3 槽用，in-3 空槽
+- output 走 row=0 北向 → lift-out-top 到屋顶 B5 merger（10/min）
 
-## 俯视图（2F, 16-24m）
-
-```
-       col=0   col=1   col=2   col=3   col=4   col=5
-      ┌──────┬──────┬──────┬──────┬──────┐
-r=0   │ ┌──┐ │ ┌──┐ │      │      │      │  2 reanimated-sam constructor
-      │ │R1│ │ │R2│ │      │      │      │  8m × 10m × 8m
-r=1   │ │  │ │ │  │ │      │      │      │  in-0 back, out-0 front
-      │ │↓ │ │ │↓ │ │      │      │      │
-r=2   │ └──┘ │ └──┘ │      │      │      │
-      ├──────┼──────┼──────┼──────┼──────┤
-r=3   │ === collect 重生SAM lift-bot ────│  90/min: 60 → manufacturer + 30 → B5
-      └──────┴──────┴──────┴──────┴──────┘
-```
-
-## 屋顶总线层（35-40m）
+### 2F (16-24m): 2 reanim-sam constructor 一字排
 
 ```
-B1 ═════════════════════════════════════════> B1
-B2 ═════════════════════════════════════════> B2
-B3 ═══[smart split (filter=电线50+钢管30)──80┐]═> B3 (-80)
-                                              │
-                                           lift-bot ↓
-                                              │
-                              → 1F SAM 波动器 4 in
-B4 ═════════════════════════════════════════> B4
-B5 ═══[merger ←──重生 SAM 30 + SAM 波动器 10]═> B5 (+40 mainNode)
-B6 ═════════════════════════════════════════> B6
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │┌───────┐┌───────┐                               │
+        ││  R1   ││  R2   │  2 reanim-sam constructor     │
+ 4      ││reanim ││reanim │  8m W x 10m L x 8m H          │
+        ││ 8x10  ││ 8x10  │  in-0 back, out-0 front       │
+ 8      ││   v   ││   v   │  150% = 45/min each (90 tot)  │
+        │└───────┘└───────┘                               │
+12      │──── reSAM collect h=20m row=2.5 ────────────────│
+        │                                                 │
+16      │ in raw-SAM 360: left Wall Inlet h=20m row=0     │
+20      │    -> splitter -> R1 in-0 + R2 in-0             │
+        │ out reSAM 90: 1F splitter 60+30                 │
+24      │   60 -> lift-bot -> 1F manufacturer in-2        │
+        │   30 -> lift-out-top -> roof B5 merger          │
+28      │                                                 │
+32      │                                                 │
+36      │ T6 saturated; T7-T9 unchanged 2+1=3 (uplift 1x) │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-> SAM 波动器 manufacturer 4 输入：电线 50 + 钢管 30 + 重生 SAM 60 + 1 个未用槽？
-> **核对配方**：sam-fluctuator 配方 = 6 重生SAM + 5 电线 + 3 钢管 → 1 SAM 波动器/min（per machine 100%）。100% 1 台需 60 重生SAM + 50 电线 + 30 钢管 = 3 输入，第 4 个槽空（manufacturer 4 槽配方未占满）。
+- R1/R2 占 col=0-1, row=0-1.25（8m × 10m × 2 = 16m W × 10m L），剩 24m 空地
+- 输出 90/min reSAM 在 2F splitter 1→2: 60 下到 1F manufacturer in-2 + 30 上到屋顶 B5 merger
+
+### 屋顶 (35-40m): B3 smart-splitter (取 wire+pipe 80) + B5 merger (注 reSAM 30 + fluct 10)
+
+```
+        col=0       col=1       col=2       col=3       col=4
+        0    4    8    12   16   20   24   28   32   36   40m
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
+ 0      │ o B1 ───────────────────────────────────────── o│
+        │                                                 │
+ 4      │ o B2 ───────────────────────────────────────── o│
+        │                                                 │
+ 8      │ o B3 ─[smart-split f=wire 50 + pipe 30]─80──── o│
+        │          │                                      │
+12      │       lift-bot                                  │
+        │          ↓                                      │
+16      │       1F sam-fluctuator in-0/in-1 (wire+pipe)   │
+        │                                                 │
+20      │ o B4 ───────────────────────────────────────── o│
+        │                                                 │
+24      │ o B5 ──────────[merger ← reSAM 30 + fluct 10]─ o│
+        │                            ↑ = 40 mainNode      │
+28      │                            lift-top from 1F+2F  │
+32      │                                                 │
+        │ o B6 ───────────────────────────────────────── o│
+36      │ B7/B8 reserved (T7+ slots, BP11 stays 1.0x)     │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+- B3 smart-splitter 双 filter: wire 50 + pipe 30 = 80，下 lift-bot 到 1F manufacturer in-0/in-1
+- B5 merger 注入 reSAM 30 + SAM-fluctuator 10 = 40 mainNode
+- BP11 是**唯一全 T6/T9 不变的蓝图**（uplift 1.0x），3 台已物理满载，无 Power Switch 控制需求
 
 ## 建造步骤
 

@@ -53,18 +53,18 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐┌─────────┐┌─────────┐┌─────────┐    │
-        ││   A1    ││   A2    ││   A3    ││   A4    │T6  │
- 4      ││ CB asm  ││ CB asm  ││ CB asm  ││ CB asm  │A1  │
-        ││ 10x15   ││ 10x15   ││ 10x15   ││ 10x15   │only│
- 8      ││  in*2   ││  in*2   ││  in*2   ││  in*2   │    │
-        ││   v     ││   v     ││   v     ││   v     │    │
-12      │└─────────┘└─────────┘└─────────┘└─────────┘    │
-        │─────── circuit-board collect belt h=14m ───────│
-16      │ in copper-plate 27.5: BP7 right Wall Inlet     │
-20      │ in plastic 55:        roof B4 smart-split lift │
-        │ out circuit-board 13.75: lift-out-top to roof  │
-24      │ T7+ A5-A8 on 2F (12-20m), reserved             │
+ 0      │┌─────────┐┌─────────┐┌─────────┐┌─────────┐     │
+        ││   A1    ││   A2    ││   A3    ││   A4    │T6   │
+ 4      ││ CB asm  ││ CB asm  ││ CB asm  ││ CB asm  │A1   │
+        ││ 10x15   ││ 10x15   ││ 10x15   ││ 10x15   │only │
+ 8      ││  in*2   ││  in*2   ││  in*2   ││  in*2   │     │
+        ││   v     ││   v     ││   v     ││   v     │     │
+12      │└─────────┘└─────────┘└─────────┘└─────────┘     │
+        │─────── circuit-board collect belt h=14m ────────│
+16      │ in copper-plate 27.5: BP7 right Wall Inlet      │
+20      │ in plastic 55:        roof B4 smart-split lift  │
+        │ out circuit-board 13.75: lift-out-top to roof   │
+24      │ T7+ A5-A8 on 2F (12-20m), reserved              │
 28      │                                                 │
 32      │                                                 │
 36      │                                                 │
@@ -82,17 +82,17 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐┌─────────┐┌─────────┐┌─────────┐    │
-        ││   A5    ││   A6    ││   A7    ││   A8    │T7+ │
- 4      ││ CB asm  ││ CB asm  ││ CB asm  ││ CB asm  │only│
-        ││ 10x15   ││ 10x15   ││ 10x15   ││ 10x15   │    │
- 8      ││  in*2   ││  in*2   ││  in*2   ││  in*2   │    │
-        ││   v     ││   v     ││   v     ││   v     │    │
-12      │└─────────┘└─────────┘└─────────┘└─────────┘    │
-        │─────── 2F collect belt h=14m → lift-out-top ───│
-16      │ idle in T6 (Power Switch off all 4)            │
-20      │ 2F lift-bot from 1F: shared in feeds via lift  │
-        │ merge with 1F output before roof B4 merger     │
+ 0      │┌─────────┐┌─────────┐┌─────────┐┌─────────┐     │
+        ││   A5    ││   A6    ││   A7    ││   A8    │T7+  │
+ 4      ││ CB asm  ││ CB asm  ││ CB asm  ││ CB asm  │only │
+        ││ 10x15   ││ 10x15   ││ 10x15   ││ 10x15   │     │
+ 8      ││  in*2   ││  in*2   ││  in*2   ││  in*2   │     │
+        ││   v     ││   v     ││   v     ││   v     │     │
+12      │└─────────┘└─────────┘└─────────┘└─────────┘     │
+        │─────── 2F collect belt h=14m → lift-out-top ────│
+16      │ idle in T6 (Power Switch off all 4)             │
+20      │ 2F lift-bot from 1F: shared in feeds via lift   │
+        │ merge with 1F output before roof B4 merger      │
 24      │                                                 │
 28      │                                                 │
 32      │                                                 │
