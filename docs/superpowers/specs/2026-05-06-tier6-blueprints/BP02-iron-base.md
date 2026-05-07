@@ -101,33 +101,42 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
 
 ### 1F (0-8m): 4 plate + 5 rod constructor = 9 台
 
+> **盒内仅单宽字符**（Unicode 盒形 ┌─┐│└┘ 单宽 OK；避开 CJK 宽字符 `━ ═ ↓ ← →` + 中文）。中文注释在盒外右侧。
+> 图例：`v` = 输出 front (south)；`──` = belt；尺寸 8x10 = 8m 宽 × 10m 长
+
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌───────┐┌───────┐┌───────┐┌───────┐             │  P1-P4: plate
-        ││  P1   ││  P2   ││  P3   ││  P4   │  T7+ R6     │  constructor
- 4      ││plate  ││plate  ││plate  ││plate  │  reserve    │  8m W × 10m L
-        ││ 8×10  ││ 8×10  ││ 8×10  ││ 8×10  │             │
- 8      ││  ↓    ││  ↓    ││  ↓    ││  ↓    │             │
+ 0      │┌───────┐┌───────┐┌───────┐┌───────┐             │
+        ││  P1   ││  P2   ││  P3   ││  P4   │  T7+ R6     │
+ 4      ││plate  ││plate  ││plate  ││plate  │  reserve    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │             │
+ 8      ││  v    ││  v    ││  v    ││  v    │             │
         │└───────┘└───────┘└───────┘└───────┘             │
-12      │━━━━━━━━━━ plate 收集 belt h=2m ━━━━━━━━━━━━━━━━│
-        │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │  R1-R5: rod
-        ││  R1   ││  R2   ││  R3   ││  R4   ││  R5   │    │  constructor
-16      ││ rod   ││ rod   ││ rod   ││ rod   ││ rod   │    │  8m W × 10m L
-        ││ 8×10  ││ 8×10  ││ 8×10  ││ 8×10  ││ 8×10  │    │
-20      ││  ↓    ││  ↓    ││  ↓    ││  ↓    ││  ↓    │    │
+12      │─────────── plate collect belt h=2m ─────────────│
+        │┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐    │
+        ││  R1   ││  R2   ││  R3   ││  R4   ││  R5   │    │
+16      ││ rod   ││ rod   ││ rod   ││ rod   ││ rod   │    │
+        ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  ││ 8x10  │    │
+20      ││  v    ││  v    ││  v    ││  v    ││  v    │    │
         │└───────┘└───────┘└───────┘└───────┘└───────┘    │
-24      │━━━━━━━━━━ rod 收集 belt h=2m ━━━━━━━━━━━━━━━━━━│
-        │  ← Wall Inlet h=4m: 铁锭 (BP1 → BP2a)           │
-28      │  ← Wall Inlet h=6m: 铁棒 (BP2a → BP2b)          │
-        │  → Wall Outlet h=4m row=2.5: 铁锭余 (→ 下游)    │
-32      │  → Wall Outlet h=6m row=2.5: 铁棒 (→ 下游)      │
-        │  → Wall Outlet h=28m row=3: 螺丝 (反向给上游)   │
-36      │  splitter manifold + lift 通孔区                │
+24      │─────────── rod collect belt h=2m ───────────────│
+        │ IN  h=4m  row=2.5: iron-ingot   (BP1 > BP2a)    │
+28      │ IN  h=6m  row=2.5: iron-rod     (BP2a > BP2b)   │
+        │ OUT h=4m  row=2.5: iron-ingot   (>> downstream) │
+32      │ OUT h=6m  row=2.5: iron-rod     (>> downstream) │
+        │ OUT h=28m row=3:   screw (REVERSE << upstream)  │
+36      │ splitter manifold + lift access area            │
         │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
+
+- P1-P4：plate constructor 8m W × 10m L × 8m H（铁板）
+- R1-R5：rod constructor 8m W × 10m L × 8m H（铁棒）
+- T7+ R6 reserve：col=4 row=0 预留第 6 台 plate constructor（Tier 7+ 满载时启用）
+- IN h=4m / h=6m：左 Wall Inlet（铁锭/铁棒进料）
+- OUT h=28m row=3：左 Wall Outlet（螺丝**反向**给上游 BP，详见 BP2 反向 belt 设计）
 
 ### 2F (12-20m): 6 rod constructor
 
@@ -136,74 +145,81 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
  0      │┌───────┐┌───────┐┌───────┐                       │
-        ││  R6   ││  R7   ││  R8   │                       │  3 rod row=0
- 4      ││ rod   ││ rod   ││ rod   │  T7+ 加 R12-R15       │  (T6 启用)
-        ││ 8×10  ││ 8×10  ││ 8×10  │  预留 col 3-4         │
- 8      ││  ↓    ││  ↓    ││  ↓    │                       │
+        ││  R6   ││  R7   ││  R8   │                       │
+ 4      ││ rod   ││ rod   ││ rod   │ T7+ R12-R15 reserve   │
+        ││ 8x10  ││ 8x10  ││ 8x10  │ col 3-4 row 0/1.5     │
+ 8      ││  v    ││  v    ││  v    │                       │
         │└───────┘└───────┘└───────┘                       │
-12      │━━━━━━━━━━ rod 收集 belt h=14m ━━━━━━━━━━━━━━━━━│
+12      │─────────── rod collect belt h=14m ──────────────│
         │┌───────┐┌───────┐┌───────┐                       │
-        ││  R9   ││  R10  ││  R11  │                       │  3 rod row=1.5
-16      ││ rod   ││ rod   ││ rod   │                       │  (T6 启用)
-        ││ 8×10  ││ 8×10  ││ 8×10  │                       │
-20      ││  ↓    ││  ↓    ││  ↓    │                       │
+        ││  R9   ││  R10  ││  R11  │                       │
+16      ││ rod   ││ rod   ││ rod   │                       │
+        ││ 8x10  ││ 8x10  ││ 8x10  │                       │
+20      ││  v    ││  v    ││  v    │                       │
         │└───────┘└───────┘└───────┘                       │
-24      │━━━━━━━━━━ rod 收集 belt h=14m ━━━━━━━━━━━━━━━━━│
-        │  铁锭进料：蓝图内 lift-bot 从 1F splitter manifold│
-28      │  铁棒输出：→ lift-out-top → 屋顶 merger 注 B2     │
-        │                                                  │
-32      │  T7+ 启用第 4 列 (R12, R13)，第 5 列 row 0/1 (R14, R15) │
-        │                                                  │
-36      │                                                  │
-        │                                                  │
+24      │─────────── rod collect belt h=14m ──────────────│
+        │ iron-ingot in:  lift-bot from 1F splitter       │
+28      │ iron-rod  out:  lift-out-top to roof B2 merger  │
+        │                                                 │
+32      │                                                 │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
+
+- R6-R11：6 rod constructor（T6 全部启用）
+- T7+ R12-R15 预留：col=3-4 row=0/1.5 各加 1 台，T9 满载共 6 台保持不变（仅 1F 多 4 台 R2-R5 → R6-R11，2F 6 台不变；T7+ 总数 18+ 见 BP2 概要表）
 
 ### 3F (24-32m): 3 RIP assembler
 
 ```
-        col=0       col=1       col=2       col=3       col=4
+        col=0       col=1       col=2       col=2       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
  0      │┌─────────┐┌─────────┐┌─────────┐                │
-        ││  RIP 1  ││  RIP 2  ││  RIP 3  │                │  3 RIP assembler
- 4      ││assembler││assembler││assembler│  T7+ 加 RIP 4-5│  10m W × 15m L
-        ││ 10×15m  ││ 10×15m  ││ 10×15m  │  预留 col 3-4  │  双输入 (铁板+螺丝)
- 8      ││  双输入 ││  双输入 ││  双输入 │                │  back: 2 inputs
-        ││铁板+螺丝││铁板+螺丝││铁板+螺丝│                │  front: 1 output
-12      ││  out ↓  ││  out ↓  ││  out ↓  │                │
+        ││  RIP 1  ││  RIP 2  ││  RIP 3  │                │
+ 4      ││assembler││assembler││assembler│                │
+        ││ 10x15m  ││ 10x15m  ││ 10x15m  │ T7+ RIP 4-5    │
+ 8      ││in: plate││in: plate││in: plate│ reserve        │
+        ││  +screw ││  +screw ││  +screw │ col 3-4        │
+12      ││  out v  ││  out v  ││  out v  │                │
         │└─────────┘└─────────┘└─────────┘                │
-16      │━━━━━━━━ RIP 输出 belt h=26m ━━━━━━━━━━━━━━━━━━│
-        │ 铁板进料: 1F plate 输出 → lift-out-top 上 3F     │
-20      │ 螺丝进料: 28m 反向 belt → lift-bot 下 3F         │
-        │ → 中央 splitter → 3 台 RIP in-0 (铁板) + in-1 (螺丝) │
-24      │                                                  │
-        │ RIP 输出 → lift-out-top → 屋顶 merger            │
-28      │ → B2 (RIP 20.5/min)、B5 (mainNode 5/min)         │
-        │                                                  │
-32      │                                                  │
-        │                                                  │
-36      │                                                  │
+16      │─────────── RIP output belt h=26m ───────────────│
+        │ iron-plate in: 1F plate >> lift-out-top to 3F   │
+20      │ screw in:      28m reverse belt >> lift-bot 3F  │
+        │    >> central splitter >> 3 RIP in-0 + in-1     │
+24      │                                                 │
+        │ RIP out >> lift-out-top >> roof B2/B5 merger    │
+28      │    B2: RIP 20.5/min  +  B5: mainNode 5/min      │
+        │                                                 │
+32      │                                                 │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
+- RIP assembler 10m W × 15m L × 8m H，双输入 (back: in-0 铁板 + in-1 螺丝)，单输出 (front)
+- T7+ 满载需 5 RIP（T6 3 + T7-9 渐次加 2），col 3-4 row 0 预留 2 个槽位
+
 ### 4F: 28m 反向螺丝贯穿 belt 层
 
-28m 高度（位于 3F 顶 24m 之上 4m，3F 与屋顶之间）。此层只有 1 条贯穿 belt：
+28m 高度（3F 顶 24m 之上 4m，3F 与屋顶之间）。仅 1 条贯穿 belt，盒内空：
 
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │                                                  │
- 8      │                                                  │
-        │ ←Outlet ◯══════════════════════════◯ Inlet←     │  row=2-2.5
-16      │   螺丝反向 belt h=28m                            │  左 Outlet → BP2a RIP
-        │   splitter 取本实例 RIP 138/min 份额            │  右 Inlet ← BP3 输入
-24      │                                                  │
-32      │                                                  │
+ 0      │                                                 │
+ 8      │                                                 │
+12      │ LEFT Outlet o─────────────────────o RIGHT Inlet │
+16      │     h=28m row=2.5 reverse-screw belt            │
+20      │     splitter taps RIP 138/min for this instance │
+24      │                                                 │
+32      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
+
+- 左 Wall Outlet (h=28m)：螺丝**反向**给上游 BP（BP2a 给 BP1 此 Outlet 悬空；BP2b 给 BP2a 用此输出）
+- 右 Wall Inlet (h=28m)：螺丝从下游来（BP2a 接 BP2b；BP2b 接 BP3 螺丝）
+- 蓝图内 splitter 取本实例 3 台 RIP 所需 138/min 螺丝，余量直通到左 Outlet
 
 ### 屋顶 (35-40m): B1-B6 + 2 merger
 
@@ -211,18 +227,23 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ ◯ B1 ══════════════════════════════════════ ◯   │  row=0.5  B1 直通
- 4      │ ◯ B2 ═══[merger ← lift-top 铁棒+RIP]══════ ◯   │  row=1.5  B2 注入
- 8      │ ◯ B3 ══════════════════════════════════════ ◯   │  row=2.0  B3 直通
-12      │ ◯ B4 ══════════════════════════════════════ ◯   │  row=2.5  B4 直通
-16      │ ◯ B5 ═══[merger ← lift-top mainNode 余量]═ ◯   │  row=3.5  B5 注入
-20      │ ◯ B6 ══════════════════════════════════════ ◯   │  row=4.5  B6 直通
-24      │                                                  │
-28      │ B7/B8 reserved（Tier 7+ 槽位，T6 空跑）          │
-32      │                                                  │
-36      │                                                  │
+ 0      │ o B1 ────────────────────────────────────── o   │
+ 4      │ o B2 ───[merger << lift-top iron-rod+RIP]── o   │
+ 8      │ o B3 ────────────────────────────────────── o   │
+12      │ o B4 ────────────────────────────────────── o   │
+16      │ o B5 ───[merger << lift-top mainNode]────── o   │
+20      │ o B6 ────────────────────────────────────── o   │
+24      │                                                 │
+28      │ B7/B8 reserved (Tier 7+ slots, idle in T6)      │
+32      │                                                 │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
+
+- B1-B6：6 条 Mk4 belt 横穿，左 Wall Inlet → 右 Wall Outlet
+- B2 merger 注入：铁棒 140/min + RIP 20.5/min（来自 1F+2F+3F 上行 lift）
+- B5 merger 注入：铁板 20 + 铁棒 15 + RIP 5 = 40/min mainNode
+- B7/B8 物理建造但 T6 空跑（Tier 7+ 铝链/超级计算机预留）
 
 ### 侧视剖面（east-west，沿 col=2 切面）
 
