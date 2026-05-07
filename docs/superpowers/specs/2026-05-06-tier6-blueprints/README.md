@@ -27,6 +27,29 @@
 | C6 | **BP15** 晶振/HSC | 2 | 6 | 2 Mk2 (a/b) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
 | **小计** | | **96** | **257** | T9 时新增 BP9f-g 扩到 7 实例 + 各 BP coke 内置 | |
 
+### 全厂 T6 Power Shard 总览
+
+| BP | T6 激活 | Power Shard | 主要超频配方 |
+|---|---:|---:|---|
+| BP01 铁锭 | 9 smelter | 27 | iron-ingot 226% |
+| BP02 铁基础 | 18 con/asm | 51 | iron-rod 230.91%, iron-plate 216.25%, RIP 170% |
+| BP03 螺丝 | 9 con | 27 | screw 240.56% |
+| BP04 钢锭 | 5 fnd | 15 | steel-ingot 202% |
+| BP05 钢加工 | 5 con | 15 | steel-beam 210%, steel-pipe 225% |
+| BP06 铜冶炼 | 7 smelter | 21 | copper-ingot 217.67%, caterium 246.67% |
+| BP07 铜板/电线/线缆 | 11 con | 31 | wire 223.89%, copper-sheet 208.33%, cable 169.17% |
+| BP08 电路板 | 1 asm | 2 | circuit-board 183.33% |
+| BP09 塑料/橡胶 (BP9a) | 5 ref | 7 + 3 (sink) | plastic 191.67%, rubber 100%, coke 78%, sink 250% |
+| BP10 MAM/混凝土 | 9 con/asm | 20 | quickwire 205.56%, concrete 246.67%, quartz 180% |
+| BP11 SAM | 3 con/mfr | 2 | reanimated-sam 150%, fluctuator 100% |
+| BP12 转子/定子/电机 | 5 asm | 6 | rotor 175%, stator 150%, motor 100% |
+| BP13 模框/包裹梁 | 5 asm | 8 | modular-frame 200%, encased-beam 133.33% |
+| BP14 HMF/电脑 | 2 mfr | 0 | 全 100% |
+| BP15 晶振/HSC | 2 mfr | 0 | 全 100% |
+| **总计** | **96 台** | **232 shard** | |
+
+> Satisfactory 1.0 全图蛞蝓上限 ~2,659 → 合成蓝色碎片配方 → **232 shard 易得**（每 2 蓝蛞蝓 = 1 power shard，全图够 1300+ shard 直出）。
+
 ### 终端蓝图（2 个）
 
 | 蓝图 | 内容 | 文件 |
