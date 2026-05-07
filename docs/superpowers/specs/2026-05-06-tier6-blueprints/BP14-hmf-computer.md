@@ -72,24 +72,24 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌───────────────────┐                             │
-        ││         ^         │  out-0 -> roof merger (B5)  │
- 4      ││  HMF  manufacturer│  HMF 2/min mainNode         │
-        ││  20m W x 22m L    │                             │
- 8      ││  facing=north     │                             │
-        ││  port reversed    │                             │
-12      ││                   │  in 0-3 (south, row=2.75):  │
-        ││                   │    in-0 screw 240           │
-16      ││                   │    in-1 steel-pipe 40       │
-        ││                   │    in-2 modular-frame 10    │
-20      ││                   │    in-3 encased-beam 10     │
-        ││  v  v  v  v       │                             │
-24      │└───────────────────┘                             │
-        │ screw + pipe via lift-bot from roof B2/B3 split  │
-28      │ frame + beam via left-wall inlet h=4m from BP13  │
-        │                                                  │
-32      │ HMF out-0 (row=0) >> lift-out-top to roof merger │
-36      │                                                  │
+ 0      │┌───────────────────┐                            │
+        ││         ^         │  out-0 -> roof merger (B5) │
+ 4      ││  HMF  manufacturer│  HMF 2/min mainNode        │
+        ││  20m W x 22m L    │                            │
+ 8      ││  facing=north     │                            │
+        ││  port reversed    │                            │
+12      ││                   │  in 0-3 (south, row=2.75): │
+        ││                   │    in-0 screw 240          │
+16      ││                   │    in-1 steel-pipe 40      │
+        ││                   │    in-2 modular-frame 10   │
+20      ││                   │    in-3 encased-beam 10    │
+        ││  v  v  v  v       │                            │
+24      │└───────────────────┘                            │
+        │ screw + pipe via lift-bot from roof B2/B3 split │
+28      │ frame + beam via left-wall inlet h=4m from BP13 │
+        │                                                 │
+32      │ HMF out-0 (row=0) >> lift-out-top to roof merger│
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -102,24 +102,24 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌───────────────────┐                             │
-        ││         ^         │  out-0 -> roof merger (B5)  │
- 4      ││ Computer manufact.│  computer 2.5/min mainNode  │
-        ││  20m W x 22m L    │                             │
- 8      ││  facing=north     │                             │
-        ││  port reversed    │                             │
-12      ││                   │  in 0-3 (south, row=2.75):  │
-        ││                   │    in-0 circuit-board 10    │
-16      ││                   │    in-1 cable 20            │
-        ││                   │    in-2 plastic 50          │
-20      ││                   │    in-3 EMPTY (3 ingredient)│
-        ││  v  v  v  .       │                             │
-24      │└───────────────────┘                             │
-        │ all 3 inputs via lift-bot from roof B4 prog split│
-28      │ in-3 lift omitted (no fourth ingredient)         │
-        │                                                  │
-32      │ computer out-0 (row=0) >> lift-out-top to merger │
-36      │                                                  │
+ 0      │┌───────────────────┐                            │
+        ││         ^         │  out-0 -> roof merger (B5) │
+ 4      ││ Computer manufact.│  computer 2.5/min mainNode │
+        ││  20m W x 22m L    │                            │
+ 8      ││  facing=north     │                            │
+        ││  port reversed    │                            │
+12      ││                   │  in 0-3 (south, row=2.75): │
+        ││                   │    in-0 circuit-board 10   │
+16      ││                   │    in-1 cable 20           │
+        ││                   │    in-2 plastic 50         │
+20      ││                  │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                            │
+24      │└───────────────────┘                            │
+        │ all 3 inputs via lift-bot from B4 prog splitter │
+28      │ in-3 lift omitted (no fourth ingredient)        │
+        │                                                 │
+32      │ computer out-0 (row=0) >> lift-out-top to merger│
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -131,17 +131,17 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ──────────────────────────────────────── o  │
- 4      │ o B2 ───[smart split: screw 240]──────────── o   │
- 8      │ o B3 ───[smart split: steel-pipe 40]──────── o   │
-12      │ o B4 ───[prog split: CB 10 + Cab 20 + P 50]── o  │
-16      │ o B5 ───[merger << lift-top mainNode 4.5]── o    │
-20      │ o B6 ──────────────────────────────────────── o  │
-24      │                                                  │
-28      │ BP14a lift-bot: screw / pipe to 1F HMF in-0/1    │
-        │ BP14b lift-bot: CB / cable / plastic to 1F in-0-2│
-32      │ lift-top: HMF 2 (BP14a) + computer 2.5 (BP14b)   │
-36      │                                                  │
+ 0      │ o B1 ──────────────────────────────────────── o │
+ 4      │ o B2 ───[smart split: screw 240]──────────── o  │
+ 8      │ o B3 ───[smart split: steel-pipe 40]──────── o  │
+12      │ o B4 ───[prog split: CB 10 + Cab 20 + P 50]── o │
+16      │ o B5 ───[merger << lift-top mainNode 4.5]── o   │
+20      │ o B6 ──────────────────────────────────────── o │
+24      │                                                 │
+28      │ BP14a lift-bot: screw / pipe to 1F HMF in-0/1   │
+        │ BP14b lift-bot: CB+cable+plastic to 1F in-0-2   │
+32      │ lift-top: HMF 2 (BP14a) + computer 2.5 (BP14b)  │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 

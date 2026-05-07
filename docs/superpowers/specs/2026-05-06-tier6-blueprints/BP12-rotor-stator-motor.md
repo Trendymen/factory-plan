@@ -65,27 +65,27 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐┌─────────┐                            │
-        ││   R1    ││   R2    │                            │
- 4      ││ rotor   ││ rotor   │                            │
-        ││ 10x15   ││ 10x15   │                            │
- 8      ││  v      ││  v      │                            │
-        │└─────────┘└─────────┘                            │
-12      │─────────── rotor collect belt h=2m ──────────────│
-        │┌─────────┐┌─────────┐                            │
-        ││   S1    ││   S2    │                            │
-16      ││ stator  ││ stator  │                            │
-        ││ 10x15   ││ 10x15   │                            │
-20      ││  v      ││  v      │                            │
-        │└─────────┘└─────────┘                            │
-24      │─────────── stator collect belt h=2m ─────────────│
-        │ in: screw 350  + iron-rod 70  (rotor in-0/in-1)  │
-28      │ in: steel-pipe 45 + wire 120  (stator in-0/in-1) │
-        │ all 4 lift-bot from roof splitter manifold       │
-32      │                                                  │
-        │ out >> central splitter:                         │
-36      │   rotor 14 (10 to motor + 4 mainNode)            │
-        │   stator 15 (10 to motor + 5 mainNode)           │
+ 0      │┌─────────┐┌─────────┐                           │
+        ││   R1    ││   R2    │                           │
+ 4      ││ rotor   ││ rotor   │                           │
+        ││ 10x15   ││ 10x15   │                           │
+ 8      ││  v      ││  v      │                           │
+        │└─────────┘└─────────┘                           │
+12      │─────────── rotor collect belt h=2m ─────────────│
+        │┌─────────┐┌─────────┐                           │
+        ││   S1    ││   S2    │                           │
+16      ││ stator  ││ stator  │                           │
+        ││ 10x15   ││ 10x15   │                           │
+20      ││  v      ││  v      │                           │
+        │└─────────┘└─────────┘                           │
+24      │─────────── stator collect belt h=2m ────────────│
+        │ in: screw 350  + iron-rod 70  (rotor in-0/in-1) │
+28      │ in: steel-pipe 45 + wire 120 (stator in-0/in-1) │
+        │ all 4 lift-bot from roof splitter manifold      │
+32      │                                                 │
+        │ out >> central splitter:                        │
+36      │   rotor 14 (10 to motor + 4 mainNode)           │
+        │   stator 15 (10 to motor + 5 mainNode)          │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -99,21 +99,21 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐                                       │
-        ││   M1    │  T7+ R3 / S3 reserve                  │
- 4      ││ motor   │  (col 1-2 row 0 / row 2.5)            │
-        ││ 10x15   │                                       │
- 8      ││  v      │                                       │
-        │└─────────┘                                       │
-12      │─────────── motor output belt h=14m ──────────────│
-        │ in: rotor 10 (lift-bot from 1F splitter)         │
-16      │ in: stator 10 (lift-bot from 1F splitter)        │
-        │                                                  │
-20      │ out: motor 5/min >> lift-out-top to roof merger  │
-        │                                                  │
-24      │                                                  │
-        │                                                  │
-32      │                                                  │
+ 0      │┌─────────┐                                      │
+        ││   M1    │  T7+ R3 / S3 reserve                 │
+ 4      ││ motor   │  (col 1-2 row 0 / row 2.5)           │
+        ││ 10x15   │                                      │
+ 8      ││  v      │                                      │
+        │└─────────┘                                      │
+12      │─────────── motor output belt h=14m ─────────────│
+        │ in: rotor 10 (lift-bot from 1F splitter)        │
+16      │ in: stator 10 (lift-bot from 1F splitter)       │
+        │                                                 │
+20      │ out: motor 5/min >> lift-out-top to roof merger │
+        │                                                 │
+24      │                                                 │
+        │                                                 │
+32      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -126,16 +126,16 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ───[smart split: screw 350]──────────── o   │
- 4      │ o B2 ───[split: iron-rod 70]─────────────── o    │
- 8      │ o B3 ───[prog split: pipe 45 + wire 120]── o     │
-12      │ o B4 ──────────────────────────────────────── o  │
-16      │ o B5 ───[merger << lift-top mainNode 14]─── o    │
-20      │ o B6 ──────────────────────────────────────── o  │
-24      │                                                  │
-28      │ 4 lift-bot: screw / rod / pipe / wire to 1F      │
-32      │ 2 lift-top: rotor+stator+motor mainNode to B5    │
-36      │                                                  │
+ 0      │ o B1 ───[smart split: screw 350]──────────── o  │
+ 4      │ o B2 ───[split: iron-rod 70]─────────────── o   │
+ 8      │ o B3 ───[prog split: pipe 45 + wire 120]── o    │
+12      │ o B4 ──────────────────────────────────────── o │
+16      │ o B5 ───[merger << lift-top mainNode 14]─── o   │
+20      │ o B6 ──────────────────────────────────────── o │
+24      │                                                 │
+28      │ 4 lift-bot: screw / rod / pipe / wire to 1F     │
+32      │ 2 lift-top: rotor+stator+motor mainNode to B5   │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 

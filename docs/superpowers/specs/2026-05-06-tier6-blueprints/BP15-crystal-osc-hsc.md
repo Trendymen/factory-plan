@@ -69,24 +69,24 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌───────────────────┐                             │
-        ││         ^         │  out-0 -> roof merger (B5)  │
- 4      ││ Crystal-Osc manuf.│  oscillator 1/min mainNode  │
-        ││  20m W x 22m L    │                             │
- 8      ││  facing=north     │                             │
-        ││  port reversed    │                             │
-12      ││                   │  in 0-3 (south, row=2.75):  │
-        ││                   │    in-0 RIP 2.5             │
-16      ││                   │    in-1 cable 14            │
-        ││                   │    in-2 quartz-crystal 18   │
-20      ││                   │    in-3 EMPTY (3 ingredient)│
-        ││  v  v  v  .       │                             │
-24      │└───────────────────┘                             │
-        │ RIP via lift-bot from roof B2 smart split        │
-28      │ cable via lift-bot from roof B4 prog split       │
-        │ quartz via lift-bot from roof B6 smart split     │
-32      │                                                  │
-        │ osc out-0 (row=0) >> lift-out-top to roof merger │
+ 0      │┌───────────────────┐                            │
+        ││         ^         │  out-0 -> roof merger (B5) │
+ 4      ││ Crystal-Osc manuf.│  oscillator 1/min mainNode │
+        ││  20m W x 22m L    │                            │
+ 8      ││  facing=north     │                            │
+        ││  port reversed    │                            │
+12      ││                   │  in 0-3 (south, row=2.75): │
+        ││                   │    in-0 RIP 2.5            │
+16      ││                   │    in-1 cable 14           │
+        ││                   │    in-2 quartz-crystal 18  │
+20      ││                  │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                            │
+24      │└───────────────────┘                            │
+        │ RIP via lift-bot from roof B2 smart split       │
+28      │ cable via lift-bot from roof B4 prog split      │
+        │ quartz via lift-bot from roof B6 smart split    │
+32      │                                                 │
+        │ osc out-0 (row=0) >> lift-out-top to roof merger│
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -99,24 +99,24 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌───────────────────┐                             │
-        ││         ^         │  out-0 -> roof merger (B5)  │
- 4      ││  HSC  manufacturer│  HSC 3.75/min mainNode      │
-        ││  20m W x 22m L    │                             │
- 8      ││  facing=north     │                             │
-        ││  port reversed    │                             │
-12      ││                   │  in 0-3 (south, row=2.75):  │
-        ││                   │    in-0 quickwire 210       │
-16      ││                   │    in-1 cable 37.5          │
-        ││                   │    in-2 circuit-board 3.75  │
-20      ││                   │    in-3 EMPTY (3 ingredient)│
-        ││  v  v  v  .       │                             │
-24      │└───────────────────┘                             │
-        │ quickwire via lift-bot from roof B6 smart split  │
-28      │ cable + CB via lift-bot from roof B4 prog split  │
-        │                                                  │
-32      │                                                  │
-        │ HSC out-0 (row=0) >> lift-out-top to roof merger │
+ 0      │┌───────────────────┐                            │
+        ││         ^         │  out-0 -> roof merger (B5) │
+ 4      ││  HSC  manufacturer│  HSC 3.75/min mainNode     │
+        ││  20m W x 22m L    │                            │
+ 8      ││  facing=north     │                            │
+        ││  port reversed    │                            │
+12      ││                   │  in 0-3 (south, row=2.75): │
+        ││                   │    in-0 quickwire 210      │
+16      ││                   │    in-1 cable 37.5         │
+        ││                   │    in-2 circuit-board 3.75 │
+20      ││                  │    in-3 EMPTY (3 ingredient)│
+        ││  v  v  v  .       │                            │
+24      │└───────────────────┘                            │
+        │ quickwire via lift-bot from roof B6 smart split │
+28      │ cable + CB via lift-bot from roof B4 prog split │
+        │                                                 │
+32      │                                                 │
+        │ HSC out-0 (row=0) >> lift-out-top to roof merger│
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -128,17 +128,17 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ──────────────────────────────────────── o  │
- 4      │ o B2 ───[smart split: RIP 2.5]────────────── o   │
- 8      │ o B3 ──────────────────────────────────────── o  │
-12      │ o B4 ───[prog split: cable 51.5 + CB 3.75]── o   │
-16      │ o B5 ───[merger << lift-top mainNode 4.75]── o   │
-20      │ o B6 ───[smart split: quartz 18 + qwire 210] o   │
-24      │                                                  │
-28      │ BP15a lift-bot: RIP / cable / quartz to osc      │
-        │ BP15b lift-bot: qwire / cable / CB to HSC        │
-32      │ lift-top: osc 1 (BP15a) + HSC 3.75 (BP15b)       │
-36      │                                                  │
+ 0      │ o B1 ──────────────────────────────────────── o │
+ 4      │ o B2 ───[smart split: RIP 2.5]────────────── o  │
+ 8      │ o B3 ──────────────────────────────────────── o │
+12      │ o B4 ───[prog split: cable 51.5 + CB 3.75]── o  │
+16      │ o B5 ───[merger << lift-top mainNode 4.75]── o  │
+20      │ o B6 ───[smart split: quartz 18 + qwire 210] o  │
+24      │                                                 │
+28      │ BP15a lift-bot: RIP / cable / quartz to osc     │
+        │ BP15b lift-bot: qwire / cable / CB to HSC       │
+32      │ lift-top: osc 1 (BP15a) + HSC 3.75 (BP15b)      │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 

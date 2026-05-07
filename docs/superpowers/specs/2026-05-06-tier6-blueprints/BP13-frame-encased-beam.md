@@ -64,21 +64,21 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐┌─────────┐┌─────────┐                 │
-        ││   M1    ││   M2    ││   M3    │                 │
- 4      ││ frame   ││ frame   ││ frame   │  T9 +1 reserve  │
-        ││ 10x15   ││ 10x15   ││ 10x15   │  (col 3 row 0)  │
- 8      ││  v      ││  v      ││  v      │                 │
-        │└─────────┘└─────────┘└─────────┘                 │
-12      │─────────── frame collect belt h=2m ──────────────│
-        │ in: RIP 18 + iron-rod 72 (each split to 3 in-0)  │
-16      │ all 2 lift-bot from roof B2 prog splitter        │
-        │                                                  │
-20      │ out: frame 12/min >> central splitter            │
-        │   10 -> right-wall outlet to BP14 HMF            │
-24      │   2  -> lift-out-top to roof merger (B5)         │
-        │                                                  │
-32      │                                                  │
+ 0      │┌─────────┐┌─────────┐┌─────────┐                │
+        ││   M1    ││   M2    ││   M3    │                │
+ 4      ││ frame   ││ frame   ││ frame   │  T9 +1 reserve │
+        ││ 10x15   ││ 10x15   ││ 10x15   │  (col 3 row 0) │
+ 8      ││  v      ││  v      ││  v      │                │
+        │└─────────┘└─────────┘└─────────┘                │
+12      │─────────── frame collect belt h=2m ─────────────│
+        │ in: RIP 18 + iron-rod 72 (each split to 3 in-0) │
+16      │ all 2 lift-bot from roof B2 prog splitter       │
+        │                                                 │
+20      │ out: frame 12/min >> central splitter           │
+        │   10 -> right-wall outlet to BP14 HMF           │
+24      │   2  -> lift-out-top to roof merger (B5)        │
+        │                                                 │
+32      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -91,21 +91,21 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────────┐┌─────────┐                            │
-        ││   E1    ││   E2    │                            │
- 4      ││ encased ││ encased │                            │
-        ││ 10x15   ││ 10x15   │                            │
- 8      ││  v      ││  v      │                            │
-        │└─────────┘└─────────┘                            │
-12      │─────────── beam collect belt h=14m ──────────────│
-        │ in: steel-beam 48 + concrete 96 (each split 2)   │
-16      │ steel-beam from B3 splitter, concrete from B4    │
-        │ both via lift-bot to 2F manifold                 │
-20      │                                                  │
-        │ out: beam 16/min >> central splitter             │
-24      │   10 -> right-wall outlet to BP14 HMF            │
-        │   6  -> lift-out-top to roof merger (B5)         │
-32      │                                                  │
+ 0      │┌─────────┐┌─────────┐                           │
+        ││   E1    ││   E2    │                           │
+ 4      ││ encased ││ encased │                           │
+        ││ 10x15   ││ 10x15   │                           │
+ 8      ││  v      ││  v      │                           │
+        │└─────────┘└─────────┘                           │
+12      │─────────── beam collect belt h=14m ─────────────│
+        │ in: steel-beam 48 + concrete 96 (each split 2)  │
+16      │ steel-beam from B3 splitter, concrete from B4   │
+        │ both via lift-bot to 2F manifold                │
+20      │                                                 │
+        │ out: beam 16/min >> central splitter            │
+24      │   10 -> right-wall outlet to BP14 HMF           │
+        │   6  -> lift-out-top to roof merger (B5)        │
+32      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -117,16 +117,16 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ──────────────────────────────────────── o  │
- 4      │ o B2 ───[prog split: RIP 18 + rod 72 = 90]─── o  │
- 8      │ o B3 ───[smart split: steel-beam 48]──────── o   │
-12      │ o B4 ───[smart split: concrete 96]────────── o   │
-16      │ o B5 ───[merger << lift-top mainNode 8]──── o    │
-20      │ o B6 ──────────────────────────────────────── o  │
-24      │                                                  │
-28      │ 4 lift-bot: RIP+rod / beam / concrete to 1F/2F   │
-32      │ 2 lift-top: frame + beam mainNode to B5          │
-36      │                                                  │
+ 0      │ o B1 ──────────────────────────────────────── o │
+ 4      │ o B2 ───[prog split: RIP 18 + rod 72 = 90]─── o │
+ 8      │ o B3 ───[smart split: steel-beam 48]──────── o  │
+12      │ o B4 ───[smart split: concrete 96]────────── o  │
+16      │ o B5 ───[merger << lift-top mainNode 8]──── o   │
+20      │ o B6 ──────────────────────────────────────── o │
+24      │                                                 │
+28      │ 4 lift-bot: RIP+rod / beam / concrete to 1F/2F  │
+32      │ 2 lift-top: frame + beam mainNode to B5         │
+36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
