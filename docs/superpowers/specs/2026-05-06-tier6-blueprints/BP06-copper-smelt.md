@@ -3,127 +3,113 @@
 ## 概要
 
 - **集群**: C3 铜电链（紧贴 BP5 之后，C3 第一个）
-- **规格**: Mk2 **2 实例**（BP6a + BP6b，相同蓝图复制；T9 满载共 31 smelter，单实例 ½ ≈ 15-16 台）
-- **机器**: smelter（铜锭配方 + 铜金锭配方）
-- **激活时间线**: T6 5 铜锭 + 2 铜金锭 = 7 → T7 14+4 = 18 → T8 20+6 = 26 → T9 **23+8 = 31**
+- **规格**: Mk2 **3 实例**（BP6a + BP6b + BP6c，相同蓝图复制）
+- **机器**: **每实例 11 smelter 一次物理建造到位**，3 实例共 **33 smelter**（铜锭 + 铜金锭混合）
+- **激活时间线**（仅翻 Power Switch + 插 Power Shard）:
+  - T6 → 7 台通电（仅 BP6a 部分网；其余 26 台 Switch 关）
+  - T7 → 18 台通电
+  - T8 → 26 台通电
+  - T9 → 31 台通电（满载；剩 2 台备用）
 - **产能 T6**: 铜锭 326.5/min · 铜金锭 74/min
+
+> **核心设计原则**：33 台 smelter T6 一次物理建造到位（3 实例共用同一蓝图各 11 台）+ belt/manifold/电网/Power Switch 全部接好。后续升 Tier 只翻 Switch + 插 shard，不动结构、不重新拉 belt。
 
 ## 机器超频清单（T6，Plan C ≤250%）
 
-| 配方 | 数量 | 超频 | 单台产能 (/min) | Power Shard/台 |
-|---|---:|---:|---:|---:|
-| copper-ingot (smelter) | 5 | **217.67%** | 65.30 | 3 |
-| caterium-ingot (smelter) | 2 | **246.67%** | 37.0 | 3 |
-| **合计 (T6)** | 7 | — | — | 5×3 + 2×3 = **21** |
+| 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |
+|---|---:|---:|---:|---:|---:|
+| copper-ingot (smelter) | 24 | **5** | 217.67% | 65.30 | 3 |
+| caterium-ingot (smelter) | 9 | **2** | 246.67% | 37.0 | 3 |
+| **合计 (T6)** | 33 | 7 | — | 326.5 + 74 = **400.5** | 5×3 + 2×3 = **21** |
 
-> 总产能验证: 5 × 65.3 = 326.5 铜锭 ✓ | 2 × 37 = 74 铜金锭 ✓
+> T6 未通电的 26 台 smelter：物理建好、belt 接好、shard 槽空着、Power Switch 关。<br>
+> T9 满载 31 台（23 Cu + 8 Cat），每台 3 shard = **93 shard 总**；剩余 2 台（1 Cu + 1 Cat）保留备用。
 
 ## 物料 I/O
 
-| 方向 | 物料 | 流量 (T6) | 路径 |
+| 方向 | 物料 | 流量 (T6 / T9) | 路径 |
 |---|---|---|---|
-| 输入 | 铜矿石 | 326.5 | 矿场直喂 → 左 Wall Inlet (h=4m) |
-| 输入 | 铜金矿石 | 222（74×3 配方比）| 矿场直喂 → 左 Wall Inlet (h=4m，第二口) |
-| 输出 | 铜锭 → BP7 | 326.5 | 集群内部 → 右 Wall Outlet (h=24m) → BP6b → BP7 |
-| 输出 | 铜金锭 → B6 | 74 | 屋顶 merger → B6（→ BP10 快速线） |
+| 输入 | 铜矿石 | 326.5 / 1500 | 矿场直喂 → 左 Wall Inlet (h=4m) |
+| 输入 | 铜金矿石 | 222 / 600 | 矿场直喂 → 左 Wall Inlet (h=4m, 第二口) |
+| 输出 | 铜锭 → BP7 | 326.5 / 1380 | 集群内部 → 右 Wall Outlet (h=24m) → BP6b → BP6c → BP7 |
+| 输出 | 铜金锭 → B6 | 74 / 296 | 屋顶 merger → B6（→ BP10 快速线）|
 
-> 铜金锭**不再是 mainNode**（74/min 全部消费给快速线，无外部余量）。
-
-**屋顶总线接入**: 注入 B6 (74 铜金锭)
+**屋顶总线接入**: 注入 B6 (74 铜金锭，T9 296)
 
 ## 楼层占用
 
-| 层 | 高度 | 内容 | 数量（单实例 ≈ ½）|
-|---|---|---|---:|
-| 1F | 0-10m | smelter（铜锭 3 + 铜金锭 1）| 4 |
-| 2F | 14-24m | smelter（铜锭 2 + 铜金锭 1）| 3 |
-| 屋顶 | 35-40m | B1-B6 + 1 merger (B6) + 1 lift-top | — |
+| 层 | 高度 | 内容（单实例）| 物理/实例 | T6 通电 (BP6a) | T6 通电 (BP6b/c) |
+|---|---|---|---:|---:|---:|
+| 1F | 0-10m | row 0 (5 Cu S1-S5) + row 2 (1 Cat G1) | 6 | **6** | 0 |
+| 4m 地基 | 10-14m | 隔层 | — | — | — |
+| 2F | 14-24m | row 0 (3 Cu S6-S8) + row 2 (2 Cat G2-G3) | 5 | **1** (仅 G2) | 0 |
+| 屋顶 | 35-40m | B1-B6 + B6 merger | — | — | — |
+| **合计/实例** | | | **11** | **7** | **0** |
 
-> 单实例 1F+2F 装 7 台，BP6a + BP6b 共 14 台（T6 激活），剩余 17 台为 T7+ 物理建造但 Power Switch 关。
-> T9 满载需 31 台 → 单实例 16 台需放 1F 5 + 2F 5 + **3F 6**（10m + 14m + 14m + 14m = 52m？超 35m）→ 实际只能 1F+2F 各最大 5 台（5+5=10），但 1F+2F+3F 超高 ❌
-> **修正**：smelter 1F 10m + 2F 14m = 24m，屋顶在 35m，留 11m 给 lift。3F 不可行（24+14=38m 超 35m）。所以单实例最多 1F+2F = 10 台。BP6a + BP6b 共 20 台。T9 满载 31 → **可能拆 3 个 Mk2** (BP6a/b/c) 而非 2 个。
+> **T6 阶段**：BP6a 通电 7 台（1F 6 + 2F G2 = 7），BP6a 剩 4 台 Switch 关；BP6b、BP6c 整实例全关。所有 33 台 belt / lift / manifold / Power Switch 一次到位。
 
-> ⚠ **再核对**：1F smelter 最大 5 台一字排（5×6m=30m，行距 30m 有余）；2F 同样 5 台。单实例 10 台，2 实例 = 20 台。T9 31 台需 BP6a/b/c 共 31 ÷ 11≈ 3 实例。**README 表更新为 BP6a/b/c 3 实例**。
+## 俯视图
 
-## 俯视图（按实际比例，每层独立 — 视觉正方形）
+**图例**：`*` = T6 通电 (BP6a)；无 `*` = 已建未通电（BP6a 余下 4 台 + BP6b/c 全部）；`v` = front (south) 输出
 
-**比例约定**：
-- 横向：**1 字符 = 1m**
-- 纵向：**1 行 = 2m**（补偿 monospace 字符宽高比 1:2）
-- 蓝图 40×40m → **40 字符宽 × 20 行高**
-- 每 cell (8×8m) = 8 字符宽 × 4 行高
-
-**机器实际尺寸** → ASCII 占位：
-
-| 机器 | 实际 | ASCII 占位（W × H） |
-|---|---|---|
-| smelter | 6m × 9m | 6 字符 × 4-5 行 |
-
-### 1F (0-10m): 5 smelter (4 copper + 1 caterium)
+### 1F (0-10m): 6 smelter — BP6a 全部 T6 通电，BP6b/c 全关
 
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐              │
-        ││ S1  ││ S2  ││ S3  ││ S4  ││ G1  │              │
- 4      ││ Cu  ││ Cu  ││ Cu  ││ Cu  ││ Cat │              │
-        ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 │              │
- 8      ││  v  ││  v  ││  v  ││  v  ││  v  │              │
-        │└─────┘└─────┘└─────┘└─────┘└─────┘              │
-12      │── Cu  ingot collect belt h=2m  (S1-S4) ─────────│
-        │── Cat ingot collect belt h=4m  (G1)    ─────────│
-16      │                                                 │
-        │ IN h=4m row=2: copper-ore  (mine > BP6)         │
-20      │ IN h=4m row=3: caterium-ore (mine > BP6)        │
-        │ OUT h=24m row=2.5: copper-ingot (BP6 > BP7)     │
-24      │                                                 │
-28      │ central splitter manifold ore -> 5 smelter in-0 │
-        │ central splitter manifold ingot -> 2 lift-top   │
-32      │                                                 │
-36      │                                                 │
-        │                                                 │
+ 0      │┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐                │
+        ││ S1* ││ S2* ││ S3* ││ S4* ││ S5* │ row 0: 5 Cu    │
+ 4      ││ Cu  ││ Cu  ││ Cu  ││ Cu  ││ Cu  │ BP6a T6 ON     │
+        ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 │ (Network A)    │
+ 8      ││  v  ││  v  ││  v  ││  v  ││  v  │                │
+10      │└─────┘└─────┘└─────┘└─────┘└─────┘                │
+        │──── Cu ingot belt #1 h=2m row=2.5 ───────────────│
+14      │┌─────┐                                            │
+        ││ G1* │ row 2: 1 Cat                               │
+18      ││ Cat │ BP6a T6 ON (Network B)                     │
+        ││ 6x9 │                                            │
+22      ││  v  │                                            │
+        │└─────┘                                            │
+26      │──── Cat ingot belt h=2m row=5.5 ─────────────────│
+        │ 铜矿石进料：左 Wall Inlet h=4m row=2.5            │
+32      │ 铜金矿石：左 Wall Inlet h=4m row=5.5             │
+        │   manifold 喂全部 11 台 in-0（含 2F lift-up）     │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- S1-S4：copper-ingot smelter 6m W × 9m L × 9m H
-- G1：caterium-ingot smelter 6m W × 9m L × 9m H
-- 铜锭/铜金锭分两条独立 belt 收集（防混料）
-- IN h=4m：左 Wall Inlet（铜矿/铜金矿，矿场直喂）
-- OUT h=24m：右 Wall Outlet（铜锭，集群内部给 BP7）
+- BP6a 1F：S1-S5 + G1 全 6 台 T6 通电（`*`）
+- BP6b/c 1F：物理同样布局，但 Power Switch 关，无 `*`
 
-### 2F (14-24m): 5 smelter (剩余分布)
+### 2F (14-24m): 5 smelter — BP6a 仅 G2 通电，其余 BP6 全关
 
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐              │
-        ││ S5  ││ S6  ││ S7  ││ S8  ││ G2  │              │
- 4      ││ Cu  ││ Cu  ││ Cu  ││ Cu  ││ Cat │              │
-        ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 ││ 6x9 │              │
- 8      ││  v  ││  v  ││  v  ││  v  ││  v  │              │
-        │└─────┘└─────┘└─────┘└─────┘└─────┘              │
-12      │── Cu  ingot collect belt h=14m (S5-S8) ─────────│
-        │── Cat ingot collect belt h=16m (G2)    ─────────│
-16      │                                                 │
-        │ ore in:    lift-bot from 1F splitter manifold   │
-20      │ ingot out: lift-out-top to roof / BP7 outlet    │
-24      │                                                 │
-28      │ T7+ 满载: G3 在 col=4 备用 (T6 仅激活 G1+G2)    │
-        │ T9 31 台 -> 拆 BP6a/b/c 共 3 实例 (单实例 10台) │
-32      │                                                 │
-36      │                                                 │
-        │                                                 │
+ 0      │┌─────┐┌─────┐┌─────┐                              │
+        ││ S6  ││ S7  ││ S8  │ row 0: 3 Cu                  │
+ 4      ││ Cu  ││ Cu  ││ Cu  │ BP6a T6 Switch OFF           │
+        ││ 6x9 ││ 6x9 ││ 6x9 │ (Network C, T7 翻 ON)        │
+ 8      ││  v  ││  v  ││  v  │                              │
+10      │└─────┘└─────┘└─────┘                              │
+        │──── Cu ingot belt #3 h=16m row=2.5 ──────────────│
+14      │┌─────┐┌─────┐                                     │
+        ││ G2* ││ G3  │ row 2: 2 Cat                        │
+18      ││ Cat ││ Cat │ G2: BP6a T6 ON (Network D)          │
+        ││ 6x9 ││ 6x9 │ G3: T6 OFF (Network E, T8 翻 ON)    │
+22      ││  v  ││  v  │                                     │
+        │└─────┘└─────┘                                     │
+26      │──── Cat ingot belt h=16m row=5.5 ────────────────│
+        │ 进料：lift-up 从 1F manifold                      │
+32      │ 出料：lift-out-top 到 24m / 屋顶 merger           │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- S5-S8：copper-ingot smelter（2F 4 台铜锭）
-- G2：caterium-ingot smelter（2F 1 台铜金锭）
-- 单实例 1F+2F 共 10 台（8 铜锭 + 2 铜金锭）
-- T9 满载 31 台需 BP6a/b/c 3 实例
+- BP6a 2F：仅 G2 通电；S6-S8 + G3 物理建好但 Power Switch 关
+- BP6b/c 2F：物理同样布局，全部 Switch 关
 
-### 屋顶 (35-40m): B1-B6 + 1 merger (B6)
+### 屋顶 (35-40m): B1-B6 + B6 merger（铜金锭注入）
 
 ```
         col=0       col=1       col=2       col=3       col=4
@@ -136,59 +122,65 @@
 16      │ o B5 ────────────────────────────────────── o   │
 20      │ o B6 ───[merger << caterium-ingot 74]────── o   │
 24      │                                                 │
-28      │ B6 inject 74/min  (caterium to BP10 fast belt)  │
-        │ copper-ingot 326.5 NOT on bus (cluster > BP7)   │
-32      │                                                 │
+28      │ B6 注入：本实例铜金锭 lift-top 上行合流          │
+32      │ copper-ingot 走集群内 h=24m 短 belt 给下游 BP    │
 36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- B6 merger：caterium-ingot 74/min（1F+2F lift-top 上行合流）
-- copper-ingot 326.5 走集群内部右 Wall Outlet 给 BP7，不上总线
-- B1-B5 在 BP6 蓝图内仅直通无注入
-
 ## 多实例侧墙续接
 
-BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→...→ 下游 BP7）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
-
-蓝图侧墙集群内 mount（机器层）：
+BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下游 BP7）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
 | 高度 | 物料 | 左 Wall | 右 Wall |
 |---|---|---|---|
 | h=4m row=2.5 | 铜锭 | **Inlet** | **Outlet** |
 | h=4m row=3.5 | 铜金锭 | **Inlet**（仅 BP6b/c 用，BP6a 悬空）| **Outlet** |
 
-> BP6a 左侧没有上游，所以左 Inlet 悬空（蓝图相同导致 mount 必须存在但不接料）。
-> BP6 不使用反向 belt（无下游回流物料）。
+## Power Switch 分网（每实例 5 网）
 
-## 建造步骤（BP6a 单实例，BP6b/c 复制）
+每个 BP6 实例 5 个独立 Power Network；3 实例 × 5 = **15 个 Power Switch 一次安装到位**。
 
-1. **1F (0-10m)**: 5 台 smelter 一字排 row=0（前 4 台铜锭 + 第 5 台占 col=4 空着 T7+ 用）
-2. **1F belt 收集**: row=2 铜锭主 belt + row=3 铜金锭主 belt
-3. **铜矿石进料**: 左 Wall Inlet (h=4m, row=2) → splitter manifold (5 路) → 5 台 in-0
-4. **铜金矿石进料**: 左 Wall Inlet (h=4m, row=3) → splitter manifold → 铜金锭 smelter
-5. **1F→2F**: 4m 地基 (10-14m)
-6. **2F (14-24m)**: 5 台 smelter（同 1F 布局）；同样两条 row 收集
-7. **垂直汇总**:
-   - 铜锭 1F+2F → lift-out-top → 24m 主 belt → 右 Wall Outlet (col=5, h=24m, row=2)
-   - 铜金锭 1F+2F → lift-out-top → 屋顶 (35m) → merger 注 B6
-8. **屋顶 (35m)**: 6 belt 直通 + 1 merger
-9. **Power Switch**: 关闭闲置（T6 单实例只 3-4 台开，T9 全开）
+| 网 | 范围（每实例）| 数量 | BP6a T6 | BP6b T6 | BP6c T6 | 升级触发 |
+|---|---|---:|---|---|---|---|
+| Network A | 1F S1-S5 (5 Cu) | 5 | **ON** | OFF | OFF | BP6b T7 / BP6c T8 |
+| Network B | 1F G1 (1 Cat) | 1 | **ON** | OFF | OFF | BP6b T7 / BP6c T8 |
+| Network C | 2F S6-S8 (3 Cu) | 3 | OFF | OFF | OFF | BP6a T7 / BP6b T8 / BP6c T9 |
+| Network D | 2F G2 (1 Cat) | 1 | **ON** | OFF | OFF | BP6b T7 / BP6c T9 |
+| Network E | 2F G3 (1 Cat) | 1 | OFF | OFF | OFF | BP6a/b/c T9 渐启 |
 
-## Tier 7+ 扩容点
+> T6 阶段：仅 BP6a 的 A + B + D 三网合闸（5+1+1 = 7 台），其余 4 + 22 = 26 台 Power Switch 全关。
 
-| Tier | 铜锭/铜金锭 | 实例数 |
+## 建造步骤（BP6 蓝图，BP6a/b/c 完全相同复制 3 份）
+
+1. **框架**：5×5 cell × 5 cell 高（40×40×40m）
+2. **1F (0-10m)**：5 Cu smelter S1-S5（row 0 cols 0-4）+ 1 Cat smelter G1（row 2 col 0）
+3. **1F belt**：row 2.5 Cu 收集 belt #1 + row 5.5 Cat 收集 belt #2，末端 lift-out-top
+4. **1F 地基**：y=10m 铺 4m 地基
+5. **2F (14-24m)**：**同 1F 布局**放 3 Cu smelter S6-S8（row 0 cols 0-2）+ 2 Cat smelter G2-G3（row 2 cols 0-1）
+6. **2F belt**：row 2.5 Cu 收集 belt #3 + row 5.5 Cat 收集 belt #4，末端 lift-out-top
+7. **2F 地基**：y=24m 铺 4m 地基
+8. **垂直汇总**：4 条 belt 末端 lift-out-top 汇主 lift → 铜锭到 h=24m，铜金锭到屋顶 35m
+9. **右 Wall Outlet** (col=5, h=24m, row=2.5)：铜锭出口
+10. **左 Wall Inlet** (col=0, h=4m)：铜矿 (row=2.5) + 铜金矿 (row=5.5) 双进料
+11. **屋顶 (35m)**：6 Mk4 belt + B6 merger（铜金锭注入）
+12. **Power Switch ×5**：Network A/B/C/D/E 一次装好；BP6a T6 合 A+B+D，其余实例 5 网全断
+13. **Power Shard（T6）**：仅 BP6a 的 7 台通电机器各插 3 shard；其余 shard 槽空着
+
+## Tier 7+ 启用流程（仅翻 Switch + 插 shard，不动结构）
+
+| Tier | 操作 | 通电总数 |
 |---|---|---:|
-| T6 | 5/2 | 1 BP6a 满 + 1 BP6b 关 |
-| T7 | 14/4 | 2 (BP6a+b) |
-| T8 | 20/6 | 2-3 |
-| T9 | 23/8 | **3** (BP6a/b/c) |
-
-> README 表已写 2 实例（按 T7 配置），T9 需补建 BP6c 第 3 实例。
+| T7 | BP6a 翻 C+E ON，BP6b 翻 A+B+D ON；各通电台插 3 shard | 18 |
+| T8 | BP6b 翻 C+E ON，BP6c 翻 A+B ON | 26 |
+| T9 | BP6c 翻 C+D+E ON，全 31 台超频调到目标值；矿场来料 belt 升 Mk5/Mk6 | 31 |
 
 ## 验证
 
-- [ ] 铜锭/铜金锭两条 row 独立
-- [ ] 双进料 belt（铜矿+铜金矿）正确分配
-- [ ] 屋顶 merger filter=铜金锭（防混料）
-- [ ] 矿场容量预留：铜矿 1200/min、铜金矿 600/min（Tier 9 上限）
+- [ ] **33 台 smelter 全部物理放置**（每实例 11 × 3 实例）
+- [ ] 铜锭/铜金锭两条独立 row belt（防混料）
+- [ ] 双进料 manifold（铜矿+铜金矿）接到全部 33 台 in-0
+- [ ] **15 个 Power Switch 一次建好**（每实例 5 × 3 实例）
+- [ ] T6 仅 BP6a 7 台通电机器插了 shard，其余 26 台 shard 槽空
+- [ ] 屋顶 B6 merger filter=铜金锭（防混料）
+- [ ] 矿场容量预留：铜矿 1500/min、铜金矿 600/min（T9 上限）

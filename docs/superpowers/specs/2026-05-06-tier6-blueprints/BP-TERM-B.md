@@ -4,8 +4,15 @@
 
 - **集群**: 总线最末端（紧贴 BP-TERM-A 之后）
 - **规格**: Mk2 单实例
-- **建筑**: 13 个 Dim Depot Uploader + **1 个共享 awesome-sink** + 13 个 smart splitter + 1 个 merger（接收 BP-TERM-A + 本蓝图共 26 路 overflow）
+- **建筑**: 13 个 Dim Depot Uploader（T6 后半批）+ **9 个 T7+ 预留 Uploader（2F，T6 物理建好但 Power Switch 关）** + **1 个共享 awesome-sink** + 22 个 smart splitter + 1 个 merger（接收 BP-TERM-A + 本蓝图共 26 路 overflow）
 - **作用**: 26 mainNode 中的**后 13 个**送入位面仓 + **唯一共享 sink** 兜底所有 26 mainNode 的 overflow
+- **激活时间线**（仅翻 Power Switch + 插 Power Shard，不动结构）:
+  - T6 → 13 Uploader (U14-U26) + 共享 sink 通电；2F 9 槽位 Power Switch 关
+  - T7 → 翻 Network B Switch ON → 铝壳 / RCU / 超级计算机 3 个 Uploader 通电
+  - T8 → 翻 Network C Switch ON → 涡轮电机 / 融合模块 / 冷却系统 3 个通电
+  - T9 → 翻 Network D Switch ON → 神经处理器 / 叠加振荡器 / 虚构三角 3 个通电（满 22 Uploader）
+
+> **核心设计原则**：**全部 22 个 Uploader + 共享 sink + smart splitter + merger 树 + 4 个 Power Switch 在 T6 阶段就一次物理建造到位 + belt/lift/cascade/电网全部接好**。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 给新通电 Uploader 插 Power Shard（如需超频）。
 
 > ⚠ **共享 sink 设计依据**：26 个 Uploader 持续向位面仓传送，溢流速率远低于 mainNode 总产能。1 个 sink @ 250% 超频（≈150/min）即可消化绝大多数场景溢流；若位面研究升级到高级，Uploader 容量更大，溢流极少触发。
 >
@@ -47,10 +54,10 @@
 
 | 层 | 高度 | 内容 |
 |---|---|---|
-| 1F | 0-12m | 13 Uploader + 13 smart splitter + 1 merger (26 路 overflow 汇流) + 中央 splitter 树 (B5 → 14 路) |
-| 1F-2F | 0-24m | **共享 awesome-sink 16×13×24m**（占地 col=3.5-5 row=2-3.6 区域，跨 1F+2F 高度）|
-| 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/RCU/超级计算机/涡轮电机/融合模块/冷却系统/神经处理器/叠加振荡器/虚构三角）— 仅 sink 占用区之外 |
-| 屋顶 | 35-40m | B1-B6 直通 + B5 splitter 子树 |
+| 1F | 0-12m | 13 Uploader (U14-U26) + 13 smart splitter + 1 merger (26 路 overflow 汇流) + 中央 splitter 树 (B5 → 23 路) — **T6 全部通电（Network A）** |
+| 1F-2F | 0-24m | **共享 awesome-sink 16×13×24m**（占地 col=3.5-5 row=2-3.6 区域，跨 1F+2F 高度）— **T6 通电** |
+| 2F | 16-32m | **9 个 T7+ Uploader 槽位物理建好 + smart splitter + belt + lift 全部接好**（铝壳/RCU/超级计算机/涡轮电机/融合模块/冷却系统/神经处理器/叠加振荡器/虚构三角）— **T6 Power Switch 关（Network B/C/D 待 T7+ 渐次启用）**，仅 sink 占用区之外 |
+| 屋顶 | 35-40m | B1-B6 直通 + B5 splitter 子树（cascade 一次铺到 23 路，覆盖 T6+T9 全部目标）|
 
 ## 俯视图（按实际比例，每层独立）
 
@@ -158,13 +165,26 @@ BP-TERM-A 13 splitter overflow >> left Wall Inlet h=8m >> 1F merger B >> merger 
 6. **2F (16-32m)**: 9 个 Tier 7+ 备用 Uploader 槽位（避开 sink 占用区 col=3.5-5）
 7. **屋顶 (35-40m)**: 6 belt 直通 + B5 lift-bot 到 1F
 
-## Tier 7+ 扩容点
+## Power Switch 分网
 
-| Tier | 新增 mainNode (B 占位) |
-|---|---|
-| T7 | 铝壳 + RCU + 超级计算机 → 2F slots 1-3 |
-| T8 | 涡轮电机 + 融合模块 + 冷却系统 → 2F slots 4-6 |
-| T9 | 神经处理器 + 叠加振荡器 + 虚构三角 → 2F slots 7-9 |
+把 22 个 Uploader（13 T6 + 9 T7+）+ 共享 sink 拆 4 个独立 Power Network，由 4 个 Power Switch 控制。**4 个 Switch + 全部 22 Uploader + sink + smart splitter + belt + lift 全部 T6 一次安装好**，只是 T6 阶段只合 Network A。
+
+| 网 | 范围 | 数量 | T6 状态 | 升级触发 |
+|---|---|---:|---|---|
+| Network A | 1F U14-U26 + 共享 sink | 13 + 1 sink | **ON** | — |
+| Network B | 2F 铝壳 / RCU / 超级计算机 Uploader | 3 | OFF | T7 翻 ON |
+| Network C | 2F 涡轮电机 / 融合模块 / 冷却系统 Uploader | 3 | OFF | T8 翻 ON |
+| Network D | 2F 神经处理器 / 叠加振荡器 / 虚构三角 Uploader | 3 | OFF | T9 翻 ON |
+
+> Power Switch 物理位置建议放 2F col=4.5 sink 旁角落，4 个并排，方便玩家在场内一眼区分。
+
+## Tier 7+ 启用流程（仅翻 Switch + 插 shard，不动结构 / 不动 belt）
+
+| Tier | 操作 | 通电 Uploader 总数 |
+|---|---|---:|
+| T7 | 翻 Network B Switch ON → 铝壳 / RCU / 超级计算机 3 个 Uploader 通电（如流量大需要超频，则插 shard）| 16 |
+| T8 | 翻 Network C Switch ON → 涡轮电机 / 融合模块 / 冷却系统 3 个通电 | 19 |
+| T9 | 翻 Network D Switch ON → 神经处理器 / 叠加振荡器 / 虚构三角 3 个通电；硅土 / 快速线高流量 Uploader 按需拆为 2-3 个并联，所有总线 belt 升 Mk5/Mk6 | 22 |
 
 T9 总数 BP-TERM-A 16 + BP-TERM-B 22 = 38（含 1 个备用 slot）= **37 mainNode**。石油焦 sink 在 BP9 处理，不计入。
 
@@ -172,11 +192,14 @@ T9 总数 BP-TERM-A 16 + BP-TERM-B 22 = 38（含 1 个备用 slot）= **37 mainN
 
 ## 验证
 
-- [ ] 13 mainNode 全部接 Uploader
+- [ ] **22 个 Uploader 全部物理放置**（包括 T6 不通电的 9 个 2F T7+ 槽位）
+- [ ] Smart splitter + belt manifold + lift 接到全部 22 个 Uploader（不只是 T6 通电的 13 个）
+- [ ] 4 个 Power Switch 一次建好，Network A 合上（13 Uploader + sink），B/C/D 断开
+- [ ] T6 仅 13 Uploader 通电，2F 9 个 Uploader 物理就位但 Power Switch 关
 - [ ] **唯一共享 sink** 在 col=3.5-5 row=2-3.6（占地 16×13m）+ 跨 1F+2F (0-24m 高度)
 - [ ] sink 装 3 power shard @ 250%
 - [ ] 26 路 overflow（13 本 + 13 BP-TERM-A 来）通过 merger 树汇流到 sink in-0
-- [ ] B5 splitter 树覆盖所有 26 mainNode（A 13 + B 13）
+- [ ] B5 splitter 树覆盖所有 26 mainNode（A 13 + B 13）+ T7+ 9 路 = 共 22 路 Uploader 输入（一次铺到位）
 - [ ] **B6/B1-B4 在 BP-TERM-B 内无 splitter/sink**（直通悬空）
 - [ ] 左 Wall Inlet (h=8m) 与 BP-TERM-A 右 Wall Outlet 对齐（接 overflow 汇流 belt）
 - [ ] 2F 槽位避开 sink 占用区（col=0-3.5 可用）

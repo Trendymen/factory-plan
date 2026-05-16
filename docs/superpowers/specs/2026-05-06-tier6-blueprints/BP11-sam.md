@@ -4,20 +4,22 @@
 
 - **集群**: C5 末端（紧贴 BP10b 之后；C5 最后一个蓝图）
 - **规格**: Mk2 单实例
-- **机器**: 2 reanimated-sam constructor + 1 sam-fluctuator manufacturer = **3 台**
-- **激活时间线**: T6 = T7 = T8 = T9 = **2+1**（uplift 1.0-2.2x 但 T6 已物理满载）
+- **机器**: **3 台一次物理建造到位**（2 reanimated-sam constructor + 1 sam-fluctuator manufacturer）
+- **激活时间线**: T6 = T7 = T8 = T9 = **3 台全通电**（uplift 1.0x — 整厂唯一 T6 就满载的蓝图）
 - **产能 T6**: 重生 SAM 90/min · SAM 波动器 10/min
+
+> **核心设计原则**：3 台 T6 已全部物理建造且全部通电；T7-T9 不增加机器、不变 shard、不需要 Power Switch 分网（属于 BP01 统一模式的退化情形：所有机器一次到位 + 全部通电）。
 
 ## 机器超频清单（T6，Plan C ≤250%）
 
-| 配方 | 数量 | 超频 | 单台产能 (/min) | Power Shard/台 |
-|---|---:|---:|---:|---:|
-| reanimated-sam (constructor) | 2 | **150.0%** | 45 重生SAM | 1 |
-| sam-fluctuator (manufacturer) | 1 | **100.0%** | 10 SAM 波动器 | 0 |
-| **合计 (T6)** | 3 | — | — | 2×1 + 0 = **2** |
+| 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/台 |
+|---|---:|---:|---:|---:|---:|
+| reanimated-sam (constructor) | 2 | **2** | 150.0% | 45 重生SAM | 1 |
+| sam-fluctuator (manufacturer) | 1 | **1** | 100.0% | 10 SAM 波动器 | 0 |
+| **合计 (T6)** | 3 | 3 | — | — | 2×1 + 0 = **2** |
 
 > 总产能验证: 2 × 45 = 90 重生SAM ✓（其中 60 内部消费 + 30 mainNode）| 1 × 10 = 10 SAM 波动器 ✓
-> **唯一全 T6/T9 不变的蓝图**：3 台已物理满载，无 Power Switch 控制需求。
+> **唯一全 T6/T9 不变的蓝图**：3 台已物理满载且全部通电，**无 Power Switch 分网需求**（统一模式的退化情形）。
 
 ## 物料 I/O
 
@@ -36,11 +38,11 @@
 
 ## 楼层占用
 
-| 层 | 高度 | 内容 | 数量 |
-|---|---|---|---:|
-| 1F | 0-12m | SAM 波动器 manufacturer（20m × 22m × 12m）| 1 |
-| 2F | 16-24m | 重生 SAM constructor（8m × 10m）| 2 |
-| 屋顶 | 35-40m | B1-B6 + smart splitter (B3) + merger (B5) + 多 lift | — |
+| 层 | 高度 | 内容 | 物理 | T6 通电 |
+|---|---|---|---:|---:|
+| 1F | 0-12m | SAM 波动器 manufacturer（20m × 22m × 12m）| 1 | **1** |
+| 2F | 16-24m | 重生 SAM constructor（8m × 10m）| 2 | **2** |
+| 屋顶 | 35-40m | B1-B6 + smart splitter (B3) + merger (B5) + 多 lift | — | — |
 
 > manufacturer 20×22m 占 1F 几乎一半（1600m² × 12m）；2F 上 2 台 constructor 一字排（16m × 10m，剩 24m 空地）。
 
@@ -155,17 +157,17 @@
    - 30 → lift-out-top 到屋顶 merger 注 B5
 7. **SAM 波动器输出**: manufacturer out-0 (row=0 顶) → lift-out-top → 屋顶 merger 注 B5（10/min mainNode）
 8. **屋顶 (35-40m)**: 6 belt 直通 + B3 smart splitter + B5 merger
-9. **Power Switch**: 不需要（3 台全开，T6 已满载）
+9. **Power Switch**: 无（3 台全 T6 通电；BP11 不需要 Power Switch 分网，T7-T9 维持现状）
 
-## Tier 7+ 扩容点
+## Tier 7+ 启用流程
 
-T7-T9 不变（uplift = 1.0x），3 台已满载。
-> **唯一 1.0x 蓝图**：BP11 物理建造 = T9 满载 = 3 台，Power Switch 不参与。
+**无操作**：BP11 物理建造 = T9 满载 = 3 台全通电，T7-T9 不增加机器、不变 shard、不需要翻 Switch。
 
 ## 验证
 
+- [ ] **3 台全部物理放置且全部通电**（T6 已满载）
 - [ ] manufacturer facing=north（端口反转）
 - [ ] 4 输入位置正确（电线 50 + 钢管 30 + 重生 SAM 60 + 空槽）
 - [ ] SAM 矿场容量按 600/min（T9 上限）预留
 - [ ] B5 + 40 流量在容量内
-- [ ] Power Switch 不接 BP11（全开）
+- [ ] 整个 BP11 无 Power Switch（3 台全通电，符合统一模式的退化情形）
