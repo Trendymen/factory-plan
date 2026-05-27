@@ -163,7 +163,7 @@ BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下
 8. **垂直汇总**：4 条 belt 末端 lift-out-top 汇主 lift → 铜锭到 h=24m，铜金锭到屋顶 35m
 9. **右 Wall Outlet** (col=5, h=24m, row=2.5)：铜锭出口
 10. **左 Wall Inlet** (col=0, h=4m)：铜矿 (row=2.5) + 铜金矿 (row=5.5) 双进料
-11. **屋顶 (35m)**：6 Mk4 belt + B6 merger（铜金锭注入）
+11. **屋顶 (35m)**：6 Mk5 belt + B6 merger（铜金锭注入）
 12. **Power Switch ×5**：Network A/B/C/D/E 一次装好；BP6a T6 合 A+B+D，其余实例 5 网全断
 13. **Power Shard（T6）**：仅 BP6a 的 7 台通电机器各插 3 shard；其余 shard 槽空着
 
@@ -173,7 +173,7 @@ BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下
 |---|---|---:|
 | T7 | BP6a 翻 C+E ON，BP6b 翻 A+B+D ON；各通电台插 3 shard | 18 |
 | T8 | BP6b 翻 C+E ON，BP6c 翻 A+B ON | 26 |
-| T9 | BP6c 翻 C+D+E ON，全 31 台超频调到目标值；矿场来料 belt 升 Mk5/Mk6 | 31 |
+| T9 | BP6c 翻 C+D+E ON，全 31 台超频调到目标值；矿场来料 belt 已 Mk5；T8/T9 需个别物料拆分（铜矿 1200 接近 Mk6 上限） | 31 |
 
 ## 验证
 
