@@ -41,7 +41,7 @@
 | 4m 地基 | 10-14m | 隔层 | — | — |
 | 2F | 14-24m | smelter row 0 (5 台 S10-S14) + row 2 (4 台 S15-S18) | 9 | **0** |
 | 4m 地基 | 24-28m | 隔层 | — | — |
-| 屋顶 | 35-40m | B1-B6 6 条 Mk4 直通 | — | — |
+| 屋顶 | 35-40m | B1-B6 6 条 Mk5 直通 | — | — |
 
 > **T6 阶段**：1F 全 9 台通电（Power Network A），2F 全 9 台 Power Switch **关**（Network B/C/D 待 T7+ 渐次启用）。所有 belt / lift / manifold / Power Switch 一次到位。
 
@@ -137,7 +137,7 @@
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- B1-B6：6 条 Mk4 belt 直通，BP1 不接入总线
+- B1-B6：6 条 Mk5 belt 直通，BP1 不接入总线
 
 ## Power Switch 分网
 
@@ -164,7 +164,7 @@
 8. **垂直汇总**：1F+2F 4 条 belt 的末端 lift-out-top 在 col=4.5 汇合成一根主 lift 上送到 h=24m
 9. **右 Wall Outlet**：col=5, row=2.5, h=24m，接 24m 主 belt 出去
 10. **左 Wall Inlet**：col=0, row=2.5, h=4m（接矿场来料）→ splitter manifold 喂 **全部 18 台**（1F 直喂 9 台 + lift-up 喂 2F 9 台）
-11. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
+11. **屋顶 (35m)**：铺 6 条 Mk5 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
 12. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；T6 只合 A，B/C/D 全部 OFF
 13. **Power Shard（T6 阶段）**：仅 S1-S9 各插 3 shard，超频到 226.11%；**S10-S18 物理已就位但 shard 槽空着**
 
@@ -174,7 +174,7 @@
 |---|---|---:|
 | T7 | 翻 Network B Switch ON → S10-S14 各插 3 shard 调超频 | 14 |
 | T8 | 翻 Network C Switch ON → S15-S16 各插 3 shard | 16 |
-| T9 | 翻 Network D Switch ON → S17-S18 各插 3 shard，**全 18 台超频调到 237%**；矿场来料 belt 升 Mk5（1140 超 Mk4 额定 480）| 18 |
+| T9 | 翻 Network D Switch ON → S17-S18 各插 3 shard，**全 18 台超频调到 237%**；矿场来料 belt 已升 Mk5（780/min）；1140 超 Mk5，T8/T9 需拆分槽位| 18 |
 
 ## 验证
 
@@ -184,4 +184,4 @@
 - [ ] T6 仅 S1-S9 插了 3 shard；S10-S18 物理就位但 shard 槽空
 - [ ] 右 Wall Outlet h=24m 与 BP2 左 Wall Inlet h=24m 对齐
 - [ ] 屋顶 6 belt 直通无 splitter（本蓝图不参与总线 tap）
-- [ ] 矿场来料 belt 容量按 1140 预留（T9 升 Mk5；T6 临时 Mk4 也可，但物理升级位置要预留好）
+- [ ] 矿场来料 belt 已升 Mk5（780/min）；1140 超 Mk5，T8/T9 时拆分为 2 条 Mk5 槽位
