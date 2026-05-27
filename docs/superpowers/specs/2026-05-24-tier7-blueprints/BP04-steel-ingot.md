@@ -134,10 +134,10 @@
 3. **1F 双进料**:
    - 铁矿石 belt：左 Wall Inlet (h=4m, row=2) → splitter manifold → 全部 6 台 in-0
    - 煤 belt：左 Wall Inlet (h=4m, row=2.5) → splitter manifold → 全部 6 台 in-1
-4. **1F belt 收集**: row=2 横向 Mk4 主 belt 收钢锭
+4. **1F belt 收集**: row=2 横向 Mk5 主 belt 收钢锭
 5. **1F 地基**: y=9m 铺 4m 厚地基
 6. **2F (13-22m)**: **同 1F 布局**放 3 台 foundry F4-F6（col=0/1/2 row=0）
-7. **2F belt**: row=2 横向 Mk4 收集 belt + lift-out-top
+7. **2F belt**: row=2 横向 Mk5 收集 belt + lift-out-top
 8. **垂直汇总**: 1F + 2F belt 末端 → lift-out-top 到 22m
 9. **右 Wall Outlet** (col=5, h=22m, row=2)：钢锭出口
 10. **左 Wall Inlet** (col=0, h=4m): 两条进料 belt
@@ -151,7 +151,7 @@
 |---|---|---:|
 | T7 | 无变化 | 5 |
 | T8 | 翻 Network C Switch ON → F6 插 3 shard | 6 |
-| T9 | 6 台全部超频调到 243%；矿场来料 belt 升 Mk5（580/min） | 6 |
+| T9 | 6 台全部超频调到 243%；矿场来料 belt 已升 Mk5（580/min < 780 ✓） | 6 |
 
 ## 验证
 
@@ -161,4 +161,4 @@
 - [ ] T6 仅 F1-F5 插了 3 shard；F6 物理就位但 shard 槽空
 - [ ] 钢锭出口与 BP5 左 Wall Inlet 同 h=22m row=2 对齐
 - [ ] 屋顶 6 belt 直通无 splitter
-- [ ] 矿场容量预留 Mk5（铁矿 580 / 煤 580，T9 上限）
+- [ ] 矿场来料 belt 已升 Mk5（铁矿 580 / 煤 580 < 780 ✓）
