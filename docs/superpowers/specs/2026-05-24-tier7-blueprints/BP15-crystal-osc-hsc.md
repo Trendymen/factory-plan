@@ -46,7 +46,7 @@
 - 取自 B2 (强化铁板 T9 10)、B4 (线缆 T9 131 + 电路板 T9 7.5)、B6 (石英 T9 72 + 快速线 T9 420 = 492)
 - 注入 B5 (T9 4 + 7.5 = 11.5 mainNode)
 
-> ⚠ T9 B6 上 BP15 取 492/min，需要 Mk5 (780)；T6 时仅 228 可临时 Mk4 (480)。物理 belt 升级位置一次预留好。
+> ⚠ B6 已 Mk5：T7 现在 228 = 29% Mk5 ✓；T9 满载 492/min = 63% Mk5 ✓。B6 在 BP15 段全 Tier 周期内容量充裕。
 
 ## 楼层占用
 
@@ -58,7 +58,7 @@
 | **BP15b** | 2F | 16-28m | 1 HSC manufacturer | 1 | **0** (T8 ON) |
 | **BP15c** | 1F | 0-12m | 1 晶振 manufacturer | 1 | **0** (T8 ON) |
 | **BP15c** | 2F | 16-28m | 1 晶振 manufacturer | 1 | **0** (T9 ON) |
-| 屋顶 | 35-40m | B1-B6 6 条 Mk4 belt + splitter/merger | — | — | — |
+| 屋顶 | 35-40m | B1-B6 6 条 Mk5 belt + splitter/merger | — | — | — |
 
 > **T6 阶段**：BP15a 1F + BP15b 1F 通电（Network A1 + B1），其余 4 台 Power Switch **关**。所有 belt / lift / manifold / Power Switch 一次到位。
 
@@ -307,8 +307,8 @@
 6. **每实例 2F (16-28m)**：**同 1F 布局**放第 2 台 manufacturer（配方同 1F）
 7. **每实例 2F belt + lift**：复制 1F 的进料/出料路径，lift-up 续接 1F manifold
 8. **每实例 2F 地基**：y=28m 铺 4m 厚地基
-9. **屋顶 (35-40m)**：每实例 6 条 Mk4 belt 直通 + B2/B4/B6 splitter + B5 merger，左右各嵌 Wall Mount
-10. **总线 belt 升级预留**：B6 物理 Mk4 即可（T6 取 228 ≤ 480），但升级位置预留 Mk5（T9 取 492 > 480）
+9. **屋顶 (35-40m)**：每实例 6 条 Mk5 belt 直通 + B2/B4/B6 splitter + B5 merger，左右各嵌 Wall Mount
+10. **B6 已 Mk5（780/min）**：T7 取 228 = 29% / T9 取 492 = 63% 均充裕，无需进一步升级
 11. **Power Switch ×6**：按上面"Power Switch 分网"表布置 Network A1/A2/B1/B2/C1/C2；T6 只合 A1 + B1，其余全部 OFF
 12. **Power Shard（T6 阶段）**：晶振 / HSC 全程 100% 不超频，**0 shard**
 
@@ -318,7 +318,7 @@
 |---|---|---:|---|
 | T7 | 翻 Network A2 Switch ON → BP15a 2F 晶振 M2 加电 | 3 | 2 / 3.75 |
 | T8 | 翻 Network B2 + C1 Switch ON → BP15b 2F HSC + BP15c 1F 晶振 加电 | 5 | 3 / 7.5 |
-| T9 | 翻 Network C2 Switch ON → BP15c 2F 晶振 M2 加电；**矿场 → BP10 → B6 belt 升 Mk5（492 超 Mk4 480）** | 6 | 4 / 7.5 |
+| T9 | 翻 Network C2 Switch ON → BP15c 2F 晶振 M2 加电；**B6 已 Mk5；T9 取 492 = 63% Mk5 ✓** | 6 | 4 / 7.5 |
 
 > 全程**无需插 Power Shard**（所有机器 100% 运转）。Tier 升级只翻 Switch + 检查屋顶 B6 belt 等级。
 
@@ -337,7 +337,7 @@ B6 流入 BP15 共 T6 228 → T9 492（石英 72 + 快速线 420），是 B6 最
 - BP10 注入 B6: 石英 72 + 快速线 420 = 492（**T9 新源**）+ 重油残渣 78（来自 BP9）= 570
 - BP15 取走 T9 492，剩 78（残渣）→ BP-TERM-B sink
 
-> T6 时 B6 BP10 → BP15 段 = 306 (Mk4 64% ✓)；T9 时 = 570 → 需 **Mk5 belt** (73% Mk5 780)。BP15 → BP-TERM 段 = 78。
+> T7 时 B6 BP10 → BP15 段 = 306 = 39% Mk5 ✓；T9 时 = 570 = 73% Mk5 ✓。BP15 → BP-TERM 段 = 78 = 10% Mk5 ✓。
 
 ## 验证
 
@@ -345,7 +345,7 @@ B6 流入 BP15 共 T6 228 → T9 492（石英 72 + 快速线 420），是 B6 最
 - [ ] Belt manifold + lift 接到全部 6 台 in-0/1/2（不只是 T6 通电的 2 台）；in-3 槽留空
 - [ ] **6 个 Power Switch 一次建好**，Network A1 + B1 合上，A2/B2/C1/C2 断开
 - [ ] T6 阶段所有 manufacturer 100% 不超频，shard 槽全空（晶振 / HSC 全 Tier 均 100%）
-- [ ] B5 merger 注入路径一次接到 3 实例 lift-out-top（T9 总 11.5/min ≤ 480 Mk4 ✓）
-- [ ] B6 流量分段：T6 BP10→BP15 段 306 ≤ 480 Mk4 ✓；**T9 升 Mk5 (570 ≤ 780)**
+- [ ] B5 merger 注入路径一次接到 3 实例 lift-out-top（T9 总 11.5/min = 1.5% Mk5 ✓）
+- [ ] B6 流量分段：T7 BP10→BP15 段 306 = 39% Mk5 ✓；T9 段 570 = 73% Mk5 ✓（已 Mk5 不需进一步升级）
 - [ ] 晶振 / HSC 在不同实例（a/c vs b），跨实例集群内无 belt（屋顶 B5 共用）
 - [ ] 屋顶 splitter/merger 一次按 T9 流量配置，T7+ 自动续流
