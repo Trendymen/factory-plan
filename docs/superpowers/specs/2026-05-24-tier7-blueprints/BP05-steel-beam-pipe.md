@@ -136,7 +136,7 @@
    - 钢锭 splitter 1→2：钢梁 manifold（喂 B1/B2/B3 全部 3 台）+ 钢管 manifold（喂 P1-P5 全部 5 台），按消耗比例分
 6. **垂直汇总**：钢梁/钢管两条主 belt 末端 (col=4.5) → 各 1 个 1→2 splitter（按 mainNode 与 B3 流量比）
 7. **lift-top ×4**：上行（钢梁→B3、钢梁→B5、钢管→B3、钢管→B5）合到屋顶 2 个 merger
-8. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5）+ 2 个 merger 注入；左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
+8. **屋顶 (35m)**：铺 6 条 Mk5 平行 belt（B1 row=0.5 ... B6 row=4.5）+ 2 个 merger 注入；左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
 9. **Power Switch ×3**：按上面"Power Switch 分网"表布置 Network A/B/C；T6 只合 A，B/C 全部 OFF
 10. **Power Shard（T6 阶段）**：仅 B1/B2 各插 3 shard 调 210%，P1/P2/P3 各插 3 shard 调 225%；**B3/P4/P5 物理已就位但 shard 槽空着**
 
@@ -155,6 +155,6 @@
 - [ ] 3 个 Power Switch 一次建好，Network A 合上，B/C 断开
 - [ ] T6 仅 B1/B2/P1/P2/P3 插了 3 shard；B3/P4/P5 物理就位但 shard 槽空
 - [ ] 钢梁/钢管两条 row 独立 belt（不能混料）
-- [ ] B3/B5 流量在 Mk4 容量内（B3 163 < 480 ✓ / B5 35 < 480 ✓）
+- [ ] B3/B5 流量在 Mk5 容量内（B3 163 < 780 = 21% ✓ / B5 35 < 780 = 4% ✓）
 - [ ] 左 Wall Inlet h=22m 与 BP4 右 Wall Outlet h=22m 对齐
 - [ ] 屋顶 6 belt 直通，仅 B3/B5 两个 merger 注入
