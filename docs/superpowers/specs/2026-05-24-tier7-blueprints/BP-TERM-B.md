@@ -48,7 +48,7 @@
 | **合计** | | **187/min** | **2620/min** |
 
 > 石油焦 234/min（BP9 副产）已在 BP9 内部就地 sink，**不进 BP-TERM-B**。
-> Tier 7+ 时硅土 + 快速线 流量极大，需要拆为 2-3 个 Uploader 并联（每个吃 < 780 Mk5 容量）。
+> T8/T9 时硅土 + 快速线 流量极大，需要拆为 2-3 个 Uploader 并联（每个吃 < 780 Mk5 容量）。
 
 ## 楼层占用
 
@@ -184,7 +184,7 @@ BP-TERM-A 13 splitter overflow >> left Wall Inlet h=8m >> 1F merger B >> merger 
 |---|---|---:|
 | T7 | 翻 Network B Switch ON → 铝壳 / RCU / 超级计算机 3 个 Uploader 通电（如流量大需要超频，则插 shard）| 16 |
 | T8 | 翻 Network C Switch ON → 涡轮电机 / 融合模块 / 冷却系统 3 个通电 | 19 |
-| T9 | 翻 Network D Switch ON → 神经处理器 / 叠加振荡器 / 虚构三角 3 个通电；硅土 / 快速线高流量 Uploader 按需拆为 2-3 个并联，所有总线 belt 升 Mk5/Mk6 | 22 |
+| T9 | 翻 Network D Switch ON → 神经处理器 / 叠加振荡器 / 虚构三角 3 个通电；硅土 / 快速线高流量 Uploader 按需拆为 2-3 个并联，部分总线 belt 需 Mk6 或拆分（B3 电线 ~1400 即使 Mk6 也不够，必拆 B3a/B3b） | 22 |
 
 T9 总数 BP-TERM-A 16 + BP-TERM-B 22 = 38（含 1 个备用 slot）= **37 mainNode**。石油焦 sink 在 BP9 处理，不计入。
 
