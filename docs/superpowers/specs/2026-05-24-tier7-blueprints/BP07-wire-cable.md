@@ -235,7 +235,7 @@
 11. **铜锭进料**：左 Wall Inlet (col=0, h=24m, row=2.5) → lift-bot → 1F 中央 splitter manifold 喂 **全部 16 台**（1F 直喂 + lift-up 喂 2F+3F）
 12. **电线内部回流**：1F wire (Wi1-3) 部分输出 → lift-bot → 1F Cb1 in-0 + lift-up → 2F Cb2 / 3F Cb3 in-0
 13. **集群内部出料**：铜板右 Wall Outlet (col=5, h=24m, row=2.5)、铜锭右 Wall Outlet (BP7a/b 转下游 BP7b/c)
-14. **屋顶 (40m)**：铺 6 条 Mk4 平行 belt（B1-B6）+ 4 个 merger（B3/B4/B5/B6），左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
+14. **屋顶 (40m)**：铺 6 条 Mk5 平行 belt（B1-B6）+ 4 个 merger（B3/B4/B5/B6），左右各嵌 Wall Mount (Inlet 左 / Outlet 右)
 15. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；T6 BP7a 只合 A + B 局部，BP7b/c 全部 OFF
 16. **Power Shard（T6 阶段）**：仅 BP7a 11 台 T6 通电机各插 shard（Cu1-Cu2 各 3 + Wi1-Wi5/Wi6 各 3 + Cb1-Cb2 各 2）；**其余 35 台物理已就位但 shard 槽空着**
 
@@ -245,7 +245,7 @@
 |---|---|---:|---:|
 | T7 | BP7a 内 Cu3/Wi 等补开（Network B 全开 + C 部分），BP7b 翻 Network A | 24 | 2 |
 | T8 | BP7a Network C/D 部分开，BP7b 全开，BP7c 翻 Network A | 36 | 3 |
-| T9 | 全部 4 个 Network × 3 实例 ON → 46 台超频调到 T9 配比；矿场来料 belt 升 Mk5 | **46** | 3 |
+| T9 | 全部 4 个 Network × 3 实例 ON → 46 台超频调到 T9 配比；矿场来料 belt 已 Mk5（电线物料 T9 ~1400 需拆 B3a/B3b）| **46** | 3 |
 
 > 各 Tier 具体通电台数与超频百分比按蓝图 spec 给出的配比（T6 11 / T7 24 / T8 36 / T9 46）分摊到 BP7a/b/c 各实例的 Network 上。
 
@@ -277,6 +277,6 @@ BP7 是**纯同向流**集群（铜锭从 BP6→BP7a→BP7b→BP7c→BP8）。�
 - [ ] T6 仅 11 台插了 shard；其余 35 台物理就位但 shard 槽空
 - [ ] 4 个屋顶 merger filter 正确（B3=电线、B4=线缆、B5=mainNode 三种合、B6=铜板）
 - [ ] 电线内部回流 belt 不与外部进出料混淆
-- [ ] B3 流量 T9 ≈ 1400 < Mk5 780？需 Mk6（或拆分到多 B 槽），T6 阶段 170 < 480 ✓
+- [ ] B3 流量 T9 ≈ 1400 即使 Mk6 (1200) 也不够，**必须拆为 B3a + B3b 双 Mk5 槽位**（每槽 ~700 = 90%）。当前 T7 阶段 170 < 780 = 22% ✓
 - [ ] 3 实例间侧墙 Inlet/Outlet 一次开洞接通，避免 T7/T8 破墙
-- [ ] 矿场来料 belt 容量按 T9 满载预留（T9 升 Mk5+；T6 临时 Mk4 也可，物理升级位置预留好）
+- [ ] 矿场来料 belt 已 Mk5；T8/T9 满载需按物料拆分槽位（电线即使 Mk6 也不够，必拆 B3a/B3b）
