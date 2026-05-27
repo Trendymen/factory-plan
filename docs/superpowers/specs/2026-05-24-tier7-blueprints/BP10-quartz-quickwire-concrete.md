@@ -195,7 +195,7 @@
    - 铜金锭 74：屋顶 smart splitter → lift-bot → **全部 10 台 quickwire in-0**
    - 铜板 25：同 splitter → lift-bot → **全部 2 台 AI-limiter in-0**
 10. **快速线 → AI 限制器**: 1F quickwire 输出 1 部分 → 短 belt → AI 限制器 in-1
-11. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt + 4 merger + smart splitter
+11. **屋顶 (35m)**：铺 6 条 Mk5 平行 belt + 4 merger + smart splitter
 12. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；BP10a T6 只合 A，BP10b T6 全部 OFF
 13. **Power Shard（T6 阶段）**：仅 BP10a 1F 9 台插 shard（Qz 2 shard + 3 Qw × 3 + 3 Cn × 3 = 20 shard）；**其余 19 台物理已就位但 shard 槽空着**
 
@@ -205,7 +205,7 @@
 |---|---|---:|
 | T7 | 翻 BP10a Network B Switch ON + BP10b Network A Switch ON → 共 15 台通电；各台插对应 shard 调超频 | 15 |
 | T8 | 翻 BP10b Network B Switch ON + BP10a Network D ON → 23 台 | 23 |
-| T9 | 翻 BP10b Network D Switch ON → **28 台满载**；矿场来料 belt 升 Mk5/Mk6 按物料流量 | 28 |
+| T9 | 翻 BP10b Network D Switch ON → **28 台满载**；矿场来料 belt 已 Mk5；T8/T9 个别物料拆分（硅土 ~660 < 780 ✓） | 28 |
 
 ## 多实例侧墙续接
 
@@ -231,4 +231,4 @@ BP10 是 **2 实例 + 无机器层跨蓝图 belt**：BP10 不消化集群内部�
 - [ ] 5 物料独立 row（不混料）
 - [ ] 屋顶 4 个 merger filter 正确（B4=混凝土、B5=5 mainNode 混、B6=石英+快速线、smart split B6 取铜金/铜板）
 - [ ] AI 限制器**已迁移到此**，BP8 不再有
-- [ ] 矿场来料 belt 容量按 T9 流量预留（T9 升 Mk5/Mk6；T6 临时 Mk4 可，物理升级位置预留好）
+- [ ] 矿场来料 belt 已 Mk5；T8/T9 部分物料拆分槽位（硅土最高 ~660 < 780 ✓）
