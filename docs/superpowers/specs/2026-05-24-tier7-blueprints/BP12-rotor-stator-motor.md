@@ -173,7 +173,7 @@
 7. **2F 地基**：y=20m 铺 4m 厚地基
 8. **电机进料**：1F rotor splitter（10 给 M1 + 4 mainNode）+ stator splitter（10 给 M1 + 5 mainNode）→ lift-up → 2F M1 in-0 / in-1
 9. **垂直汇总**：1F rotor 4 mainNode + stator 5 mainNode + 2F motor 5 → 3 根 lift-out-top 在屋顶汇合到 merger 注 B5
-10. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount；4 路屋顶进料 splitter (B1 smart / B2 / B3 prog)，1 个 B5 merger
+10. **屋顶 (35m)**：铺 6 条 Mk5 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount；4 路屋顶进料 splitter (B1 smart / B2 / B3 prog)，1 个 B5 merger
 11. **进料管路**：屋顶 4 splitter → 4 lift-bot → 1F manifold 一次接到 **全 6 台 rotor + stator in 端口**（含 R3 / S3）
 12. **Power Switch ×2**：按上面"Power Switch 分网"表布置 Network A / B；T6 只合 A，B 关闭
 13. **Power Shard（T6 阶段）**：R1/R2 各插 2 shard（175%），S1/S2 各插 1 shard（150%），M1 不插（100%）；**R3 / S3 物理已就位但 shard 槽空着**
