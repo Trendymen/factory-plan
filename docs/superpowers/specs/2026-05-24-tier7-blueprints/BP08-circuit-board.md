@@ -168,7 +168,7 @@
 7. **2F 地基**：y=20m 铺 4m 厚地基
 8. **垂直汇总**：1F+2F 两条 collect belt 末端 lift-out-top 在 col=4.5 汇合成主 lift 上送到 h=35m
 9. **左 Wall Inlet（铜板）**：col=0, row=2, h=24m（接 BP7 右 Wall Outlet）→ lift-bot 下到 1F manifold 高度 → splitter manifold 喂 **全部 8 台 in-0**（1F 直喂 4 台 + lift-up 喂 2F 4 台）
-10. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5），B4 上**先 smart-split（filter=塑料 55）后 merger**
+10. **屋顶 (35m)**：铺 6 条 Mk5 平行 belt（B1 row=0.5 ... B6 row=4.5），B4 上**先 smart-split（filter=塑料 55）后 merger**
 11. **塑料进料链**：B4 smart-split → lift-bot 下到 1F 塑料 manifold 高度 → splitter manifold 喂 **全部 8 台 in-1**
 12. **电路板出料链**：1F+2F 主 lift-out-top → 屋顶 B4 merger 注回 B4
 13. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；T6 只合 A，B/C/D 全部 OFF
@@ -184,7 +184,7 @@
 |---|---|---:|
 | T7 | 翻 Network B Switch ON → A2-A4 + A5 各插 shard 调超频 | 4 |
 | T8 | 翻 Network C Switch ON → A6-A7 各插 shard | 6 |
-| T9 | 翻 Network D Switch ON → A8 插 shard，**全 8 台超频调到 219%**；铜板/塑料来料 belt 升 Mk5（铜板 175.2、塑料 350.4 均超 Mk4 480 安全余量但塑料接近上限，必要时升 Mk5）| 8 |
+| T9 | 翻 Network D Switch ON → A8 插 shard，**全 8 台超频调到 219%**；铜板/塑料来料 belt 已 Mk5（铜板 175.2、塑料 350.4 均 < Mk5 780 = 22%/45% ✓）| 8 |
 
 ## 验证
 
