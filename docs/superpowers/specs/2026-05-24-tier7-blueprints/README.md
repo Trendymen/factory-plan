@@ -1,5 +1,7 @@
 # Tier 6 大而全蓝图 — 分册手册
 
+> **T7 升级版**：本目录是 [2026-05-06-tier6-blueprints/](../2026-05-06-tier6-blueprints/) 的 T7 副本，前提：玩家已解锁 T7 Bauxite Refinement，所有屋顶/矿场 belt 升级到 Mk5 (780/min)，机器激活规模仍为 T6 阶段 76 台。原 T6 文档保留对照。
+
 > 主设计文档：[../2026-05-06-tier6-blueprint-design.md](../2026-05-06-tier6-blueprint-design.md)
 >
 > 本目录是**逐蓝图施工手册**，每个 `.md` 文件对应一个 Mk2 蓝图。游戏内开蓝图设计器时按文件内容从下到上拼装即可。
@@ -86,7 +88,7 @@
 
 ```
 40m ┌─────────────────────────┐
-    │  屋顶总线层 35-40m       │  6 条 Mk4 belt 横穿，splitter/merger/lift 在此
+    │  屋顶总线层 35-40m       │  6 条 Mk5 belt 横穿，splitter/merger/lift 在此
 35m ├─────────────────────────┤
     │  机器层 0-35m            │  按各蓝图分 1-3 层，含 4m 地基
  0m └─────────────────────────┘
@@ -176,7 +178,7 @@
 
 ## 验证清单（每个蓝图保存前）
 
-- [ ] 屋顶 6 条 Mk4 belt 横穿（左 Wall Inlet → 右 Wall Outlet）
+- [ ] 屋顶 6 条 Mk5 belt 横穿（左 Wall Inlet → 右 Wall Outlet）
 - [ ] 机器层无机器超出 5×5 cell × 35m 高
 - [ ] 总线 splitter/merger 接的物料类型正确（智能/可编程分流器配置好 filter）
 - [ ] 集群内部 belt 出口的 Wall Outlet 位置与下一蓝图 Wall Inlet 对齐
