@@ -296,7 +296,7 @@
    - 电路板 + 线缆 + 塑料：从 1F B4 splitter lift-up → manifold → in-0/1/2（in-3 空）
    - out-0 → lift-out-top → 屋顶 merger 注 B5
 7. **BP14b/c 类似**：1F+2F 各 1 台电脑 manufacturer，4 路输入全部来自 B4（screw/pipe 不需要）
-8. **屋顶 (35-40m)**：6 条 Mk4 直通 belt + 3 splitter (B2/B3/B4) + 1 merger (B5)
+8. **屋顶 (35-40m)**：6 条 Mk5 直通 belt + 3 splitter (B2/B3/B4) + 1 merger (B5)
 9. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；T6 只合 A，B/C/D 全部 OFF
 10. **Power Shard（T6 阶段）**：**0 shard**（电脑/HMF 100% 即可，无需超频）；shard 槽全部留空
 
@@ -308,7 +308,7 @@
 | T8 | 翻 Network C Switch ON → BP14b 2F 启电脑（100% 无 shard）| 5 | 10.0 |
 | T9 | 翻 Network D Switch ON → BP14c 2F 启电脑（100% 无 shard），**电脑满载 5×2.5=12.5** | 6 | 12.5 |
 
-> T9 时 B4 来料升级：电路板 50 / 线缆 100 / 塑料 250 — 屋顶 B4 程序分流器流量上限需按 Mk5 (780/min) 预留。
+> B4 已 Mk5；T9 时 B4 来料：电路板 50 / 线缆 100 / 塑料 250 = 400/min = 51% Mk5 ✓
 
 ## 多实例侧墙续接
 
@@ -335,6 +335,6 @@ BP14a/b/c 在机器层**无跨实例短 belt**（HMF 和电脑两条产线独立
 - [ ] HMF 4 输入正确（螺丝 240 / 钢管 40 / 模框 10 / 包裹梁 10）
 - [ ] 电脑 4 槽 3 用 1 空（电路板 / 线缆 / 塑料 + 空）
 - [ ] B2 上 240 螺丝来自 BP3（B1 取走 350，剩 B2 还能取 240）
-- [ ] B4 程序分流器分配 CB+Cable+Plastic（T9 上限 50+100+250=400/min，Mk5 belt 容量预留）
+- [ ] B4 已 Mk5（780/min）；程序分流器分配 CB+Cable+Plastic 上限 400/min = 51% Mk5 ✓
 - [ ] B5 merger 出口 mainNode（T6 4.5 / T9 14.5）
 - [ ] 3 实例 BP14a/b/c 紧贴排列，BP14a 左 Wall Inlet (h=4m+8m) 对齐 BP13 右 Wall Outlet
