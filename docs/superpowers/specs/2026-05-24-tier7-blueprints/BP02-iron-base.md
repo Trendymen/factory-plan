@@ -256,7 +256,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-- B1-B6：6 条 Mk4 belt 横穿，左 Wall Inlet → 右 Wall Outlet
+- B1-B6：6 条 Mk5 belt 横穿，左 Wall Inlet → 右 Wall Outlet
 - B2 merger 注入：铁棒 140/min + RIP 20.5/min（来自 1F+2F+3F 上行 lift）
 - B5 merger 注入：铁板 20 + 铁棒 15 + RIP 5 = 40/min mainNode
 - B7/B8 物理建造但 T6 空跑（Tier 7+ 铝链/超级计算机预留）
@@ -325,7 +325,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
    - 铁板：1F+2F plate 输出 → lift-out-top 上到 3F → 中央 splitter → 3 台 RIP in-0
    - 螺丝：第 5 步反向 belt 在 28m 处下行 lift-bot 到 3F → 中央 splitter → 3 台 RIP in-1
 9. **屋顶 (35-40m)**:
-   - 6 条 Mk4 belt 直通
+   - 6 条 Mk5 belt 直通
    - row=1 处放 1 个 merger 注入 B2（铁棒/RIP）
    - row=4 处放 1 个 merger 注入 B5（mainNode 余量）
    - 2 个 lift-top（铁棒上行 → B2 merger，mainNode 上行 → B5 merger）
@@ -340,7 +340,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
 |---|---|---:|
 | T7 | BP2a: 翻 D 部分 ON → P5/P6 各插 3 shard（+2 plate），加 RIP 4 reserve（实际由 BP2b 提供）。BP2b: 翻 E 部分 ON → R1-R4 各插 3 shard（+4 rod） | 21 / 4 / 25 |
 | T8 | BP2a: 翻 D 继续 ON → P7 +1，RIP 增至 5 (BP2b RIP 1-2 ON)。BP2b: 翻 E 续 ON → R5-R7 (+3 rod) | 23 / 7 / 30 |
-| T9 | BP2a: P8 ON (满 8 plate)，rod 总数微调到 10（关 1 台 R11 优化）。BP2b: 翻 E 满 ON → R8-R10 满 10 rod；C1 集群升级矿场 Mk5 belt | 23 / 10 / 33 |
+| T9 | BP2a: P8 ON (满 8 plate)，rod 总数微调到 10（关 1 台 R11 优化）。BP2b: 翻 E 满 ON → R8-R10 满 10 rod；（矿场 belt 已 Mk5；T8/T9 需拆分槽位） | 23 / 10 / 33 |
 
 > T7+ 启用流程仅涉及：(1) 翻 Power Switch；(2) 插 Power Shard；(3) 微调超频百分比。**不放任何新机器，不拉任何新 belt，不挪任何 lift**。
 
@@ -365,4 +365,4 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
 - [ ] 3F RIP 螺丝输入与 28m 反向 belt 同轴
 - [ ] 屋顶 2 个 merger filter 正确（B2 = 铁棒+RIP，B5 = 铁板+铁棒+RIP mainNode）
 - [ ] **T6 BP2b 全 Power Switch 关，仅作为直通管道**
-- [ ] 矿场来料 belt 容量按 T9 满载预留（T9 升 Mk5；T6 临时 Mk4 也可，但物理升级位置要预留好）
+- [ ] 矿场来料 belt 已升 Mk5；T8/T9 满载需按物料拆分槽位
