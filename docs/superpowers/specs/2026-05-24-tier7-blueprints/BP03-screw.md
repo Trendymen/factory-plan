@@ -177,8 +177,8 @@
     - 28m 一个 1→3 programmable splitter（filter=螺丝，按 276 / 350 / 240 比例）
     - 276 → 短 belt → **左 Wall Outlet (col=0, h=28m, row=3)**（**反向**给 BP2b → BP2a 3F RIP）
     - 350 + 240 = 590 → lift-out-top → 屋顶 (35m)
-11. **屋顶 (35-40m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount
-    - 590 / 60 < 1 Mk4 容量，分到 1 个 1→2 splitter（350 + 240）
+11. **屋顶 (35-40m)**：铺 6 条 Mk5 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount
+    - 590 / 60 < 1 Mk5 容量（76%），分到 1 个 1→2 splitter（350 + 240）
     - 350 → merger 注 B1
     - 240 → merger 注 B2
 12. **Power Switch ×5**：按上面"Power Switch 分网"表布置 Network A/B/C/D/E；T6 只合 A+B，C/D/E 全部 OFF
@@ -190,7 +190,7 @@
 |---|---|---:|
 | T7 | 翻 Network C Switch ON → C6 + C15 + C16 各插 3 shard 调超频 | 12 |
 | T8 | 翻 Network D Switch ON → C7 + C8 + C17 + C18 各插 3 shard | 16 |
-| T9 | 翻 Network E Switch ON → C9 + C10 + C19 各插 3 shard，**全 19 台超频调到 241%**；矿场来料 belt + 1→3 splitter 容量按 T9 复算（~1828/min 需 Mk5）| 19 |
+| T9 | 翻 Network E Switch ON → C9 + C10 + C19 各插 3 shard，**全 19 台超频调到 241%**；矿场来料 belt + 1→3 splitter 容量按 T9 复算（~1828/min 即使 Mk6 也不够，需拆分 3 条 Mk5 槽位或 2 条 Mk6）| 19 |
 
 ## 同轴对齐关键
 
@@ -206,5 +206,5 @@
 - [ ] T6 仅 C1-C5 + C11-C14 插了 3 shard；其余 10 台物理就位但 shard 槽空
 - [ ] 螺丝 276 反向接到 BP2b 3F RIP（避免飞面）
 - [ ] 1→3 splitter 比例配置正确（276 / 350 / 240）
-- [ ] 屋顶 2 merger 一次建好，B1/B2 流量在 Mk4 容量内（350 < 480 ✓，240 + 其他 = 400.5 < 480 ✓）
-- [ ] 铁棒来料 belt 容量按 T9 ~457/min 预留（T9 升 Mk5；T6 阶段 Mk4 即可）
+- [ ] 屋顶 2 merger 一次建好，B1/B2 流量在 Mk5 容量内（350 < 780 ✓，240 + 其他 = 400.5 < 780 ✓）
+- [ ] 铁棒来料 belt 已 Mk5（780/min）；T9 ~457/min 在 Mk5 容量内（59%）
