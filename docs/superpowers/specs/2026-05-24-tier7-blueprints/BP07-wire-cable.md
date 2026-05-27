@@ -251,7 +251,7 @@
 
 ## 多实例侧墙续接
 
-BP7 是**纯同向流**集群（铜锭从 BP6→BP7a→BP7b→BP7c→BP8）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
+BP7 是**纯同向流**集群（铜锭从 BP6→BP7a→BP7b→BP7c→BP8）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-24-tier7-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
 蓝图侧墙集群内 mount（机器层）：
 

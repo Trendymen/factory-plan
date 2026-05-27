@@ -2,7 +2,7 @@
 
 > **T7 升级版**：本目录是 [2026-05-06-tier6-blueprints/](../2026-05-06-tier6-blueprints/) 的 T7 副本，前提：玩家已解锁 T7 Bauxite Refinement，所有屋顶/矿场 belt 升级到 Mk5 (780/min)，机器激活规模仍为 T6 阶段 76 台。原 T6 文档保留对照。
 
-> 主设计文档：[../2026-05-06-tier6-blueprint-design.md](../2026-05-06-tier6-blueprint-design.md)
+> 主设计文档：[../2026-05-24-tier7-blueprint-design.md](../2026-05-24-tier7-blueprint-design.md)
 >
 > 本目录是**逐蓝图施工手册**，每个 `.md` 文件对应一个 Mk2 蓝图。游戏内开蓝图设计器时按文件内容从下到上拼装即可。
 
@@ -67,7 +67,7 @@
 
 ### Tier 7+ 扩容蓝图（参考，未来实施）
 
-详见主设计文档 [§Tier 7+ 扩容详细规划](../2026-05-06-tier6-blueprint-design.md#tier-7-扩容详细规划)。
+详见主设计文档 [§Tier 7+ 扩容详细规划](../2026-05-24-tier7-blueprint-design.md#tier-7-扩容详细规划)。
 
 | 集群 | 蓝图 | 触发 |
 |---|---|---|

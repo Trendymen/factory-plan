@@ -252,7 +252,7 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 - 左 Wall Pipeline Hole（h=4m，原油 pipe 进料）
 
 > BP9a-g 之间机器层完全不互通——每实例独立的油田 pipe（或共享油田主 pipe + 各实例分支）。
-> 详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
+> 详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-24-tier7-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
 ## 残渣 → 石油焦 → 本地 sink（默认）
 
