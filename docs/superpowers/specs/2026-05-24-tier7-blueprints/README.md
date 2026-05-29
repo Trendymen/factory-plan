@@ -1,6 +1,6 @@
 # Tier 6 大而全蓝图 — 分册手册
 
-> **T7 升级版**：本目录是 [2026-05-06-tier6-blueprints/](../2026-05-06-tier6-blueprints/) 的 T7 副本，前提：玩家已解锁 T7 Bauxite Refinement，所有屋顶/矿场 belt 升级到 Mk5 (780/min)，机器激活规模仍为 T6 阶段 76 台。原 T6 文档保留对照。
+> **T7 升级版**：本目录是 [2026-05-06-tier6-blueprints/](../2026-05-06-tier6-blueprints/) 的 T7 副本，前提：玩家已解锁 T7 Bauxite Refinement，所有屋顶/矿场 belt 升级到 Mk5 (780/min)，机器激活规模仍为 T6 阶段 96 台。原 T6 文档保留对照。
 
 > 主设计文档：[../2026-05-24-tier7-blueprint-design.md](../2026-05-24-tier7-blueprint-design.md)
 >
