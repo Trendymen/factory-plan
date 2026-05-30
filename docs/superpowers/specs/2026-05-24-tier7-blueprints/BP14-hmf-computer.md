@@ -104,6 +104,23 @@
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
+```diagram
+{
+  "id": "BP14-1F",
+  "title": "BP14 1F：制造机（HMF/计算机产线·下层）",
+  "grid": { "cols": 5, "rows": 5 },
+  "zones": [
+    { "label": "制造区 1F", "col": 0, "row": 0, "w": 4, "h": 4, "color": "#ef5350" }
+  ],
+  "machines": [
+    { "id": "M1", "type": "manufacturer", "col": 0.5, "row": 0.5, "facing": "south", "label": "M1", "recipe": "计算机" }
+  ],
+  "notes": [
+    { "col": 0.5, "row": 4.2, "text": "in-0..in-3 在前侧（manufacturer 入口在 front）" }
+  ]
+}
+```
+
 - 1 台 HMF manufacturer，**T6 通电**（Network A），`facing=south`（输入 front 南、输出 back 北）
 - 机身南移占 y=4-26m（col 0-2.5），北墙 y=0-4m 留 output lift 净空巷
 - out-0 在 back（北边界 row=0）→ 沿北巷水平东引到 col=3.5（避开正上方 2F 机身投影）→ `Lo` lift-UP 至屋顶 merger
@@ -135,6 +152,23 @@
 34      │  3 路 lift 落点 row13-14、转弯相→垂直进 in-0/1/2 │
 36      │  in-3 无 lift（电脑配方无第 4 物料）             │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+```
+
+```diagram
+{
+  "id": "BP14-2F",
+  "title": "BP14 2F：制造机（上层）",
+  "grid": { "cols": 5, "rows": 5 },
+  "zones": [
+    { "label": "制造区 2F", "col": 0, "row": 0, "w": 4, "h": 4, "color": "#ff9800" }
+  ],
+  "machines": [
+    { "id": "M2", "type": "manufacturer", "col": 0.5, "row": 0.5, "facing": "south", "label": "M2", "recipe": "HMF" }
+  ],
+  "notes": [
+    { "col": 0.5, "row": 4.2, "text": "out-0 在后侧 → 升降机下送 1F" }
+  ]
+}
 ```
 
 - 1 台电脑 manufacturer **物理建造完整**，T6 阶段 Power Switch **关**；`facing=south`
