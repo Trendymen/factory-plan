@@ -1,10 +1,5 @@
 /* src/manual/manual.css —— 复用 theme.css 的 :root 变量，纯全局 CSS */
 
-:root {
-  --diagram-default: #5a7a92;   /* registry 未定义 var 的机器兜底色 */
-  --diagram-unknown: #4a5560;   /* 未知 type 灰占位 */
-}
-
 /* ===== 布局：左目录 + 右正文 ===== */
 .manual-view {
   display: grid;
@@ -96,44 +91,28 @@
   color: var(--text-muted);
 }
 
-/* ===== diagram 图容器 ===== */
-.diagram-figure {
-  margin: 16px 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+/* ===== 字符网格 ASCII 图（中文 2ch / ASCII 1ch 逐格对齐） ===== */
+.ascii-grid {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
   background: var(--bg-canvas);
-  padding: 8px;
-}
-.diagram-caption {
-  font-size: 12px;
-  color: var(--text-secondary);
-  padding: 4px 6px 8px;
-  font-family: var(--font-mono);
-}
-.diagram-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 70vh;
-}
-.diagram-port { pointer-events: none; }
-.diagram-zone-label { fill: var(--text-secondary); font-family: var(--font-mono); }
-.diagram-note { fill: var(--text-muted); font-family: var(--font-mono); }
-
-/* ===== 错误卡片 ===== */
-.diagram-error-card {
-  margin: 16px 0;
-  border: 1px solid #ef5350;
-  border-radius: 8px;
-  background: rgba(239, 83, 80, 0.08);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
   padding: 12px 14px;
+  margin: 12px 0;
+  overflow-x: auto;
+  color: var(--text-primary);
 }
-.diagram-error-title { color: #ef5350; font-size: 13px; margin-bottom: 8px; }
-.diagram-error-raw {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  white-space: pre-wrap;
-  word-break: break-all;
-  margin: 0;
+.ascii-row {
+  white-space: nowrap;
+  height: 1.5em;
 }
+.ascii-grid span {
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  overflow: visible;
+}
+.ascii-grid .cw1 { width: 1ch; }
+.ascii-grid .cw2 { width: 2ch; }

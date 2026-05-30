@@ -1,9 +1,8 @@
 // src/manual/ManualView.tsx
-import { useMemo, useState, useEffect, type ComponentProps } from 'react';
+import { useMemo, useState, useEffect, type ComponentProps, type ReactElement } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { parseDiagramBlock } from '../diagram/parseDiagramBlock';
-import { DiagramView } from '../diagram/DiagramView';
+import { AsciiBlock } from './AsciiBlock';
 import './manual.css';
 
 // 18 个 BP md 的 raw loader（lazy），key = '/docs/.../BPxx.md'
@@ -18,18 +17,16 @@ function fileName(path: string): string {
 
 const docPaths = Object.keys(docModules).sort();
 
-// react-markdown 的 code 组件：拦截 ```diagram
-function CodeBlock(props: ComponentProps<'code'> & { className?: string }) {
-  const { className, children } = props;
-  if (className && className.includes('language-diagram')) {
-    const raw = String(children ?? '').replace(/\n$/, '');
-    const result = parseDiagramBlock(raw); // 永不抛
-    return <DiagramView result={result} />;
-  }
-  return <code className={className}>{children}</code>;
+// fenced code block：react-markdown 渲染为 <pre><code>…</code></pre>。
+// 自定义 pre 取出 code 文本，交给 AsciiBlock 做字符网格对齐。
+function PreBlock(props: ComponentProps<'pre'>) {
+  const child = props.children as ReactElement<{ children?: unknown }> | undefined;
+  const codeText = child && child.props ? child.props.children : undefined;
+  const raw = String(codeText ?? '');
+  return <AsciiBlock text={raw} />;
 }
 
-const MD_COMPONENTS = { code: CodeBlock };
+const MD_COMPONENTS = { pre: PreBlock };
 
 export function ManualView() {
   const [activePath, setActivePath] = useState<string>(docPaths[0] ?? '');
