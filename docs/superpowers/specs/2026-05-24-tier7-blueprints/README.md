@@ -1,4 +1,4 @@
-# Tier 6 大而全蓝图 — 分册手册
+# Tier 7 升级版（基于 T6 96 台激活规模）— 分册手册
 
 > **T7 升级版**：本目录是 [2026-05-06-tier6-blueprints/](../2026-05-06-tier6-blueprints/) 的 T7 副本，前提：玩家已解锁 T7 Bauxite Refinement，所有屋顶/矿场 belt 升级到 Mk5 (780/min)，机器激活规模仍为 T6 阶段 96 台。原 T6 文档保留对照。
 
@@ -8,7 +8,7 @@
 
 ## 蓝图索引
 
-### 生产蓝图（15 个唯一 / 22-24 个 Mk2 实例）
+### 生产蓝图（15 个唯一 / 31 个 Mk2 实例）
 
 | 集群 | 蓝图 | 当前激活 | 满载 | 拆分 | 文件 |
 |---|---|---:|---:|---|---|
@@ -17,17 +17,17 @@
 | C1 | **BP3** 螺丝双线 | 9 | 19 | 1 Mk2 | [BP03-screw.md](BP03-screw.md) |
 | C2 钢系 | **BP4** 钢锭 | 5 | 6 | 1 Mk2 | [BP04-steel-ingot.md](BP04-steel-ingot.md) |
 | C2 | **BP5** 钢梁/钢管 | 5 | 8 | 1 Mk2 | [BP05-steel-beam-pipe.md](BP05-steel-beam-pipe.md) |
-| C3 铜电 | **BP6** 铜锭/铜金锭 | 7 | 31 | 2 Mk2 (a/b) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
+| C3 铜电 | **BP6** 铜锭/铜金锭 | 7 | 33 | 3 Mk2 (a/b/c) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
 | C3 | **BP7** 铜板/电线/线缆 | 11 | 46 | 3 Mk2 (a/b/c) | [BP07-wire-cable.md](BP07-wire-cable.md) |
 | C3 | **BP8** 电路板 | 1 | 8 | 1 Mk2 | [BP08-circuit-board.md](BP08-circuit-board.md) |
-| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 32 | 5 Mk2 (a-e), T9 扩 7 (a-g) | [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
+| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 35 | 7 Mk2 (a-g)（T6 即全部建好）| [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
 | C5 MAM | **BP10** 石英/硅土/快速线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
 | C5 末 | **BP11** 重生 SAM/SAM 波动器 | 3 | 3 | 1 Mk2 | [BP11-sam.md](BP11-sam.md) |
 | C6 装配 | **BP12** 转子/定子/电机 | 5 | 7 | 1 Mk2 | [BP12-rotor-stator-motor.md](BP12-rotor-stator-motor.md) |
 | C6 | **BP13** 模块化框架/包裹工业梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
-| C6 | **BP14** HMF/电脑 | 2 | 6 | 2 Mk2 (a/b) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
-| C6 | **BP15** 晶振/HSC | 2 | 6 | 2 Mk2 (a/b) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
-| **小计** | | **96** | **257** | T9 时新增 BP9f-g 扩到 7 实例 + 各 BP coke 内置 | |
+| C6 | **BP14** HMF/电脑 | 2 | 6 | 3 Mk2 (a/b/c) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
+| C6 | **BP15** 晶振/HSC | 2 | 6 | 3 Mk2 (a/b/c) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
+| **小计** | | **96** | **262** | 31 个 Mk2 实例（BP9 a-g 7 实例 T6 即全部建好）+ 各 BP coke 内置 | |
 
 ### 全厂 T6 Power Shard 总览
 
@@ -41,16 +41,16 @@
 | BP06 铜冶炼 | 7 smelter | 21 | copper-ingot 217.67%, caterium 246.67% |
 | BP07 铜板/电线/线缆 | 11 con | 31 | wire 223.89%, copper-sheet 208.33%, cable 169.17% |
 | BP08 电路板 | 1 asm | 2 | circuit-board 183.33% |
-| BP09 塑料/橡胶 (BP9a) | 5 ref | 7 + 3 (sink) | plastic 191.67%, rubber 100%, coke 78%, sink 250% |
+| BP09 塑料/橡胶 (BP9a) | 5 ref | 8 | plastic 191.67%, rubber 100%, coke 195%（sink 无超频，按入料 belt 速率吃料）|
 | BP10 MAM/混凝土 | 9 con/asm | 20 | quickwire 205.56%, concrete 246.67%, quartz 180% |
 | BP11 SAM | 3 con/mfr | 2 | reanimated-sam 150%, fluctuator 100% |
 | BP12 转子/定子/电机 | 5 asm | 6 | rotor 175%, stator 150%, motor 100% |
 | BP13 模框/包裹梁 | 5 asm | 8 | modular-frame 200%, encased-beam 133.33% |
 | BP14 HMF/电脑 | 2 mfr | 0 | 全 100% |
 | BP15 晶振/HSC | 2 mfr | 0 | 全 100% |
-| **总计** | **96 台** | **232 shard** | |
+| **总计** | **96 台** | **230 shard** | |
 
-> Satisfactory 1.0 全图蛞蝓上限 ~2,659 → 合成蓝色碎片配方 → **232 shard 易得**（每 2 蓝蛞蝓 = 1 power shard，全图够 1300+ shard 直出）。
+> Satisfactory 1.0 全图蛞蝓上限 ~2,659 → 合成蓝色碎片配方 → **230 shard 易得**（每 2 蓝蛞蝓 = 1 power shard，全图够 1300+ shard 直出）。
 
 ### 终端蓝图（2 个）
 
@@ -117,7 +117,7 @@
 | B3 | 钢管/钢梁/电线 → C6 | 333 |
 | B4 | 塑料/混凝土/电路板/线缆 → C6 | 276 |
 | B5 | **26 mainNode 终端汇流** | 396 |
-| B6 | 铜金锭/铜板/快速线/石英晶体/重油残渣 | 306 |
+| B6 | 铜金锭/铜板/快速线/石英晶体 | 228 |
 
 预留 B7/B8（Tier 7+ 扩容）= 屋顶 8 belt 槽位；当前 6 active + 2 空跑。
 
@@ -162,11 +162,11 @@
 按集群顺序物理建造，每个集群内按 BP 编号顺序紧贴排列：
 
 ```
-[BP1][BP2a][BP2b][BP3]   [BP4][BP5]   [BP6a][BP6b][BP7a][BP7b][BP7c][BP8]
-  ────── C1 ──────       ── C2 ──    ─────────── C3 ───────────────
+[BP1][BP2a][BP2b][BP3]   [BP4][BP5]   [BP6a][BP6b][BP6c][BP7a][BP7b][BP7c][BP8]
+  ────── C1 ──────       ── C2 ──    ───────────── C3 ─────────────────
 
-[BP9a][BP9b][BP9c][BP9d][BP9e]   [BP10a][BP10b][BP11]   [BP12][BP13][BP14a][BP14b][BP15a][BP15b]
-  ──────────── C4 ──────────     ───── C5 ─────         ─────────── C6 ───────────
+[BP9a][BP9b][BP9c][BP9d][BP9e][BP9f][BP9g]   [BP10a][BP10b][BP11]   [BP12][BP13][BP14a][BP14b][BP14c][BP15a][BP15b][BP15c]
+  ─────────────── C4 ───────────────         ───── C5 ─────         ───────────────── C6 ─────────────────
 
 [BP-TERM-A][BP-TERM-B]
    ── 总线尾 ──

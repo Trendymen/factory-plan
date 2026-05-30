@@ -1,4 +1,4 @@
-# Tier 6 大而全蓝图设计（Option A / 26 → 37 mainNode / Mk2 / Dim Depot）
+# Tier 7 升级版蓝图设计（基于 T6 96 台激活规模 / Option A / 26 → 37 mainNode / Mk2 / Dim Depot）
 
 ## T7 升级版前提（2026-05-24）
 
@@ -192,7 +192,7 @@
 | **B3** | 电线（C3 → BP12 定子）120 + 电线（C3 → BP11 SAM波动器）50 + 钢管（C2 → BP12/BP14/BP11）115 + 钢梁（C2 → BP13）48 | 333（最大段）| 43% | 可编程分流器（4 路 filter） |
 | **B4** | 塑料（C4 → BP8 + BP14）95 + 混凝土（C5 → BP13）96 + 电路板（C3 → BP14/BP15）13.75 + 线缆（C3 → BP14/BP15）71.5 | 276 | 35% | 可编程分流器（4 路 filter） |
 | **B5** | **终端 mainNode 总线**（26 种产物混合 → BP-TERM Dim Depot Uploader + sink overflow）| 396.25 | 51% | 可编程分流器树（4 级 → 27 路输出，仅 mainNode） |
-| **B6** | 铜金锭 74 + 铜板 25 + 快速线 210 + 石英晶体 18 | 306（最大段 BP10→BP15）| 39% | 可编程分流器（多 filter）|
+| **B6** | caterium 锭（铜金锭）74 + 铜片 Copper Sheet 25 + 快速线 210 + 石英晶体 18 | 最大段 228（BP10→BP15）| 29% | 可编程分流器（多 filter）|
 
 #### Tier 7+ 预留 2 条 reserved belt
 
@@ -330,17 +330,17 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 ### 屋顶总线层的接入方式
 
-每个蓝图屋顶（35-40m）的总线 belt 是 6 条 Mk5 平行 belt：
-- **左边界面 (col=0, h=35-40m)**: 6 个 **Conveyor Wall Inlet**（每条 belt 1 个），固定坐标位置（如 row=0,1,2,3,4 各 1 个）
-- **右边界面 (col=5, h=35-40m)**: 6 个 **Conveyor Wall Outlet**，与左边界面镜像位置
+每个蓝图屋顶（**同一屋顶层 35-40m，全部 belt 共享此高度，不堆叠成多个高度**）跑 6 条 active + 2 条 reserved = 8 条 Mk5 平行 belt：
+- **左边界面 (col=0, h=35-40m)**: 8 个 **Conveyor Wall Inlet**（每条 belt 1 个），按子 cell row 间距固定排开：**row=0.25/0.75/1.25/1.75/2.25/2.75/3.25/3.75（~4m 一条）**
+- **右边界面 (col=5, h=35-40m)**: 8 个 **Conveyor Wall Outlet**，与左边界面镜像 row 位置
 
-蓝图设计时，6 条 belt 从左 Wall Inlet 横穿到右 Wall Outlet。中间在需要的位置放 splitter / merger / lift 做 tap-off / 注入。
+蓝图设计时，8 条 belt 从左 Wall Inlet 横穿到右 Wall Outlet（B7/B8 当前空跑）。中间在需要的位置放 splitter / merger / lift 做 tap-off / 注入。
 
 ### 蓝图间总线 belt 的自动续接
 
-两个生产蓝图紧贴放置时，A 的右 Wall Outlet（h=35-40m）和 B 的左 Wall Inlet（h=35-40m）在 6 个高度位置上一一对应。**Auto Connect 模式** 会逐一检测这 6 对，自动续接全部 6 条总线 belt。**手接节数：0**。
+两个生产蓝图紧贴放置时，A 的右 Wall Outlet（h=35-40m）和 B 的左 Wall Inlet（h=35-40m）在 **8 个 row 位**（同屋顶层）上一一对应。**Auto Connect 模式** 会逐一检测这 8 对，自动续接全部 8 条总线 belt。**手接节数：0**。Wall Mount 的 row 必须严格等于邻图对应 row，否则 Auto Connect 失败。
 
-如果蓝图间留间隙（中间塞 BP-BUS-FILLER），FILLER 同样有左右两面 6 个 Wall Outlet/Inlet，连续 Auto Connect 即可。
+如果蓝图间留间隙（中间塞 BP-BUS-FILLER），FILLER 同样有左右两面 8 个 Wall Outlet/Inlet，连续 Auto Connect 即可。
 
 ### 集群内"紧贴"的具体含义
 
@@ -348,7 +348,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 ### 多实例集群侧墙 mount 对偶规则（关键设计约定）
 
-多实例集群（BP2a/b、BP6a/b、BP7a/b/c、BP9a-e、BP10a/b、BP14a/b、BP15a/b）的所有副本都是**同一个蓝图设计**复制粘贴。这意味着每个副本侧墙的 Wall mount 配置**完全一致**，物料流方向通过 mount 类型决定：
+多实例集群（BP2a/b、BP6a/b/c、BP7a/b/c、BP9a-g、BP10a/b、BP14a/b/c、BP15a/b/c）的所有副本都是**同一个蓝图设计**复制粘贴。这意味着每个副本侧墙的 Wall mount 配置**完全一致**，物料流方向通过 mount 类型决定：
 
 #### 同向流（占多数）
 
@@ -359,7 +359,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - Auto Connect 自动续接 BP_a 右 → BP_b 左 → BP_c 左 ...
 
 **示例**：
-- C3 铜锭 BP6a → BP6b → BP7a → BP7b → BP7c（左→右）
+- C3 铜锭 BP6a → BP6b → BP6c → BP7a → BP7b → BP7c（左→右）
 - C5 铜金锭 BP6 → BP10（屋顶 B6，同样左→右）
 
 #### 反向流（少数，需特殊设计）
@@ -380,7 +380,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 #### 高度约定（避免冲突）
 
 集群内多种物料并行的多 belt，用**不同高度** + 不同 row 区分（避免侧墙 mount 物理冲突）：
-- 屋顶 35-40m：6 条总线 belt（B1-B6，固定 row=0.5/1.5/.../4.5）
+- 屋顶 35-40m：**8 条总线 belt 槽位（B1-B8，6 active + 2 reserved）在同一屋顶层按子 cell row 间距并排**——40m 宽内每 ~4m 一条，row=0.25/0.75/1.25/1.75/2.25/2.75/3.25/3.75（~4m 间距，8 条占满 32m 仍留侧墙余量）。**不是 6 个高度堆叠，也不是 8m 间距**（5×5 cell 内 row 只到 5，8m 间距塞不下 8 条）。
 - 机器层低位 4-8m：1F constructor 平面进料（同向流，如铁锭/铁棒）
 - 机器层中位 22-28m：多层蓝图 2F-3F 进料（如 RIP 螺丝在 28m）
 
@@ -419,33 +419,33 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 | 蓝图 | 配方 | 物理建造（Tier 7+ 满载）| 当前激活（26-plan）| 初始空闲 | 备注 |
 |---|---|---:|---:|---:|---|
 | BP1 | 铁锭 (smelter) | 18 × 237% | 9 × 226% | 9 | 单 Mk2 装下 |
-| BP2 | 铁板/铁棒/RIP/螺丝（合并集群 C1）| 8+20+5 = 33 (constructor + assembler) | 4+11+3 = 18 | 15 | **拆 2 个 Mk2** (BP2a/BP2b) |
+| BP2 | 铁板/铁棒/RIP/螺丝（合并集群 C1）| 物理槽位 **44**（22×2 Mk2）；T9 激活上限 8+20+5 = 33 | 4+11+3 = 18 | 15 | **拆 2 个 Mk2** (BP2a/BP2b)；物理 44 与 T9 激活 33 是两个量，勿混 |
 | BP3 | 螺丝双线 (constructor) | 19 × 241% | 9 × 249% | 10 | 单 Mk2 装下 |
 | BP4 | 钢锭 (foundry) | 6 × 243% | 5 × 202% | 1 | 单 Mk2 |
 | BP5 | 钢梁/钢管 (constructor) | 3+5 = 8 | 2+3 = 5 | 3 | 单 Mk2 |
-| BP6 | 铜锭/铜金锭 (smelter) | 23+8 = **31** | 5+2 = 7 | 24 | **拆 2 个 Mk2** (BP6a/BP6b) |
+| BP6 | 铜锭/铜金锭 (smelter) | 物理 **33**（T9 激活上限 31）| 5+2 = 7 | 26 | **拆 3 个 Mk2** (BP6a/BP6b/BP6c) |
 | BP7 | 铜板/电线/线缆 (constructor) | 18+20+8 = **46** | 3+6+2 = 11 | 35 | **拆 3 个 Mk2** (BP7a/b/c) |
-| BP8 | 电路板 (assembler) | 8 × 219% | 1 × 183% | 7 | 单 Mk2（assembler 8m × 15m，2 行 × 4 = 8 装下）|
-| BP9 | 塑料/橡胶 + coke (refinery) | 23+2+7 = **32** | 3+1+1 = **5（全在 BP9a）** | 27 | **拆 5 个 Mk2** (BP9a-e，单实例 5 槽位)；T6 仅 BP9a 满载，BP9b-e 物理建造但 0 激活；T9 需扩到 **7 实例**（新建 BP9f+g）|
+| BP8 | 电路板 (assembler) | 8 × 219% | 1 × 183% | 7 | 单 Mk2（assembler **10×15×8m**，每排 3 台留 manifold 列，3 排装下）|
+| BP9 | 塑料/橡胶 + coke (refinery) | 物理 **35**（7 实例 × 5 槽位）| 3+1+1 = **5（全在 BP9a）** | 30 | **拆 7 个 Mk2** (BP9a-g，单实例 5 槽位 = 3 塑料 + 1 橡胶 + 1 coke)；7 实例在 T6 即全部物理建好（非 T9 才扩），T6 仅 BP9a 满载，BP9b-g 物理建造但 0 激活 |
 | BP10 | MAM+混凝土+AI限制器 | 4+7+10+5+2 = 28 | 1+1+3+3+1 = 9 | 19 | **拆 2 个 Mk2** (BP10a/b) |
 | BP11 | 重生SAM+SAM波动器 | 2+1 = 3 | 2+1 = 3 | 0 | 单 Mk2，无扩容 |
 | BP12 | 转子/定子/电机 (assembler) | 3+3+1 = 7 | 2+2+1 = 5 | 2 | 单 Mk2 |
 | BP13 | 模框/包裹 (assembler) | 4+2 = 6 | 3+2 = 5 | 1 | 单 Mk2 |
-| BP14 | HMF/电脑 (manufacturer) | 1+5 = 6 | 1+1 = 2 | 4 | **拆 2 个 Mk2**（manufacturer 20×22m，1 Mk2 装 2 台）|
-| BP15 | 晶振/HSC (manufacturer) | 4+2 = 6 | 1+1 = 2 | 4 | **拆 2 个 Mk2** |
-| **合计** | | **250** | **95** | **155** | **20-22 个 Mk2 蓝图实例**（含拆出的）|
+| BP14 | HMF/电脑 (manufacturer) | 物理 **6**（1 HMF + 5 电脑）| 1+1 = 2 | 4 | **拆 3 个 Mk2** (BP14a/b/c，manufacturer 20×22m，1 Mk2 装 2 台)；T6 激活 2 |
+| BP15 | 晶振/HSC (manufacturer) | 物理 **6**（4 晶振 + 2 HSC）| 1+1 = 2 | 4 | **拆 3 个 Mk2** (BP15a/b/c，a/c 晶振 + b HSC)；T6 激活 2 |
+| **合计** | | **250** | **96** | **154** | **31 个 Mk2 蓝图实例**（含拆出的：BP2×2 + BP6×3 + BP7×3 + BP9×7 + BP10×2 + BP14×3 + BP15×3）|
 
 #### 拆分原因
 
 - 单 Mk2 = 5×5 cell × 5 cell 高 = 1,600 m² × 40m 高
 - 部分蓝图因 Tier 7+ 机器数 + 机器尺寸超过单 Mk2 容量，必须**横向拆成多个相同蓝图实例**
-- 拆出的 BP6a/BP6b/BP7a-c/BP9a-e 等是**完全相同的子蓝图副本**，仅复制贴贴
+- 拆出的 BP6a/b/c、BP7a-c、BP9a-g、BP14a/b/c、BP15a/b/c 等是**完全相同的子蓝图副本**，仅复制贴贴
 
 ### 通用约定（所有生产蓝图共享）
 
-- **总线层（35-40m，5m 厚）**：6 条 Mk5 belt（B1, B2, B3, B4, B5, B6 备用）东西向贯穿
-  - 左 Wall Inlet（col=0 边界面，6 个高度位置）：接前一个蓝图的 6 条 belt
-  - 右 Wall Outlet（col=5 边界面，6 个高度位置）：接下一个蓝图
+- **总线层（35-40m，5m 厚，同一屋顶高度内并排）**：6 条 active + 2 条 reserved = 8 条 Mk5 belt（B1-B8）东西向贯穿，按子 cell row 间距排开（row=0.25/0.75/.../3.75，~4m 一条；**不是 8m 间距、不是高度堆叠**）
+  - 左 Wall Inlet（col=0 边界面，8 个 row 位）：接前一个蓝图的 8 条 belt
+  - 右 Wall Outlet（col=5 边界面，8 个 row 位）：接下一个蓝图
   - 内置 smart splitter / programmable splitter：从总线 belt 上 tap 出本蓝图需要的物料
   - 内置 merger：把本蓝图的产物注入对应总线 belt
   - 内置 conveyor-lift-bot：从总线层下到机器层
@@ -474,10 +474,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 9 smelter（铁锭配方）
 - **超频**: 226.11% × 9 台
 - **产能**: 610.5/min 铁锭
-- **机器层 (0-35m)**:
-  - 1F (0-10m): 5 smelter（6m 宽 × 9m 长，5 台一字排 30m 宽，行距 30m）
-  - 2F (14-24m, 4m 地基 10-14): 4 smelter
-- **屋顶总线层 (35-40m)**: 6 条 belt 直通；本蓝图不取/不注总线
+- **机器层 (0-35m，按 §2 公约）**: smelter 实测 **6×9×10m**（W×L×H，§1）；输入 back 在北，**北墙内缩 4m 留东西向铁矿石进料巷**。
+  - 1F (0-10m): 5 smelter 东西向一排（5 × 6m + 4 个 ~1m 间隙 ≈ 34m，留侧墙净空），机器占 y=4-13m，collect belt 走 front（南）边外。
+  - 2F (14-24m, 4m 地基 10-14): 4 smelter 同样北墙内缩留进料巷。
+- **屋顶总线层 (35-40m)**: 8 条 belt 直通；本蓝图不取/不注总线
 - **输入**: 铁矿石 610.5/min（**矿场直接喂，不上总线**）
 - **集群内部输出**: 铁锭 610/min → 通过侧墙 Wall Outlet（机器层 24m 高度）直连 BP2 的 Wall Inlet（**集群内部短 belt，不上总线**）
 - **总线接入**: 无
@@ -491,10 +491,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
   - 铁棒 11 × 230.91%
   - RIP 3 × 170.0%
 - **产能**: 铁板 173/min · 铁棒 381/min · RIP 25.5/min
-- **机器层 (0-35m)**:
-  - 1F (0-8m): 4 plate + 5 rod = 9 constructor
-  - 2F (12-20m, 4m 地基 8-12): 6 rod constructor
-  - 3F (24-32m, 4m 地基 20-24): 3 RIP assembler（assembler 8m × 10m × 15m，3 台 30m × 15m）
+- **机器层 (0-35m，按 §2 公约）**: constructor 实测 8×10×8m、assembler 10×15×8m；各层北墙内缩 ≥4m 留进料巷，collect belt 走南侧。
+  - 1F (0-8m): 4 plate + 5 rod = 9 constructor，分 **3 行（每行 ≤4 台 ≈ 36m）**：行1 4 plate、行2 4 rod、行3 1 rod；行间留 collect 巷。
+  - 2F (12-20m, 4m 地基 8-12): 6 rod constructor，分 2 行（每行 3 台），北侧进料巷。
+  - 3F (24-32m, 4m 地基 20-24): 3 RIP assembler（assembler **10×15×8m**，3 台 × 10m = 30m 宽 × 15m 长），北墙内缩 ≥4m，RIP 输出 belt 移到机身南侧 y≥17 做 R16 垂直进出。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 RIP 和 铁棒 注入 B2
   - 自带 lift-top 把 铁棒/RIP 从机器层送上来
@@ -511,9 +511,9 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 9 screw constructor
 - **超频**: 240.56% × 9 台
 - **产能**: 866/min 螺丝
-- **机器层 (0-35m)**:
-  - 1F (0-8m): 5 constructor
-  - 2F (12-20m, 4m 地基 8-12): 4 constructor
+- **机器层 (0-35m，按 §2 公约）**: constructor 实测 8×10×8m，输入 back 在北。**每排 ≤4 台（4 × 8m + 间隙 ≈ 36m）留侧墙/折线净空，不一字排满 40m**；北墙内缩 4m 留铁棒进料巷，collect belt 走南侧。
+  - 1F (0-8m): 5 constructor → 排为 4 + 1（行1 4 台 ≈ 36m，行2 1 台），各行北侧进料巷。
+  - 2F (12-20m, 4m 地基 8-12): 4 constructor 一排（≈ 36m），北侧进料巷。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 螺丝 注入 B1（350/min）和 B2（240/min）
   - 自带 lift-top 从机器层向上送料
@@ -531,10 +531,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 5 foundry（钢锭配方）
 - **超频**: 202% × 5 台
 - **产能**: 455/min 钢锭
-- **机器层 (0-35m)**:
-  - 1F (0-9m): 3 foundry（foundry 8m × 9m，3 台一行 24m × 9m）
-  - 2F (13-22m, 4m 地基 9-13): 2 foundry
-- **屋顶总线层 (35-40m)**: 6 条 belt 直通；本蓝图不取/不注总线
+- **机器层 (0-35m，按 §2 公约）**: foundry 实测 **8×9×9m**（W×L×H，§1）；**2 输入口都在 back（北）**——故须南移留北侧进料巷，铁矿石/煤双 manifold 布北侧，collect belt（钢锭）布南侧（§2-1/§2-4）。
+  - 1F (0-9m): 3 foundry 东西向一排（3 × 8m + 2 个 ~1m 间隙 ≈ 26m），北墙内缩 4m 留双料进料巷，机器占 y=4-13m。
+  - 2F (13-22m, 4m 地基 9-13): 2 foundry，同样北侧进料巷。
+- **屋顶总线层 (35-40m)**: 8 条 belt 直通；本蓝图不取/不注总线
 - **输入**:
   - 铁矿石 410/min（**矿场直接喂，不上总线**）
   - 煤 410/min（**矿场直接喂，不上总线**）
@@ -547,7 +547,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 钢梁 + 3 钢管 constructor = **5 台**
 - **超频**: 钢梁 2 × 210% / 钢管 3 × 225%
 - **产能**: 钢梁 63/min · 钢管 135/min
-- **机器层 (0-35m)**: 1F (0-8m) 5 constructor 一字排开
+- **机器层 (0-35m，按 §2 公约）**: constructor 实测 8×10×8m，输入 back 在北。**北墙内缩 4m 留东西向进料巷**（钢锭 manifold splitter 巷）。5 台分 **2 行**（每行 ≤4 台留侧向 belt 净空，不一字排满 40m）：1F (0-8m) 第 1 行 3 钢管 constructor（3 × 8m + 间隙 ≈ 27m），第 2 行（南移留行距）2 钢梁 constructor。collect belt 走机器 front（南）边之外。
 - **屋顶总线层 (35-40m)**: 自带 merger 把 钢梁 + 钢管 注入 B3 和 B5
 - **输入**: 钢锭 455/min（**集群内部短 belt** ← BP4 的 Wall Outlet）
 - **输出**:
@@ -558,13 +558,14 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 ### BP6: 铜锭 + 铜金锭
 
 - **集群**: C3
-- **机器**: 5 铜锭 smelter + 2 铜金锭 smelter = **7 台**
+- **实例/物理**: **3 Mk2 (BP6a/b/c)**，物理 **33** smelter（T9 激活上限 31）；以下为 **T6 激活 7 台**（5 铜锭 + 2 铜金锭，全在 BP6a）
+- **机器（T6 激活）**: 5 铜锭 smelter + 2 铜金锭 smelter = **7 台**
 - **超频**: 铜锭 5 × 217.67% / 铜金锭 2 × 246.67%
-- **产能**: 铜锭 326.5/min · 铜金锭 74/min
-- **机器层 (0-35m)**:
-  - smelter 6m 宽 × 9m 长 × 10m 高
-  - 1F (0-10m): 4 smelter（3 铜锭 + 1 铜金锭）一字排
-  - 2F (14-24m, 4m 地基 10-14): 3 smelter（2 铜锭 + 1 铜金锭）
+- **产能**: 铜锭 326.5/min · 铜金锭（caterium 锭）74/min
+- **机器层 (0-35m，按 §2 公约）**:
+  - smelter 实测 **6×9×10m**（W×L×H，§1）；输入 back 在北，**北墙内缩 4m 留铜矿石/铜金矿石进料巷**。
+  - 1F (0-10m): 4 smelter（3 铜锭 + 1 铜金锭）东西向一排（4 × 6m + 间隙 ≈ 27m，留侧墙净空），机器占 y=4-13m。
+  - 2F (14-24m, 4m 地基 10-14): 3 smelter（2 铜锭 + 1 铜金锭）同样北侧进料巷。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 铜金锭 注入 B6（74/min 给 BP10 快速线）
 - **输入**:
@@ -578,14 +579,15 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 ### BP7: 铜板 + 电线 + 线缆
 
+> 术语：本文「铜板」即 **铜片 Copper Sheet**（游戏内 Copper Sheet，由铜锭 constructor 制造，用于电路板 / AI 限制器 / RCU）。BP10 处统一写「铜片」。
+
 - **集群**: C3
-- **机器**: 3 铜板 + 6 电线 + 2 线缆 constructor = **11 台**
+- **机器**: 3 铜板（铜片 Copper Sheet）+ 6 电线 + 2 线缆 constructor = **11 台**
 - **超频**: 铜板 3 × 208.33% / 电线 6 × 223.89% / 线缆 2 × 169.17%
 - **产能**: 铜板 62.5/min · 电线 403/min · 线缆 101.5/min
-- **机器层 (0-35m)**:
-  - constructor 8m × 10m × 8m
-  - 1F (0-8m): 6 constructor（6 × 8m wide arr in 2 行 24m × 20m，or 1 行 48m... 紧凑布局推荐 2×3 grid）
-  - 2F (12-20m, 4m 地基 8-12): 5 constructor（5 × 8m = 40m，1 行）
+- **机器层 (0-35m，按 §2 公约）**: constructor 实测 **8×10×8m**；输入 back 在北，**机器南移留北侧进料巷**（铜锭/电线回流 splitter manifold 在北侧，collect belt 在南侧，§2-1）。**每排 ≤4 台（≈ 36m）留净空，不排满 40m**。
+  - 1F (0-8m): 6 constructor → 分 **2 行 × 3 台**（每行 3 × 8m ≈ 26m），行间留 collect 巷，北墙内缩 4m 进料巷。
+  - 2F (12-20m, 4m 地基 8-12): 5 constructor → 排为 4 + 1（行1 4 台 ≈ 36m、行2 1 台），北侧进料巷（**不 1 行 40m 满宽**）。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 电线 注入 B3，线缆 注入 B4
   - 自带 merger 把 铜板/电线/线缆 mainNode 量注入 B5
@@ -604,7 +606,7 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 1 电路板 assembler
 - **超频**: 1 × 183.33%
 - **产能**: 电路板 13.75/min
-- **机器层 (0-35m)**: 1F (0-8m) 1 assembler（10m × 15m，留 25m × 25m 空间。蓝图较稀疏，但 BP8 单独一栋有助 C3 集群边界清晰，留下后期扩展空间）
+- **机器层 (0-35m，按 §2 公约）**: assembler 实测 **10×15×8m**；输入 back 在北，**北墙内缩 ≥4m 留进料巷**，collect belt 走南侧 row≥16（机身南侧，避免 R14 穿模）。物理满载 8 assembler 按 **每排 3 台（3 × 10m = 30m，留 manifold 列）× 3 排**（真实 15m 进深，北墙内缩后行间留 collect 巷）；T6 仅激活 1 台。
 - **屋顶总线层 (35-40m)**:
   - 自带 smart splitter 从 B4 取 塑料（55/min）
   - 自带 lift-bot 把 塑料 送下到 assembler
@@ -619,16 +621,48 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 ### BP9: 塑料 + 橡胶
 
 - **集群**: C4
-- **机器**: 3 塑料 refinery + 1 橡胶 refinery = **4 refinery**
-- **超频**: 塑料 3 × 191.67% / 橡胶 1 × 100%
+- **机器**: 3 塑料 refinery + 1 橡胶 refinery + **1 coke refinery = 5 refinery**（每实例自包含残渣→石油焦本地处理）+ 1 共享 awesome-sink
+- **超频**: 塑料 3 × 191.67% / 橡胶 1 × 100% / coke 1 × 195%（2 shard，处理本实例 78/min 残渣）
 - **产能**: 塑料 115/min · 橡胶 20/min · **石油焦 ~234/min**（残渣 ~78/min 本地转化，就地 sink）
-- **机器层 (0-35m)**:
-  - 1F (0-31m): 4 refinery（refinery **31m 高** × 10m 宽 × 20m 长；4 台并排 40m 宽 × 20m 长，刚好满 1 行）
-  - **关键约束**：refinery 占高 31m，机器层顶 31m，离屋顶总线（35m）只有 4m 空间。lift-top（塑料/橡胶上送）需要挤在这 4m 内。**残渣 pipe 在 1F 内部**（不上屋顶）。
+- **机器层 (0-35m，单层 1F)**:
+  - refinery 实测 **10m 宽 × 20m 长 × 31m 高**（registry/§1 确认，**不是 16m 长**），31m 高占满 1F 单层，**无 2F**（剩 35-40m 屋顶层）。
+  - sink 实测 **16m 宽 × 13m 长 × 24m 高**（高 24m 跨越 1F 0-24m）。
+  - **真实排布（与已通过 AABB 校验的 [BP09 详情文件](2026-05-24-tier7-blueprints/BP09-plastic-rubber.md) 完全一致）**——按 §2 公约横向 1 字符=1m、纵向 1 行=2m，refinery 长 20m→10 行、sink 长 13m→约 7 行；北墙 y=0 内缩 4m 留 fluid 进料巷：
+    - **北带 4 台 refinery（N-S，facing=south）**：R1-R3 plastic + **R4 rubber**，各 10W×20L，沿 x 首尾相接铺满北排（x0-40，y4-24）。fluid pipe 进料无 belt manifold 巷，宽向满排可接受。
+    - **南带 R5 coke（旋转 facing=east）**：20W×10L，落 x0-20、y27-37；back(残渣 fluid in) 在西侧朝 junction，front(coke belt out) 在东侧 x=20。
+    - **AWESOME Sink（16W×13L）**：落 x22-38、y25-38；in-0(back) 在西侧接 R5 coke 短 belt（~2m）。
+    - AABB 校验：R5(x0-20) 与 Sink(x22-38) x 区间不相交（gap 20-22）→ 无重叠；R5/Sink(y≥25) 与北带 R1-R4(y≤24) 不相交（1m 间隙给 collect belt）→ 无重叠；全部矩形落 0-40×0-40 内。
+
+```
+        x=0        10        20        30      40
+y=0   ┌──────────────────────────────────────┐  北墙
+       │ ←──── 北侧进料巷 (原油 manifold) 4m ──→ │  y=0-4 (rows0-1)
+y=4   ├────────┬─────────┬─────────┬──────────┤
+       │  R1    │   R2    │   R3    │   R4     │  refinery 长 20m
+       │ PLAS   │  PLAS   │  PLAS   │  RUBBER  │  = 10 行
+       │ 10×20  │  10×20  │  10×20  │  10×20   │  x0-40 y4-24
+       │ back↑  │  back↑  │  back↑  │  back↑   │  back(入料)在北
+       │ 191.67 │ 191.67  │ 191.67  │   100%   │  各 facing=south
+       │ out0 v │ out0 v  │ out0 v  │  out0 v  │  front(产品)在南 y24
+y=24  ├────────┴─────────┴─────────┴──────────┤  collect belt 走 y≈25 机身南外（在 x<22 段收口，避开 sink 所在 x22-38 区间，不穿 sink）
+       │ residue junction (4进1出) ─┐         │
+y=27  ┌──────────────────────┐     │  ┌──────┐│
+       │ R5 coke (旋转 E-W)   │←in0 └─→│ SINK ││  R5 back=西 接 junction
+       │ facing=east 20W×10L  │        │16×13 ││  R5 out0→(东 x20)
+       │ ×31H 195%(2 shard)   │═coke══>│in0<< ││  →sink ~2m belt
+y=37  └──────────────────────┘        │(234) ││  R5: x0-20 y27-37
+       (x0-20 y27-37)                  └──────┘│  SINK: x22-38 y25-38
+y=40  └────────────────────────────────────────┘  南墙
+```
+
+  - **关键约束（可建性，按 §1/§6）**：
+    - refinery 占高 31m，离屋顶总线（35m，BP09 详情建议抬到 36m 留 5m 余量）仅 4-5m。**lift-top 不是「挤在 4m 内」**——lift 从 1F 地面（refinery 输出口高度）一路升到屋顶（垂直跨度 ≥31m，远超 lift 最小 4m），**31-35/36m 这几 m 仅供 belt 横向走线**（先转弯相再续接屋顶 belt），不在此区段做垂直爬升。
+    - **5 refinery（每台 10×20m，单层）+ 1 sink（16×13m）在单个 40×40 Mk2 底面**：北带 4 台 N-S 铺满 x0-40 y4-24；南带 R5 coke 旋 90° 为 E-W（20×10，x0-20 y27-37）+ sink（16×13，x22-38 y25-38）在 x 方向错开（gap 20-22）放下，**无 AABB 重叠**（已逐角校验，见 BP09 详情文件）。
+    - **残渣 pipe 在 1F 内部短管直连**（R1-R4 塑料/橡胶残渣经 pipeline junction 汇入 R5 coke refinery 的 fluid-in），不上屋顶。
 - **屋顶总线层 (35-40m)**:
   - 自带 merger 把 塑料 注入 B4（95/min：55 给 BP8 + 40 给 BP14）和 B5 mainNode（20/min）
   - 自带 merger 把 橡胶 注入 B5 mainNode（20/min）
-  - **本地 sink 石油焦**（每实例 1F 角落配 1 awesome-sink，处理本实例 ~47/min 石油焦；不上 B6）
+  - **本地 sink 石油焦**（每实例配 1 awesome-sink，吃本实例 ~234/min 石油焦，1 条 Mk5 入料 belt，234 << 780/min；sink 无超频按 belt 速率；不上 B6）
 - **输入**: 原油 172.5/min（**油田直接喂**）+ 水（refinery 内部循环不需要外部输入）
 - **输出**:
   - 塑料 115/min → 屋顶总线 B4（55 给 BP8 + 40 给 BP14 = 95/min）+ B5 终端（20/min mainNode）
@@ -649,28 +683,28 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
   - AI 限制器 1 × 100%
 - **产能**: 石英晶体 40.5/min · 硅土 37.5/min · 快速线 370/min · 混凝土 111/min · AI 限制器 5/min
 - **机器层 (0-35m)**:
-  - 1F (0-8m): 8 constructor 排布（2 行：1 石英 + 1 硅土 + 3 快速线 = 5 一行；3 混凝土 一行）+ 1 assembler（AI 限制器 10×15m，与 constructor 错开布置）
-  - 注：8 constructor 共 64m² 占地（每台 80m²，共 640m²） + 1 assembler 150m² ≈ 790m²，1F 1600m² 装下
+  - constructor 实测 8×10×8m，assembler 实测 10×15×8m。
+  - 1F (0-8m，北墙内缩 4m 留进料巷)：8 constructor 分 **2 行**（每行 ≤4 台留侧向 belt 净空，不满宽零间隙）：第 1 行 1 石英晶体 + 1 硅土 + 2 快速线（4 台 × 8m + 间隙 ≈ 36m），第 2 行 1 快速线 + 3 混凝土（4 台）+ 1 AI 限制器 assembler（10×15m，与 constructor 行错开放在南侧空档）。
+  - 占地校验：8 constructor × 80m²（8×10）= 640m² + 1 assembler 150m²（10×15）= 790m²，1F 1600m² 装下（有富余留进料巷与 belt 折线净空）。
 - **屋顶总线层 (35-40m)**:
-  - 自带 smart splitter 从 B6 取 铜金锭 74/min（→ 3 快速线 constructor）
+  - 自带 smart splitter 从 B6 取 **caterium 锭（铜金锭）74/min**（→ 3 快速线 constructor；**标准 quickwire 配方原料就是 caterium 锭**，由 BP6 的 caterium 锭产线供给，与铜金锭来源一致）
   - 自带 merger 注入 B6：快速线 210/min（给 BP15 HSC）+ 石英晶体 18/min（给 BP15 晶振）
   - 自带 merger 注入 B4：混凝土 96/min（给 BP13 包裹）
   - 自带 merger 注入 B5：mainNode 量 = 石英晶体 22.5 + 硅土 37.5 + 快速线 60 + 混凝土 15 + AI 限制器 5 = 140/min
 - **输入**:
   - 原始石英 78/min（**矿场喂**，40.5/min 给石英晶体 + 37.5/min 给硅土）
-  - 铜金锭 74/min（**屋顶总线 B6** ← BP6）
+  - **caterium 锭（铜金锭）74/min**（**屋顶总线 B6** ← BP6；快速线 100% 消耗，是快速线的标准配方原料）
   - 石灰石 333/min（**矿场喂**）
-  - 铜板 25/min（**屋顶总线 B6 反向 不可行 → 改用 B4 反向也不可行 → 用集群内**...）
-  - **修正：铜板 25/min 给 AI 限制器，需要从 BP7（C3）到 BP10（C5）。从 C3 → C4 → C5 顺路，加到 B4 或 B6**
+  - **铜片 Copper Sheet 25/min**（给 AI 限制器；从 BP7（C3）→ BP10（C5），C3→C4→C5 顺路加到 B6 同向，BP10 屋顶 smart splitter 分取）
 - **输出**:
   - 石英晶体 40.5/min → BP10 内部 + B6（18 给 BP15）+ B5（22.5 mainNode）
   - 硅土 37.5/min → 屋顶总线 B5（mainNode）
   - 快速线 370/min → 集群内部 AI 限制器（100/min）+ B6（210/min 给 BP15 HSC）+ B5（60/min mainNode）
   - 混凝土 111/min → B4（96 给 BP13）+ B5（15 mainNode）
   - AI 限制器 5/min → B5（mainNode）
-- **屋顶总线接入**: 输入 B6（铜金锭 74）+ 输入 B4（铜板 25 反向... 修正：见下）+ 输出 B6（快速线 210 + 石英晶体 18 = 228）+ 输出 B4（混凝土 96）+ 输出 B5（140 mainNode）
+- **屋顶总线接入**: 输入 B6（caterium 锭 74 + 铜片 25 = 99）+ 输出 B6（快速线 210 + 石英晶体 18 = 228）+ 输出 B4（混凝土 96）+ 输出 B5（140 mainNode）
 
-> **铜板路由**：BP7（C3）→ BP10（C5），跨 C3→C4→C5。可加入 B4 或 B6（与 铜金锭 同向）。**最简方案**：在 B6 上 BP6 注入铜金锭、BP7 注入铜板（25/min），都流向 BP10。BP10 在屋顶用智能分流器分别取 74 铜金锭和 25 铜板。B6 之后段（BP10→BP15）只剩 快速线 210 + 石英晶体 18 = 228/min。
+> **铜片路由**：铜片 Copper Sheet（BP7/C3 产）→ BP10（C5），跨 C3→C4→C5。与 caterium 锭同向，统一走 B6：BP6 注入 caterium 锭、BP7 注入铜片（25/min），都流向 BP10；BP10 屋顶用智能分流器分别取 74 caterium 锭和 25 铜片。B6 之后段（BP10→BP15）只剩 快速线 210 + 石英晶体 18 = 228/min。
 
 ### BP11: 重生 SAM + SAM 波动器（**新增，C5 末端**）
 
@@ -679,8 +713,8 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **超频**: 重生SAM 2 × 150% / SAM波动器 1 × 100%
 - **产能**: 重生SAM 90/min · SAM波动器 10/min
 - **机器层 (0-35m)**:
-  - 1F (0-12m): 1 SAM波动器 manufacturer（20m × 22m，单层放下）
-  - 2F (16-24m, 4m 地基 12-16): 2 重生SAM constructor（2 × 8m = 16m × 10m）
+  - 1F (0-12m): 1 SAM波动器 manufacturer（实测 **20×22×12m**，**facing=south**：输入 front=南、输出 back=北）；机器占 y=4-26m，**北侧 ≥4m output lift 巷、南侧 row22-40 做 front 进料 manifold 平面**（电线/钢管/重生SAM 经南侧水平转弯相 → 进 front 口）。
+  - 2F (16-28m, 4m 地基 12-16): 2 重生SAM constructor（实测 8×10×8m，2 台 × 8m = 16m 宽 × 10m 长）
 - **屋顶总线层 (35-40m)**:
   - 自带 smart splitter 从 B3 取 电线 50/min（→ SAM波动器）+ 钢管 30/min（→ SAM波动器）
   - 自带 lift-bot 把 重生SAM 90/min 从 2F 送到 1F SAM波动器（其中 60 内部消耗 + 30 上 lift-top → B5）
@@ -702,10 +736,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 2 转子 + 2 定子 + 1 电机 assembler = **5 台**
 - **超频**: 转子 2 × 175.0% / 定子 2 × 150.0% / 电机 1 × 100%
 - **产能**: 转子 14/min · 定子 15/min · 电机 5/min
-- **机器层 (0-35m)**:
-  - assembler 10m × 15m × 8m
-  - 1F (0-8m): 4 assembler（2 转子 + 2 定子；2 行 × 2 台，20m 宽 × 30m 长）
-  - 2F (12-20m, 4m 地基 8-12): 1 电机 assembler
+- **机器层 (0-35m，按 §2 公约）**:
+  - assembler 实测 **10×15×8m**（§1）；输入 2 口在 back（北），**北墙内缩 4m 留进料巷**，collect belt 走南侧。
+  - 1F (0-8m): 4 assembler（2 转子 + 2 定子；2 行 × 2 台）——按真实 15m 进深排：北墙内缩 4m → row1 assembler y=4-19m，collect 巷 y=19-22m，row2 assembler y=22-37m（2 行 15m + collect 巷不超 40m）。
+  - 2F (12-20m, 4m 地基 8-12): 1 电机 assembler，北侧进料巷。
 - **屋顶总线层 (35-40m)**:
   - 自带 smart splitter 从 B1 取 螺丝（350/min）→ 转子
   - 自带 smart splitter 从 B2 取 铁棒（70/min）→ 转子
@@ -730,10 +764,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **机器**: 3 模块化框架 + 2 包裹工业梁 assembler = **5 台**
 - **超频**: 模块化框架 3 × 200.0% / 包裹工业梁 2 × 133.33%
 - **产能**: 模块化框架 12/min · 包裹工业梁 16/min
-- **机器层 (0-35m)**:
-  - assembler 10m × 15m × 8m
-  - 1F (0-8m): 3 模框 assembler（3 台一行 30m 宽 × 15m 长）
-  - 2F (12-20m, 4m 地基 8-12): 2 包裹 assembler（2 台一行 20m 宽 × 15m 长）
+- **机器层 (0-35m，按 §2 公约）**:
+  - assembler 实测 **10×15×8m**（§1）；输入 2 口在 back（北），**北墙内缩 ≥4m 留进料巷**（强化铁板/铁棒/钢梁/混凝土 manifold），机器占 y=4-19m，collect belt 走 front（南）边外。
+  - 1F (0-8m): 3 模框 assembler 东西向一排（3 × 10m = 30m，留 ~10m 侧墙 + 间隙净空）。
+  - 2F (12-20m, 4m 地基 8-12): 2 包裹 assembler（2 × 10m = 20m），同样北墙内缩留进料巷。
 - **屋顶总线层 (35-40m)**:
   - 自带 programmable splitter 从 B2 取 强化铁板 + 铁棒（共 90/min）
   - 自带 smart splitter 从 B3 取 钢梁（48/min）
@@ -757,13 +791,15 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **超频**: HMF 1 × 100% / 电脑 1 × 100%
 - **产能**: HMF 2/min · 电脑 2.5/min
 - **机器层 (0-35m)**:
-  - manufacturer 20m × 22m × 12m
-  - 1F (0-12m): 1 HMF + 1 电脑 manufacturer 并排（2 台共 40m 宽 × 22m 长，刚好满 1 层）
+  - manufacturer 实测 **20×22×12m**（W×L×H，§1）；**facing=south**（唯一输入在 front=南 4 口、输出 back=北 1 口；删除任何 facing=north / port reversed 措辞）。
+  - 1F (0-12m): 1 HMF + 1 电脑 manufacturer 东西向并排（2 台 × 20m = 40m 宽 × 22m 长）。**facing=south 进料巷在南侧**（机器 back 北侧 y=0-? 留 ≥4m 给 output lift；front 输入在南侧 y≈22m 处接进料 manifold）。
+  - 机器 long 22m → 占 y=4-26m（北侧留 ≥4m output lift 巷），南侧 y=26-40m 做 front 进料 manifold 平面（4 路输入横向 splitter 接 front 4 口）。
 - **屋顶总线层 (35-40m)**:
   - 自带 smart splitter 从 B2 取 螺丝（240/min）→ HMF
   - 自带 smart splitter 从 B3 取 钢管（40/min）→ HMF
   - 自带 programmable splitter 从 B4 取 电路板（10）+ 线缆（20）+ 塑料（50）→ 电脑
   - 自带 merger 把 HMF + 电脑 mainNode 量注入 B5（4.5/min）
+  - **output lift**：HMF/电脑成品从 manufacturer back（北）输出口经北侧 output lift 巷垂直上送屋顶（lift 集中专用 col，跨度 ≥23m）。
 - **输入**（HMF）:
   - 模块化框架 10/min（**集群内部短 belt** ← BP13）
   - 包裹工业梁 10/min（**集群内部短 belt** ← BP13）
@@ -785,8 +821,8 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 - **超频**: 各 1 × 100%
 - **产能**: 晶体振荡器 1/min · 高速连接器 3.75/min
 - **机器层 (0-35m)**:
-  - manufacturer 20m × 22m × 12m
-  - 1F (0-12m): 1 晶振 + 1 HSC manufacturer 并排（2 台共 40m × 22m，1 行装下）
+  - manufacturer 实测 **20×22×12m**（§1）；**facing=south**（输入 front=南 4 口、输出 back=北 1 口；无 facing=north / port reversed）。
+  - 1F (0-12m): 1 晶振 + 1 HSC manufacturer 东西向并排（2 台 × 20m = 40m 宽 × 22m 长），机器占 y=4-26m，**北侧 ≥4m output lift 巷 + 南侧 y=26-40m front 进料 manifold 平面**（4 口对应 4 路输入横向 splitter）。
 - **屋顶总线层 (35-40m)**:
   - 自带 smart splitter 从 B6 取 快速线 210/min（→ HSC）+ 石英晶体 18/min（→ 晶振）
   - 自带 programmable splitter 从 B4 取 线缆 51.5/min（14 给晶振 + 37.5 给 HSC）+ 电路板 3.75/min（→ HSC）
@@ -807,21 +843,21 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 - **机器**: 0
 - **内部**:
-  - 屋顶总线层（35-40m）：6 条 Mk5 belt 直通，左 Wall Inlet ↔ 右 Wall Outlet
+  - 屋顶总线层（35-40m，同一屋顶层）：**8 条 Mk5 belt 直通（6 active + 2 reserved，按子 cell row 间距并排）**，左 8 个 Wall Inlet ↔ 右 8 个 Wall Outlet，**Wall Mount 的 row 必须严格等于邻图对应 row**（否则 Auto Connect 失败）
   - 机器层（0-35m）：完全空着（仅地坪）
 - **用途**: 当集群之间有空隙（如做走道、扩容预留）时填充，保持总线连续
 - **预期使用**: 0-2 个（如果 14 个生产蓝图首尾紧贴，**完全不需要**）
 
 ### BP-TERM-A / BP-TERM-B: 终端汇流（位面存储 + sink overflow，2 个 Mk2 蓝图）
 
-- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站）** + **1 个共享 AWESOME Sink**（所有 26 mainNode 的 overflow 汇流到此）+ 26 个 smart splitter（每个 Uploader 前 1 个，filter=该物料，priority=Uploader / overflow→sink）
+- **机器**: 0 生产建筑 + **26 个 Dim Depot Uploader（位面存储上传站，尺寸待实测，假设 5×10×8m）** + **1 个共享 AWESOME Sink（16×13×24m，无超频）** + 26 个 smart splitter（每个 Uploader 前 1 个，filter=该物料，priority=Uploader / overflow→sink）+ **merger 级联汇流 overflow**（merger 是 3in1out，26 路 overflow 需 ⌈(26−1)/2⌉ = **13 个 merger 三级级联**，不是 1 个 merger）
 - **位置**: 工厂街最末端（紧贴 BP15 之后）
 - **占地评估**:
-  - Dim Depot Uploader **5×10m** × 26 = 1,300m²
+  - Dim Depot Uploader **5×10m**（待实测）× 26 = 1,300m²
   - AWESOME Sink **16×13m × 24m高** × 1 共享 = 208m²
-  - smart splitter 26 个 + merger 1 个 + 路由 ≈ 250m²
-  - 总 ≈ **1,758m²，仍稍超单 Mk2 1,600m²** → **拆 2 个 Mk2**：BP-TERM-A（13 Uploader）+ BP-TERM-B（13 Uploader + 1 共享 sink + 26 路 overflow 汇流）
-- **设计哲学**：26 mainNode → 26 Uploader 1:1（位面仓优先吃料）；overflow 时通过 merger 汇流到**唯一的共享 sink**（满载理论 396/min 远超 1 sink 容量 60-150/min，但实际 Uploader 持续传送，溢流速率远低于此，1 个 sink 足够）
+  - smart splitter 26 个 + merger **13 个（级联）** + 路由 ≈ 460m²
+  - 总 ≈ **1,968m²，超单 Mk2 1,600m²** → **拆 2 个 Mk2**：BP-TERM-A（13 Uploader）+ BP-TERM-B（13 Uploader + 1 共享 sink + 13 merger 级联汇流 overflow）。**Uploader 须米制排布留 ≥4m 给前置 smart splitter（节距 ≥14m），splitter 不得画在 Uploader 脚印内（R13）**。
+- **设计哲学**：26 mainNode → 26 Uploader 1:1（位面仓优先吃料）；overflow 时通过 merger 级联汇流到**唯一的共享 sink**。**AWESOME Sink 无超频、无内在吞吐上限**——它按入料 belt 速率吃料，单条 Mk5 belt = 780/min。26 mainNode 满载理论合计 396/min，**远低于单 Mk5 的 780/min**，且实际 Uploader 持续优先取料、溢流速率更低，因此 **1 个 sink + 1 条 Mk5 入料 belt 足够**。
 - **残渣 sink 不在这里**（已在 BP9 内部就地处理）
 - **Tier 7+ 预留 11 个槽位**：未来铝壳/铝包铝板/超级计算机/RCU/冷却系统/涡轮电机/融合模块框架/叠加振荡器/时间晶体/神经处理器/虚构三角 解锁后接入。BP-TERM 实际部署 **27 个 Uploader 槽位 + 11 个预留 slot**，27 路分流器树最多可分 27 路（用 1→3→9→27 三级树）。Tier 7+ 扩容时把分流器树扩成 1→3→9→27→81 四级树（最多 81 路，覆盖 37 mainNode 充分有余）。
 
@@ -832,10 +868,10 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
        │
        smart splitter (filter=item) × 26
        ├── 1 路 (priority): Dim Depot Uploader → 位面仓（独立容量上限 50-5000 视研究等级）
-       └── 2 路 (overflow): merger 汇流 → **唯一共享 awesome-sink**
+       └── overflow 路: 13 个 merger 三级级联（merger=3in1out）→ 1 条 Mk5 入料 belt → **唯一共享 awesome-sink**
 
 > 残渣处理在 BP9 内部完成（残渣 → coke → 石油焦 → 本地 sink），不进 BP-TERM
-> 共享 sink 设计依据：26 个 Uploader 持续向位面仓传送，溢流速率远低于 mainNode 总产能。1 个 sink @ 250% (≈150/min) 可消化绝大多数场景溢流；位面仓研究升级后 Uploader 容量大，溢流极少触发。
+> 共享 sink 设计依据：**AWESOME Sink 无超频、无内在吞吐上限，按入料 belt 速率吃料（单 Mk5 = 780/min）**。26 个 Uploader 持续优先向位面仓传送，溢流速率远低于 mainNode 总产能 396/min（< 780/min Mk5 上限）。1 个 sink + 1 条 Mk5 入料 belt 可消化全部溢流；位面仓研究升级后 Uploader 容量大，溢流极少触发。
 ```
 
 #### 屋顶总线层 (35-40m)
@@ -848,9 +884,9 @@ Satisfactory 蓝图设计器规定：**belt 必须两端连到建筑**。蓝图�
 
 #### 机器层 (0-35m)
 
-- 1F (0-12m): 中央 27 路分流器树（4-5 级 splitter cascade，覆盖 1→3→9→27 输出）
-- 1F (0-8m) 周围：26 个 Dim Depot Uploader + 26 个 mainNode sink overflow（每对 Uploader+sink ~6×4m，环绕中央分流器树）
-- 2F (16-32m, 4m 地基 12-16): 预留 11 个 Tier 7+ Uploader + sink 槽位
+- 1F (0-12m): 中央 27 路分流器树（3 级 1→3→9→27 splitter cascade）
+- 1F：26 个 Dim Depot Uploader 米制排布（每个 Uploader 占 5×10m，其前置 smart splitter 留 ≥4m，**节距 ≥14m，splitter 不画在 Uploader 脚印内**，R13）；每个 splitter 的 overflow 路汇入 **13 个 merger 三级级联** → 1 条 Mk5 入料 belt → **1 个共享 AWESOME Sink（16×13×24m，无超频）**
+- 2F (16-32m, 4m 地基 12-16): 预留 11 个 Tier 7+ Uploader 槽位（sink 仍为 1 个共享，不每物料 1 个）
 
 #### 玩家取材体验
 
@@ -945,8 +981,8 @@ Tier 9 解锁后这些产物会被启用：
 ### 默认方案：BP9 内部本地 coke + 本地 sink
 
 每个 BP9 实例**自包含**：
-- 1 台 refinery 跑 `petroleum-coke` 配方（40 残渣 → 120 石油焦），处理本实例 78 残渣（@250% 超频 = 100 残渣处理能力，余量 22）
-- 1 台 awesome-sink @250% 超频（吃本实例产出的 234 石油焦/min；sink 上限 60 × 4 = 240/min @250%，刚好够）
+- 1 台 refinery 跑 `petroleum-coke` 配方（40 残渣 → 120 石油焦），处理本实例 78 残渣（@195% ≈ 78 残渣处理能力，2 shard）
+- 1 台 awesome-sink（**无超频、无内在吞吐上限，按入料 belt 速率吃料**；本实例石油焦 ~234/min 用 1 条 Mk5 belt 入料即可，234 << Mk5 780/min）
 - 残渣 pipe 在 1F 内部短管直连，不出蓝图
 
 **T6 最简实施**：BP9a 单实例满载 5 槽位（3 plastic + 1 rubber + 1 coke）+ 1 sink；BP9b-e 物理建造但 Power Switch 全关。
@@ -985,7 +1021,7 @@ Tier 9 解锁后这些产物会被启用：
 | BP3 | 螺丝 | 9 | 12 | 16 | 19 | C6 装配/HMF 全部要 |
 | BP4 | 钢锭 | 5 | 5 | 6 | 6 | 钢系 uplift 较小 |
 | BP5 | 钢梁/钢管 | 2+3 | 2+4 | 3+5 | 3+5 | 钢梁/钢管 1.4-1.6x |
-| BP6a/b | 铜锭/铜金锭 | 5+2 | 14+4 | 20+6 | 23+8 | 铜金锭因 RCU/HSC uplift 显著 |
+| BP6a/b/c | 铜锭/铜金锭 | 5+2 | 14+4 | 20+6 | 23+8 | 拆 3 个 Mk2；铜金锭因 RCU/HSC uplift 显著 |
 | BP7a/b/c | 铜板/电线/线缆 | 3+6+2 | 8+12+4 | 14+16+6 | 18+20+8 | 拆 3 个 Mk2，电线最紧张 |
 | BP8 | 电路板 | 1 | 4 | 6 | 8 | 电脑 uplift 11x，电路板大头 |
 | BP9a-g | 塑料/橡胶/coke | 3+1+1 | 11+1+3 | 18+2+5 | 23+2+7 | T6 BP9a 单实例满载（5 台）；T7 3 实例；T8 5 实例；T9 **7 实例**（BP9a-g，全部 Plan C 250%）|
@@ -993,9 +1029,9 @@ Tier 9 解锁后这些产物会被启用：
 | BP11 | 重生SAM/SAM波动器 | 2+1 | 2+1 | 2+1 | 2+1 | uplift 1.0-2.2x，无变化 |
 | BP12 | 转子/定子/电机 | 2+2+1 | 3+3+1 | 3+3+1 | 3+3+1 | T7 起满载 |
 | BP13 | 模框/包裹工业梁 | 3+2 | 3+2 | 4+2 | 4+2 | 装配类，1.5-1.6x |
-| BP14a/b | HMF/电脑 | 1+1 | 1+3 | 1+4 | 1+5 | 电脑 11x（5 manufacturer 满载） |
-| BP15a/b | 晶振/HSC | 1+1 | 2+1 | 3+2 | 4+2 | 晶振 9x |
-| **小计** | | **95** | **170** | **220** | **250** | **物理建造 250 不变** |
+| BP14a/b/c | HMF/电脑 | 1+1 | 1+3 | 1+4 | 1+5 | 拆 3 个 Mk2；电脑 11x（5 manufacturer 满载） |
+| BP15a/b/c | 晶振/HSC | 1+1 | 2+1 | 3+2 | 4+2 | 拆 3 个 Mk2；晶振 9x |
+| **小计** | | **96** | **170** | **220** | **250** | **物理建造 250 不变** |
 
 > **当前阶段定位**：T7 milestone 已解锁但激活数仍为 T6 列（96 台）。表中 T7/T8/T9 列代表玩家后续扩产步骤。
 
@@ -1022,7 +1058,7 @@ T7 当前用 B1-B6 active（Mk5）+ B7-B8 reserved（0 流量）。Tier 8/9 启�
 
 ### 3. BP-TERM 37-mainNode 最终布局
 
-Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-sink**（37 mainNode；残渣 sink 在 BP9 本地不计入）。
+Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader**（37 mainNode 各 1 个）+ **少量共享 AWESOME Sink**（不是 37 个）：**AWESOME Sink 无超频、按入料 belt 速率吃料（单 Mk5 = 780/min）**，37 mainNode overflow 经 merger 级联合并后总速率仍远低于单 Mk5，**1-2 个共享 sink + 对应 Mk5 入料 belt 即可**（残渣 sink 在 BP9 本地，不计入）。
 
 | 实例 | Tier 6 | Tier 7 | Tier 8 | Tier 9 |
 |---|---|---|---|---|
@@ -1130,7 +1166,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 
 - **集群**: C9
 - **机器**: 3 quantum encoder（神经量子处理器/叠加振荡器各 1，AI 扩展服务器或暗物质晶体 1）= **3 台**
-- **机器层**: quantum encoder 22m × 48m × 8m，1 Mk3（48m × 48m × 48m）装 2 台 → 拆 **2 个 Mk3** (BP21a/b)
+- **机器层**: quantum encoder 实测 **22×48×8m**（§1）。机器长 48m 几乎占满 Mk3 整个 48m 进深，**3 back 输入口的进料巷 + back output lift + front 走线净空都需额外空间**——**1 Mk3 蓝图只放 1 台 encoder** → 拆 **3 个 Mk3** (BP21a/b/c)。（48m 宽虽可并 2 台 22m，但 48m 长方向无余量留进料巷/lift，故 1 台/Mk3。）
 - **输入**（混合各种 Tier 7+ 中间品）:
   - 时间晶体（**集群内** ← BP22）
   - 铝包铝板/散热器（B7）
@@ -1219,7 +1255,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 |---|---|
 | **铜板/橡胶/电路板 反向跨 C7-C9 距离过远** | 在 BP-TERM-A 之后留 1 条反向 belt 槽（B-rev）专跑 C3/C4 → C7-C9 反向流量；或 C7-C9 自带小型铜板/橡胶旁挂蓝图 |
 | **B3 电线总线 T9 时 ~1400/min 即使 Mk6 也不够** | 物理建造时 B3 槽位预留拆分位置（B3a + B3b 共 2 槽，占用 B7/B8 reserved 中的 1 个或新增槽位）|
-| **BP14b/BP15b 电脑/HSC manufacturer T9 满载需要 5+2 = 7 台** | BP14a/b 已物理建造 6 个 manufacturer 槽位（5 电脑 + 1 HMF），HSC 4 台需在 BP15a/b 物理建造 4 manufacturer 槽位 |
+| **电脑/HSC manufacturer T9 满载需要 5+2 + 4 晶振 = 多台** | BP14a/b/c 已物理建造 6 个 manufacturer 槽位（5 电脑 + 1 HMF），BP15a/b/c 物理建造 6 个槽位（4 晶振 + 2 HSC）|
 | **C8/C9 集群电力 ~15 GW** | T8 时建 4-5 座核电站（每座 2.5 GW）；外星能量增幅器 +10% 全网 buff |
 | **Mk3 蓝图占地 48m** | C9 集群预留 ~150m × 50m 空地（3 个 Mk3 平行）|
 | **氮气/水管线跨集群** | T7 时统一在 C7-C9 集群屋顶 5m 厚预留 2 条 pipe 槽（独立于 belt 槽）|
@@ -1254,7 +1290,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 | 23 | BP19a（涡轮电机/冷却系统）| 唯一 | 1 | C8 |
 | 24 | BP19b（融合模块框架）| 唯一 | 1 | C8 |
 | 25 | BP20（RCU/超级计算机）| 唯一 | 1 | C8 |
-| 26 | BP21a/b（量子编码站，**Mk3 蓝图**）| 复制 | 2 | C9 |
+| 26 | BP21a/b/c（量子编码站，**Mk3 蓝图，1 台 encoder/Mk3**）| 复制 | 3 | C9 |
 | 27 | BP22（时间晶体/转化站，**Mk3 蓝图**）| 唯一 | 1 | C9 |
 | 28 | BP23（暗物质/激发光子，**Mk3 蓝图**）| 唯一 | 1 | C9 |
 | 29 | BP24（虚构链，**Mk3 蓝图**）| 唯一 | 1 | C9 末 |
@@ -1265,18 +1301,18 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 - Tier 7-9 全开: **+11 个 Mk2/Mk3 蓝图**（C7 4 + C8 3 + C9 4），共 **28-29 个唯一蓝图设计**
 
 **实际放置数**:
-- Tier 6: **17-19 个**（含拆分实例 BP2a/b、BP6a/b、BP7a/b/c、BP9a-e、BP10a/b、BP14a/b、BP15a/b 计 22-24 个 Mk2 实例）
-- Tier 9 全开: **35-40 个 Mk2/Mk3 蓝图实例**
+- Tier 6/7: 含拆分实例 BP2a/b（2）+ BP6a/b/c（3）+ BP7a/b/c（3）+ BP9a-g（7）+ BP10a/b（2）+ BP14a/b/c（3）+ BP15a/b/c（3），加单实例蓝图（BP1/3/4/5/8/11/12/13 = 8）= **31 个 Mk2 生产实例** + 2 终端（BP-TERM-A/B）= **33 个 Mk2 实例**（可选 filler 另计）
+- Tier 9 全开: **+C7/C8/C9 实例（含 BP21a/b/c 3 个 Mk3 等）≈ 45-50 个 Mk2/Mk3 蓝图实例**
 
 ## 跨蓝图连接清单（Auto Connect 后）
 
 | 连接类型 | 手接节数（无 Auto Connect） | 手接节数（Auto Connect 1.1） | 备注 |
 |---|---:|---:|---|
-| 蓝图屋顶总线 belt 间续接（6 belt × 15 生产蓝图 + 2 终端 = 102 对）| 102 | **0** | Auto Connect 自动 |
+| 蓝图屋顶总线 belt 间续接（8 belt × 33 实例边界，约 256 对）| ~256 | **0** | Auto Connect 自动（8 条 belt，含 2 reserved）|
 | 集群内蓝图侧墙短 belt（C1: BP1↔BP2 铁锭 + BP2↔BP3 铁棒 + BP3↔BP2 螺丝回流；C2: BP4↔BP5 钢锭；C3: BP6↔BP7 铜锭 + BP7↔BP8 铜板；C5: BP10↔BP11（无 集群内 belt，BP11 自有 SAM 矿场喂入）；C6: BP13↔BP14 模框 + 包裹）| ~10 | **0** | Auto Connect 自动 |
 | 矿场 → 集群（铁矿×3 / 铜矿 / 铜金矿 / 煤 / 原始石英 / 石灰石 / 原油 / **SAM**）| 10 | **10** | 矿场不是蓝图，仍需手接 |
 | BP-TERM 内部 26 路分流到仓储 | 26 | **0** | 在 BP-TERM 蓝图内部，已包含在蓝图设计 |
-| **合计** | **~148 节** | **10 节** | Auto Connect 把工作量降低 ~93% |
+| **合计** | **~302 节** | **10 节** | Auto Connect 把工作量降低 ~97% |
 
 ## 实施分阶段
 
@@ -1289,7 +1325,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 
 ### 阶段 1：核心铁链（C1，物理建造 + 部分激活）
 
-1. **物理建造**：BP1 铁锭（18 smelter）+ BP2a/b 铁基础（33 机器分两 Mk2）+ BP3 螺丝（19 constructor）
+1. **物理建造**：BP1 铁锭（18 smelter）+ BP2a/b 铁基础（**物理 44 槽位分两 Mk2，T9 激活上限 33**）+ BP3 螺丝（19 constructor）
 2. **当前激活**：BP1 启用 9 台 + BP2a/b 启用 18 台（铁板 4 + 铁棒 11 + RIP 3）+ BP3 启用 9 台
 3. 其余 ~33 台关 Power Switch
 4. 接入矿场：铁矿石 1140/min 当前需求，**矿场容量按 3000+/min 预留**（Tier 7+ 上限）
@@ -1297,21 +1333,21 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 
 ### 阶段 2：钢链（C2）+ 铜电（C3）
 
-6. **物理建造**：BP4（6 foundry）+ BP5（8 constructor）+ BP6a/b（31 smelter 分两 Mk2）+ BP7a/b/c（46 constructor 分三 Mk2）+ BP8（8 assembler）
+6. **物理建造**：BP4（6 foundry）+ BP5（8 constructor）+ BP6a/b/c（**33 smelter 分三 Mk2**）+ BP7a/b/c（46 constructor 分三 Mk2）+ BP8（8 assembler）
 7. **当前激活**：钢锭 5 + 钢梁 2 + 钢管 3 + 铜锭 5 + 铜金锭 2 + 铜板 3 + 电线 6 + 线缆 2 + 电路板 1 = 29 台
 8. 矿场接入（铁矿石 + 煤 + 铜矿石 + 铜金矿石），按 Tier 7+ 流量预留
 
 ### 阶段 3：油 + MAM（C4 + C5）
 
-9. **物理建造**：BP9a-e（25 refinery 分五 Mk2，**每个蓝图 5 台**）+ BP10a/b（28 机器分两 Mk2）+ BP11（3 机器单 Mk2）
+9. **物理建造**：BP9a-g（**35 refinery 分七 Mk2，每个蓝图 5 台 = 3 塑料 + 1 橡胶 + 1 coke**，T6 即全部建好）+ BP10a/b（28 机器分两 Mk2）+ BP11（3 机器单 Mk2）
 10. **当前激活**：塑料 3 + 橡胶 1 + 石英晶体 1 + 硅土 1 + 快速线 3 + 混凝土 3 + AI 限制器 1 + 重生SAM 2 + SAM波动器 1 = 16 台
 11. 矿场接入（原油、原始石英、石灰石、SAM）
 
 ### 阶段 4：装配 + 终端（C6 + BP-TERM）
 
-12. **物理建造**：BP12（7 assembler 单 Mk2）+ BP13（6 assembler 单 Mk2）+ BP14a/b（6 manufacturer 分两 Mk2）+ BP15a/b（6 manufacturer 分两 Mk2）+ **BP-TERM-A/B 双 Mk2**（Dim Depot Uploader 5×10m，超出单 Mk2 容量）
+12. **物理建造**：BP12（7 assembler 单 Mk2）+ BP13（6 assembler 单 Mk2）+ BP14a/b/c（**6 manufacturer 分三 Mk2，1 Mk2 装 2 台**）+ BP15a/b/c（**6 manufacturer 分三 Mk2**）+ **BP-TERM-A/B 双 Mk2**（Dim Depot Uploader 5×10m 待实测，超出单 Mk2 容量）
 13. **当前激活**：转子 2 + 定子 2 + 电机 1 + 模框 3 + 包裹 2 + HMF 1 + 电脑 1 + 晶振 1 + HSC 1 = 14 台
-14. 全部 ~22 个 Mk2 蓝图首尾紧贴（**Auto Connect 自动续接屋顶 8 条总线 belt + 集群内侧墙短 belt**）
+14. 全部 **33 个 Mk2 蓝图实例**（31 生产 + 2 终端）首尾紧贴（**Auto Connect 自动续接屋顶 8 条总线 belt + 集群内侧墙短 belt**）
 15. 验证总线 B1-B6 流量符合预期，B7/B8 reserved 暂时空跑
 
 ### 阶段 5：电力 + Dim Depot
@@ -1332,7 +1368,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 
 ## 验收标准（当前 Tier 7 阶段）
 
-- **物理建造 ~250 台机器**全部部署到 22 个 Mk2 蓝图实例（~16-18 个唯一蓝图设计）
+- **物理建造 ~250 台机器**全部部署到 **33 个 Mk2 蓝图实例**（17-18 个唯一蓝图设计）
 - **当前激活 96 台**机器（其余通过 Power Switch 关闭，Power Switch 集群按蓝图分组）
 - 所有 26 个 mainNode 在 BP-TERM Dim Depot Uploader 有可见的稳定输入流（位面仓自动装填）
 - SAM 矿场 360/min 持续供应 BP11
@@ -1407,7 +1443,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 | 物流 | 11F-15F 5 层汇流树 | **6 条 Mk5 总线 + 智能分流器** |
 | 主输出 | 1/min 全部 | **该产物 1 台 100% 满载产能** |
 | 时钟 | 100% | **超频 ≤250%（Plan C）** |
-| 机器数 | 27（仅 15 mainNode 子集）| **95（26 mainNode 子集，含 MAM Caterium/Quartz/Alien Tech 解锁）** |
+| 机器数 | 27（仅 15 mainNode 子集）| **96（26 mainNode 子集，含 MAM Caterium/Quartz/Alien Tech 解锁）** |
 | Tier 7 基准 | 未明确 | **Mk5 belt 已升级** |
 
 ## 实施前置条件
@@ -1418,7 +1454,7 @@ Tier 9 全开后 BP-TERM 需容纳 **37 个 Dim Depot Uploader + 37 个 awesome-
 
 | 建筑 | 维度 (W × L × H) | powerUsage | category | 端口约定 |
 |---|---|---:|---|---|
-| `dim-depot-uploader` | 5 × 10 × 8 m | TBD | logistics | 1 belt-in 'back' |
+| `dim-depot-uploader` | 5 × 10 × 8 m **（尺寸待游戏内实测；游戏内无独立建筑确证，暂参照 storage 假设 5×10×8m）** | TBD | logistics | 1 belt-in 'back' |
 | `awesome-sink` | 16 × 13 × 24 m | TBD | logistics | 1 belt-in 'back' |
 | `power-switch` | 2 × 1 × 4 m | 0 | logistics | 无 belt 端口（电力网建筑）|
 | `wall-conveyor-outlet` | 0.8 × 2 × 2 m | 0 | logistics | 1 belt-out 'front'，墙嵌入式 |
@@ -1434,7 +1470,10 @@ Quantum Encoder 尺寸 22 × 48 × 8 m，**长 48m 超出 Mk2 内部 40m**，无
 - **方案 1（推荐）**：用 **Mk3 蓝图设计器**（内部 48 × 48 × 48m，刚好装下）。Mk3 解锁条件就是 Tier 9 Quantum Encoding milestone，所以时机对得上
 - **方案 2**：手动放置 quantum encoder 在 C9 集群空地，外接 belt（不入蓝图）
 
-至于其他大型建筑：粒子加速器 38×24×38（fits Mk2）、转化站 16×16×16（fits）、混合机 19×16×16（fits）—— 都能装 Mk2，无需 Mk3。
+至于其他大型建筑：
+- **粒子加速器 实测 38×24×38m（高 38m，§1）**：底面 38×24 能塞进 Mk2 的 40×40，但**高 38m 会穿过 Mk2 屋顶总线层（35-40m）**——机器顶面 38m 撞进 35-40m belt 区。**因此粒子加速器也须放 Mk3 蓝图**（48m 净高，机器 38m + 屋顶 belt 留在 40m 以上才不冲突），不能放 Mk2。
+- 转化站 16×16×16m（fits Mk2）、混合机 blender 19×16×16m（fits Mk2）—— 高度 16m，可装 Mk2。
+- 结论：**Quantum Encoder（长 48m）与 Particle Accelerator（高 38m）都用 Mk3 蓝图**；其余大型机仍可 Mk2。
 
 ## 文件交付物
 
