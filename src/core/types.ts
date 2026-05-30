@@ -148,7 +148,7 @@ export interface SchemeIndex {
 
 // ===== 视图状态 =====
 
-export type ViewMode = 'single' | 'linked';
+export type ViewMode = 'single' | 'linked' | 'manual';
 
 export interface Viewport {
   zoom: number;
