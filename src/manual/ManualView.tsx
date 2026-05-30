@@ -17,12 +17,23 @@ function fileName(path: string): string {
 
 const docPaths = Object.keys(docModules).sort();
 
+// 递归把 React children 拍平为纯文本（处理字符串/数组/嵌套元素）。
+// 不能用 String(children)：children 为数组时会被逗号 join，破坏 ASCII 网格。
+function extractText(node: unknown): string {
+  if (node == null || node === false) return '';
+  if (typeof node === 'string') return node;
+  if (typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join('');
+  if (typeof node === 'object' && 'props' in node) {
+    return extractText((node as ReactElement<{ children?: unknown }>).props?.children);
+  }
+  return '';
+}
+
 // fenced code block：react-markdown 渲染为 <pre><code>…</code></pre>。
 // 自定义 pre 取出 code 文本，交给 AsciiBlock 做字符网格对齐。
 function PreBlock(props: ComponentProps<'pre'>) {
-  const child = props.children as ReactElement<{ children?: unknown }> | undefined;
-  const codeText = child && child.props ? child.props.children : undefined;
-  const raw = String(codeText ?? '');
+  const raw = extractText(props.children);
   return <AsciiBlock text={raw} />;
 }
 
