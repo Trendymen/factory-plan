@@ -49,7 +49,7 @@ md 中用带语言标签的围栏块承载结构化图数据（人读无害、�
 
 react-markdown 配 `components={{ code }}`：当 `className` 含 `language-diagram` → 取 children 文本 → `parseDiagramBlock` → `<DiagramView data={...}/>`；其它代码块走默认渲染。
 
-**`DiagramScheme` 类型**（独立定义于 `src/diagram/diagramTypes.ts`，不复用严格的 `core/types.ts`）。BP01-1F 示例：
+**`DiagramScheme` 类型**（独立定义于 `src/diagram/diagramTypes.ts`，不复用严格的 `core/types.ts`）。**首批为单层结构**：一个 `DiagramScheme` = 一张图 = 一层（无 `floors` 数组）；叠层 BP14 用两个独立 ```diagram 块分别画 1F/2F。多层叠一张图是后续（§11）。BP01-1F 示例：
 
 ```json
 {
