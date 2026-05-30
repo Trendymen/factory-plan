@@ -14,6 +14,7 @@ import { AppErrorFallback } from './ui/AppErrorFallback';
 import { ViewErrorFallback } from './ui/ViewErrorFallback';
 import { FloorPlanView } from './views/FloorPlanView';
 import { LinkedFloorView } from './views/LinkedFloorView';
+import { ManualView } from './manual/ManualView';
 
 const schemeModules = import.meta.glob<Scheme>('/data/schemes/*.json', { eager: false });
 
@@ -172,7 +173,8 @@ function AppContent() {
           {currentScheme && viewMode === 'linked' && (
             <LinkedFloorView scheme={currentScheme} />
           )}
-          {!currentScheme && (
+          {viewMode === 'manual' && <ManualView />}
+          {!currentScheme && viewMode !== 'manual' && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
               加载方案中...
             </div>
