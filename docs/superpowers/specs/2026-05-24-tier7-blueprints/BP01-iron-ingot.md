@@ -86,36 +86,6 @@
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
-```diagram
-{
-  "id": "BP01-1F",
-  "title": "BP01 1F (0-10m)：9× 冶炼炉 → 铁锭",
-  "grid": { "cols": 10, "rows": 4 },
-  "zones": [
-    { "label": "冶炼区", "col": 0, "row": 0, "w": 10, "h": 2, "color": "#3a8" }
-  ],
-  "machines": [
-    { "id": "S1", "type": "smelter", "col": 0, "row": 0.5, "facing": "south", "label": "S1", "recipe": "铁锭" },
-    { "id": "S2", "type": "smelter", "col": 1, "row": 0.5, "facing": "south", "label": "S2", "recipe": "铁锭" },
-    { "id": "S3", "type": "smelter", "col": 2, "row": 0.5, "facing": "south", "label": "S3", "recipe": "铁锭" },
-    { "id": "S4", "type": "smelter", "col": 3, "row": 0.5, "facing": "south", "label": "S4", "recipe": "铁锭" },
-    { "id": "S5", "type": "smelter", "col": 4, "row": 0.5, "facing": "south", "label": "S5", "recipe": "铁锭" },
-    { "id": "S6", "type": "smelter", "col": 5, "row": 0.5, "facing": "south", "label": "S6", "recipe": "铁锭" },
-    { "id": "S7", "type": "smelter", "col": 6, "row": 0.5, "facing": "south", "label": "S7", "recipe": "铁锭" },
-    { "id": "S8", "type": "smelter", "col": 7, "row": 0.5, "facing": "south", "label": "S8", "recipe": "铁锭" },
-    { "id": "S9", "type": "smelter", "col": 8, "row": 0.5, "facing": "south", "label": "S9", "recipe": "铁锭" }
-  ],
-  "belts": [
-    { "id": "b1", "mark": 2, "from": "S1:out-0", "path": [[0.375, 1.625], [0.375, 3], [9, 3]], "label": "collect" },
-    { "id": "b2", "mark": 2, "from": "S5:out-0", "path": [[4.375, 1.625], [4.375, 3]] },
-    { "id": "b3", "mark": 2, "from": "S9:out-0", "path": [[8.375, 1.625], [8.375, 3], [9, 3]] }
-  ],
-  "notes": [
-    { "col": 9, "row": 3.2, "text": "→ 送往主母线" }
-  ]
-}
-```
-
 - S1-S9：9 台 smelter（iron-ingot），T6 **全部通电**
 - col=4 row=2 空位：作为 manifold + 主 lift 操作区
 - 进料：左 Wall Inlet ×2 Mk5 槽 (z=4m) → splitter manifold → 喂 1F 9 台 + 续接 lift-up 给 2F
