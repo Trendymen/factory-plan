@@ -132,7 +132,7 @@ body {
 
 .topbar-title {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: 0.14em;
@@ -156,7 +156,7 @@ body {
 
 .topbar-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.1em;
@@ -170,7 +170,7 @@ body {
   border-radius: 4px;
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 8px;
   cursor: pointer;
   outline: none;
@@ -203,7 +203,7 @@ body {
   border-radius: 3px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   padding: 3px 10px;
   cursor: pointer;
@@ -283,7 +283,7 @@ body {
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   letter-spacing: 0.1em;
@@ -305,7 +305,7 @@ body {
 
 .section-badge {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
   background: rgba(255, 255, 255, 0.06);
@@ -335,7 +335,7 @@ body {
   border-radius: 4px;
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
   text-align: left;
   width: 100%;
@@ -419,7 +419,7 @@ body {
 
 .layer-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
   opacity: 0.7;
   transition: color 0.12s, opacity 0.12s;
@@ -447,7 +447,7 @@ body {
 }
 
 .switch-label {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
@@ -747,7 +747,7 @@ body {
 
 .tooltip-title {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
@@ -755,7 +755,7 @@ body {
 
 .tooltip-type {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   color: var(--text-muted);
   margin-left: auto;
   white-space: nowrap;
@@ -775,14 +775,14 @@ body {
 
 .tooltip-key {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-secondary);
   opacity: 0.8;
 }
 
 .tooltip-val {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-primary);
   font-feature-settings: 'tnum';
   text-align: right;
@@ -838,7 +838,7 @@ body {
 
 .detail-title {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -846,7 +846,7 @@ body {
 
 .detail-type {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
   letter-spacing: 0.05em;
 }
@@ -883,14 +883,14 @@ body {
 
 .detail-key {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-secondary);
   opacity: 0.8;
 }
 
 .detail-val {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-primary);
   font-feature-settings: 'tnum';
 }
@@ -903,7 +903,7 @@ body {
 
 .detail-section-title {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
   letter-spacing: 0.12em;
@@ -929,7 +929,7 @@ body {
   background: linear-gradient(90deg, #131a24, #151c28);
   box-shadow: inset 0 1px 0 var(--border);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
   flex-shrink: 0;
   overflow: hidden;
@@ -948,12 +948,12 @@ body {
 .bottom-label {
   color: var(--text-secondary);
   opacity: 0.7;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .bottom-value {
   color: var(--text-secondary);
-  font-size: 10px;
+  font-size: 12px;
   font-feature-settings: 'tnum';
 }
 
@@ -992,7 +992,7 @@ body {
   gap: 8px;
   padding: 4px 14px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .stat-dot {
@@ -1003,7 +1003,7 @@ body {
 }
 
 .stat-label {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -1012,7 +1012,7 @@ body {
 
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-primary);
   text-align: right;
@@ -1021,7 +1021,7 @@ body {
 }
 
 .stat-unit {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-muted);
   margin-left: 1px;
@@ -1037,7 +1037,7 @@ body {
 
 .power-value {
   font-family: var(--font-mono);
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--power);
   font-feature-settings: 'tnum';
@@ -1046,7 +1046,7 @@ body {
 
 .power-unit {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
   color: var(--text-muted);
 }
@@ -1066,7 +1066,7 @@ body {
   padding: 3px 8px;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .legend-swatch {
@@ -1078,7 +1078,7 @@ body {
 
 .legend-text {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -1101,7 +1101,7 @@ body {
 
 .legend-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
