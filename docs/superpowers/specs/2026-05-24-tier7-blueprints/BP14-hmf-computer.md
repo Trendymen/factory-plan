@@ -82,8 +82,8 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ───────────────► Lo  out-0 -> roof B5    │ ← 北侧 0-4m output lift 净空巷
- 2      │┌───────────────────┐    L   HMF 2/min mainNode  │   (out-0 水平东引到 col3.5 再 lift-UP)
+ 0      │  out-0 ───────────────► Lo  out-0 -> roof B5     │ ← 北侧 0-4m output lift 净空巷
+ 2      │┌───────────────────┐    L   HMF 2/min mainNode   │   (out-0 水平东引到 col3.5 再 lift-UP)
  4      ││         ^ (back N) │        T6 ON (Network A)   │
  6      ││  HMF* manufacturer │                            │
  8      ││  20m W x 22m L     │   front in 0-3 (south,     │
@@ -115,8 +115,8 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5│ ← 北侧 0-4m output lift 净空巷
- 2      │┌───────────────────┐         L   computer 2.5   │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
+ 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5 │ ← 北侧 0-4m output lift 净空巷
+ 2      │┌───────────────────┐         L   computer 2.5    │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
  4      ││         ^ (back N) │             T6 Switch OFF  │
  6      ││ Computer manufact. │             → T7 翻 ON (B) │
  8      ││  20m W x 22m L     │   front in 0-3 (south,     │
@@ -149,7 +149,7 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ───────────────► Lo  out-0 -> roof B5    │ ← 北侧 0-4m output lift 净空巷
+ 0      │  out-0 ───────────────► Lo  out-0 -> roof B5     │ ← 北侧 0-4m output lift 净空巷
  2      │┌───────────────────┐    L   computer 2.5/min     │
  4      ││         ^ (back N) │        T6 ON (Network A)   │
  6      ││ Computer* manufact │                            │
@@ -181,8 +181,8 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5│ ← 北侧 0-4m output lift 净空巷
- 2      │┌───────────────────┐         L   computer 2.5   │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
+ 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5 │ ← 北侧 0-4m output lift 净空巷
+ 2      │┌───────────────────┐         L   computer 2.5    │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
  4      ││         ^ (back N) │             T6 Switch OFF  │
  6      ││ Computer manufact. │             → T8 翻 ON (C) │
  8      ││  20m W x 22m L     │   front in 0-3 (south,     │
@@ -213,7 +213,7 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ───────────────► Lo  out-0 -> roof B5    │ ← 北侧 0-4m output lift 净空巷
+ 0      │  out-0 ───────────────► Lo  out-0 -> roof B5     │ ← 北侧 0-4m output lift 净空巷
  2      │┌───────────────────┐    L   computer 2.5/min     │
  4      ││         ^ (back N) │        T6 Switch OFF       │
  6      ││ Computer manufact. │        → T7 翻 ON (B)      │
@@ -245,8 +245,8 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5│ ← 北侧 0-4m output lift 净空巷
- 2      │┌───────────────────┐         L   computer 2.5   │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
+ 0      │  out-0 ──────────────────► Lo2  out-0 -> roof B5 │ ← 北侧 0-4m output lift 净空巷
+ 2      │┌───────────────────┐         L   computer 2.5    │   (2F lift 用 col=4.0，避开 1F lift col=3.5)
  4      ││         ^ (back N) │             T6 Switch OFF  │
  6      ││ Computer manufact. │             → T9 翻 ON (D) │
  8      ││  20m W x 22m L     │   front in 0-3 (south,     │
@@ -279,12 +279,12 @@
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 2      │ o B1 ──────────────────────────────────────── o │ row≈0.25
- 6      │ o B2 ──[smart split: screw 240]────────────── o │ row≈0.75
-10      │ o B3 ──[smart split: steel-pipe 40]────────── o │ row≈1.25
-14      │ o B4 ──[prog split: CB10+Cable20+Plastic50]── o │ row≈1.75  ← 唯一一处程序分流器
-18      │ o B5 ──[merger << lift-UP mainNode]────────── o │ row≈2.25
-22      │ o B6 ──────────────────────────────────────── o │ row≈2.75
+ 2      │ o B1 ──────────────────────────────────────── o  │ row≈0.25
+ 6      │ o B2 ──[smart split: screw 240]────────────── o  │ row≈0.75
+10      │ o B3 ──[smart split: steel-pipe 40]────────── o  │ row≈1.25
+14      │ o B4 ──[prog split: CB10+Cable20+Plastic50]── o  │ row≈1.75  ← 唯一一处程序分流器
+18      │ o B5 ──[merger << lift-UP mainNode]────────── o  │ row≈2.25
+22      │ o B6 ──────────────────────────────────────── o  │ row≈2.75
 26      │                                                  │
 28      │ B2/B3 smart split → lift-DOWN：screw/pipe 落 1F  │
         │ B4 prog split（一处）→ lift-DOWN：各层各取 1 路  │

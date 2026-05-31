@@ -123,24 +123,24 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ iron-ingot/rod feed manifold (north aisle)   │L│  进料巷 0-4m
+ 0      │ iron-ingot/rod feed manifold (north aisle)   │L │  进料巷 0-4m
  2      │ splitter tap >> 各 constructor back (in-0)   │I │
         │┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐           │F │
- 4      ││ P1*  │ │ P2*  │ │ P3*  │ │ P4*  │           │T│  排1 plate 4-14m
+ 4      ││ P1*  │ │ P2*  │ │ P3*  │ │ P4*  │           │T │  排1 plate 4-14m
         ││plate │ │plate │ │plate │ │plate │           │  │
  6      ││ 8x10 │ │ 8x10 │ │ 8x10 │ │ 8x10 │           │s │
         ││      │ │      │ │      │ │      │           │h │
  8      ││  v   │ │  v   │ │  v   │ │  v   │           │a │
         │└──────┘ └──────┘ └──────┘ └──────┘           │f │
-14      │──── plate collect belt (front side, h=2m) ───│t│  收集带 14-16m
+14      │──── plate collect belt (front side, h=2m) ───│t │  收集带 14-16m
         │┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐           │  │
-        ││ R1*  │ │ R2*  │ │ R3*  │ │ R4*  │           │c│  排2 rod 16-26m
+        ││ R1*  │ │ R2*  │ │ R3*  │ │ R4*  │           │c │  排2 rod 16-26m
         ││ rod  │ │ rod  │ │ rod  │ │ rod  │           │o │
         ││ 8x10 │ │ 8x10 │ │ 8x10 │ │ 8x10 │           │l │
         ││      │ │      │ │      │ │      │           │= │
         ││  v   │ │  v   │ │  v   │ │  v   │           │4 │
         │└──────┘ └──────┘ └──────┘ └──────┘           │. │
-26      │──── rod collect belt (front side, h=2m) ─────│7│  收集带 26-28m
+26      │──── rod collect belt (front side, h=2m) ─────│7 │  收集带 26-28m
         │┌──────┐ ┌──────┐                             │5 │
         ││ P5   │ │ R5*  │   (排3：2 台 reserve/rod)    │ │  排3 28-38m
         ││plate │ │ rod  │                             │  │
@@ -148,7 +148,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         ││      │ │      │                             │  │
         ││  v   │ │  v   │                             │  │
         │└──────┘ └──────┘                             │  │
-38      │ output manifold / Wall Mount 区              │ │  38-40m
+38      │ output manifold / Wall Mount 区              │  │  38-40m
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -172,24 +172,24 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ iron-ingot feed manifold (north aisle)       │L│  进料巷 0-4m
+ 0      │ iron-ingot feed manifold (north aisle)       │L │  进料巷 0-4m
  2      │ splitter tap >> 各 constructor back (in-0)   │I │
         │┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐           │F │
-        ││ R6*  │ │ R7*  │ │ R8*  │ │ R9*  │           │T│  排1 rod 4-14m
+        ││ R6*  │ │ R7*  │ │ R8*  │ │ R9*  │           │T │  排1 rod 4-14m
         ││ rod  │ │ rod  │ │ rod  │ │ rod  │           │  │
         ││ 8x10 │ │ 8x10 │ │ 8x10 │ │ 8x10 │           │s │
         ││      │ │      │ │      │ │      │           │h │
         ││  v   │ │  v   │ │  v   │ │  v   │           │a │
         │└──────┘ └──────┘ └──────┘ └──────┘           │f │
-14      │──── rod collect belt (front side) ───────────│t│  收集带 14-16m
+14      │──── rod collect belt (front side) ───────────│t │  收集带 14-16m
         │┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐           │  │
-        ││ R10* │ │ R11* │ │ P6   │ │ P7   │           │c│  排2 16-26m
+        ││ R10* │ │ R11* │ │ P6   │ │ P7   │           │c │  排2 16-26m
         ││ rod  │ │ rod  │ │plate │ │plate │           │o │
         ││ 8x10 │ │ 8x10 │ │ 8x10 │ │ 8x10 │           │l │
         ││      │ │      │ │      │ │      │           │= │
         ││  v   │ │  v   │ │  v   │ │  v   │           │4 │
         │└──────┘ └──────┘ └──────┘ └──────┘           │. │
-26      │──── rod/plate collect belt (front side) ─────│7│  收集带 26-28m
+26      │──── rod/plate collect belt (front side) ─────│7 │  收集带 26-28m
         │┌──────┐                                      │5 │
         ││ P8   │   (排3：1 台 plate reserve)           │ │  排3 28-38m
         ││plate │                                      │  │
@@ -197,7 +197,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         ││      │                                      │  │
         ││  v   │                                      │  │
         │└──────┘                                      │  │
-38      │ iron-rod/plate out manifold >> lift-up 竖井  │ │  38-40m
+38      │ iron-rod/plate out manifold >> lift-up 竖井  │  │  38-40m
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
 
@@ -214,13 +214,13 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
- 0      │ plate feed manifold + screw lift-down 落点    │ │  进料巷 0-4m
+ 0      │ plate feed manifold + screw lift-down 落点    │  │  进料巷 0-4m
  2      │ split >> 各 RIP back: in-0 plate + in-1 screw │  │
         │┌─────────┐ ┌─────────┐ ┌─────────┐            │L │
- 4      ││ RIP 1*  │ │ RIP 2*  │ │ RIP 3*  │            │I│  RIP 进深 4-19m
-        ││assembler│ │assembler│ │assembler│            │F│  x: R1 5-15 / R2 15-25
- 6      ││ 10x15m  │ │ 10x15m  │ │ 10x15m  │            │T│  / R3 25-35（右缘 x=35
-        ││         │ │         │ │         │            │ │  与 lift 列 x≥35 边缘接触）
+ 4      ││ RIP 1*  │ │ RIP 2*  │ │ RIP 3*  │            │I │  RIP 进深 4-19m
+        ││assembler│ │assembler│ │assembler│            │F │  x: R1 5-15 / R2 15-25
+ 6      ││ 10x15m  │ │ 10x15m  │ │ 10x15m  │            │T │  / R3 25-35（右缘 x=35
+        ││         │ │         │ │         │            │  │  与 lift 列 x≥35 边缘接触）
  8      ││in0 plate│ │in0 plate│ │in0 plate│            │o │
         ││in1 screw│ │in1 screw│ │in1 screw│            │u │
         ││ (back N)│ │ (back N)│ │ (back N)│            │t │
@@ -229,7 +229,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         ││  out v  │ │  out v  │ │  out v  │            │= │
         │└─────────┘ └─────────┘ └─────────┘            │3 │
 20      │  (front 边 = 19m)                             │5 │
-22      │──── RIP output belt (front side) ────────────│-│  收集带 ≥21m
+22      │──── RIP output belt (front side) ────────────│-  │  收集带 ≥21m
         │ iron-plate in: 1F+2F plate >> lift-up 北侧巷  │4 │
 26      │ screw in: 屋顶 35m reverse belt >> lift-down  │0 │
         │   到 3F 北侧巷(24m，落差 11m≥4m) >> 中央       │ │
@@ -255,7 +255,7 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬───────┐
  0      │ (此层即屋顶层 35-40m，与下方「屋顶」节同层)        │
- 4      │ LEFT Outlet o═══════════════════════o RIGHT Inlet│  h=35m row=3
+ 4      │ LEFT Outlet o═══════════════════════o RIGHT Inlet  │  h=35m row=3
  8      │   reverse-screw belt（贯穿，col 0↔5）              │
 12      │   splitter 在 col≈2.5 取本实例 306/min             │
 16      │   >> lift-down 11m 到 3F 北侧巷(24m) >> RIP in-1   │
@@ -276,12 +276,12 @@ C1 物理顺序（左→右）: **`BP1 | BP2a | BP2b | BP3`**
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 1      │ o B1 ────────────────────────────────────── o   │  y=2m
- 4      │ o B2 ───[merger << lift-top iron-rod+RIP]── o   │  y=8m
- 7      │ o B3 ────────────────────────────────────── o   │  y=14m
-10      │ o B4 ────────────────────────────────────── o   │  y=20m
-13      │ o B5 ───[merger << lift-top mainNode]────── o   │  y=26m
-16      │ o B6 ────────────────────────────────────── o   │  y=32m
+ 1      │ o B1 ────────────────────────────────────── o    │  y=2m
+ 4      │ o B2 ───[merger << lift-top iron-rod+RIP]── o    │  y=8m
+ 7      │ o B3 ────────────────────────────────────── o    │  y=14m
+10      │ o B4 ────────────────────────────────────── o    │  y=20m
+13      │ o B5 ───[merger << lift-top mainNode]────── o    │  y=26m
+16      │ o B6 ────────────────────────────────────── o    │  y=32m
 18      │ o SCREW ══(reverse)══[split tap 306>lift-dn]══ o │  y=36m 螺丝反向
 20      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```

@@ -93,7 +93,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5) osc 1/min main    │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ Crystal-Osc M1*    │ T6 ON(Network A1) │
  8m     │ │ 20m W x 22m L      │ 100% 不超频       │
 10m     │ │ facing=south       │ (out back=north   │
@@ -104,7 +104,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 RIP 2.5     │  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 RIP 2.5      │  机身南边 y=26m
 28m     │   │    │    │          in-1 cable 14     │
 30m     │   L0   L1   L2         in-2 quartz 18    │
 32m     │   │    │    │          in-3 EMPTY(3 ingr)│
@@ -130,7 +130,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5)                   │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ Crystal-Osc M2     │ T6 OFF→T7 翻 ON   │
  8m     │ │ 20m W x 22m L      │ (Network A2)      │
 10m     │ │ facing=south       │ 100% 不超频       │
@@ -141,7 +141,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 RIP/in-1 cab│  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 RIP/in-1 cab │  机身南边 y=26m
 28m     │   │    │    │          in-2 quartz       │
 30m     │   v    v    v          in-3 空           │
 32m     │ ══╧══╤═╧══╤═╧══ 水平转弯相 y30-34        │
@@ -165,7 +165,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5) HSC 3.75/min main │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ HSC M1*            │ T6 ON(Network B1) │
  8m     │ │ 20m W x 22m L      │ 100% 不超频       │
 10m     │ │ facing=south       │ (out back=north   │
@@ -176,7 +176,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 qwire 210   │  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 qwire 210    │  机身南边 y=26m
 28m     │   │    │    │          in-1 cable 37.5   │
 30m     │   L0   L1   L2         in-2 CB 3.75      │
 32m     │   │    │    │          in-3 EMPTY        │
@@ -200,7 +200,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5)                   │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ HSC M2             │ T6 OFF→T8 翻 ON   │
  8m     │ │ 20m W x 22m L      │ (Network B2)      │
 10m     │ │ facing=south       │ 100% 不超频       │
@@ -211,7 +211,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 qwire/in-1cb│  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 qwire/in-1cb │  机身南边 y=26m
 28m     │   │    │    │          in-2 circuit-board│
 30m     │   v    v    v          in-3 空           │
 32m     │ ══╧══╤═╧══╤═╧══ 水平转弯相 y30-34        │
@@ -234,7 +234,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5) osc 1/min main    │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ Crystal-Osc M1     │ T6 OFF→T8 翻 ON   │
  8m     │ │ 20m W x 22m L      │ (Network C1)      │
 10m     │ │ facing=south       │ 100% 不超频       │
@@ -245,7 +245,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 RIP 2.5     │  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 RIP 2.5      │  机身南边 y=26m
 28m     │   │    │    │          in-1 cable 14     │
 30m     │   L0   L1   L2         in-2 quartz 18    │
 32m     │   │    │    │          in-3 EMPTY        │
@@ -267,7 +267,7 @@
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬──────┐
  0m     │ L^ out-0 back(north,y≈1) >> lift-out-top │
  2m     │ ││ to roof merger (B5)                   │
- 4m     │ ┌────────────────────┐                  │  机身北边 y=4m
+ 4m     │ ┌────────────────────┐                   │  机身北边 y=4m
  6m     │ │ Crystal-Osc M2     │ T6 OFF→T9 翻 ON   │
  8m     │ │ 20m W x 22m L      │ (Network C2 满载) │
 10m     │ │ facing=south       │ 100% 不超频       │
@@ -278,7 +278,7 @@
 20m     │ │                    │                   │
 22m     │ │                    │                   │
 24m     │ │ v    v    v    .   │ in front y≈25m:   │
-26m     │ └─┼────┼────┼────────┘ in-0 RIP/in-1 cab│  机身南边 y=26m
+26m     │ └─┼────┼────┼────────┘ in-0 RIP/in-1 cab │  机身南边 y=26m
 28m     │   │    │    │          in-2 quartz       │
 30m     │   v    v    v          in-3 空           │
 32m     │ ══╧══╤═╧══╤═╧══ 水平转弯相 y30-34        │
@@ -303,26 +303,26 @@
 ```
         0   4   8   12  16  20  24  28  32  36  40m   (1字符=1m)
         ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- 0m     │ o B1 ═══════════════════════════════ o │  (passthru)
- 2m     │  ↓Ldn-RIP(x12)                          │  lift 口空隙
- 4m     │ o B2 ═══[smart split RIP T9 10]═══════ o│  (强化铁板)
- 6m     │                                         │
- 8m     │  ↓Ldn-cable+CB(x12)                     │  lift 口空隙
-10m     │ o B3 ═══════════════════════════════ o │  (passthru)
-12m     │                                         │
-14m     │  ↑Lup-out(x3)→merger                    │  lift 口空隙
-16m     │ o B4 ═[prog split cable131 + CB7.5 T9]═ o│  (线缆/电路板)
-18m     │                                         │
-20m     │  ↓Ldn-quartz+qwire(x16)                 │  lift 口空隙
+ 0m     │ o B1 ═══════════════════════════════ o    │  (passthru)
+ 2m     │  ↓Ldn-RIP(x12)                            │  lift 口空隙
+ 4m     │ o B2 ═══[smart split RIP T9 10]═══════ o  │  (强化铁板)
+ 6m     │                                           │
+ 8m     │  ↓Ldn-cable+CB(x12)                       │  lift 口空隙
+10m     │ o B3 ═══════════════════════════════ o    │  (passthru)
+12m     │                                           │
+14m     │  ↑Lup-out(x3)→merger                      │  lift 口空隙
+16m     │ o B4 ═[prog split cable131 + CB7.5 T9]═ o │  (线缆/电路板)
+18m     │                                           │
+20m     │  ↓Ldn-quartz+qwire(x16)                   │  lift 口空隙
 22m     │ o B5 ═[merger ←lift-top mainNode T9 11.5]o│  (输出总线)
-24m     │                                         │
-26m     │                                         │
-28m     │                                         │
-30m     │                                         │
-32m     │                                         │
+24m     │                                           │
+26m     │                                           │
+28m     │                                           │
+30m     │                                           │
+32m     │                                           │
 34m     │ o B6 ═[smart split quartz72 + qwire420]═ o│  (石英/快速线)
-36m     │                                         │
-38m     │                                         │
+36m     │                                           │
+38m     │                                           │
 40m     └───┴───┴───┴───┴───┴───┴───┴───┴───┴─────┘
 ```
 

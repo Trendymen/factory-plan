@@ -128,9 +128,9 @@ refinery 真实占地 **10m W × 20m L × 31m H**（registry/实测）。单 Mk2
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────────┐
- 0      │ <<<<oil manifold (fluid pipe, 北侧进料巷 0-4m)<<<<│  y=0-4 进料巷
+ 0      │ <<<<oil manifold (fluid pipe, 北侧进料巷 0-4m)<<<<  │  y=0-4 进料巷
  4      ├─────────┬─────────┬─────────┬───────────────────────┤
-        │ R1*back │ R2*back │ R3*back │ R4*back (rubber)    │  back=fluid in (北)
+        │ R1*back │ R2*back │ R3*back │ R4*back (rubber)      │  back=fluid in (北)
  6      │ Plastic │ Plastic │ Plastic │ Rubber                │
         │ 10x20   │ 10x20   │ 10x20   │ 10x20                 │
 10      │ ×31H    │ ×31H    │ ×31H    │ ×31H                  │
@@ -139,17 +139,17 @@ refinery 真实占地 **10m W × 20m L × 31m H**（registry/实测）。单 Mk2
         │         │         │         │                       │
 18      │         │         │         │                       │
         │ out0 v  │ out0 v  │ out0 v  │ out0 v  (塑料/橡胶)   │
-22      │ out1 v  │ out1 v  │ out1 v  │ out1 v  (残渣 pipe) │  front=south (y=24)
+22      │ out1 v  │ out1 v  │ out1 v  │ out1 v  (残渣 pipe)   │  front=south (y=24)
 24      ├═══ plastic/rubber collect belt (y≈25, x<22 即收口转 lift 列) ═┤  collect belt 走机身外
-        │ residue pipe junction (4进1出) ──┐                │  junction→R5 西面为 fluid pipe(非 belt)
+        │ residue pipe junction (4进1出) ──┐                  │  junction→R5 西面为 fluid pipe(非 belt)
 26      ┌──────────────────────┐          │                   │
-        │ R5* coke (旋转 E-W)   │←in0(西)  │  ┌────────────┐ │  R5 back=西, 接 junction
+        │ R5* coke (旋转 E-W)   │←in0(西)  │  ┌────────────┐  │  R5 back=西, 接 junction
 28      │  facing=east 20Wx10L  │          └─→│ AWESOME    │  │
         │  ×31H  195%(2 shard)  │             │ Sink* 16x13│  │
 30      │  78 残渣 → 234 coke   │  out0→(东)  │ ×24H 无超频 │ │  sink in0=西 (back)
-32      │                       │═coke belt══>│ in0<< coke │ │  R5 out0→sink, ~2m belt
+32      │                       │═coke belt══>│ in0<< coke │  │  R5 out0→sink, ~2m belt
 34      └──────────────────────┘             │ (吃 234)   │   │
-        x=0-20, y=27-37                       └────────────┘ │  x=22-38, y=25-38
+        x=0-20, y=27-37                       └────────────┘  │  x=22-38, y=25-38
 36                                                            │
 38                                                            │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────────┘
@@ -171,9 +171,9 @@ refinery 真实占地 **10m W × 20m L × 31m H**（registry/实测）。单 Mk2
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
         ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────────┐
- 0      │ <<<<oil manifold (fluid pipe, 北侧进料巷 0-4m)<<<<│  y=0-4 进料巷
+ 0      │ <<<<oil manifold (fluid pipe, 北侧进料巷 0-4m)<<<<  │  y=0-4 进料巷
  4      ├─────────┬─────────┬─────────┬───────────────────────┤
-        │ R1 back │ R2 back │ R3 back │ R4 back (rubber)    │  back=fluid in (北)
+        │ R1 back │ R2 back │ R3 back │ R4 back (rubber)      │  back=fluid in (北)
  6      │ Plastic │ Plastic │ Plastic │ Rubber                │
         │ 10x20   │ 10x20   │ 10x20   │ 10x20                 │
 10      │ ×31H    │ ×31H    │ ×31H    │ ×31H                  │
@@ -182,17 +182,17 @@ refinery 真实占地 **10m W × 20m L × 31m H**（registry/实测）。单 Mk2
         │         │         │         │                       │
 18      │         │         │         │                       │
         │ out0 v  │ out0 v  │ out0 v  │ out0 v                │
-22      │ out1 v  │ out1 v  │ out1 v  │ out1 v  (残渣 pipe) │  front=south (y=24)
+22      │ out1 v  │ out1 v  │ out1 v  │ out1 v  (残渣 pipe)   │  front=south (y=24)
 24      ├═══ plastic/rubber collect belt (y≈25, x<22 即收口转 lift 列) ═┤  collect belt 已接好
-        │ residue pipe junction (4进1出) ──┐                │  junction→R5 西面为 fluid pipe(非 belt)
+        │ residue pipe junction (4进1出) ──┐                  │  junction→R5 西面为 fluid pipe(非 belt)
 26      ┌──────────────────────┐          │                   │
-        │ R5 coke (旋转 E-W)    │←in0(西)  │  ┌────────────┐ │  R5 back=西, 接 junction
+        │ R5 coke (旋转 E-W)    │←in0(西)  │  ┌────────────┐  │  R5 back=西, 接 junction
 28      │  facing=east 20Wx10L  │          └─→│ AWESOME    │  │
         │  ×31H  OFF            │             │ Sink 16x13 │  │
 30      │                       │  out0→(东)  │ ×24H OFF   │  │
-32      │                       │═coke belt══>│ in0<< coke │ │  belt 已接好(Switch OFF)
+32      │                       │═coke belt══>│ in0<< coke │  │  belt 已接好(Switch OFF)
 34      └──────────────────────┘             │            │   │
-        x=0-20, y=27-37                       └────────────┘ │  x=22-38, y=25-38
+        x=0-20, y=27-37                       └────────────┘  │  x=22-38, y=25-38
 36                                                            │
 38                                                            │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────────┘
