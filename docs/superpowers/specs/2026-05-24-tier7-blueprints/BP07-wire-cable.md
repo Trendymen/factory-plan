@@ -99,30 +99,30 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→│
- 2  y2  │ I ┌─split──split──split──split──┐                │
- 4  y4  │ I │ Cu1*   │ Wi1*   │ Wi2*   │ Cb1*   │          │
- 6  y6  │ I │ sheet  │ wire   │ wire   │ cable  │ 北排4台  │
- 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36   │
-10  y10 │ I │        │        │        │        │ y=4-14   │
-12  y12 │ I │   v    │   v    │   v    │   v    │          │
-14  y14 │ I └───v────────v────────v────────v────┘  (front) │
-        │ ═══ 北排 collect belt 带 y=14-16（真空隙，z错层）═│
-16  y16 │ ┌────────┬────────┐  中排2台 x=4-20 y=16-26       │
-18  y18 │ │ Cu2*   │ Wi3*   │  (back 进料从北侧 manifold)   │
-20  y20 │ │ sheet  │ wire   │                               │
-22  y22 │ │ 8x10   │ 8x10   │                               │
-24  y24 │ │        │        │                               │
-26  y26 │ └───v────────v────┘  (front, y=26)                │
-        │ ═══ 中排 collect belt 带 y=26-28（机身外）════════ │
-28  y28 │   [sheet mg] [wire mg] [cable mg]  ← 同层 merger   │
-30  y30 │      o S       o W       o C    ← 3 产出 riser     │
-32  y32 │     x30        x34        x38    (各唯一 col)      │
-34  y34 │  进料 riser I：col=0 (x=0-4)，独立井               │
-36  y36 │  S=sheet→屋顶B6  W=wire→B3a  C=cable→B4            │
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────────┐
+ 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→   │
+ 2  y2  │ I ┌─split──split──split──split──┐                   │
+ 4  y4  │ I │ Cu1*   │ Wi1*   │ Wi2*   │ Cb1*   │             │
+ 6  y6  │ I │ sheet  │ wire   │ wire   │ cable  │ 北排4台     │
+ 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36      │
+10  y10 │ I │        │        │        │        │ y=4-14      │
+12  y12 │ I │   v    │   v    │   v    │   v    │             │
+14  y14 │ I └───v────────v────────v────────v────┘  (front)    │
+        │ ═══ 北排 collect belt 带 y=14-16（真空隙，z错层）═──│
+16  y16 │ ┌────────┬────────┐  中排2台 x=4-20 y=16-26         │
+18  y18 │ │ Cu2*   │ Wi3*   │  (back 进料从北侧 manifold)     │
+20  y20 │ │ sheet  │ wire   │                                 │
+22  y22 │ │ 8x10   │ 8x10   │                                 │
+24  y24 │ │        │        │                                 │
+26  y26 │ └───v────────v────┘  (front, y=26)                  │
+        │ ═══ 中排 collect belt 带 y=26-28（机身外）════════  │
+28  y28 │   [sheet mg] [wire mg] [cable mg]  ← 同层 merger    │
+30  y30 │      o S       o W       o C    ← 3 产出 riser      │
+32  y32 │     x30        x34        x38    (各唯一 col)       │
+34  y34 │  进料 riser I：col=0 (x=0-4)，独立井                │
+36  y36 │  S=sheet→屋顶B6  W=wire→B3a  C=cable→B4             │
 38  y38 │  riser 包围盒各 4×4m，互不同列、不穿机身/不互叠     │
-40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴────────┘
 ```
 
 - 机器框高严格 5 行 = 真实 10m（1 行=2m）；北排 y=4-14、中排 y=16-26，两带间留 y=14-16 真空隙
@@ -140,22 +140,22 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→│
- 2  y2  │ I ┌─split──split──split──split──┐                │
- 4  y4  │ I │ Cu3*   │ Wi4*   │ Wi5*   │ Cb2*   │          │
- 6  y6  │ I │ sheet  │ wire   │ wire   │ cable  │ 北排4台  │
- 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36   │
-10  y10 │ I │        │        │        │        │ y=4-14   │
-12  y12 │ I │   v    │   v    │   v    │   v    │          │
-14  y14 │ I └───v────────v────────v────────v────┘  (front) │
-        │ ═══ 北排 collect belt 带 y=14-16（真空隙，z错层）═│
-16  y16 │ ┌────────┬────────┐  中排2台 x=4-20 y=16-26       │
-18  y18 │ │ Cu4    │ Wi6*   │  Cu4 T6 OFF（物理已建）       │
-20  y20 │ │ sheet  │ wire   │                               │
-22  y22 │ │ 8x10   │ 8x10   │                               │
-24  y24 │ │        │        │                               │
-26  y26 │ └──(v)───────v────┘  (front, y=26; Cu4标(v))      │
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬───────┐
+ 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→  │
+ 2  y2  │ I ┌─split──split──split──split──┐                  │
+ 4  y4  │ I │ Cu3*   │ Wi4*   │ Wi5*   │ Cb2*   │            │
+ 6  y6  │ I │ sheet  │ wire   │ wire   │ cable  │ 北排4台    │
+ 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36     │
+10  y10 │ I │        │        │        │        │ y=4-14     │
+12  y12 │ I │   v    │   v    │   v    │   v    │            │
+14  y14 │ I └───v────────v────────v────────v────┘  (front)   │
+        │ ═══ 北排 collect belt 带 y=14-16（真空隙，z错层）═─│
+16  y16 │ ┌────────┬────────┐  中排2台 x=4-20 y=16-26        │
+18  y18 │ │ Cu4    │ Wi6*   │  Cu4 T6 OFF（物理已建）        │
+20  y20 │ │ sheet  │ wire   │                                │
+22  y22 │ │ 8x10   │ 8x10   │                                │
+24  y24 │ │        │        │                                │
+26  y26 │ └──(v)───────v────┘  (front, y=26; Cu4标(v))       │
         │ ═══ 中排 collect belt 带 y=26-28（机身外）════════ │
 28  y28 │   [sheet mg] [wire mg] [cable mg]  ← 同层 merger   │
 30  y30 │      o S       o W       o C    ← 3 产出 riser     │
@@ -163,7 +163,7 @@
 34  y34 │  进料 riser I：col=0，从 1F manifold 上行          │
 36  y36 │  BP7a T6 2F 启用 5 台 = 3 wire(Wi4-6)+1 cable(Cb2) │
 38  y38 │    + 1 sheet(Cu3)；仅 Cu4 物理就位 Switch OFF      │
-40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴───────┘
 ```
 
 - 机器框高严格 5 行 = 真实 10m；北排 y=4-14、中排 y=16-26，留 y=14-16 真空隙
@@ -182,16 +182,16 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→│
- 2  y2  │ I ┌─split──split──split──split──┐                │
- 4  y4  │ I │ Cu5    │ Cu6    │ Wi7    │ Cb3    │          │
- 6  y6  │ I │ sheet  │ sheet  │ wire   │ cable  │ 单排4台  │
- 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36   │
-10  y10 │ I │        │        │        │        │ y=4-14   │
-12  y12 │ I │  (v)   │  (v)   │  (v)   │  (v)   │ T6 全OFF │
-14  y14 │ I └──(v)──────(v)──────(v)──────(v)───┘  (front) │
-        │ ═══ collect belt 带 y=14-16（单排机身南侧，z错层）│
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬───────┐
+ 0  y0  │ ←─ 北侧进料巷：铜锭 splitter manifold (y=0-4m) ─→  │
+ 2  y2  │ I ┌─split──split──split──split──┐                  │
+ 4  y4  │ I │ Cu5    │ Cu6    │ Wi7    │ Cb3    │            │
+ 6  y6  │ I │ sheet  │ sheet  │ wire   │ cable  │ 单排4台    │
+ 8  y8  │ I │ 8x10   │ 8x10   │ 8x10   │ 8x10   │ x=4-36     │
+10  y10 │ I │        │        │        │        │ y=4-14     │
+12  y12 │ I │  (v)   │  (v)   │  (v)   │  (v)   │ T6 全OFF   │
+14  y14 │ I └──(v)──────(v)──────(v)──────(v)───┘  (front)   │
+        │ ═══ collect belt 带 y=14-16（单排机身南侧，z错层） │
 16  y16 │  (此层无中排机器，y=16 以南全空)                   │
 18  y18 │   [sheet mg] [wire mg] [cable mg]  ← 同层 merger   │
 20  y20 │      o S       o W       o C    ← 3 产出 riser     │
@@ -200,7 +200,7 @@
 26  y26 │  S=sheet→屋顶B6  W=wire→B3a  C=cable→B4            │
 28  y28 │  T6: 4 台全 Switch OFF（不耗电不产出，标(v)）      │
 30  y30 │  T8: Cu5/Wi7/Cb3 ON；T9: Cu6 ON（满 BP7a 16 台）   │
-40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+40  y40 └────┴────┴────┴────┴────┴────┴────┴────┴────┴───────┘
 ```
 
 - 机器框高严格 5 行 = 真实 10m（y=4-14）；单排无中排，y=16 以南为服务带
@@ -218,24 +218,24 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ════════════════════════════════════════ o │
-        │ o B2 ════════════════════════════════════════ o │
- 6      │ o B3a ──[merger << wire 170 (T6); ≤700 (T9)]── o │
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+ 0      │ o B1 ════════════════════════════════════════ o   │
+        │ o B2 ════════════════════════════════════════ o   │
+ 6      │ o B3a ──[merger << wire 170 (T6); ≤700 (T9)]── o  │
         │ o B3b ──[T9 拆流：splitter 分电线 >700 入此槽]─ o │
-12      │ o B4 ───[merger << cable 71.5]──────────────── o │
-        │ o B5 ───[merger << mainNode 70]─────────────── o │
-18      │ o B6 ───[merger << copper-sheet 25]─────────── o │
-        │                                                 │
+12      │ o B4 ───[merger << cable 71.5]──────────────── o  │
+        │ o B5 ───[merger << mainNode 70]─────────────── o  │
+18      │ o B6 ───[merger << copper-sheet 25]─────────── o  │
+        │                                                   │
 24      │ 各产物 riser lift-out-top 落点（各唯一 col）：    │
-        │   sheet riser x30 → B6mg; wire riser x34 →       │
-28      │   B3a/B3b splitter; cable riser x38 → B4mg;      │
+        │   sheet riser x30 → B6mg; wire riser x34 →        │
+28      │   B3a/B3b splitter; cable riser x38 → B4mg;       │
         │   mainNode 三合一 → B5mg（进料 riser col0 分列）  │
-        │ B3 inject 170/min (wire→BP12+BP11), T9~1400 拆双│
-32      │ B4 inject  71.5   (cable→BP14+BP15)             │
-        │ B5 inject  70     (mainNode: sheet/wire/cable)  │
-36      │ B6 inject  25     (sheet→BP10 AI limiter)       │
-40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+        │ B3 inject 170/min (wire→BP12+BP11), T9~1400 拆双  │
+32      │ B4 inject  71.5   (cable→BP14+BP15)               │
+        │ B5 inject  70     (mainNode: sheet/wire/cable)    │
+36      │ B6 inject  25     (sheet→BP10 AI limiter)         │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴──────┘
 ```
 
 - 4 个 merger（B3=电线、B4=线缆、B5=mainNode 三合一、B6=铜板）+ B3 的 T9 拆流 splitter

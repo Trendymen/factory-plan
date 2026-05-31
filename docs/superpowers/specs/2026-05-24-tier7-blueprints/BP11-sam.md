@@ -61,28 +61,28 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │                      ↑fluct out riser @(3.0,0.5)│
-        │                      │ 1F out-0→roof B5(z 4→35) │
- 4      │┌───────────────────┐←┘ out-0(back,N) row≈0.5cell│
-        ││    M1  out-0 ▲ N   │   ↓riser B3@(2.75,4)       │
- 8      ││ sam-fluctuator    │    ↓riser reSAM60@(3.25,4) │
-        ││ manufacturer      │   facing=south             │
-12      ││    20 x 22 m      │   (440 m^2)                │
-        ││                   │   lift channel col 2.5-3.75│
-16      ││                   │   (3 riser 各占独立 col)   │
-        ││                   │                            │
-20      ││ in-0  in-1        │                            │
-        ││ in-2  in-3(空)    │  ← front(S) 4 槽 row 2.5cell│
-24      ││                   │                            │
-        │└──┬──┬───┬─────────┘  ↓ riser 底端 @row=4cell    │
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+ 0      │                      ↑fluct out riser @(3.0,0.5)  │
+        │                      │ 1F out-0→roof B5(z 4→35)   │
+ 4      │┌───────────────────┐←┘ out-0(back,N) row≈0.5cell  │
+        ││    M1  out-0 ▲ N   │   ↓riser B3@(2.75,4)        │
+ 8      ││ sam-fluctuator    │    ↓riser reSAM60@(3.25,4)   │
+        ││ manufacturer      │   facing=south               │
+12      ││    20 x 22 m      │   (440 m^2)                  │
+        ││                   │   lift channel col 2.5-3.75  │
+16      ││                   │   (3 riser 各占独立 col)     │
+        ││                   │                              │
+20      ││ in-0  in-1        │                              │
+        ││ in-2  in-3(空)    │  ← front(S) 4 槽 row 2.5cell │
+24      ││                   │                              │
+        │└──┬──┬───┬─────────┘  ↓ riser 底端 @row=4cell     │
 28      │ ←─┘  │   │   feed manifold @ y26-40（南侧水平）   │
-        │  ←───┘   │ ┌─belt(转弯相):riser底→front 水平西绕 │
-32      │ wire50   └─┤ B3 riser底(2.75,4)·reSAM60底(3.25,4)│
+        │  ←───┘   │ ┌─belt(转弯相):riser底→front 水平西绕  │
+32      │ wire50   └─┤ B3 riser底(2.75,4)·reSAM60底(3.25,4) │
         │  pipe30    └ 各自水平 belt 段绕进 front 各 in 槽  │
 36      │  (riser 纯垂直；水平位移=独立 belt 段，分相标注)  │
-        │ raw-SAM 360 输入在 2F（左 Wall Inlet）           │
-40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+        │ raw-SAM 360 输入在 2F（左 Wall Inlet）            │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴──────┘
 ```
 
 - 机身占 col 0-2.5、row 0.5-3.25 cell（21 字符 × 11 行 = 真实 20×22m），北侧 row 0-0.5 cell 留 fluct output riser 落点，东侧 col 2.5-3.75 为 lift 通道（平面 row/col 统一用 cell 单位，1 cell=8m；高度单独标 z=…m，§2-5 原则5）
@@ -99,27 +99,27 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │  raw-SAM 360 in: left Wall Inlet h=20m row=0    │
-        │   ──┬──────────┬── splitter → R1/R2 in-0(back)  │
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────┐
+ 0      │  raw-SAM 360 in: left Wall Inlet h=20m row=0     │
+        │   ──┬──────────┬── splitter → R1/R2 in-0(back)   │
  4      │     ↓ in-0     ↓ in-0   (进料巷 row0-4)          │
-        │┌───────┐ ┌───────┐                              │
+        │┌───────┐ ┌───────┐                               │
  8      ││  R1   │ │  R2   │  2 reanim-sam constructor     │
         ││reanim │ │reanim │  8m W x 10m L x 8m H          │
 12      ││ 8x10  │ │ 8x10  │  in-0 back(N), out-0 front(S) │
         ││  v    │ │  v    │  150% = 45/min each (90 tot)  │
-16      │└───┬───┘ └───┬───┘                              │
-        │    ↓ out-0   ↓ out-0                            │
-20      │──── reSAM collect 90 (row≈2.5cell, 机身南侧) ───│
-        │         │  splitter 1→2: 60 + 30                │
-24      │ 60→reSAM60 riser 两端@(3.25,4)→1F in-2(z24→0)   │
-        │ 30→reSAM30 riser 两端@(3.75,2.5)→roof B5(z24→35)│
+16      │└───┬───┘ └───┬───┘                               │
+        │    ↓ out-0   ↓ out-0                             │
+20      │──── reSAM collect 90 (row≈2.5cell, 机身南侧) ────│
+        │         │  splitter 1→2: 60 + 30                 │
+24      │ 60→reSAM60 riser 两端@(3.25,4)→1F in-2(z24→0)    │
+        │ 30→reSAM30 riser 两端@(3.75,2.5)→roof B5(z24→35) │
 28      │ collect/overflow belt 走机身南侧 row 2.5 真实空隙│
-        │ (机身 row 0.75-2.0，belt 在 front 之外不穿机身) │
+        │ (机身 row 0.75-2.0，belt 在 front 之外不穿机身)  │
 32      │ riser 纯垂直；splitter→riser 顶为独立水平 belt 段│
-        │ lift 列 col 3.25/3.75（避开机身投影与 1F riser）│
-36      │ T6 saturated; T7-T9 unchanged 2+1=3 (uplift 1x) │
-40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+        │ lift 列 col 3.25/3.75（避开机身投影与 1F riser） │
+36      │ T6 saturated; T7-T9 unchanged 2+1=3 (uplift 1x)  │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴─────┘
 ```
 
 - R1/R2 占 **col 0-2**（2×8m）、row 0.75-2.0 cell（机身真实 8×10m，北侧 row 0-0.75 cell 留 back 进料巷），剩 col 2-5 空地
@@ -138,26 +138,26 @@
 ```
         col=0       col=1       col=2       col=3       col=4
         0    4    8    12   16   20   24   28   32   36   40m
-        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
- 0      │ o B1 ───────────────────────────────────────── o│
-        │ o B2 ──────────────────────┐fluct riser top    o│
- 4      │ o B3 ─[smart-split wire50+pipe30]─80─┐ @(3.0,0.5)│
-        │            belt(转弯相)→B3 riser top─┘           │
- 8      │                  B3 riser top @(2.75,4)──┐       │
-        │                  ↓纯垂直降到 1F 同坐标(2.75,4)    │
-12      │   (reSAM30 riser top 真实 row=2.5，见 y20 merger 行)│
+        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬─────────┐
+ 0      │ o B1 ───────────────────────────────────────── o     │
+        │ o B2 ──────────────────────┐fluct riser top    o     │
+ 4      │ o B3 ─[smart-split wire50+pipe30]─80─┐ @(3.0,0.5)    │
+        │            belt(转弯相)→B3 riser top─┘               │
+ 8      │                  B3 riser top @(2.75,4)──┐           │
+        │                  ↓纯垂直降到 1F 同坐标(2.75,4)       │
+12      │   (reSAM30 riser top 真实 row=2.5，见 y20 merger 行) │
         │              ↑ 从 2F 上行(z24→35)，落点同 merger row │
-16      │ o B4 ───────────────────────────────────────── o│
-        │                                                 │
-20      │ o B5 ──[merger@(3.0,2.5)←reSAM30@(3.75,2.5)]─40─ o│
-        │   ↑ reSAM30 riser top 落 row=2.5 同 merger 行，直进 │
-24      │  in: fluct riser top@(3.0,0.5)·reSAM30@(3.75,2.5)│
-        │  各 riser 经独立水平 belt 段(转弯相)汇入 merger   │
-28      │ o B6 ───────────────────────────────────────── o│
-        │                                                 │
-32      │ B7/B8 reserved (T7+ slots, BP11 stays 1.0x)     │
-36      │ riser top 各占独立 col(2.75/3.0/3.75)落 belt 空隙│
-40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+16      │ o B4 ───────────────────────────────────────── o     │
+        │                                                      │
+20      │ o B5 ──[merger@(3.0,2.5)←reSAM30@(3.75,2.5)]─40─ o   │
+        │   ↑ reSAM30 riser top 落 row=2.5 同 merger 行，直进  │
+24      │  in: fluct riser top@(3.0,0.5)·reSAM30@(3.75,2.5)    │
+        │  各 riser 经独立水平 belt 段(转弯相)汇入 merger      │
+28      │ o B6 ───────────────────────────────────────── o     │
+        │                                                      │
+32      │ B7/B8 reserved (T7+ slots, BP11 stays 1.0x)          │
+36      │ riser top 各占独立 col(2.75/3.0/3.75)落 belt 空隙    │
+40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴─────────┘
 ```
 
 - B3 smart-splitter 双 filter: wire 50 + pipe 30 = 80 → 独立水平 belt 段送到 **B3 riser 顶 @(2.75,4)**，riser **两端同坐标 (2.75,4)** 纯垂直降到 1F，落地后由 1F 南侧 manifold 独立水平 belt 段绕进 manufacturer in-0/in-1（§原则2 riser 与水平段分相）
