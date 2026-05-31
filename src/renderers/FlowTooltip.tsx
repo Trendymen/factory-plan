@@ -73,7 +73,7 @@ export function FlowTooltip() {
         padding: '4px 10px',
         borderRadius: 4,
         fontFamily: 'var(--font-mono)',
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 1.2,
         color: '#22d3ee',
         whiteSpace: 'nowrap',
