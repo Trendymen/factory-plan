@@ -1,5 +1,13 @@
 /* src/manual/manual.css —— 复用 theme.css 的 :root 变量，纯全局 CSS */
 
+@font-face {
+  font-family: "MapleGrid";
+  src: url("/fonts/maple-grid.woff2") format("woff2");
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* ===== 布局：左目录 + 右正文 ===== */
 .manual-view {
   display: grid;
@@ -91,12 +99,18 @@
   color: var(--text-muted);
 }
 
-/* ===== ASCII 图（方案 D：框线走 pre 文本流，仅 CJK 锁 2ch） ===== */
+/* ===== ASCII 图（根治方案：自托管真双宽字体 maple-grid + 朴素 pre） ===== */
 .ascii-pre {
-  font-family: var(--font-mono);
+  font-family: "MapleGrid", monospace;
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.0;
   white-space: pre;
+  letter-spacing: 0;
+  word-spacing: 0;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0, "kern" 0;
+  font-variant-east-asian: normal;
+  text-rendering: geometricPrecision;
   tab-size: 4;
   overflow-x: auto;
   background: var(--bg-canvas);
@@ -105,10 +119,4 @@
   padding: 12px 14px;
   margin: 12px 0;
   color: var(--text-primary);
-}
-.ascii-pre .cjk2 {
-  display: inline-block;
-  width: 2ch;
-  text-align: left;
-  vertical-align: baseline;
 }
