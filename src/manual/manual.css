@@ -46,7 +46,7 @@
 .manual-content {
   overflow-y: auto;
   padding: 24px 40px 80px;
-  max-width: 980px;
+  max-width: none;
   line-height: 1.7;
 }
 .manual-content h1 { font-size: 22px; margin: 0.6em 0 0.4em; }
@@ -91,28 +91,24 @@
   color: var(--text-muted);
 }
 
-/* ===== 字符网格 ASCII 图（中文 2ch / ASCII 1ch 逐格对齐） ===== */
-.ascii-grid {
+/* ===== ASCII 图（方案 D：框线走 pre 文本流，仅 CJK 锁 2ch） ===== */
+.ascii-pre {
   font-family: var(--font-mono);
   font-size: 12.5px;
-  line-height: 1.5;
+  line-height: 1.55;
+  white-space: pre;
+  tab-size: 4;
+  overflow-x: auto;
   background: var(--bg-canvas);
   border: 1px solid var(--border-subtle);
   border-radius: 6px;
   padding: 12px 14px;
   margin: 12px 0;
-  overflow-x: auto;
   color: var(--text-primary);
 }
-.ascii-row {
-  white-space: nowrap;
-  height: 1.5em;
-}
-.ascii-grid span {
+.ascii-pre .cjk2 {
   display: inline-block;
+  width: 2ch;
   text-align: left;
-  vertical-align: top;
-  overflow: visible;
+  vertical-align: baseline;
 }
-.ascii-grid .cw1 { width: 1ch; }
-.ascii-grid .cw2 { width: 2ch; }
