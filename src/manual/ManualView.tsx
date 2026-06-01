@@ -3,6 +3,8 @@ import { useMemo, useState, useEffect, type ComponentProps, type ReactElement } 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AsciiBlock } from './AsciiBlock';
+import { FloorStackBlock } from './FloorStackBlock';
+import { parseFloorStack } from './floorStack';
 import './manual.css';
 
 // 18 个 BP md 的 raw loader（lazy），key = '/docs/.../BPxx.md'
@@ -30,10 +32,35 @@ function extractText(node: unknown): string {
   return '';
 }
 
+// 从 react-markdown 传入 <pre> 的 children 里递归找出内层 <code> 的 language-xxx。
+// react-markdown 把围栏语言标签放在内层 <code className="language-floorstack"> 上。
+function getCodeLang(node: unknown): string | null {
+  if (node == null || typeof node !== 'object') return null;
+  if (Array.isArray(node)) {
+    for (const child of node) {
+      const lang = getCodeLang(child);
+      if (lang) return lang;
+    }
+    return null;
+  }
+  if ('props' in node) {
+    const el = node as ReactElement<{ className?: string; children?: unknown }>;
+    const cls = el.props?.className;
+    if (typeof cls === 'string') {
+      const m = cls.match(/language-([\w-]+)/);
+      if (m) return m[1];
+    }
+    return getCodeLang(el.props?.children);
+  }
+  return null;
+}
+
 // fenced code block：react-markdown 渲染为 <pre><code>…</code></pre>。
-// 自定义 pre 取出 code 文本，交给 AsciiBlock 做字符网格对齐。
+// 自定义 pre 取出 code 文本；language-floorstack 交给 FloorStackBlock，其余交给 AsciiBlock。
 function PreBlock(props: ComponentProps<'pre'>) {
   const raw = extractText(props.children);
+  const lang = getCodeLang(props.children);
+  if (lang === 'floorstack') return <FloorStackBlock data={parseFloorStack(raw)} />;
   return <AsciiBlock text={raw} />;
 }
 
