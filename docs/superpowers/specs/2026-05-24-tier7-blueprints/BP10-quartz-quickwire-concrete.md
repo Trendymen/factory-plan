@@ -19,6 +19,30 @@
 
 > **快速线原料 = caterium 锭（钦金锭）**：标准 quickwire 配方为 `1 caterium 锭 → 5 快速线`（100% 时 12 caterium 锭/min → 60 快速线/min，5:1）。T6 快速线 370/min → caterium 锭 **74/min**。本蓝图**不使用铜金锭**喂快速线；需补一条 caterium 锭来源（74/min，与 BP6 铜金锭产线同套路：caterium 矿 → smelter → caterium 锭，经屋顶总线送到本图）。来源产线属上游蓝图/主设计范畴，本文件仅声明需求并在屋顶 B6 取料。
 
+## 极简示意图
+
+### BP10a（T6 主实例，14 台）
+
+```floorstack
+# BP10a 石英+硅土+快速线+混凝土+AI限制器 (C5) · 自下而上
+1F | constructor×8（1石英+1硅土+3快速线+3混凝土）+ ai-limiter×1（T6 全通电） | 原始石英 90·石灰石 333·caterium 锭 74·铜片 25 | 石英晶体·硅土·快速线·混凝土·AI限制器 → 屋顶 | ↑屋顶:5物料
+2F | constructor×5（1石英+2硅土+2快速线，T6 全 OFF） | 原始石英·石灰石 | 5物料 → 屋顶 | ↑屋顶:5物料
+屋顶 | 总线汇流 | caterium 锭 74·铜片 25 | 混凝土 96·终端 140·石英18+快速线210 = 228 |
+```
+
+> BP10a T6 阶段 1F 全 9 台通电（含 ai-limiter）；2F 5 台物理建好但 Power Switch 全关，T7+ 渐次启用。
+
+### BP10b（近似复制，14 台，T6 全 OFF）
+
+```floorstack
+# BP10b 石英+硅土+快速线+混凝土+AI限制器 (C5) · 自下而上
+1F | constructor×8（1石英+1硅土+3快速线+2混凝土）+ ai-limiter×1（T6 全 OFF） | 原始石英 90·石灰石·caterium 锭·铜片 | 5物料 → 屋顶 | ↑屋顶:5物料
+2F | constructor×5（1石英+2硅土+2快速线，T6 全 OFF） | 原始石英·石灰石 | 5物料 → 屋顶 | ↑屋顶:5物料
+屋顶 | 总线汇流（结构同 BP10a） | caterium 锭·铜片 | 混凝土·终端·石英+快速线（同 BP10a，产能叠加） |
+```
+
+> BP10b 与 BP10a 近似复制，仅 silica 4 台、concrete 2 台；T6 阶段全 14 台 Power Switch 关，T7+ 逐步启用。两实例共享同一屋顶总线路由，产能叠加。
+
 ## 机器超频清单（T6，Plan C ≤250%）
 
 | 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |

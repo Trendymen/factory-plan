@@ -9,6 +9,17 @@
 
 > **本蓝图无生产机器**；所有 Uploader / smart splitter / belt / lift / wall mount T6 一次建造到位，**不涉及 Power Switch**（Uploader 0 W 耗电）。T7+ 扩容仅需在 2F 预留槽位补建 Uploader+splitter，不动现有结构。
 
+## 极简示意图
+
+```floorstack
+# BP-TERM-A · 前13 mainNode 位面仓 · 40×40m · 自下而上
+1F | Uploader×13 + 合流×6 | 前13路 mainNode 209/min | 13路 → 位面仓 · overflow → BP-TERM-B | ↓地面:overflow
+2F | Uploader×3（T7+预留槽位） | T7-9 新增 mainNode | 新增路 → 位面仓 | ↓1F:进料
+屋顶 | 分流 | 总线前13路 | 13路下1F · 13路续 BP-TERM-B |
+```
+
+> BP-TERM-A 取总线前 13 个 mainNode 送位面仓；本蓝图无 sink，overflow 汇流后交给 BP-TERM-B 共享 sink。
+
 ## 物料 I/O
 
 **输入**：

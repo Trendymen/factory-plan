@@ -9,6 +9,16 @@
 
 > 本蓝图无生产机器；所有 belt T6 一次建造到位，不涉及 Power Switch / Power Shard。T7+ 升 Tier 时本蓝图无任何操作。
 
+## 极简示意图
+
+```floorstack
+# BP-BUS-FILLER 总线填充段
+1F-3F | （空，仅地坪） |  |  |
+屋顶 | 6x Mk5 belt 直通 |  |  |
+```
+
+> 无生产机器，仅总线直通/填充用；当集群间需要走道或扩容预留时插入。
+
 ## 物料 I/O
 
 无生产；6 条 belt 直通：

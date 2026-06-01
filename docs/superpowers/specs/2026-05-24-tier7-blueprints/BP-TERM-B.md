@@ -20,6 +20,17 @@
 >
 > ⚠ **架构修正历史**：原方案有「重油残渣 sink」+ 26 sink 1:1。后修正为残渣本地处理（BP9 内就地 sink，不上 B6）+ sink 共享。awesome-sink 实际尺寸 **16m × 13m × 24m**（高 24m≈3 cell，跨 1F+2F；1 固体输入口、0 输出；只吃固体）。1:1 配比 26 sink 占地 5,408m² 远超单 Mk2 1,600m²，必须共享。
 
+## 极简示意图
+
+```floorstack
+# BP-TERM-B · 后13 mainNode + 共享 sink · 40×40m · 自下而上
+1F | Uploader×12 + 共享 awesome-sink + 合流×13 | 后13路 mainNode 187/min · BP-TERM-A overflow | 12路 → 位面仓 · 26路 overflow → sink | ↑2F:进料
+2F | Uploader×10（U26 T6 + 9 个 T7+预留槽位） | T6+T7-9 mainNode | 10路 → 位面仓 | ↓1F:进料
+屋顶 | 分流 | 总线后13路 | 9 路展开喂 Uploader |
+```
+
+> BP-TERM-B 取总线后 13 个 mainNode 送位面仓；唯一共享 awesome-sink 汇全部 26 路 overflow（本蓝图 13 路 + BP-TERM-A 来 13 路）；2F 含 T6 通电的 U26 及 T7+ 预留槽位。
+
 ## 物料 I/O
 
 **输入**：

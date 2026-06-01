@@ -14,6 +14,16 @@
 
 > **核心设计原则**：**8 台 constructor 在 T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好**。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
+## 极简示意图
+
+```floorstack
+# BP05 钢梁+钢管 (C2) · Mk2 单实例 · 自下而上
+1F | constructor×8（3 钢梁·5 钢管） | 钢锭 455 | 钢梁+钢管 198/min | ↑屋顶:钢梁+钢管
+屋顶 | 分流+合流 | — | 注入总线 198/min |
+```
+
+> 1F 八台 constructor 产钢梁+钢管，上送屋顶注入总线（合计 198/min）。
+
 ## 机器超频清单（T6，Plan C）
 
 > **命名说明**：constructor 机器一律用 `BEAM1/2/3`、`PIPE1-5` 前缀，避免与屋顶总线 `B3`/`B5` 混淆。

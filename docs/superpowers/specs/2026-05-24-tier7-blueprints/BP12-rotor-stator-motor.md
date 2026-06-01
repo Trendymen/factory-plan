@@ -13,6 +13,18 @@
 
 > **核心设计原则**：**7 台 assembler 在 T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好**。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
+## 极简示意图
+
+```floorstack
+# BP12 转子+定子+电机 (C6) · Mk2 单实例 · 自下而上
+1F | rotor assembler×3（转子，T6 通电2） | 螺丝 350·铁棒 70 | 转子 14/min（10→3F·4→终端） | ↑3F:转子
+2F | stator assembler×3（定子，T6 通电2） | 钢管 45·电线 120 | 定子 15/min（10→3F·5→终端） | ↑3F:定子
+3F | motor assembler×1（电机） | 转子 10·定子 10 | 电机 5/min → 终端 |
+屋顶 | 总线汇流 | 螺丝·铁棒·钢管·电线 | 转子4·定子5·电机5 = 14/min |
+```
+
+> 三层独立生产（rotor/stator/motor 各一层），转子与定子各自分流后内部 lift 上送 3F 组装电机，余量经屋顶 merger 注入 B5 终端。
+
 ## 机器超频清单（T6，Plan C ≤250%）
 
 | 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |

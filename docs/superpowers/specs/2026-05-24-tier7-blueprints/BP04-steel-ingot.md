@@ -14,6 +14,17 @@
 
 > **核心设计原则**：6 台 foundry T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好。后续升 Tier 只翻 Switch + 插 shard，不动结构、不重新拉 belt。
 
+## 极简示意图
+
+```floorstack
+# BP04 钢锭 (C2) · Mk2 40×40m · 自下而上
+1F | foundry×3（钢锭） | 铁矿石 455/min·煤 455/min | 钢锭 → BP5 | ↑2F:铁矿石·煤
+2F | foundry×3（钢锭） | 铁矿石 455/min·煤 455/min | 钢锭 → BP5 |
+屋顶 | B1-B6 直通 | — | — |
+```
+
+> BP04 单实例，双进料（铁矿石+煤）各 1 条 Mk5；1F+2F 钢锭合流后给 BP5；屋顶直通不注入总线。
+
 ## 机器超频清单（T6，Plan C ≤250%）
 
 | 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |

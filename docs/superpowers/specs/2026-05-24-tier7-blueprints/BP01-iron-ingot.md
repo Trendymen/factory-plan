@@ -18,8 +18,8 @@
 
 ```floorstack
 # BP01 铁锭 (C1) · Mk2 40×40m · 自下而上
-1F | 9× smelter (S1-S9) | 铁矿石 610.5/min（左墙 ×2 Mk5） | 铁锭 → BP2（右墙 ×2 Mk5） | ↑2F:铁矿石(lift Mk5)
-2F | 9× smelter (S10-S18，T7+启用) | 铁矿石（1F lift 上送） | 铁锭 → BP2（右墙 ×2 Mk5） |
+1F | smelter×9 | 铁矿石 610.5/min | 铁锭 610.5/min → BP2 | ↑2F:铁矿石
+2F | smelter×9（T7+启用） | 铁矿石（1F 上送） | 铁锭 → BP2 |
 ```
 
 > 本 BP 只摆 smelter；1F 铁矿石经升降机上送 2F；两层铁锭均走右墙 Wall Outlet 交给 BP2。

@@ -14,6 +14,57 @@
 
 > **核心设计原则**：**7 实例 BP9a-g 在 T6 阶段就全部摆好 + belt/pipe/manifold/电网/Power Switch 全部接好**（共 35 refinery + 7 sink）。后续升 Tier 时**不重新放机器、不重新拉 belt/pipe**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
+## 极简示意图
+
+```floorstack
+# BP09a 塑料+橡胶 (C4) · Mk2 · 单实例 · 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> 单实例 4 塑料/橡胶 refinery + 1 石油焦 refinery + 1 本地 sink；副产重油残渣（橡胶线 20/min·塑料线 10/min）走内部 pipe 转石油焦 234/min 就地消化，不上总线；塑料/橡胶上屋顶注总线。
+
+```floorstack
+# BP09b 塑料+橡胶 (C4) · Mk2 · 单实例（T7 通电）· 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> BP09b 与 BP09a 物理结构完全相同（同一蓝图复制）；副产重油残渣橡胶线 20/min·塑料线 10/min 内部转石油焦就地消化；T7 通电后满载运行。
+
+```floorstack
+# BP09c 塑料+橡胶 (C4) · Mk2 · 单实例（T7 通电）· 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> BP09c 与 BP09a/b 物理结构完全相同；副产重油残渣橡胶线 20/min·塑料线 10/min 内部转石油焦就地消化；T7 通电后满载运行。
+
+```floorstack
+# BP09d 塑料+橡胶 (C4) · Mk2 · 单实例（T8 通电）· 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> BP09d 与 BP09a 物理结构完全相同；副产重油残渣橡胶线 20/min·塑料线 10/min 内部转石油焦就地消化；T8 通电后满载运行。
+
+```floorstack
+# BP09e 塑料+橡胶 (C4) · Mk2 · 单实例（T8 通电）· 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> BP09e 与 BP09a 物理结构完全相同；副产重油残渣橡胶线 20/min·塑料线 10/min 内部转石油焦就地消化；T8 通电后满载运行。
+
+```floorstack
+# BP09f 塑料+橡胶 (C4) · Mk2 · 单实例（T9 通电）· 自下而上
+1F | refinery×4（3 塑料·1 橡胶）+refinery×1（石油焦）+awesome-sink×1 | 原油 172.5 | 塑料 115·橡胶 20·石油焦 234（本地 sink） | ↑屋顶:塑料·橡胶
+```
+
+> BP09f 与 BP09a 物理结构完全相同；副产重油残渣橡胶线 20/min·塑料线 10/min 内部转石油焦就地消化；T9 通电后满载运行。
+
+```floorstack
+# BP09g 塑料+橡胶 (C4) · Mk2 · 单实例（T9 通电 4 台，1 台备用） · 自下而上
+1F | refinery×3（塑料）+refinery×1（石油焦）+awesome-sink×1（橡胶槽备用关） | 原油 172.5 | 塑料 115·石油焦 234（本地 sink） | ↑屋顶:塑料
+```
+
+> BP09g 物理建造与 BP09a 完全相同，但 T9 仅通电 4 台（3 塑料 + 1 石油焦），橡胶槽 refinery 保留 Power Switch 关作备用；塑料线副产重油残渣 10/min 内部转石油焦就地消化。
+
 ## 机器超频清单（T6，BP9a 单实例满载）
 
 | 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |
