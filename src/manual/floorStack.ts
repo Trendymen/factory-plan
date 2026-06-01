@@ -17,7 +17,7 @@ export interface FloorStack {
   floors: Floor[];
 }
 
-const CROSS_RE = /^([↑↓])\s*([^:：]+?)\s*[:：]\s*(.+)$/;
+const CROSS_RE = /^([↑↓])\s*([^:：]+)\s*[:：]\s*(.+)$/;
 
 export function parseCross(field: string): Cross | undefined {
   const m = field.trim().match(CROSS_RE);
@@ -43,6 +43,7 @@ export function parseFloorStack(text: string): FloorStack {
     }
     const cols = line.split('|').map((c) => c.trim());
     const [name = '', machines = '', input = '', output = '', cross = ''] = cols;
+    if (!name) continue;
     floors.push({
       name,
       machines,

@@ -69,4 +69,10 @@ describe('parseFloorStack', () => {
       floors: [{ name: '1F', machines: '4× constructor', input: undefined, output: undefined, cross: undefined }],
     });
   });
+
+  it('跳过 name 为空的残缺行', () => {
+    const text = `1F | 9× smelter |  |  | \n |  |  |  | \n2F | 4× constructor |  |  | `;
+    const result = parseFloorStack(text);
+    expect(result.floors.map((f) => f.name)).toEqual(['1F', '2F']);
+  });
 });
