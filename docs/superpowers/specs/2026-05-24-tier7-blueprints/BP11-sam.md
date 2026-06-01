@@ -14,9 +14,9 @@
 
 ```floorstack
 # BP11 重生 SAM + SAM 波动器 (C5 末) · Mk2 · 自下而上
-1F | manufacturer×1（SAM 波动器） | 重生 SAM 60·电线 50·钢管 30 | SAM 波动器 10/min → B5 | ↑屋顶:SAM 波动器
+1F | manufacturer×1（SAM 波动器） | 重生 SAM 60·电线 50·钢管 30 | SAM 波动器 10/min → 屋顶 | ↑屋顶:SAM 波动器
 2F | constructor×2（重生 SAM） | SAM 矿石 360 | 重生 SAM 90/min（60 下送·30 上屋顶） | ↓1F:重生 SAM 60
-屋顶 | 总线取料注产物 | 电线 50·钢管 30 | 重生 SAM 30·SAM 波动器 10 → B5 |
+屋顶 | 总线取料注产物 | 电线 50·钢管 30 | 重生 SAM 30·SAM 波动器 10 → 总线 |
 ```
 
 > 全厂唯一 T6 即满载蓝图（无 Power Switch 分网）；2F constructor 产 90/min 重生 SAM，60 下送 1F、30 上屋顶注 B5；电线+钢管从屋顶下行喂 1F manufacturer；SAM 波动器上行注 B5。
