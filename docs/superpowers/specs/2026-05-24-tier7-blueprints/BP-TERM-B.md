@@ -23,10 +23,10 @@
 ## 极简示意图
 
 ```floorstack
-# BP-TERM-B · 后13 mainNode + 共享 sink · 40×40m · 自下而上
-1F | 上传机×12 + 共享回收机 + 合流×13 | 后13路 mainNode 187/min · BP-TERM-A overflow | 12路 → 位面仓 · 26路 overflow → sink |
-2F | 上传机×10（U26 T6 + 9 个 T7+预留槽位） | T6+T7-9 mainNode | 10路 → 位面仓 |
-屋顶 | 分流 | 总线后13路 | 9 路展开喂 Uploader | ↓1F:mainNode料
+# BP-TERM-B · 后13种主节点料 + 共享回收机 · 40×40m · 自下而上
+1F | 上传机×12 + 共享回收机(AWESOME Sink) + 合流×13 | 后13种主节点料 187/min · BP-TERM-A 来的溢出料 | 12路 → 位面仓(Dimensional Depot) · 26路溢出 → 回收机(AWESOME Sink) |
+2F | 上传机×10（U26 T6通电 + 9个科技7阶后预留槽位） | T6+T7-9阶主节点料 | 10路 → 位面仓(Dimensional Depot) |
+屋顶 | 分流器 | 把主干料分送各层上传机 | 后13路分下各层喂上传机 | ↓1F:主节点料
 ```
 
-> BP-TERM-B 取总线后 13 个 mainNode 送位面仓；唯一共享回收机汇全部 26 路 overflow（本蓝图 13 路 + BP-TERM-A 来 13 路）；2F 含 T6 通电的 U26 及 T7+ 预留槽位。
+> BP-TERM-B 取后13种主节点料送位面仓(Dimensional Depot)；唯一共享回收机(AWESOME Sink)兜底全部26路溢出（本蓝图13路 + BP-TERM-A 来的13路）；2F 含 T6 通电的 U26 及科技7阶后预留槽位。
