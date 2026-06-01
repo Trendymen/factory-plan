@@ -172,6 +172,9 @@
   font-size: 12px;
 }
 .floor-arrow-glyph { font-size: 16px; color: var(--accent); }
+.floor-arrow-up { color: var(--accent); }
+.floor-arrow-down { color: var(--text-muted); }
+.floor-arrow-label { font-size: 11px; color: var(--text-secondary); }
 @media (max-width: 640px) {
   .floor-box-grid { grid-template-columns: 1fr; }
   .floor-io-in, .floor-io-out { text-align: left; }

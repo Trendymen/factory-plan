@@ -22,8 +22,8 @@ function FloorStackBlockImpl({ data }: Props) {
   return (
     <div className="floor-stack">
       {data.title && <div className="floor-stack-title">{data.title}</div>}
-      {floorsTopDown.map((floor, i) => (
-        <div className="floor-row" key={`${floor.name}-${i}`}>
+      {floorsTopDown.map((floor) => (
+        <div className="floor-row" key={floor.name}>
           {floor.cross?.dir === 'up' && <Arrow cross={floor.cross} />}
           <div className="floor-box-grid">
             <div className="floor-io floor-io-in">
