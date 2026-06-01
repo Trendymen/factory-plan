@@ -152,7 +152,7 @@ function AppContent() {
   }, [schemes, loadScheme, showBoundary]);
 
   return (
-    <div className="app-layout">
+    <div className={`app-layout${viewMode === 'manual' ? ' manual-mode' : ''}`}>
       <TopBar />
       <aside className="left-panel"><LeftPanel /></aside>
       <main

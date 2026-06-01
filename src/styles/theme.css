@@ -103,6 +103,23 @@ body {
   width: 100vw;
 }
 
+/* 手册视图：隐藏左右面板，画布全宽，默认鼠标（非画布拖拽） */
+.app-layout.manual-mode {
+  grid-template-areas:
+    "topbar"
+    "canvas"
+    "bottom";
+  grid-template-columns: 1fr;
+}
+.app-layout.manual-mode .left-panel,
+.app-layout.manual-mode .right-panel {
+  display: none;
+}
+.app-layout.manual-mode .canvas-area,
+.app-layout.manual-mode .canvas-area:active {
+  cursor: auto;
+}
+
 /* ============================================================
    5. TopBar
    ============================================================ */
