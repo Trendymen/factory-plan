@@ -14,6 +14,16 @@
 
 > **核心设计原则**：**18 台 smelter 在 T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好**。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
+## 极简示意图
+
+```floorstack
+# BP01 铁锭 (C1) · Mk2 40×40m · 自下而上
+1F | 9× smelter (S1-S9) | 铁矿石 610.5/min（左墙 ×2 Mk5） | 铁锭 → BP2（右墙 ×2 Mk5） | ↑2F:铁矿石(lift Mk5)
+2F | 9× smelter (S10-S18，T7+启用) | 铁矿石（1F lift 上送） | 铁锭 → BP2（右墙 ×2 Mk5） |
+```
+
+> 本 BP 只摆 smelter；1F 铁矿石经升降机上送 2F；两层铁锭均走右墙 Wall Outlet 交给 BP2。
+
 ## 机器超频清单（T6，Plan C ≤250%）
 
 | 配方 | 物理 | T6 通电 | 超频 | 单台产能 (/min) | Power Shard/通电台 |
