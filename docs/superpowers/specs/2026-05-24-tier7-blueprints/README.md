@@ -17,14 +17,14 @@
 | C1 | **BP3** 螺丝双线 | 9 | 19 | 1 Mk2 | [BP03-screw.md](BP03-screw.md) |
 | C2 钢系 | **BP4** 钢锭 | 5 | 6 | 1 Mk2 | [BP04-steel-ingot.md](BP04-steel-ingot.md) |
 | C2 | **BP5** 钢梁/钢管 | 5 | 8 | 1 Mk2 | [BP05-steel-beam-pipe.md](BP05-steel-beam-pipe.md) |
-| C3 铜电 | **BP6** 铜锭/铜金锭 | 7 | 33 | 3 Mk2 (a/b/c) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
+| C3 铜电 | **BP6** 铜锭/钦金锭 | 7 | 33 | 3 Mk2 (a/b/c) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
 | C3 | **BP7** 铜板/电线/线缆 | 11 | 46 | 3 Mk2 (a/b/c) | [BP07-wire-cable.md](BP07-wire-cable.md) |
 | C3 | **BP8** 电路板 | 1 | 8 | 1 Mk2 | [BP08-circuit-board.md](BP08-circuit-board.md) |
-| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 35 | 7 Mk2 (a-g)（T6 即全部建好）| [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
-| C5 MAM | **BP10** 石英/硅土/快速线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
+| C4 油 | **BP9** 塑料/橡胶 + 本地油焦 | 5 | 35 | 7 Mk2 (a-g)（T6 即全部建好）| [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
+| C5 MAM | **BP10** 石英/二氧化硅/急速电线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
 | C5 末 | **BP11** 重生 SAM/SAM 波动器 | 3 | 3 | 1 Mk2 | [BP11-sam.md](BP11-sam.md) |
 | C6 装配 | **BP12** 转子/定子/电机 | 5 | 7 | 1 Mk2 | [BP12-rotor-stator-motor.md](BP12-rotor-stator-motor.md) |
-| C6 | **BP13** 模块化框架/包裹工业梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
+| C6 | **BP13** 模块化框架/钢筋混凝土梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
 | C6 | **BP14** HMF/电脑 | 2 | 6 | 3 Mk2 (a/b/c) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
 | C6 | **BP15** 晶振/HSC | 2 | 6 | 3 Mk2 (a/b/c) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
 | **小计** | | **96** | **262** | 31 个 Mk2 实例（BP9 a-g 7 实例 T6 即全部建好）+ 各 BP coke 内置 | |
@@ -117,7 +117,7 @@
 | B3 | 钢管/钢梁/电线 → C6 | 333 |
 | B4 | 塑料/混凝土/电路板/线缆 → C6 | 276 |
 | B5 | **26 mainNode 终端汇流** | 396 |
-| B6 | 铜金锭/铜板/快速线/石英晶体 | 228 |
+| B6 | 钦金锭/铜板/急速电线/石英晶体 | 228 |
 
 预留 B7/B8（Tier 7+ 扩容）= 屋顶 8 belt 槽位；当前 6 active + 2 空跑。
 
