@@ -13,9 +13,9 @@
 
 ```floorstack
 # BP-TERM-A · 前13种主节点料 位面仓 · 40×40m · 自下而上
-1F | 上传机×13 + 合流×6 | 前13种主节点料 209/min | 13路 → 位面仓(Dimensional Depot) · overflow → BP-TERM-B(后段共享回收机) |
-2F | 上传机×3（科技7阶后预留槽位） | 科技7-9阶新增主节点料 | 新增路 → 位面仓(Dimensional Depot) |
-屋顶 | 分流器 | 把主干料分送各层上传机 | 前13路分下1F · 多余料送往 BP-TERM-B | ↓1F:主节点料
+1F (0-12m) | 上传机×13 + 合流×6 | 前13种主节点料 209/min | 13路 → 位面仓(Dimensional Depot) · overflow → BP-TERM-B(后段共享回收机) |
+2F (16-32m) | 上传机×3（科技7阶后预留槽位） | 科技7-9阶新增主节点料 | 新增路 → 位面仓(Dimensional Depot) |
+屋顶 (35-40m) | 分流器 | 把主干料分送各层上传机 | 前13路分下1F · 多余料送往 BP-TERM-B | ↓1F:主节点料
 ```
 
 > BP-TERM-A 取前13种主节点料送位面仓(Dimensional Depot)；本蓝图无回收机，overflow 汇流后全部交给 BP-TERM-B 后段共享回收机处理。

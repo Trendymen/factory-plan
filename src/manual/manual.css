@@ -175,6 +175,26 @@
 .floor-arrow-up { color: var(--accent); }
 .floor-arrow-down { color: var(--text-muted); }
 .floor-arrow-label { font-size: 11px; color: var(--text-secondary); }
+/* 同侧多条流（进料/出料 + 回流）竖直堆叠 */
+.floor-io > span { display: block; }
+/* 横向回流：从右进 / 回左出，用暖色 + ◀ 区分正常进出料 */
+.floor-io-rev { color: #d8a657; font-size: 11px; margin-top: 2px; }
+/* 楼层高度范围（侧视剖面） */
+.floor-height { color: var(--text-muted); font-size: 11px; letter-spacing: 0; }
+/* 地基/隔层空档带 */
+.floor-gap {
+  align-self: center;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  padding: 3px 0;
+  margin: 3px 0;
+  min-width: 220px;
+  border-top: 1px dashed var(--border-subtle);
+  border-bottom: 1px dashed var(--border-subtle);
+  background: repeating-linear-gradient(45deg, transparent, transparent 5px, var(--bg-secondary) 5px, var(--bg-secondary) 7px);
+}
 @media (max-width: 640px) {
   .floor-box-grid { grid-template-columns: 1fr; }
   .floor-io-in, .floor-io-out { text-align: left; }

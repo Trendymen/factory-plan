@@ -24,9 +24,9 @@
 
 ```floorstack
 # BP-TERM-B · 后13种主节点料 + 共享回收机 · 40×40m · 自下而上
-1F | 上传机×12 + 共享回收机(AWESOME Sink) + 合流×13 | 后13种主节点料 187/min · BP-TERM-A 来的溢出料 | 12路 → 位面仓(Dimensional Depot) · 26路溢出 → 回收机(AWESOME Sink) |
-2F | 上传机×10（U26 T6通电 + 9个科技7阶后预留槽位） | T6+T7-9阶主节点料 | 10路 → 位面仓(Dimensional Depot) |
-屋顶 | 分流器 | 把主干料分送各层上传机 | 后13路分下各层喂上传机 | ↓1F:主节点料
+1F (0-12m) | 上传机×12 + 共享回收机(AWESOME Sink) + 合流×13 | 后13种主节点料 187/min · BP-TERM-A 来的溢出料 | 12路 → 位面仓(Dimensional Depot) · 26路溢出 → 回收机(AWESOME Sink) |
+2F (16-32m) | 上传机×10（U26 T6通电 + 9个科技7阶后预留槽位） | T6+T7-9阶主节点料 | 10路 → 位面仓(Dimensional Depot) |
+屋顶 (35-40m) | 分流器 | 把主干料分送各层上传机 | 后13路分下各层喂上传机 | ↓1F:主节点料
 ```
 
 > BP-TERM-B 取后13种主节点料送位面仓(Dimensional Depot)；唯一共享回收机(AWESOME Sink)兜底全部26路溢出（本蓝图13路 + BP-TERM-A 来的13路）；2F 含 T6 通电的 U26 及科技7阶后预留槽位。

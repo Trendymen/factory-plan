@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseCross, parseFloorStack } from './floorStack';
+import { parseCross, parseFloorStack, parseName, parseReverse } from './floorStack';
 
 describe('parseCross', () => {
   it('解析向上跨层 + lift 注记', () => {
@@ -74,5 +74,38 @@ describe('parseFloorStack', () => {
     const text = `1F | 9× smelter |  |  | \n |  |  |  | \n2F | 4× constructor |  |  | `;
     const result = parseFloorStack(text);
     expect(result.floors.map((f) => f.name)).toEqual(['1F', '2F']);
+  });
+});
+
+describe('parseName 高度', () => {
+  it('拆出层名与高度范围', () => {
+    expect(parseName('1F (0-8m)')).toEqual({ name: '1F', height: { low: 0, high: 8 } });
+    expect(parseName('屋顶 (35-40m)')).toEqual({ name: '屋顶', height: { low: 35, high: 40 } });
+  });
+  it('无高度时只返回 name', () => {
+    expect(parseName('2F')).toEqual({ name: '2F' });
+  });
+});
+
+describe('parseReverse 回流', () => {
+  it('解析右进/左出，分号分隔', () => {
+    expect(parseReverse('右:螺丝 ← BP3 ; 左:螺丝 → BP2')).toEqual([
+      { side: 'right', label: '螺丝 ← BP3' },
+      { side: 'left', label: '螺丝 → BP2' },
+    ]);
+  });
+  it('空字段 → undefined', () => {
+    expect(parseReverse('')).toBeUndefined();
+  });
+});
+
+describe('parseFloorStack 高度+回流（6 列）', () => {
+  it('解析 6 列含高度、跨层、回流', () => {
+    const text = `屋顶 (35-40m) | 汇料台 |  | 铁棒 → 外运 | ↓3F:螺丝 | 右:螺丝 ← 螺丝线(BP3)`;
+    const f = parseFloorStack(text).floors[0];
+    expect(f.name).toBe('屋顶');
+    expect(f.height).toEqual({ low: 35, high: 40 });
+    expect(f.cross).toEqual({ dir: 'down', target: '3F', material: '螺丝' });
+    expect(f.reverse).toEqual([{ side: 'right', label: '螺丝 ← 螺丝线(BP3)' }]);
   });
 });
