@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import type { Cross, Floor, FloorStack } from './floorStack';
+import { memo, Fragment } from 'react';
+import type { Cross, Floor, FloorStack, Instance } from './floorStack';
 
 interface Props {
   data: FloorStack;
@@ -55,26 +55,42 @@ function FloorRow({ floor }: { floor: Floor }) {
   );
 }
 
-function FloorStackBlockImpl({ data }: Props) {
-  // 倒序：屋顶在上、1F 在底（DSL 作者按 1F→屋顶 自下而上书写）
-  const topDown = [...data.floors].reverse();
+// 单实例侧视剖面：自下而上、自动插入地基/隔层带。
+function InstanceColumn({ inst }: { inst: Instance }) {
+  const topDown = [...inst.floors].reverse(); // 屋顶在上、1F 在底
   return (
-    <div className="floor-stack">
-      {data.title && <div className="floor-stack-title">{data.title}</div>}
-      {topDown.map((floor, i) => {
-        const below = topDown[i + 1];
-        // 上层底高于下层顶 → 中间有地基/隔层空档
-        const gap =
-          floor.height && below?.height && floor.height.low > below.height.high
-            ? { low: below.height.high, high: floor.height.low }
-            : null;
-        return (
-          <div key={floor.name}>
-            <FloorRow floor={floor} />
-            {gap && <GapBand low={gap.low} high={gap.high} />}
-          </div>
-        );
-      })}
+    <div className="floor-instance">
+      {inst.title && <div className="floor-stack-title">{inst.title}</div>}
+      <div className="floor-stack">
+        {topDown.map((floor, i) => {
+          const below = topDown[i + 1];
+          const gap =
+            floor.height && below?.height && floor.height.low > below.height.high
+              ? { low: below.height.high, high: floor.height.low }
+              : null;
+          return (
+            <div key={floor.name}>
+              <FloorRow floor={floor} />
+              {gap && <GapBand low={gap.low} high={gap.high} />}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FloorStackBlockImpl({ data }: Props) {
+  const multi = data.instances.length > 1;
+  // 多实例横排（贴合左→右物品流向），共底对齐(1F 落在同一地面线)，超宽横向滚动。
+  return (
+    <div className={`floor-stack-set${multi ? ' floor-stack-multi' : ''}`}>
+      {data.instances.map((inst, idx) => (
+        <Fragment key={inst.title ?? idx}>
+          {multi && idx > 0 && <div className="floor-flow" aria-hidden="true">→</div>}
+          <InstanceColumn inst={inst} />
+        </Fragment>
+      ))}
     </div>
   );
 }

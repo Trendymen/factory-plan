@@ -27,9 +27,15 @@ export interface Floor {
   reverse?: ReverseFlow[];
 }
 
-export interface FloorStack {
+// 一个 BP 实例（如 BP06a），一张侧视剖面。
+export interface Instance {
   title?: string;
   floors: Floor[];
+}
+
+// 一个 floorstack 块可含多个实例（多个 # 标题），横排显示以贴合左→右物品流向。
+export interface FloorStack {
+  instances: Instance[];
 }
 
 const CROSS_RE = /^([↑↓])\s*([^:：]+)\s*[:：]\s*(.+)$/;
@@ -69,21 +75,28 @@ export function parseReverse(field: string): ReverseFlow[] | undefined {
 
 export function parseFloorStack(text: string): FloorStack {
   const lines = text.split('\n');
-  let title: string | undefined;
-  const floors: Floor[] = [];
+  const instances: Instance[] = [];
+  let current: Instance | null = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
     if (!line) continue;
     if (line.startsWith('#')) {
-      if (title === undefined) title = line.replace(/^#+\s*/, '').trim();
+      // 每个 # 标题开启一个新实例（横排显示）
+      current = { title: line.replace(/^#+\s*/, '').trim() || undefined, floors: [] };
+      instances.push(current);
       continue;
     }
     const cols = line.split('|').map((c) => c.trim());
     const [nameRaw = '', machines = '', input = '', output = '', cross = '', reverse = ''] = cols;
     if (!nameRaw) continue;
+    if (!current) {
+      // 无 # 标题时也建一个匿名实例
+      current = { floors: [] };
+      instances.push(current);
+    }
     const { name, height } = parseName(nameRaw);
-    floors.push({
+    current.floors.push({
       name,
       height,
       machines,
@@ -94,5 +107,5 @@ export function parseFloorStack(text: string): FloorStack {
     });
   }
 
-  return { title, floors };
+  return { instances };
 }

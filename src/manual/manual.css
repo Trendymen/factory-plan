@@ -195,6 +195,30 @@
   border-bottom: 1px dashed var(--border-subtle);
   background: repeating-linear-gradient(45deg, transparent, transparent 5px, var(--bg-secondary) 5px, var(--bg-secondary) 7px);
 }
+/* ===== 多实例横排（同 BP 的 a/b/c 左→右，贴合物品流向，超宽横向滚动） ===== */
+.floor-stack-multi {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;        /* 各实例 1F 落在同一地面线 */
+  gap: 16px;
+  overflow-x: auto;
+  padding: 4px 2px 14px;
+  scrollbar-width: thin;
+}
+.floor-stack-multi .floor-instance { flex: 0 0 auto; }
+.floor-stack-multi .floor-stack-title { color: var(--accent); font-weight: 600; }
+.floor-flow {
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: 22px;
+  opacity: 0.6;
+  user-select: none;
+}
+.floor-stack-multi::-webkit-scrollbar { height: 8px; }
+.floor-stack-multi::-webkit-scrollbar-track { background: transparent; }
+.floor-stack-multi::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.floor-stack-multi::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 @media (max-width: 640px) {
   .floor-box-grid { grid-template-columns: 1fr; }
   .floor-io-in, .floor-io-out { text-align: left; }
