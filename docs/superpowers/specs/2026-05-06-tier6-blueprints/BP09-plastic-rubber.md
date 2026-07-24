@@ -1,16 +1,16 @@
-# BP9 塑料 + 橡胶 + 石油焦 (C4)
+# BP9 塑料 + 橡胶 + 油焦 (C4)
 
 ## 概要
 
 - **集群**: C4 油精炼（紧贴 BP8 之后）
 - **规格**: Mk2 **7 实例物理建造**（BP9a/b/c/d/e/f/g，相同蓝图复制）
-- **机器**: **35 refinery 一次物理建造到位**（plastic / rubber / **petroleum-coke** 三种配方，全部按 Plan C 250% 超频）+ **7 awesome-sink 一次物理建造到位**（每实例 1 个，处理本实例石油焦）
+- **机器**: **35 refinery 一次物理建造到位**（plastic / rubber / **petroleum-coke** 三种配方，全部按 Plan C 250% 超频）+ **7 awesome-sink 一次物理建造到位**（每实例 1 个，处理本实例油焦）
 - **激活时间线**（仅翻 Power Switch + 插 Power Shard，不动结构）:
   - T6 → **5 台通电**（BP9a 满载 3 plas + 1 rub + 1 coke；BP9b-g Power Switch 全关）
   - T7 → 15 台通电（BP9a-c 各 4 plas/rub + 1 coke）
   - T8 → 25 台通电（BP9a-e 各满 5 台）
   - T9 → **32 台通电**（BP9a-f 各 4 plas/rub + 1 coke，BP9g 3 plas + 1 coke + 1 备用）
-- **产能 T6**: 塑料 115/min · 橡胶 20/min · **石油焦 234/min**（残渣本地转化，BP9a 内部 sink）
+- **产能 T6**: 塑料 115/min · 橡胶 20/min · **油焦 234/min**（残渣本地转化，BP9a 内部 sink）
 
 > **核心设计原则**：**7 实例 BP9a-g 在 T6 阶段就全部摆好 + belt/pipe/manifold/电网/Power Switch 全部接好**（共 35 refinery + 7 sink）。后续升 Tier 时**不重新放机器、不重新拉 belt/pipe**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
@@ -20,17 +20,17 @@
 |---|---:|---:|---:|---:|---:|
 | plastic (refinery) | **21** | **3** | 191.67% | 38.33 塑料 + 19.17 残渣 | 2 |
 | rubber (refinery) | **7** | **1** | 100.0% | 20 橡胶 + 20 残渣 | 0 |
-| petroleum-coke (refinery) | **7** | **1** | 78.0%（处理本实例 78 残渣 → 234 石油焦）| 234 石油焦 | 1 |
+| petroleum-coke (refinery) | **7** | **1** | 78.0%（处理本实例 78 残渣 → 234 油焦）| 234 油焦 | 1 |
 | **合计 (T6)** | **35** | **5** | — | — | 3×2 + 0 + 1 = **7** |
 
 > 物理建造数 21 + 7 + 7 = 35 refinery（7 实例 × 5 槽位），另加 7 台 awesome-sink。
 > T6 仅 BP9a 5 台通电；BP9b-g 共 30 refinery + 6 sink 物理就位但 Power Switch **全关**、shard 槽**空着**。
-> T6 总产能验证: 3 × 38.33 = 115 塑料 ✓ | 1 × 20 = 20 橡胶 ✓ | 残渣 3×19.17 + 20 = 77.5 ≈ 78 ✓ | coke 78×3 = 234 石油焦 ✓
+> T6 总产能验证: 3 × 38.33 = 115 塑料 ✓ | 1 × 20 = 20 橡胶 ✓ | 残渣 3×19.17 + 20 = 77.5 ≈ 78 ✓ | coke 78×3 = 234 油焦 ✓
 > T9 满载 32 台 @ 250% = 690 塑料 + 40 橡胶 + 各实例残渣本地处理。
 
 > ⚠ **架构修正**：重油残渣是**流体**（refinery out-1 是 pipe），不能上 belt，AWESOME Sink 也不接受流体。
-> **解决方案**：每个 BP9 实例内部固定配 1 台 coke refinery 跑 `petroleum-coke` 配方（残渣**本地转固体石油焦**）→ **本地 sink**（每实例配 1 个 awesome-sink）。
-> **为什么不上 B6**：石油焦上 B6 会让 BP10→BP15 段达 462/min（96% Mk4），几乎溢出；就地 sink 让 B6 流量保持 306（64% Mk4）安全水平。
+> **解决方案**：每个 BP9 实例内部固定配 1 台 coke refinery 跑 `petroleum-coke` 配方（残渣**本地转固体油焦**）→ **本地 sink**（每实例配 1 个 awesome-sink）。
+> **为什么不上 B6**：油焦上 B6 会让 BP10→BP15 段达 462/min（96% Mk4），几乎溢出；就地 sink 让 B6 流量保持 306（64% Mk4）安全水平。
 
 ## 物料 I/O
 
@@ -42,9 +42,9 @@
 | 输出 | 塑料 → B5 终端 | 20 / 跨实例累加 | 屋顶 merger → B5 |
 | 输出 | 橡胶 → B5 终端 | 20 / 跨实例累加 | 屋顶 merger → B5 |
 | **内部** | 残渣 (fluid) → coke refinery | 78（每实例独立） | **本地 pipe**（不出蓝图）|
-| **内部** | 石油焦 → 本地 awesome-sink | 234（每实例独立） | **本地 belt**（不上总线）|
+| **内部** | 油焦 → 本地 awesome-sink | 234（每实例独立） | **本地 belt**（不上总线）|
 
-**屋顶总线接入**: 注入 B4 (95)、B5 (40)（**B6 不再有石油焦/残渣**）
+**屋顶总线接入**: 注入 B4 (95)、B5 (40)（**B6 不再有油焦/残渣**）
 
 ## ⚠ 关键约束：refinery 31m 高
 
@@ -81,9 +81,9 @@
 | T9 | 23 / 2 / 7 = **32** | 32 | ~567 | BP9a-f 各 5 台开；BP9g 4 台开（3 plas + 1 coke + 1 备用 Switch 关） |
 
 > **T6 单实例搞定的核心机制**：
-> - BP9a 1 台 coke refinery @ 78% 超频（本实例只产 78 残渣）→ 234 石油焦
-> - BP9a 1 台 awesome-sink @ 250% 吃 234 石油焦
-> - 全部物料/残渣/石油焦/sink 都在 BP9a 内部循环
+> - BP9a 1 台 coke refinery @ 78% 超频（本实例只产 78 残渣）→ 234 油焦
+> - BP9a 1 台 awesome-sink @ 250% 吃 234 油焦
+> - 全部物料/残渣/油焦/sink 都在 BP9a 内部循环
 > - BP9b-g 6 实例物理建造完整（30 refinery + 6 sink）但 Power Switch **全关**、shard 槽**空着**
 
 ## 俯视图（按实际比例，每层独立 — 视觉正方形）
@@ -126,9 +126,9 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 
 - BP9a：R1-R5 五台 refinery + AWESOME Sink **全部 T6 通电**（带 `*`）
 - R1-R3：plastic refinery，R4：rubber refinery，各 10m W × 20m L × 31m H，row=0-2 (0-16m)
-- R5：coke refinery（残渣 → 石油焦），col=0-1.25 row=2.75-4.5 (0-10m × 22-36m)
+- R5：coke refinery（残渣 → 油焦），col=0-1.25 row=2.75-4.5 (0-10m × 22-36m)
 - AWESOME Sink：16m W × 13m L × 24m H，col=1.5-3.5 row=3-4.6
-- 4 台 R1-R4 的残渣 pipe 在 row=2.5 汇流到 R5 in-0；R5 输出石油焦短 belt 直连 Sink
+- 4 台 R1-R4 的残渣 pipe 在 row=2.5 汇流到 R5 in-0；R5 输出油焦短 belt 直连 Sink
 - 占地核算：4×R1-4 (200m²×4=800) + R5 (200m²) + Sink (208m²) = 1208m² < 1600m² 1F 容量 ✓
 
 ### 1F (0-31m): BP9b-g 视图（T6 Power Switch 全关，belt/pipe/manifold 已接好）
@@ -186,7 +186,7 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 - 2 个 merger（B4 塑料 95 + B5 塑料 20 / 橡胶 20）
 - 2 条 lift-top（塑料 → B4 + B5、橡胶 → B5）
 - **残渣不上屋顶**（流体在 1F 内部 pipe 直连 R5 coke refinery）
-- **石油焦不上屋顶**（1F R5 输出 → 本地 awesome-sink，1F 内部消化）
+- **油焦不上屋顶**（1F R5 输出 → 本地 awesome-sink，1F 内部消化）
 
 ## Power Switch 分网
 
@@ -217,12 +217,12 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 5. **残渣 pipe 汇流**: R1-R4 out-1（残渣 fluid）→ pipe junction（4 输入 → 1 输出）→ R5 in-0
    > pipe junction 用 Pipeline Junction Cross 或 Industrial Pipeline Support，4 台合 1 路
    > 注意 pipe 容量：Mk1 pipe 300/min，78 残渣远低于上限 ✓
-6. **R5 石油焦输出**: R5 out-0（固体 belt）→ 短 belt（~2m）直连本地 1 台 **AWESOME Sink (16m × 13m × 24m高)**（位于 col=1.5-3.5 row=3-4.625）
-   > 1 台 sink @ 100% = 60/min；@ 250% (3 power shard) = 240/min。234/min 单实例石油焦低于 sink 容量 ✓
+6. **R5 油焦输出**: R5 out-0（固体 belt）→ 短 belt（~2m）直连本地 1 台 **AWESOME Sink (16m × 13m × 24m高)**（位于 col=1.5-3.5 row=3-4.625）
+   > 1 台 sink @ 100% = 60/min；@ 250% (3 power shard) = 240/min。234/min 单实例油焦低于 sink 容量 ✓
 7. **1F belt 收集**:
    - row=2 plastic 主 belt（R1-R3 out-0 合流）
    - row=2 rubber 主 belt（R4 out-0）
-   - **石油焦不收集主 belt**（R5 短 belt 直连本地 sink）
+   - **油焦不收集主 belt**（R5 短 belt 直连本地 sink）
 8. **垂直汇总（31m → 屋顶 35m）**: 4m 内放 2 条 lift-out-top
    - 塑料 lift × 1（屋顶再 1→2 split）
    - 橡胶 lift × 1
@@ -230,7 +230,7 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
    - 塑料 lift-top → 1→2 splitter (95:20) → 一支 merger 注 B4，一支 merger 注 B5
    - 橡胶 lift-top → 直接 merger 注 B5
    - 共 2 个 merger（B4、B5 各 1）
-10. **本地 sink**: 1F col=1.5-3.5 row=3-4.625 处放 1 个 AWESOME Sink (16×13m × 24m高)，R5 石油焦 belt 直连
+10. **本地 sink**: 1F col=1.5-3.5 row=3-4.625 处放 1 个 AWESOME Sink (16×13m × 24m高)，R5 油焦 belt 直连
 11. **复制 7 份**：BP9a-g 完全相同的物理建造（共 35 refinery + 7 sink + 7 套 belt/pipe/manifold/lift）
 12. **Power Switch ×7**：按上面"Power Switch 分网"表布置 Network A-G；T6 只合 A，B-G 全部 OFF
 13. **Power Shard（T6 阶段）**：仅 BP9a R1-R3 各插 2 shard、R5 插 1 shard、sink 插 3 shard（共 10 shard）；**BP9b-g 物理已就位但所有 shard 槽空着**
@@ -254,16 +254,16 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 > BP9a-g 之间机器层完全不互通——每实例独立的油田 pipe（或共享油田主 pipe + 各实例分支）。
 > 详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
-## 残渣 → 石油焦 → 本地 sink（默认）
+## 残渣 → 油焦 → 本地 sink（默认）
 
 每个 BP9 实例（通电后）：
-- 78/min 残渣（pipe）→ 1 台 coke refinery @ 78% → 234/min 石油焦（固体）
-- 234 石油焦 → 1 台本地 awesome-sink（@250% 提速到 240/min，留 6/min 余量）
+- 78/min 残渣（pipe）→ 1 台 coke refinery @ 78% → 234/min 油焦（固体）
+- 234 油焦 → 1 台本地 awesome-sink（@250% 提速到 240/min，留 6/min 余量）
 - 7 实例独立 sink，**不上 B6 总线**
-- BP-TERM-B 不再有"石油焦/残渣 sink"
+- BP-TERM-B 不再有"油焦/残渣 sink"
 
 **为什么就地 sink 而不是上 B6**：
-- 234 石油焦/min × 7 实例 = 1638/min，远超任何 belt 等级
+- 234 油焦/min × 7 实例 = 1638/min，远超任何 belt 等级
 - 即使单实例 234 上 B6 也会让 BP10→BP15 段流量从 306 → 540（112% Mk4，溢出）
 - 就地 sink 让 BP9 完全自包含，不影响其他蓝图
 
@@ -279,9 +279,9 @@ refinery 31m 高占满 1F 整层，sink 24m 高（0-24m）。1F 内部水平不�
 - [ ] refinery 原油输入用 Pipeline Wall Hole（左 Wall）
 - [ ] R1-R4 残渣 out-1 用 pipe junction 合流到 R5 in-0（4 进 1 出）
 - [ ] R5 跑 `petroleum-coke` 配方（不是 plastic/rubber）
-- [ ] R5 输出是石油焦（固体，belt 可输送）
+- [ ] R5 输出是油焦（固体，belt 可输送）
 - [ ] **每实例 1 台本地 awesome-sink** 接 R5 输出（@250% 处理 234/min）
-- [ ] **B6 不携带石油焦/残渣**（屋顶 B6 直通无 merger）
+- [ ] **B6 不携带油焦/残渣**（屋顶 B6 直通无 merger）
 - [ ] 原油矿场 pipe 容量按 T9 ~1100/min 预留（7 实例满载）
 - [ ] 7 实例物理紧贴（屋顶 B1-B6 跨实例续接）
-- [ ] BP-TERM-B 不再有残渣/石油焦 sink
+- [ ] BP-TERM-B 不再有残渣/油焦 sink

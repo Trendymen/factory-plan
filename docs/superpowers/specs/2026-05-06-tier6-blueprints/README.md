@@ -15,15 +15,15 @@
 | C1 | **BP3** 螺丝双线 | 9 | 19 | 1 Mk2 | [BP03-screw.md](BP03-screw.md) |
 | C2 钢系 | **BP4** 钢锭 | 5 | 6 | 1 Mk2 | [BP04-steel-ingot.md](BP04-steel-ingot.md) |
 | C2 | **BP5** 钢梁/钢管 | 5 | 8 | 1 Mk2 | [BP05-steel-beam-pipe.md](BP05-steel-beam-pipe.md) |
-| C3 铜电 | **BP6** 铜锭/铜金锭 | 7 | 31 | 2 Mk2 (a/b) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
-| C3 | **BP7** 铜板/电线/线缆 | 11 | 46 | 3 Mk2 (a/b/c) | [BP07-wire-cable.md](BP07-wire-cable.md) |
+| C3 铜电 | **BP6** 铜锭/钦金锭 | 7 | 31 | 2 Mk2 (a/b) | [BP06-copper-smelt.md](BP06-copper-smelt.md) |
+| C3 | **BP7** 铜板/电线/电缆 | 11 | 46 | 3 Mk2 (a/b/c) | [BP07-wire-cable.md](BP07-wire-cable.md) |
 | C3 | **BP8** 电路板 | 1 | 8 | 1 Mk2 | [BP08-circuit-board.md](BP08-circuit-board.md) |
-| C4 油 | **BP9** 塑料/橡胶 + 本地石油焦 | 5 | 32 | 5 Mk2 (a-e), T9 扩 7 (a-g) | [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
-| C5 MAM | **BP10** 石英/硅土/快速线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
+| C4 油 | **BP9** 塑料/橡胶 + 本地油焦 | 5 | 32 | 5 Mk2 (a-e), T9 扩 7 (a-g) | [BP09-plastic-rubber.md](BP09-plastic-rubber.md) |
+| C5 MAM | **BP10** 石英/二氧化硅/急速电线/混凝土/AI 限制器 | 9 | 28 | 2 Mk2 (a/b) | [BP10-quartz-quickwire-concrete.md](BP10-quartz-quickwire-concrete.md) |
 | C5 末 | **BP11** 重生 SAM/SAM 波动器 | 3 | 3 | 1 Mk2 | [BP11-sam.md](BP11-sam.md) |
-| C6 装配 | **BP12** 转子/定子/电机 | 5 | 7 | 1 Mk2 | [BP12-rotor-stator-motor.md](BP12-rotor-stator-motor.md) |
-| C6 | **BP13** 模块化框架/包裹工业梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
-| C6 | **BP14** HMF/电脑 | 2 | 6 | 2 Mk2 (a/b) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
+| C6 装配 | **BP12** 转子/定子/马达 | 5 | 7 | 1 Mk2 | [BP12-rotor-stator-motor.md](BP12-rotor-stator-motor.md) |
+| C6 | **BP13** 模块化框架/钢筋混凝土梁 | 5 | 6 | 1 Mk2 | [BP13-frame-encased-beam.md](BP13-frame-encased-beam.md) |
+| C6 | **BP14** HMF/计算机 | 2 | 6 | 2 Mk2 (a/b) | [BP14-hmf-computer.md](BP14-hmf-computer.md) |
 | C6 | **BP15** 晶振/HSC | 2 | 6 | 2 Mk2 (a/b) | [BP15-crystal-osc-hsc.md](BP15-crystal-osc-hsc.md) |
 | **小计** | | **96** | **257** | T9 时新增 BP9f-g 扩到 7 实例 + 各 BP coke 内置 | |
 
@@ -37,14 +37,14 @@
 | BP04 钢锭 | 5 fnd | 15 | steel-ingot 202% |
 | BP05 钢加工 | 5 con | 15 | steel-beam 210%, steel-pipe 225% |
 | BP06 铜冶炼 | 7 smelter | 21 | copper-ingot 217.67%, caterium 246.67% |
-| BP07 铜板/电线/线缆 | 11 con | 31 | wire 223.89%, copper-sheet 208.33%, cable 169.17% |
+| BP07 铜板/电线/电缆 | 11 con | 31 | wire 223.89%, copper-sheet 208.33%, cable 169.17% |
 | BP08 电路板 | 1 asm | 2 | circuit-board 183.33% |
 | BP09 塑料/橡胶 (BP9a) | 5 ref | 7 + 3 (sink) | plastic 191.67%, rubber 100%, coke 78%, sink 250% |
 | BP10 MAM/混凝土 | 9 con/asm | 20 | quickwire 205.56%, concrete 246.67%, quartz 180% |
 | BP11 SAM | 3 con/mfr | 2 | reanimated-sam 150%, fluctuator 100% |
-| BP12 转子/定子/电机 | 5 asm | 6 | rotor 175%, stator 150%, motor 100% |
+| BP12 转子/定子/马达 | 5 asm | 6 | rotor 175%, stator 150%, motor 100% |
 | BP13 模框/包裹梁 | 5 asm | 8 | modular-frame 200%, encased-beam 133.33% |
-| BP14 HMF/电脑 | 2 mfr | 0 | 全 100% |
+| BP14 HMF/计算机 | 2 mfr | 0 | 全 100% |
 | BP15 晶振/HSC | 2 mfr | 0 | 全 100% |
 | **总计** | **96 台** | **232 shard** | |
 
@@ -113,9 +113,9 @@
 | B1 | 螺丝（C1 → BP12 转子）| 350 |
 | B2 | 螺丝/铁棒/RIP → C6 | 400.5 |
 | B3 | 钢管/钢梁/电线 → C6 | 333 |
-| B4 | 塑料/混凝土/电路板/线缆 → C6 | 276 |
+| B4 | 塑料/混凝土/电路板/电缆 → C6 | 276 |
 | B5 | **26 mainNode 终端汇流** | 396 |
-| B6 | 铜金锭/铜板/快速线/石英晶体/重油残渣 | 306 |
+| B6 | 钦金锭/铜板/急速电线/石英晶体/重油残渣 | 306 |
 
 预留 B7/B8（Tier 7+ 扩容）= 屋顶 8 belt 槽位；当前 6 active + 2 空跑。
 
@@ -149,7 +149,7 @@
 ### 物料颜色编码（建议玩家手动统一）
 
 - 铁锭 橙 / 铁板 青 / 铁棒 蓝 / 螺丝 绿
-- 铜锭 浅橙 / 电线 红 / 线缆 深红 / 铜板 桃红
+- 铜锭 浅橙 / 电线 红 / 电缆 深红 / 铜板 桃红
 - 钢锭 深灰 / 混凝土 灰
 - 塑料 半透 / 橡胶 黑
 

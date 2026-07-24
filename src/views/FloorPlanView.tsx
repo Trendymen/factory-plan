@@ -1,4 +1,4 @@
-import { useCallback, useRef, type WheelEvent } from 'react';
+import { useCallback, useRef } from 'react';
 import type { Scheme } from '../core/types';
 import { calcViewBox } from '../core/coordinate';
 import { useAppStore } from '../store/useAppStore';
@@ -13,16 +13,17 @@ import { LiftOverlay } from '../renderers/LiftRenderer';
 interface FloorPlanViewProps {
   scheme: Scheme;
   floorId: number;
+  /** 是否在 svg 自身施加 zoom/pan transform。单层视图为 true；联动视图交给父容器统一缩放，传 false。 */
+  applyTransform?: boolean;
 }
 
-export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
+export function FloorPlanView({ scheme, floorId, applyTransform = true }: FloorPlanViewProps) {
   const viewport = useAppStore(s => s.viewport);
   const layers = useAppStore(s => s.layers);
   const highlightChain = useAppStore(s => s.highlightChain);
   const selectedId = useAppStore(s => s.selectedId);
   const beltFlows = useAppStore(s => s.beltFlows);
   const materialMap = useAppStore(s => s.materialMap);
-  const setViewport = useAppStore(s => s.setViewport);
   const hover = useAppStore(s => s.hover);
   const select = useAppStore(s => s.select);
   const clearHighlight = useAppStore(s => s.clearHighlight);
@@ -40,12 +41,6 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
   const { cols, rows } = floor.gridSize;
   const baseViewBox = calcViewBox(cols, rows);
 
-  const onWheel = useCallback((e: WheelEvent) => {
-    const delta = e.deltaY > 0 ? 0.9 : 1.1;
-    const newZoom = Math.max(0.3, Math.min(3, viewport.zoom * delta));
-    setViewport({ zoom: newZoom });
-  }, [viewport.zoom, setViewport]);
-
   const machines = scheme.machines.filter(m => m.floor === floorId);
   const belts = scheme.belts.filter(b => b.floor === floorId);
   const zones = scheme.zones.filter(z => z.floor === floorId);
@@ -59,11 +54,14 @@ export function FloorPlanView({ scheme, floorId }: FloorPlanViewProps) {
       viewBox={baseViewBox}
       overflow="visible"
       style={{
-        transform: `scale(${viewport.zoom}) translate(${viewport.panX / viewport.zoom}px, ${viewport.panY / viewport.zoom}px)`,
+        // 单层：svg 自身施加 zoom/pan。联动：交给父容器统一缩放，svg 只负责填满所在列。
+        transform: applyTransform
+          ? `scale(${viewport.zoom}) translate(${viewport.panX / viewport.zoom}px, ${viewport.panY / viewport.zoom}px)`
+          : undefined,
         transformOrigin: 'center center',
         overflow: 'visible',
+        ...(applyTransform ? null : { width: '100%', height: '100%' }),
       }}
-      onWheel={onWheel}
     >
       <GridRenderer cols={cols} rows={rows} />
       {layers.zones && zones.map(z => <ZoneRenderer key={z.id} zone={z} />)}

@@ -1,16 +1,16 @@
-# BP6 铜锭 + 铜金锭 (C3)
+# BP6 铜锭 + 钦金锭 (C3)
 
 ## 概要
 
 - **集群**: C3 铜电链（紧贴 BP5 之后，C3 第一个）
 - **规格**: Mk2 **3 实例**（BP6a + BP6b + BP6c，相同蓝图复制）
-- **机器**: **每实例 11 smelter 一次物理建造到位**，3 实例共 **33 smelter**（铜锭 + 铜金锭混合）
+- **机器**: **每实例 11 smelter 一次物理建造到位**，3 实例共 **33 smelter**（铜锭 + 钦金锭混合）
 - **激活时间线**（仅翻 Power Switch + 插 Power Shard）:
   - T6 → 7 台通电（仅 BP6a 部分网；其余 26 台 Switch 关）
   - T7 → 18 台通电
   - T8 → 26 台通电
   - T9 → 31 台通电（满载；剩 2 台备用）
-- **产能 T6**: 铜锭 326.5/min · 铜金锭 74/min
+- **产能 T6**: 铜锭 326.5/min · 钦金锭 74/min
 
 > **核心设计原则**：33 台 smelter T6 一次物理建造到位（3 实例共用同一蓝图各 11 台）+ belt/manifold/电网/Power Switch 全部接好。后续升 Tier 只翻 Switch + 插 shard，不动结构、不重新拉 belt。
 
@@ -30,11 +30,11 @@
 | 方向 | 物料 | 流量 (T6 / T9) | 路径 |
 |---|---|---|---|
 | 输入 | 铜矿石 | 326.5 / 1500 | 矿场直喂 → 左 Wall Inlet (h=4m) |
-| 输入 | 铜金矿石 | 222 / 600 | 矿场直喂 → 左 Wall Inlet (h=4m, 第二口) |
+| 输入 | 钦金矿石 | 222 / 600 | 矿场直喂 → 左 Wall Inlet (h=4m, 第二口) |
 | 输出 | 铜锭 → BP7 | 326.5 / 1380 | 集群内部 → 右 Wall Outlet (h=24m) → BP6b → BP6c → BP7 |
-| 输出 | 铜金锭 → B6 | 74 / 296 | 屋顶 merger → B6（→ BP10 快速线）|
+| 输出 | 钦金锭 → B6 | 74 / 296 | 屋顶 merger → B6（→ BP10 急速电线）|
 
-**屋顶总线接入**: 注入 B6 (74 铜金锭，T9 296)
+**屋顶总线接入**: 注入 B6 (74 钦金锭，T9 296)
 
 ## 楼层占用
 
@@ -73,7 +73,7 @@
         │└─────┘                                            │
 26      │──── Cat ingot belt h=2m row=5.5 ─────────────────│
         │ 铜矿石进料：左 Wall Inlet h=4m row=2.5            │
-32      │ 铜金矿石：左 Wall Inlet h=4m row=5.5             │
+32      │ 钦金矿石：左 Wall Inlet h=4m row=5.5             │
         │   manifold 喂全部 11 台 in-0（含 2F lift-up）     │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 ```
@@ -109,7 +109,7 @@
 - BP6a 2F：仅 G2 通电；S6-S8 + G3 物理建好但 Power Switch 关
 - BP6b/c 2F：物理同样布局，全部 Switch 关
 
-### 屋顶 (35-40m): B1-B6 + B6 merger（铜金锭注入）
+### 屋顶 (35-40m): B1-B6 + B6 merger（钦金锭注入）
 
 ```
         col=0       col=1       col=2       col=3       col=4
@@ -122,7 +122,7 @@
 16      │ o B5 ────────────────────────────────────── o   │
 20      │ o B6 ───[merger << caterium-ingot 74]────── o   │
 24      │                                                 │
-28      │ B6 注入：本实例铜金锭 lift-top 上行合流          │
+28      │ B6 注入：本实例钦金锭 lift-top 上行合流          │
 32      │ copper-ingot 走集群内 h=24m 短 belt 给下游 BP    │
 36      │                                                 │
 40      └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
@@ -130,12 +130,12 @@
 
 ## 多实例侧墙续接
 
-BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下游 BP7）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
+BP6 是**纯同向流**集群（铜锭/钦金锭都是 BP6a→BP6b→BP6c→ 下游 BP7）。详见设计文档 [§多实例集群侧墙 mount 对偶规则](../2026-05-06-tier6-blueprint-design.md#多实例集群侧墙-mount-对偶规则关键设计约定)。
 
 | 高度 | 物料 | 左 Wall | 右 Wall |
 |---|---|---|---|
 | h=4m row=2.5 | 铜锭 | **Inlet** | **Outlet** |
-| h=4m row=3.5 | 铜金锭 | **Inlet**（仅 BP6b/c 用，BP6a 悬空）| **Outlet** |
+| h=4m row=3.5 | 钦金锭 | **Inlet**（仅 BP6b/c 用，BP6a 悬空）| **Outlet** |
 
 ## Power Switch 分网（每实例 5 网）
 
@@ -160,10 +160,10 @@ BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下
 5. **2F (14-24m)**：**同 1F 布局**放 3 Cu smelter S6-S8（row 0 cols 0-2）+ 2 Cat smelter G2-G3（row 2 cols 0-1）
 6. **2F belt**：row 2.5 Cu 收集 belt #3 + row 5.5 Cat 收集 belt #4，末端 lift-out-top
 7. **2F 地基**：y=24m 铺 4m 地基
-8. **垂直汇总**：4 条 belt 末端 lift-out-top 汇主 lift → 铜锭到 h=24m，铜金锭到屋顶 35m
+8. **垂直汇总**：4 条 belt 末端 lift-out-top 汇主 lift → 铜锭到 h=24m，钦金锭到屋顶 35m
 9. **右 Wall Outlet** (col=5, h=24m, row=2.5)：铜锭出口
 10. **左 Wall Inlet** (col=0, h=4m)：铜矿 (row=2.5) + 铜金矿 (row=5.5) 双进料
-11. **屋顶 (35m)**：6 Mk4 belt + B6 merger（铜金锭注入）
+11. **屋顶 (35m)**：6 Mk4 belt + B6 merger（钦金锭注入）
 12. **Power Switch ×5**：Network A/B/C/D/E 一次装好；BP6a T6 合 A+B+D，其余实例 5 网全断
 13. **Power Shard（T6）**：仅 BP6a 的 7 台通电机器各插 3 shard；其余 shard 槽空着
 
@@ -178,9 +178,9 @@ BP6 是**纯同向流**集群（铜锭/铜金锭都是 BP6a→BP6b→BP6c→ 下
 ## 验证
 
 - [ ] **33 台 smelter 全部物理放置**（每实例 11 × 3 实例）
-- [ ] 铜锭/铜金锭两条独立 row belt（防混料）
+- [ ] 铜锭/钦金锭两条独立 row belt（防混料）
 - [ ] 双进料 manifold（铜矿+铜金矿）接到全部 33 台 in-0
 - [ ] **15 个 Power Switch 一次建好**（每实例 5 × 3 实例）
 - [ ] T6 仅 BP6a 7 台通电机器插了 shard，其余 26 台 shard 槽空
-- [ ] 屋顶 B6 merger filter=铜金锭（防混料）
+- [ ] 屋顶 B6 merger filter=钦金锭（防混料）
 - [ ] 矿场容量预留：铜矿 1500/min、铜金矿 600/min（T9 上限）

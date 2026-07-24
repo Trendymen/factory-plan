@@ -120,3 +120,123 @@
   margin: 12px 0;
   color: var(--text-primary);
 }
+
+/* ===== floorstack 楼层栈图（矢量盒+文本节点，禁用 box-drawing 字符） ===== */
+.floor-stack {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+}
+.floor-stack-title {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.floor-row { display: flex; flex-direction: column; }
+.floor-box-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+.floor-box {
+  border: 1px solid rgba(120, 170, 255, 0.28);
+  border-radius: 7px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 10px 14px;
+  min-width: 220px;
+}
+.floor-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.floor-machines {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 3px;
+}
+.floor-io {
+  font-size: 12px;
+  color: var(--text-primary);
+}
+.floor-io-in { text-align: right; }
+.floor-io-out { text-align: left; }
+.floor-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.floor-arrow-glyph { font-size: 16px; color: var(--accent); }
+.floor-arrow-up { color: var(--accent); }
+.floor-arrow-down { color: var(--text-muted); }
+.floor-arrow-label { font-size: 11px; color: var(--text-secondary); }
+/* 同侧多条流（进料/出料 + 回流）竖直堆叠 */
+.floor-io > span { display: block; }
+/* 横向回流：从右进 / 回左出，用暖色 + ◀ 区分正常进出料 */
+.floor-io-rev { color: #d8a657; font-size: 11px; margin-top: 2px; }
+/* 楼层高度范围（侧视剖面） */
+.floor-height { color: var(--text-muted); font-size: 11px; letter-spacing: 0; }
+/* 地基/隔层空档带 */
+.floor-gap {
+  align-self: center;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  padding: 3px 0;
+  margin: 3px 0;
+  min-width: 220px;
+  border-top: 1px dashed var(--border-subtle);
+  border-bottom: 1px dashed var(--border-subtle);
+  background: repeating-linear-gradient(45deg, transparent, transparent 5px, var(--bg-secondary) 5px, var(--bg-secondary) 7px);
+}
+/* ===== 多实例横排（同 BP 的 a/b/c 左→右，贴合物品流向，超宽横向滚动） ===== */
+.floor-stack-multi {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;        /* 各实例 1F 落在同一地面线 */
+  gap: 16px;
+  overflow-x: auto;
+  padding: 14px 16px 12px;
+  /* 滚动区淡色面板背景：滚动条坐在淡色上、不再纯黑 */
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 170, 255, 0.3) transparent;
+}
+.floor-stack-multi .floor-instance { flex: 0 0 auto; }
+.floor-stack-multi .floor-stack-title { color: var(--accent); font-weight: 600; }
+.floor-flow {
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: 22px;
+  opacity: 0.6;
+  user-select: none;
+}
+/* 柔和滚动条：透明轨道 + 半透明拇指，hover 透出 accent 蓝 */
+.floor-stack-multi::-webkit-scrollbar { height: 10px; }
+.floor-stack-multi::-webkit-scrollbar-track { background: transparent; }
+.floor-stack-multi::-webkit-scrollbar-thumb {
+  background: rgba(120, 170, 255, 0.22);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.floor-stack-multi::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 170, 255, 0.5);
+  background-clip: padding-box;
+}
+@media (max-width: 640px) {
+  .floor-box-grid { grid-template-columns: 1fr; }
+  .floor-io-in, .floor-io-out { text-align: left; }
+}

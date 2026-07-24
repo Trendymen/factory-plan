@@ -31,7 +31,7 @@
 | 5 | 钢管 | 20 | 210 |
 | 6 | 铜板 | 10 | 428 |
 | 7 | 电线 | 30 | 1455 |
-| 8 | 线缆 | 30 | 568 |
+| 8 | 电缆 | 30 | 568 |
 | 9 | 混凝土 | 15 | 156 |
 | 10 | 塑料 | 20 | 1134 |
 | 11 | 橡胶 | 20 | 92 |
@@ -46,7 +46,7 @@
 | 层 | 高度 | 内容 |
 |---|---|---|
 | 1F | 0-12m | 中央分流器树 + 13 Uploader + 13 smart splitter + 1 merger（汇流 13 路 overflow → 右 Wall Outlet）|
-| 2F | 16-32m | T7+ 备用 Uploader 槽位（铝壳/铝包铝板/RCU/超级计算机/散热器/时间晶体）|
+| 2F | 16-32m | T7+ 备用 Uploader 槽位（铝制外壳/复合铝板/RCU/超级计算机/散热器/时间水晶）|
 | 屋顶 | 35-40m | B1-B6 直通 + B5 上的 1→27 splitter 树（前 13 路下 1F，其余 14 路继续到 BP-TERM-B）|
 
 ## 俯视图（按实际比例，每层独立）
@@ -137,7 +137,7 @@
    - 27 路输出中前 13 路 lift-bot 下到 1F 各对应 Uploader+splitter
    - 剩 14 路 belt 继续右贯穿到 BP-TERM-B 屋顶
 3. **smart splitter filter 配置**（重要）：13 个 splitter 各 filter 1 个 mainNode 物料
-4. **2F (16-32m)**: 预留 6 对槽位（不放建筑，T7+ 加铝包铝板/散热器/时间晶体等）
+4. **2F (16-32m)**: 预留 6 对槽位（不放建筑，T7+ 加复合铝板/散热器/时间水晶等）
 5. **屋顶 (35-40m)**: 6 belt 直通 + B5 上的 1→27 splitter cascade（共 4 级）
 6. **Power Switch**: 不需要（Uploader 0 W 耗电）
 
@@ -152,7 +152,7 @@
 | 5 | 钢管 | steel-pipe |
 | 6 | 铜板 | copper-sheet |
 | 7 | 电线 | wire |
-| 8 | 线缆 | cable |
+| 8 | 电缆 | cable |
 | 9 | 混凝土 | concrete |
 | 10 | 塑料 | plastic |
 | 11 | 橡胶 | rubber |
@@ -163,9 +163,9 @@
 
 | Tier | 新增 mainNode（A 占位）|
 |---|---|
-| T7 | 铝包铝板 → 2F slot 1 |
+| T7 | 复合铝板 → 2F slot 1 |
 | T8 | 散热器 → 2F slot 2 |
-| T9 | 时间晶体 → 2F slot 3 |
+| T9 | 时间水晶 → 2F slot 3 |
 
 > BP-TERM-A 共 13（T6）+ 3（T7-9）= **16 mainNode**，剩 21 个全在 BP-TERM-B（含共享 sink）。如 21 太多可启用 BP-TERM-C。
 

@@ -2,9 +2,9 @@ import { useAppStore } from '../store/useAppStore';
 import type { ViewMode } from '../core/types';
 
 const VIEW_MODES: { id: ViewMode; label: string }[] = [
+  { id: 'manual', label: '手册' },
   { id: 'single', label: '单层' },
   { id: 'linked', label: '联动' },
-  { id: 'manual', label: '手册' },
 ];
 
 export function TopBar() {

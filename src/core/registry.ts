@@ -7,31 +7,31 @@ function port(id: string, kind: PortDef['kind'], side: PortDef['side'], offset: 
 
 export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
   smelter: {
-    type: 'smelter', category: 'production', displayName: '冶炼炉',
+    type: 'smelter', category: 'production', displayName: '冶炼站',
     dimensions: { width: 6, length: 9, height: 10 }, clearanceHeight: 10,
     ports: [port('in-0', 'belt-in', 'back', 3), port('out-0', 'belt-out', 'front', 3)],
     color: '--smelter', powerUsage: 4, stackable: false, wallMounted: false,
   },
   foundry: {
-    type: 'foundry', category: 'production', displayName: '铸造厂',
+    type: 'foundry', category: 'production', displayName: '铸造站',
     dimensions: { width: 8, length: 9, height: 9 }, clearanceHeight: 9,
     ports: [port('in-0', 'belt-in', 'back', 2), port('in-1', 'belt-in', 'back', 6), port('out-0', 'belt-out', 'front', 4)],
     color: '--foundry', powerUsage: 16, stackable: false, wallMounted: false,
   },
   constructor: {
-    type: 'constructor' as BuildingType, category: 'production' as BuildingCategory, displayName: '建造机',
+    type: 'constructor' as BuildingType, category: 'production' as BuildingCategory, displayName: '构筑站',
     dimensions: { width: 8, length: 10, height: 8 }, clearanceHeight: 8,
     ports: [port('in-0', 'belt-in', 'back', 4), port('out-0', 'belt-out', 'front', 4)],
     color: '--constructor', powerUsage: 4, stackable: false, wallMounted: false,
   },
   assembler: {
-    type: 'assembler', category: 'production', displayName: '组装机',
+    type: 'assembler', category: 'production', displayName: '装配站',
     dimensions: { width: 10, length: 15, height: 8 }, clearanceHeight: 8,
     ports: [port('in-0', 'belt-in', 'back', 2.5), port('in-1', 'belt-in', 'back', 6.5), port('out-0', 'belt-out', 'front', 4.5)],
     color: '--assembler', powerUsage: 15, stackable: false, wallMounted: false,
   },
   manufacturer: {
-    type: 'manufacturer', category: 'production', displayName: '制造机',
+    type: 'manufacturer', category: 'production', displayName: '制造站',
     dimensions: { width: 20, length: 22, height: 12 }, clearanceHeight: 8,
     ports: [
       port('in-0', 'belt-in', 'front', 3), port('in-1', 'belt-in', 'front', 7),
@@ -41,19 +41,19 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     color: '--manufacturer', powerUsage: 55, stackable: false, wallMounted: false,
   },
   refinery: {
-    type: 'refinery', category: 'production', displayName: '炼油厂',
+    type: 'refinery', category: 'production', displayName: '精炼站',
     dimensions: { width: 10, length: 20, height: 31 }, clearanceHeight: 31,
     ports: [port('in-0', 'belt-in', 'back', 5), port('out-0', 'belt-out', 'front', 5)],
     color: '--refinery', powerUsage: 30, stackable: false, wallMounted: false,
   },
   packager: {
-    type: 'packager', category: 'production', displayName: '打包机',
+    type: 'packager', category: 'production', displayName: '灌装站',
     dimensions: { width: 8, length: 8, height: 12 }, clearanceHeight: 12,
     ports: [port('in-0', 'belt-in', 'back', 4), port('out-0', 'belt-out', 'front', 4)],
     color: '--packager', powerUsage: 10, stackable: false, wallMounted: false,
   },
   blender: {
-    type: 'blender', category: 'production', displayName: '混合机',
+    type: 'blender', category: 'production', displayName: '混料站',
     dimensions: { width: 19, length: 16, height: 16 }, clearanceHeight: 16,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 13),
@@ -62,7 +62,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     color: '--blender', powerUsage: 75, stackable: false, wallMounted: false,
   },
   'particle-accelerator': {
-    type: 'particle-accelerator', category: 'production', displayName: '粒子加速器',
+    type: 'particle-accelerator', category: 'production', displayName: '粒子加速站',
     dimensions: { width: 38, length: 24, height: 38 }, clearanceHeight: 38,
     ports: [
       port('in-0', 'belt-in', 'back', 8), port('in-1', 'belt-in', 'back', 16),
@@ -71,7 +71,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     color: '--particle-accelerator', powerUsage: 1500, stackable: false, wallMounted: false,
   },
   'quantum-encoder': {
-    type: 'quantum-encoder', category: 'production', displayName: '量子编码器',
+    type: 'quantum-encoder', category: 'production', displayName: '量子编码站',
     dimensions: { width: 22, length: 48, height: 8 }, clearanceHeight: 8,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 11),
@@ -81,7 +81,7 @@ export const BUILDING_REGISTRY: Record<string, BuildingMetadata> = {
     color: '--quantum-encoder', powerUsage: 2000, stackable: false, wallMounted: false,
   },
   converter: {
-    type: 'converter', category: 'production', displayName: '转换器',
+    type: 'converter', category: 'production', displayName: '转化站',
     dimensions: { width: 16, length: 16, height: 16 }, clearanceHeight: 16,
     ports: [
       port('in-0', 'belt-in', 'back', 5), port('in-1', 'belt-in', 'back', 11),
@@ -150,7 +150,7 @@ export const MATERIAL_COLORS: Record<string, string> = {
   '铁板': 'var(--mat-iron-plate)', '铁棒': 'var(--mat-iron-rod)',
   '螺丝': 'var(--mat-screw)', '铜矿石': 'var(--mat-copper-ore)',
   '铜锭': 'var(--mat-copper-ingot)', '电线': 'var(--mat-wire)',
-  '线缆': 'var(--mat-cable)', '铜板': 'var(--mat-copper-sheet)',
+  '电缆': 'var(--mat-cable)', '铜板': 'var(--mat-copper-sheet)',
   '石灰石': 'var(--mat-limestone)', '混凝土': 'var(--mat-concrete)',
   '强化铁板': 'var(--mat-reinforced-plate)', '转子': 'var(--mat-rotor)',
   '模块化框架': 'var(--mat-modular-frame)',
@@ -159,7 +159,7 @@ export const MATERIAL_COLORS: Record<string, string> = {
 export const MATERIAL_RAW_COLORS: Record<string, string> = {
   '铁矿石': '#a0782c', '铁锭': '#ff6b35', '铁板': '#00bcd4', '铁棒': '#448aff',
   '螺丝': '#66bb6a', '铜矿石': '#e67333', '铜锭': '#ff7043', '电线': '#ef5350',
-  '线缆': '#c62828', '铜板': '#ff8a65', '石灰石': '#bdbdbd', '混凝土': '#9e9e9e',
+  '电缆': '#c62828', '铜板': '#ff8a65', '石灰石': '#bdbdbd', '混凝土': '#9e9e9e',
   '强化铁板': '#00838f', '转子': '#7c4dff', '模块化框架': '#aa00ff',
 };
 
