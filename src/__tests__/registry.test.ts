@@ -40,7 +40,7 @@ describe('registry', () => {
     expect(MATERIAL_COLORS['铜矿石']).toBeDefined();
     expect(MATERIAL_COLORS['铜锭']).toBeDefined();
     expect(MATERIAL_COLORS['电线']).toBeDefined();
-    expect(MATERIAL_COLORS['线缆']).toBeDefined();
+    expect(MATERIAL_COLORS['电缆']).toBeDefined();
   });
 
   it('smelter dimensions match wiki data (5x10)', () => {

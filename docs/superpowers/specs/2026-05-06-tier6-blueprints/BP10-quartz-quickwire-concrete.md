@@ -1,4 +1,4 @@
-# BP10 石英 + 硅土 + 快速线 + 混凝土 + AI 限制器 (C5)
+# BP10 石英 + 二氧化硅 + 急速电线 + 混凝土 + AI 限制器 (C5)
 
 ## 概要
 
@@ -10,7 +10,7 @@
   - T7 → 15 台通电
   - T8 → 23 台通电
   - T9 → 28 台通电（满载）
-- **产能 T6**: 石英晶体 40.5 / 硅土 37.5 / 快速线 370 / 混凝土 111 / AI 限制器 5
+- **产能 T6**: 石英晶体 40.5 / 二氧化硅 37.5 / 急速电线 370 / 混凝土 111 / AI 限制器 5
 
 > **核心设计原则**：**28 台机器在 T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好**（BP10a 14 台 + BP10b 14 台一次性建完）。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
@@ -26,7 +26,7 @@
 | **合计 (T6)** | 28 | 9 | — | — | 1×2 + 0 + 3×3 + 3×3 + 0 = **20** |
 
 > T6 时未通电的 19 台机器：物理建好、belt 接好、shard 槽**空着**、Power Switch **关**，完全不耗电不产出。<br>
-> 总产能验证 (T6): 1 × 40.5 = 40.5 石英 ✓ | 1 × 37.5 = 37.5 硅土 ✓ | 3 × 123.33 = 370 快速线 ✓ | 3 × 37 = 111 混凝土 ✓ | 1 × 5 = 5 AI 限制器 ✓
+> 总产能验证 (T6): 1 × 40.5 = 40.5 石英 ✓ | 1 × 37.5 = 37.5 二氧化硅 ✓ | 3 × 123.33 = 370 急速电线 ✓ | 3 × 37 = 111 混凝土 ✓ | 1 × 5 = 5 AI 限制器 ✓
 
 ## 物料 I/O
 
@@ -34,23 +34,23 @@
 |---|---|---|---|
 | 输入 | 原始石英 | 78 | 矿场 → 左 Wall Inlet (h=4m) |
 | 输入 | 石灰石 | 333 | 矿场 → 左 Wall Inlet (h=4m，第二口) |
-| 输入 | 铜金锭 | 74 | **屋顶 B6** ← BP6 → smart splitter |
-| 输入 | 铜板 | 25 | **屋顶 B6** ← BP7（与铜金锭同向走 B6）→ smart splitter |
+| 输入 | 钦金锭 | 74 | **屋顶 B6** ← BP6 → smart splitter |
+| 输入 | 铜板 | 25 | **屋顶 B6** ← BP7（与钦金锭同向走 B6）→ smart splitter |
 | 输出 | 石英晶体 → BP15 晶振 | 18 | 屋顶 merger → B6 |
 | 输出 | 石英晶体 → B5 终端 | 22.5 | 屋顶 merger → B5 |
-| 输出 | 硅土 → B5 终端 | 37.5 | 屋顶 merger → B5 |
-| 输出 | 快速线 → BP15 HSC | 210 | 屋顶 merger → B6 |
-| 输出 | 快速线 → AI 限制器（内部）| 100 | 蓝图内 lift |
-| 输出 | 快速线 → B5 终端 | 60 | 屋顶 merger → B5 |
+| 输出 | 二氧化硅 → B5 终端 | 37.5 | 屋顶 merger → B5 |
+| 输出 | 急速电线 → BP15 HSC | 210 | 屋顶 merger → B6 |
+| 输出 | 急速电线 → AI 限制器（内部）| 100 | 蓝图内 lift |
+| 输出 | 急速电线 → B5 终端 | 60 | 屋顶 merger → B5 |
 | 输出 | 混凝土 → BP13 包裹 | 96 | 屋顶 merger → B4 |
 | 输出 | 混凝土 → B5 终端 | 15 | 屋顶 merger → B5 |
 | 输出 | AI 限制器 → B5 终端 | 5 | 屋顶 merger → B5 |
 
 **屋顶总线接入**:
-- 取自 B6 (铜金锭 74 + 铜板 25)
+- 取自 B6 (钦金锭 74 + 铜板 25)
 - 注入 B4 (混凝土 96)
 - 注入 B5 (140 mainNode = 22.5+37.5+60+15+5)
-- 注入 B6 (228 = 石英 18 + 快速线 210)
+- 注入 B6 (228 = 石英 18 + 急速电线 210)
 
 ## 楼层占用（单实例 BP10a / BP10b 同结构）
 
@@ -162,7 +162,7 @@
 
 - B4 merger: 注入混凝土 96 → BP13 包裹下游取
 - B5 merger: 5 物料 mainNode 余量混合 140
-- B6 上**先 smart-splitter 后 merger**：splitter 取铜金锭 74 + 铜板 25 共 99 给 1F quickwire 3 台 + AI-limiter；merger 在 splitter 下游注入石英 18 + 快速线 210 = 228
+- B6 上**先 smart-splitter 后 merger**：splitter 取钦金锭 74 + 铜板 25 共 99 给 1F quickwire 3 台 + AI-limiter；merger 在 splitter 下游注入石英 18 + 急速电线 210 = 228
 
 ## Power Switch 分网（单实例 BP10a；BP10b 同结构但所有 Switch T6=OFF）
 
@@ -187,14 +187,14 @@
 6. **2F belt**：与 1F 共物料 lane，lift 接同一屋顶 merger
 7. **2F 地基**：y=24m 铺 4m 厚地基
 8. **垂直汇总**：5 条 lift-out-top（5 物料各 1 条）→ 屋顶 4 个 merger
-   - 快速线先在 1F splitter 1→3（100 内部 + 210 上 B6 + 60 上 B5）
+   - 急速电线先在 1F splitter 1→3（100 内部 + 210 上 B6 + 60 上 B5）
    - 石英晶体 1F splitter 1→2（18 上 B6 + 22.5 上 B5）
 9. **进料**：
    - 原始石英 78：左 Wall Inlet (h=4m, row=0) → splitter → quartz **全部 4 台** + silica **全部 7 台**（BP10a + BP10b 合计）
    - 石灰石 333：左 Wall Inlet (h=4m, row=2) → splitter → **全部 5 台 concrete**
-   - 铜金锭 74：屋顶 smart splitter → lift-bot → **全部 10 台 quickwire in-0**
+   - 钦金锭 74：屋顶 smart splitter → lift-bot → **全部 10 台 quickwire in-0**
    - 铜板 25：同 splitter → lift-bot → **全部 2 台 AI-limiter in-0**
-10. **快速线 → AI 限制器**: 1F quickwire 输出 1 部分 → 短 belt → AI 限制器 in-1
+10. **急速电线 → AI 限制器**: 1F quickwire 输出 1 部分 → 短 belt → AI 限制器 in-1
 11. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt + 4 merger + smart splitter
 12. **Power Switch ×4**：按上面"Power Switch 分网"表布置 Network A/B/C/D；BP10a T6 只合 A，BP10b T6 全部 OFF
 13. **Power Shard（T6 阶段）**：仅 BP10a 1F 9 台插 shard（Qz 2 shard + 3 Qw × 3 + 3 Cn × 3 = 20 shard）；**其余 19 台物理已就位但 shard 槽空着**
@@ -218,7 +218,7 @@ BP10 是 **2 实例 + 无机器层跨蓝图 belt**：BP10 不消化集群内部�
 
 ## 关键路由
 
-- **铜板从 BP7（C3）跨 C4 到 BP10（C5）**：经 B6 总线携带（与铜金锭同向）。BP10 屋顶 smart splitter 必须同时取 铜金锭 74 + 铜板 25 = 99/min（按 filter 类型分两个 splitter 输出）。
+- **铜板从 BP7（C3）跨 C4 到 BP10（C5）**：经 B6 总线携带（与钦金锭同向）。BP10 屋顶 smart splitter 必须同时取 钦金锭 74 + 铜板 25 = 99/min（按 filter 类型分两个 splitter 输出）。
 - **混凝土反向到 BP13（C6 → 但 BP13 在 BP10 后面，所以是正向）**：B4 总线在 BP10 注入 96，BP13 在 BP10 之后取走，正向流。
 
 ## 验证
@@ -227,8 +227,8 @@ BP10 是 **2 实例 + 无机器层跨蓝图 belt**：BP10 不消化集群内部�
 - [ ] Belt manifold + lift 接到全部 28 台 in / front（不只是 T6 通电的 9 台）
 - [ ] 每实例 4 个 Power Switch 一次建好（共 8 个），BP10a Network A 合上，其余 7 个 Switch 断开
 - [ ] T6 仅 BP10a 1F 9 台插了 shard；其余 19 台物理就位但 shard 槽空
-- [ ] B6 上铜金锭+铜板 99 流量满足 BP10 取（B6 BP7→BP10 段需 ≥ 99）
+- [ ] B6 上钦金锭+铜板 99 流量满足 BP10 取（B6 BP7→BP10 段需 ≥ 99）
 - [ ] 5 物料独立 row（不混料）
-- [ ] 屋顶 4 个 merger filter 正确（B4=混凝土、B5=5 mainNode 混、B6=石英+快速线、smart split B6 取铜金/铜板）
+- [ ] 屋顶 4 个 merger filter 正确（B4=混凝土、B5=5 mainNode 混、B6=石英+急速电线、smart split B6 取铜金/铜板）
 - [ ] AI 限制器**已迁移到此**，BP8 不再有
 - [ ] 矿场来料 belt 容量按 T9 流量预留（T9 升 Mk5/Mk6；T6 临时 Mk4 可，物理升级位置预留好）

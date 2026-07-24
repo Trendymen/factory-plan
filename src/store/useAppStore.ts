@@ -111,7 +111,7 @@ export const useAppStore = create<AppState>((set) => ({
   currentScheme: null,
   beltFlows: new Map(),
   materialMap: new Map(),
-  viewMode: 'single',
+  viewMode: 'manual',
   currentFloor: 1,
   viewport: { ...DEFAULT_VIEWPORT },
   layers: { ...DEFAULT_LAYERS },

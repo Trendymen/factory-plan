@@ -1,4 +1,4 @@
-# BP12 转子 + 定子 + 电机 (C6)
+# BP12 转子 + 定子 + 马达 (C6)
 
 ## 概要
 
@@ -9,7 +9,7 @@
   - T6 → 5 台通电（2 rotor + 2 stator + 1 motor；其余 2 台 Power Switch 关）
   - T7 → 7 台通电（满载 3 + 3 + 1）
   - T8 = T9 → 7 台（不再扩容）
-- **产能**: T6 转子 14 / 定子 15 / 电机 5 → T7+ 满载
+- **产能**: T6 转子 14 / 定子 15 / 马达 5 → T7+ 满载
 
 > **核心设计原则**：**7 台 assembler 在 T6 阶段就全部摆好 + belt/manifold/电网/Power Switch 全部接好**。后续升 Tier 时**不重新放机器、不重新拉 belt**——只需 (1) 翻对应 Power Switch (2) 插 Power Shard (3) 调超频百分比。
 
@@ -20,7 +20,7 @@
 | rotor (assembler) | 3 | **2** | 175.0% | 7.0 | 2 |
 | stator (assembler) | 3 | **2** | 150.0% | 7.5 | 1 |
 | motor (assembler) | 1 | **1** | 100.0% | 5.0 | 0 |
-| **合计 (T6)** | 7 | 5 | — | 转子 14 / 定子 15 / 电机 5 | 2×2 + 2×1 + 0 = **6** |
+| **合计 (T6)** | 7 | 5 | — | 转子 14 / 定子 15 / 马达 5 | 2×2 + 2×1 + 0 = **6** |
 
 > T6 时未通电的 2 台（R3 / S3）：物理建好、belt 接好、shard 槽**空着**、Power Switch **关**，完全不耗电不产出。<br>
 > T7 满载 7 台，新增 R3 / S3 按既定超频（175% / 150%）插 shard，转子/定子产能各增 7。
@@ -33,14 +33,14 @@
 | 输入 | 铁棒 → 转子 | 70 | **屋顶 B2** ← BP2 → splitter |
 | 输入 | 钢管 → 定子 | 45 | **屋顶 B3** ← BP5 → splitter |
 | 输入 | 电线 → 定子 | 120 | **屋顶 B3** ← BP7 → splitter |
-| 内部 | 转子 + 定子 → 电机 | 10 + 10 | 蓝图内 lift |
+| 内部 | 转子 + 定子 → 马达 | 10 + 10 | 蓝图内 lift |
 | 输出 | 转子 → B5 终端 | 4 | 屋顶 merger → B5 |
 | 输出 | 定子 → B5 终端 | 5 | 屋顶 merger → B5 |
-| 输出 | 电机 → B5 终端 | 5 | 屋顶 merger → B5 |
+| 输出 | 马达 → B5 终端 | 5 | 屋顶 merger → B5 |
 
 **屋顶总线接入**:
 - 取自 B1 (螺丝 350) + B2 (铁棒 70) + B3 (钢管 45 + 电线 120 = 165)
-- 注入 B5 (转子 4 + 定子 5 + 电机 5 = 14 mainNode)
+- 注入 B5 (转子 4 + 定子 5 + 马达 5 = 14 mainNode)
 
 > manifold / splitter / lift 一次按 **T7 满载**（3+3+1）尺寸接到全部 7 台 in 端口；T6 阶段未通电的 2 台 in 段管路已就位，只是上游 splitter 出该端口的物料流过去也不会被消化（机器关电）。
 
@@ -149,7 +149,7 @@
 - B1 取螺丝 350 → BP12（B1 流量在此清零）
 - B2 取铁棒 70（来自 BP2）
 - B3 取钢管 45 + 电线 120 = 165（programmable splitter）
-- B5 merger 注入：转子 4 + 定子 5 + 电机 5 = 14 mainNode
+- B5 merger 注入：转子 4 + 定子 5 + 马达 5 = 14 mainNode
 
 ## Power Switch 分网
 
@@ -171,7 +171,7 @@
 5. **2F (12-20m)**：col=0 row=0 放 1 台 M1 motor assembler
 6. **2F belt**：row=4 横铺 motor output belt → col=4 lift-out-top
 7. **2F 地基**：y=20m 铺 4m 厚地基
-8. **电机进料**：1F rotor splitter（10 给 M1 + 4 mainNode）+ stator splitter（10 给 M1 + 5 mainNode）→ lift-up → 2F M1 in-0 / in-1
+8. **马达进料**：1F rotor splitter（10 给 M1 + 4 mainNode）+ stator splitter（10 给 M1 + 5 mainNode）→ lift-up → 2F M1 in-0 / in-1
 9. **垂直汇总**：1F rotor 4 mainNode + stator 5 mainNode + 2F motor 5 → 3 根 lift-out-top 在屋顶汇合到 merger 注 B5
 10. **屋顶 (35m)**：铺 6 条 Mk4 平行 belt（B1 row=0.5 ... B6 row=4.5），左右各嵌 Wall Mount；4 路屋顶进料 splitter (B1 smart / B2 / B3 prog)，1 个 B5 merger
 11. **进料管路**：屋顶 4 splitter → 4 lift-bot → 1F manifold 一次接到 **全 6 台 rotor + stator in 端口**（含 R3 / S3）

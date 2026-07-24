@@ -40,13 +40,13 @@
     },
     {
       "id": "caterium-ingot",
-      "name": "铜金锭",
+      "name": "钦金锭",
       "nameEn": "Caterium Ingot",
       "machine": "smelter",
       "cycleTime": 4,
       "powerMW": 4,
-      "inputs": [{ "item": "铜金矿石", "amount": 3, "rate": 45 }],
-      "outputs": [{ "item": "铜金锭", "amount": 1, "rate": 15 }]
+      "inputs": [{ "item": "钦金矿石", "amount": 3, "rate": 45 }],
+      "outputs": [{ "item": "钦金锭", "amount": 1, "rate": 15 }]
     },
 
     {
@@ -70,8 +70,8 @@
       "cycleTime": 4,
       "powerMW": 16,
       "inputs": [
-        { "item": "铝碎片", "amount": 6, "rate": 90 },
-        { "item": "硅土", "amount": 5, "rate": 75 }
+        { "item": "碎铝渣", "amount": 6, "rate": 90 },
+        { "item": "二氧化硅", "amount": 5, "rate": 75 }
       ],
       "outputs": [{ "item": "铝锭", "amount": 4, "rate": 60 }]
     },
@@ -118,13 +118,13 @@
     },
     {
       "id": "cable",
-      "name": "线缆",
+      "name": "电缆",
       "nameEn": "Cable",
       "machine": "constructor",
       "cycleTime": 2,
       "powerMW": 4,
       "inputs": [{ "item": "电线", "amount": 2, "rate": 60 }],
-      "outputs": [{ "item": "线缆", "amount": 1, "rate": 30 }]
+      "outputs": [{ "item": "电缆", "amount": 1, "rate": 30 }]
     },
     {
       "id": "copper-sheet",
@@ -173,48 +173,48 @@
       "machine": "constructor",
       "cycleTime": 8,
       "powerMW": 4,
-      "inputs": [{ "item": "原始石英", "amount": 5, "rate": 37.5 }],
+      "inputs": [{ "item": "粗石英", "amount": 5, "rate": 37.5 }],
       "outputs": [{ "item": "石英晶体", "amount": 3, "rate": 22.5 }]
     },
     {
       "id": "silica",
-      "name": "硅土",
+      "name": "二氧化硅",
       "nameEn": "Silica",
       "machine": "constructor",
       "cycleTime": 8,
       "powerMW": 4,
-      "inputs": [{ "item": "原始石英", "amount": 3, "rate": 22.5 }],
-      "outputs": [{ "item": "硅土", "amount": 5, "rate": 37.5 }]
+      "inputs": [{ "item": "粗石英", "amount": 3, "rate": 22.5 }],
+      "outputs": [{ "item": "二氧化硅", "amount": 5, "rate": 37.5 }]
     },
     {
       "id": "quickwire",
-      "name": "快速线",
+      "name": "急速电线",
       "nameEn": "Quickwire",
       "machine": "constructor",
       "cycleTime": 5,
       "powerMW": 4,
-      "inputs": [{ "item": "铜金锭", "amount": 1, "rate": 12 }],
-      "outputs": [{ "item": "快速线", "amount": 5, "rate": 60 }]
+      "inputs": [{ "item": "钦金锭", "amount": 1, "rate": 12 }],
+      "outputs": [{ "item": "急速电线", "amount": 5, "rate": 60 }]
     },
     {
       "id": "aluminum-casing",
-      "name": "铝壳",
+      "name": "铝制外壳",
       "nameEn": "Aluminum Casing",
       "machine": "constructor",
       "cycleTime": 2,
       "powerMW": 4,
       "inputs": [{ "item": "铝锭", "amount": 3, "rate": 90 }],
-      "outputs": [{ "item": "铝壳", "amount": 2, "rate": 60 }]
+      "outputs": [{ "item": "铝制外壳", "amount": 2, "rate": 60 }]
     },
     {
       "id": "empty-canister",
-      "name": "空罐",
+      "name": "空桶",
       "nameEn": "Empty Canister",
       "machine": "constructor",
       "cycleTime": 4,
       "powerMW": 4,
       "inputs": [{ "item": "塑料", "amount": 2, "rate": 30 }],
-      "outputs": [{ "item": "空罐", "amount": 4, "rate": 60 }]
+      "outputs": [{ "item": "空桶", "amount": 4, "rate": 60 }]
     },
     {
       "id": "empty-fluid-tank",
@@ -238,23 +238,23 @@
     },
     {
       "id": "iron-rebar",
-      "name": "铁钉弹",
+      "name": "铁棒弹",
       "nameEn": "Iron Rebar",
       "machine": "constructor",
       "cycleTime": 4,
       "powerMW": 4,
       "inputs": [{ "item": "铁棒", "amount": 1, "rate": 15 }],
-      "outputs": [{ "item": "铁钉弹", "amount": 1, "rate": 15 }]
+      "outputs": [{ "item": "铁棒弹", "amount": 1, "rate": 15 }]
     },
     {
       "id": "solid-biofuel",
-      "name": "固体生物燃料",
+      "name": "固态生物燃料",
       "nameEn": "Solid Biofuel",
       "machine": "constructor",
       "cycleTime": 4,
       "powerMW": 4,
       "inputs": [{ "item": "生物质", "amount": 8, "rate": 120 }],
-      "outputs": [{ "item": "固体生物燃料", "amount": 4, "rate": 60 }]
+      "outputs": [{ "item": "固态生物燃料", "amount": 4, "rate": 60 }]
     },
     {
       "id": "biomass-leaves",
@@ -283,7 +283,7 @@
       "machine": "constructor",
       "cycleTime": 4,
       "powerMW": 4,
-      "inputs": [{ "item": "菌丝", "amount": 1, "rate": 15 }],
+      "inputs": [{ "item": "菌丝体", "amount": 1, "rate": 15 }],
       "outputs": [{ "item": "生物质", "amount": 10, "rate": 150 }]
     },
     {
@@ -293,7 +293,7 @@
       "machine": "constructor",
       "cycleTime": 4,
       "powerMW": 4,
-      "inputs": [{ "item": "外星蛋白", "amount": 1, "rate": 15 }],
+      "inputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 15 }],
       "outputs": [{ "item": "生物质", "amount": 100, "rate": 1500 }]
     },
     {
@@ -324,7 +324,7 @@
       "cycleTime": 3,
       "powerMW": 4,
       "inputs": [{ "item": "猪残骸", "amount": 1, "rate": 20 }],
-      "outputs": [{ "item": "外星蛋白", "amount": 1, "rate": 20 }]
+      "outputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 20 }]
     },
     {
       "id": "hatcher-protein",
@@ -334,7 +334,7 @@
       "cycleTime": 3,
       "powerMW": 4,
       "inputs": [{ "item": "孵化者残骸", "amount": 1, "rate": 20 }],
-      "outputs": [{ "item": "外星蛋白", "amount": 1, "rate": 20 }]
+      "outputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 20 }]
     },
     {
       "id": "spitter-protein",
@@ -344,7 +344,7 @@
       "cycleTime": 3,
       "powerMW": 4,
       "inputs": [{ "item": "吐酸者残骸", "amount": 1, "rate": 20 }],
-      "outputs": [{ "item": "外星蛋白", "amount": 1, "rate": 20 }]
+      "outputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 20 }]
     },
     {
       "id": "stinger-protein",
@@ -354,7 +354,7 @@
       "cycleTime": 3,
       "powerMW": 4,
       "inputs": [{ "item": "刺客残骸", "amount": 1, "rate": 20 }],
-      "outputs": [{ "item": "外星蛋白", "amount": 1, "rate": 20 }]
+      "outputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 20 }]
     },
     {
       "id": "alien-dna-capsule",
@@ -363,58 +363,58 @@
       "machine": "constructor",
       "cycleTime": 6,
       "powerMW": 4,
-      "inputs": [{ "item": "外星蛋白", "amount": 1, "rate": 10 }],
+      "inputs": [{ "item": "外星生物蛋白质", "amount": 1, "rate": 10 }],
       "outputs": [{ "item": "外星DNA胶囊", "amount": 1, "rate": 10 }]
     },
     {
       "id": "power-shard-1",
-      "name": "电力碎片(蓝)",
+      "name": "能量碎片(蓝)",
       "nameEn": "Power Shard (Blue)",
       "machine": "constructor",
       "cycleTime": 8,
       "powerMW": 4,
-      "inputs": [{ "item": "蓝色电力蛞蝓", "amount": 1, "rate": 7.5 }],
-      "outputs": [{ "item": "电力碎片", "amount": 1, "rate": 7.5 }]
+      "inputs": [{ "item": "蓝色能量蛞蝓", "amount": 1, "rate": 7.5 }],
+      "outputs": [{ "item": "能量碎片", "amount": 1, "rate": 7.5 }]
     },
     {
       "id": "power-shard-2",
-      "name": "电力碎片(黄)",
+      "name": "能量碎片(黄)",
       "nameEn": "Power Shard (Yellow)",
       "machine": "constructor",
       "cycleTime": 12,
       "powerMW": 4,
-      "inputs": [{ "item": "黄色电力蛞蝓", "amount": 1, "rate": 5 }],
-      "outputs": [{ "item": "电力碎片", "amount": 2, "rate": 10 }]
+      "inputs": [{ "item": "黄色能量蛞蝓", "amount": 1, "rate": 5 }],
+      "outputs": [{ "item": "能量碎片", "amount": 2, "rate": 10 }]
     },
     {
       "id": "power-shard-5",
-      "name": "电力碎片(紫)",
+      "name": "能量碎片(紫)",
       "nameEn": "Power Shard (Purple)",
       "machine": "constructor",
       "cycleTime": 24,
       "powerMW": 4,
-      "inputs": [{ "item": "紫色电力蛞蝓", "amount": 1, "rate": 2.5 }],
-      "outputs": [{ "item": "电力碎片", "amount": 5, "rate": 12.5 }]
+      "inputs": [{ "item": "紫色能量蛞蝓", "amount": 1, "rate": 2.5 }],
+      "outputs": [{ "item": "能量碎片", "amount": 5, "rate": 12.5 }]
     },
     {
       "id": "reanimated-sam",
-      "name": "重生SAM",
+      "name": "活性SAM物质",
       "nameEn": "Reanimated SAM",
       "machine": "constructor",
       "cycleTime": 2,
       "powerMW": 4,
-      "inputs": [{ "item": "SAM", "amount": 4, "rate": 120 }],
-      "outputs": [{ "item": "重生SAM", "amount": 1, "rate": 30 }]
+      "inputs": [{ "item": "SAM物质", "amount": 4, "rate": 120 }],
+      "outputs": [{ "item": "活性SAM物质", "amount": 1, "rate": 30 }]
     },
     {
       "id": "ficsite-trigon",
-      "name": "虚构三角",
+      "name": "F金三角",
       "nameEn": "Ficsite Trigon",
       "machine": "constructor",
       "cycleTime": 6,
       "powerMW": 4,
-      "inputs": [{ "item": "虚构锭", "amount": 1, "rate": 10 }],
-      "outputs": [{ "item": "虚构三角", "amount": 3, "rate": 30 }]
+      "inputs": [{ "item": "F金锭", "amount": 1, "rate": 10 }],
+      "outputs": [{ "item": "F金三角", "amount": 3, "rate": 30 }]
     },
 
     {
@@ -458,7 +458,7 @@
     },
     {
       "id": "smart-plating",
-      "name": "智能镀板",
+      "name": "智能嵌板",
       "nameEn": "Smart Plating",
       "machine": "assembler",
       "cycleTime": 30,
@@ -467,7 +467,7 @@
         { "item": "强化铁板", "amount": 1, "rate": 2 },
         { "item": "转子", "amount": 1, "rate": 2 }
       ],
-      "outputs": [{ "item": "智能镀板", "amount": 1, "rate": 2 }]
+      "outputs": [{ "item": "智能嵌板", "amount": 1, "rate": 2 }]
     },
     {
       "id": "stator",
@@ -484,7 +484,7 @@
     },
     {
       "id": "motor",
-      "name": "电机",
+      "name": "马达",
       "nameEn": "Motor",
       "machine": "assembler",
       "cycleTime": 12,
@@ -493,11 +493,11 @@
         { "item": "转子", "amount": 2, "rate": 10 },
         { "item": "定子", "amount": 2, "rate": 10 }
       ],
-      "outputs": [{ "item": "电机", "amount": 1, "rate": 5 }]
+      "outputs": [{ "item": "马达", "amount": 1, "rate": 5 }]
     },
     {
       "id": "encased-industrial-beam",
-      "name": "包裹工业梁",
+      "name": "钢筋混凝土梁",
       "nameEn": "Encased Industrial Beam",
       "machine": "assembler",
       "cycleTime": 10,
@@ -506,7 +506,7 @@
         { "item": "钢梁", "amount": 3, "rate": 18 },
         { "item": "混凝土", "amount": 6, "rate": 36 }
       ],
-      "outputs": [{ "item": "包裹工业梁", "amount": 1, "rate": 6 }]
+      "outputs": [{ "item": "钢筋混凝土梁", "amount": 1, "rate": 6 }]
     },
     {
       "id": "circuit-board",
@@ -530,7 +530,7 @@
       "powerMW": 15,
       "inputs": [
         { "item": "铜板", "amount": 5, "rate": 25 },
-        { "item": "快速线", "amount": 20, "rate": 100 }
+        { "item": "急速电线", "amount": 20, "rate": 100 }
       ],
       "outputs": [{ "item": "AI限制器", "amount": 1, "rate": 5 }]
     },
@@ -549,20 +549,20 @@
     },
     {
       "id": "automated-wiring",
-      "name": "自动布线",
+      "name": "自动线路",
       "nameEn": "Automated Wiring",
       "machine": "assembler",
       "cycleTime": 24,
       "powerMW": 15,
       "inputs": [
         { "item": "定子", "amount": 1, "rate": 2.5 },
-        { "item": "线缆", "amount": 20, "rate": 50 }
+        { "item": "电缆", "amount": 20, "rate": 50 }
       ],
-      "outputs": [{ "item": "自动布线", "amount": 1, "rate": 2.5 }]
+      "outputs": [{ "item": "自动线路", "amount": 1, "rate": 2.5 }]
     },
     {
       "id": "electromagnetic-control-rod",
-      "name": "电磁控制棒",
+      "name": "电磁控制杆",
       "nameEn": "Electromagnetic Control Rod",
       "machine": "assembler",
       "cycleTime": 30,
@@ -571,11 +571,11 @@
         { "item": "定子", "amount": 3, "rate": 6 },
         { "item": "AI限制器", "amount": 2, "rate": 4 }
       ],
-      "outputs": [{ "item": "电磁控制棒", "amount": 2, "rate": 4 }]
+      "outputs": [{ "item": "电磁控制杆", "amount": 2, "rate": 4 }]
     },
     {
       "id": "alclad-aluminum-sheet",
-      "name": "铝包铝板",
+      "name": "复合铝板",
       "nameEn": "Alclad Aluminum Sheet",
       "machine": "assembler",
       "cycleTime": 6,
@@ -584,7 +584,7 @@
         { "item": "铝锭", "amount": 3, "rate": 30 },
         { "item": "铜锭", "amount": 1, "rate": 10 }
       ],
-      "outputs": [{ "item": "铝包铝板", "amount": 3, "rate": 30 }]
+      "outputs": [{ "item": "复合铝板", "amount": 3, "rate": 30 }]
     },
     {
       "id": "heat-sink",
@@ -594,7 +594,7 @@
       "cycleTime": 8,
       "powerMW": 15,
       "inputs": [
-        { "item": "铝包铝板", "amount": 5, "rate": 37.5 },
+        { "item": "复合铝板", "amount": 5, "rate": 37.5 },
         { "item": "铜板", "amount": 3, "rate": 22.5 }
       ],
       "outputs": [{ "item": "散热器", "amount": 1, "rate": 7.5 }]
@@ -608,7 +608,7 @@
       "powerMW": 15,
       "inputs": [
         { "item": "煤", "amount": 1, "rate": 15 },
-        { "item": "硫", "amount": 1, "rate": 15 }
+        { "item": "硫磺", "amount": 1, "rate": 15 }
       ],
       "outputs": [{ "item": "黑火药", "amount": 2, "rate": 30 }]
     },
@@ -621,13 +621,13 @@
       "powerMW": 15,
       "inputs": [
         { "item": "煤", "amount": 5, "rate": 25 },
-        { "item": "硫", "amount": 5, "rate": 25 }
+        { "item": "硫磺", "amount": 5, "rate": 25 }
       ],
       "outputs": [{ "item": "压缩煤", "amount": 5, "rate": 25 }]
     },
     {
       "id": "nobelisk",
-      "name": "炸药",
+      "name": "诺氏雷筒",
       "nameEn": "Nobelisk",
       "machine": "assembler",
       "cycleTime": 6,
@@ -636,59 +636,59 @@
         { "item": "黑火药", "amount": 2, "rate": 20 },
         { "item": "钢管", "amount": 2, "rate": 20 }
       ],
-      "outputs": [{ "item": "炸药", "amount": 1, "rate": 10 }]
+      "outputs": [{ "item": "诺氏雷筒", "amount": 1, "rate": 10 }]
     },
     {
       "id": "gas-nobelisk",
-      "name": "毒气炸药",
+      "name": "毒气诺石",
       "nameEn": "Gas Nobelisk",
       "machine": "assembler",
       "cycleTime": 12,
       "powerMW": 15,
       "inputs": [
-        { "item": "炸药", "amount": 1, "rate": 5 },
+        { "item": "诺氏雷筒", "amount": 1, "rate": 5 },
         { "item": "生物质", "amount": 10, "rate": 50 }
       ],
-      "outputs": [{ "item": "毒气炸药", "amount": 1, "rate": 5 }]
+      "outputs": [{ "item": "毒气诺石", "amount": 1, "rate": 5 }]
     },
     {
       "id": "cluster-nobelisk",
-      "name": "集束炸药",
+      "name": "集束诺氏雷筒",
       "nameEn": "Cluster Nobelisk",
       "machine": "assembler",
       "cycleTime": 24,
       "powerMW": 15,
       "inputs": [
-        { "item": "炸药", "amount": 3, "rate": 7.5 },
+        { "item": "诺氏雷筒", "amount": 3, "rate": 7.5 },
         { "item": "无烟火药", "amount": 4, "rate": 10 }
       ],
-      "outputs": [{ "item": "集束炸药", "amount": 1, "rate": 2.5 }]
+      "outputs": [{ "item": "集束诺氏雷筒", "amount": 1, "rate": 2.5 }]
     },
     {
       "id": "pulse-nobelisk",
-      "name": "脉冲炸药",
+      "name": "脉冲诺石",
       "nameEn": "Pulse Nobelisk",
       "machine": "assembler",
       "cycleTime": 60,
       "powerMW": 15,
       "inputs": [
-        { "item": "炸药", "amount": 5, "rate": 5 },
+        { "item": "诺氏雷筒", "amount": 5, "rate": 5 },
         { "item": "晶体振荡器", "amount": 1, "rate": 1 }
       ],
-      "outputs": [{ "item": "脉冲炸药", "amount": 5, "rate": 5 }]
+      "outputs": [{ "item": "脉冲诺石", "amount": 5, "rate": 5 }]
     },
     {
       "id": "fabric",
-      "name": "织物",
+      "name": "纤维织物",
       "nameEn": "Fabric",
       "machine": "assembler",
       "cycleTime": 4,
       "powerMW": 15,
       "inputs": [
-        { "item": "菌丝", "amount": 1, "rate": 15 },
+        { "item": "菌丝体", "amount": 1, "rate": 15 },
         { "item": "生物质", "amount": 5, "rate": 75 }
       ],
-      "outputs": [{ "item": "织物", "amount": 1, "rate": 15 }]
+      "outputs": [{ "item": "纤维织物", "amount": 1, "rate": 15 }]
     },
     {
       "id": "encased-plutonium-cell",
@@ -711,14 +711,14 @@
       "cycleTime": 60,
       "powerMW": 15,
       "inputs": [
-        { "item": "融合模块框架", "amount": 1, "rate": 1 },
+        { "item": "焊接模块化框架", "amount": 1, "rate": 1 },
         { "item": "无线电控制单元", "amount": 2, "rate": 2 }
       ],
       "outputs": [{ "item": "压力转换方块", "amount": 1, "rate": 1 }]
     },
     {
       "id": "assembly-director-system",
-      "name": "装配指挥系统",
+      "name": "组装编导系统",
       "nameEn": "Assembly Director System",
       "machine": "assembler",
       "cycleTime": 80,
@@ -727,7 +727,7 @@
         { "item": "自适应控制单元", "amount": 2, "rate": 1.5 },
         { "item": "超级计算机", "amount": 1, "rate": 0.75 }
       ],
-      "outputs": [{ "item": "装配指挥系统", "amount": 1, "rate": 0.75 }]
+      "outputs": [{ "item": "组装编导系统", "amount": 1, "rate": 0.75 }]
     },
     {
       "id": "magnetic-field-generator",
@@ -738,35 +738,35 @@
       "powerMW": 15,
       "inputs": [
         { "item": "多功能框架", "amount": 5, "rate": 2.5 },
-        { "item": "电磁控制棒", "amount": 2, "rate": 1 }
+        { "item": "电磁控制杆", "amount": 2, "rate": 1 }
       ],
       "outputs": [{ "item": "磁场发生器", "amount": 2, "rate": 1 }]
     },
     {
       "id": "stun-rebar",
-      "name": "眩晕弹",
+      "name": "电击铁棒弹",
       "nameEn": "Stun Rebar",
       "machine": "assembler",
       "cycleTime": 6,
       "powerMW": 15,
       "inputs": [
-        { "item": "铁钉弹", "amount": 1, "rate": 10 },
-        { "item": "快速线", "amount": 5, "rate": 50 }
+        { "item": "铁棒弹", "amount": 1, "rate": 10 },
+        { "item": "急速电线", "amount": 5, "rate": 50 }
       ],
-      "outputs": [{ "item": "眩晕弹", "amount": 1, "rate": 10 }]
+      "outputs": [{ "item": "电击铁棒弹", "amount": 1, "rate": 10 }]
     },
     {
       "id": "shatter-rebar",
-      "name": "碎裂弹",
+      "name": "散射铁棒弹",
       "nameEn": "Shatter Rebar",
       "machine": "assembler",
       "cycleTime": 12,
       "powerMW": 15,
       "inputs": [
-        { "item": "铁钉弹", "amount": 2, "rate": 10 },
+        { "item": "铁棒弹", "amount": 2, "rate": 10 },
         { "item": "石英晶体", "amount": 3, "rate": 15 }
       ],
-      "outputs": [{ "item": "碎裂弹", "amount": 1, "rate": 5 }]
+      "outputs": [{ "item": "散射铁棒弹", "amount": 1, "rate": 5 }]
     },
     {
       "id": "rifle-ammo",
@@ -783,7 +783,7 @@
     },
     {
       "id": "homing-rifle-ammo",
-      "name": "追踪步枪弹药",
+      "name": "追踪步枪弹",
       "nameEn": "Homing Rifle Ammo",
       "machine": "assembler",
       "cycleTime": 24,
@@ -792,22 +792,22 @@
         { "item": "步枪弹药", "amount": 20, "rate": 50 },
         { "item": "高速连接器", "amount": 1, "rate": 2.5 }
       ],
-      "outputs": [{ "item": "追踪步枪弹药", "amount": 10, "rate": 25 }]
+      "outputs": [{ "item": "追踪步枪弹", "amount": 10, "rate": 25 }]
     },
 
     {
       "id": "computer",
-      "name": "电脑",
+      "name": "计算机",
       "nameEn": "Computer",
       "machine": "manufacturer",
       "cycleTime": 24,
       "powerMW": 55,
       "inputs": [
         { "item": "电路板", "amount": 4, "rate": 10 },
-        { "item": "线缆", "amount": 8, "rate": 20 },
+        { "item": "电缆", "amount": 8, "rate": 20 },
         { "item": "塑料", "amount": 16, "rate": 40 }
       ],
-      "outputs": [{ "item": "电脑", "amount": 1, "rate": 2.5 }]
+      "outputs": [{ "item": "计算机", "amount": 1, "rate": 2.5 }]
     },
     {
       "id": "crystal-oscillator",
@@ -818,14 +818,14 @@
       "powerMW": 55,
       "inputs": [
         { "item": "石英晶体", "amount": 36, "rate": 18 },
-        { "item": "线缆", "amount": 28, "rate": 14 },
+        { "item": "电缆", "amount": 28, "rate": 14 },
         { "item": "强化铁板", "amount": 5, "rate": 2.5 }
       ],
       "outputs": [{ "item": "晶体振荡器", "amount": 2, "rate": 1 }]
     },
     {
       "id": "heavy-modular-frame",
-      "name": "重型模块框架",
+      "name": "重型模块化框架",
       "nameEn": "Heavy Modular Frame",
       "machine": "manufacturer",
       "cycleTime": 30,
@@ -833,10 +833,10 @@
       "inputs": [
         { "item": "模块化框架", "amount": 5, "rate": 10 },
         { "item": "钢管", "amount": 20, "rate": 40 },
-        { "item": "包裹工业梁", "amount": 5, "rate": 10 },
+        { "item": "钢筋混凝土梁", "amount": 5, "rate": 10 },
         { "item": "螺丝", "amount": 120, "rate": 240 }
       ],
-      "outputs": [{ "item": "重型模块框架", "amount": 1, "rate": 2 }]
+      "outputs": [{ "item": "重型模块化框架", "amount": 1, "rate": 2 }]
     },
     {
       "id": "high-speed-connector",
@@ -846,8 +846,8 @@
       "cycleTime": 16,
       "powerMW": 55,
       "inputs": [
-        { "item": "快速线", "amount": 56, "rate": 210 },
-        { "item": "线缆", "amount": 10, "rate": 37.5 },
+        { "item": "急速电线", "amount": 56, "rate": 210 },
+        { "item": "电缆", "amount": 10, "rate": 37.5 },
         { "item": "电路板", "amount": 1, "rate": 3.75 }
       ],
       "outputs": [{ "item": "高速连接器", "amount": 1, "rate": 3.75 }]
@@ -860,7 +860,7 @@
       "cycleTime": 32,
       "powerMW": 55,
       "inputs": [
-        { "item": "电脑", "amount": 4, "rate": 7.5 },
+        { "item": "计算机", "amount": 4, "rate": 7.5 },
         { "item": "AI限制器", "amount": 2, "rate": 3.75 },
         { "item": "高速连接器", "amount": 3, "rate": 5.625 },
         { "item": "塑料", "amount": 28, "rate": 52.5 }
@@ -875,9 +875,9 @@
       "cycleTime": 48,
       "powerMW": 55,
       "inputs": [
-        { "item": "铝壳", "amount": 32, "rate": 40 },
+        { "item": "铝制外壳", "amount": 32, "rate": 40 },
         { "item": "晶体振荡器", "amount": 1, "rate": 1.25 },
-        { "item": "电脑", "amount": 2, "rate": 2.5 }
+        { "item": "计算机", "amount": 2, "rate": 2.5 }
       ],
       "outputs": [{ "item": "无线电控制单元", "amount": 2, "rate": 2.5 }]
     },
@@ -889,10 +889,10 @@
       "cycleTime": 60,
       "powerMW": 55,
       "inputs": [
-        { "item": "自动布线", "amount": 5, "rate": 5 },
+        { "item": "自动线路", "amount": 5, "rate": 5 },
         { "item": "电路板", "amount": 5, "rate": 5 },
-        { "item": "重型模块框架", "amount": 1, "rate": 1 },
-        { "item": "电脑", "amount": 2, "rate": 2 }
+        { "item": "重型模块化框架", "amount": 1, "rate": 1 },
+        { "item": "计算机", "amount": 2, "rate": 2 }
       ],
       "outputs": [{ "item": "自适应控制单元", "amount": 1, "rate": 1 }]
     },
@@ -904,15 +904,15 @@
       "cycleTime": 60,
       "powerMW": 55,
       "inputs": [
-        { "item": "电机", "amount": 2, "rate": 2 },
+        { "item": "马达", "amount": 2, "rate": 2 },
         { "item": "橡胶", "amount": 15, "rate": 15 },
-        { "item": "智能镀板", "amount": 2, "rate": 2 }
+        { "item": "智能嵌板", "amount": 2, "rate": 2 }
       ],
       "outputs": [{ "item": "模块化引擎", "amount": 1, "rate": 1 }]
     },
     {
       "id": "turbo-motor",
-      "name": "涡轮电机",
+      "name": "涡轮马达",
       "nameEn": "Turbo Motor",
       "machine": "manufacturer",
       "cycleTime": 32,
@@ -920,40 +920,40 @@
       "inputs": [
         { "item": "冷却系统", "amount": 4, "rate": 7.5 },
         { "item": "无线电控制单元", "amount": 2, "rate": 3.75 },
-        { "item": "电机", "amount": 4, "rate": 7.5 },
+        { "item": "马达", "amount": 4, "rate": 7.5 },
         { "item": "橡胶", "amount": 24, "rate": 45 }
       ],
-      "outputs": [{ "item": "涡轮电机", "amount": 1, "rate": 1.875 }]
+      "outputs": [{ "item": "涡轮马达", "amount": 1, "rate": 1.875 }]
     },
     {
       "id": "thermal-propulsion-rocket",
-      "name": "热推进火箭",
+      "name": "热能推进火箭",
       "nameEn": "Thermal Propulsion Rocket",
       "machine": "manufacturer",
       "cycleTime": 120,
       "powerMW": 55,
       "inputs": [
         { "item": "模块化引擎", "amount": 5, "rate": 2.5 },
-        { "item": "涡轮电机", "amount": 2, "rate": 1 },
+        { "item": "涡轮马达", "amount": 2, "rate": 1 },
         { "item": "冷却系统", "amount": 6, "rate": 3 },
-        { "item": "融合模块框架", "amount": 2, "rate": 1 }
+        { "item": "焊接模块化框架", "amount": 2, "rate": 1 }
       ],
-      "outputs": [{ "item": "热推进火箭", "amount": 2, "rate": 1 }]
+      "outputs": [{ "item": "热能推进火箭", "amount": 2, "rate": 1 }]
     },
     {
       "id": "ballistic-warp-drive",
-      "name": "弹道曲速引擎",
+      "name": "弹道跃迁引擎",
       "nameEn": "Ballistic Warp Drive",
       "machine": "manufacturer",
       "cycleTime": 60,
       "powerMW": 55,
       "inputs": [
-        { "item": "热推进火箭", "amount": 1, "rate": 1 },
+        { "item": "热能推进火箭", "amount": 1, "rate": 1 },
         { "item": "奇点电池", "amount": 5, "rate": 5 },
         { "item": "叠加振荡器", "amount": 2, "rate": 2 },
         { "item": "暗物质晶体", "amount": 40, "rate": 40 }
       ],
-      "outputs": [{ "item": "弹道曲速引擎", "amount": 1, "rate": 1 }]
+      "outputs": [{ "item": "弹道跃迁引擎", "amount": 1, "rate": 1 }]
     },
     {
       "id": "singularity-cell",
@@ -972,17 +972,17 @@
     },
     {
       "id": "sam-fluctuator",
-      "name": "SAM波动器",
+      "name": "SAM物质波波动器",
       "nameEn": "SAM Fluctuator",
       "machine": "manufacturer",
       "cycleTime": 6,
       "powerMW": 55,
       "inputs": [
-        { "item": "重生SAM", "amount": 6, "rate": 60 },
+        { "item": "活性SAM物质", "amount": 6, "rate": 60 },
         { "item": "电线", "amount": 5, "rate": 50 },
         { "item": "钢管", "amount": 3, "rate": 30 }
       ],
-      "outputs": [{ "item": "SAM波动器", "amount": 1, "rate": 10 }]
+      "outputs": [{ "item": "SAM物质波波动器", "amount": 1, "rate": 10 }]
     },
     {
       "id": "gas-filter",
@@ -992,7 +992,7 @@
       "cycleTime": 8,
       "powerMW": 55,
       "inputs": [
-        { "item": "织物", "amount": 2, "rate": 15 },
+        { "item": "纤维织物", "amount": 2, "rate": 15 },
         { "item": "煤", "amount": 4, "rate": 30 },
         { "item": "铁板", "amount": 2, "rate": 15 }
       ],
@@ -1000,60 +1000,60 @@
     },
     {
       "id": "iodine-infused-filter",
-      "name": "碘注入过滤器",
+      "name": "碘化过滤器",
       "nameEn": "Iodine-Infused Filter",
       "machine": "manufacturer",
       "cycleTime": 16,
       "powerMW": 55,
       "inputs": [
         { "item": "气体过滤器", "amount": 1, "rate": 3.75 },
-        { "item": "快速线", "amount": 8, "rate": 30 },
-        { "item": "铝壳", "amount": 1, "rate": 3.75 }
+        { "item": "急速电线", "amount": 8, "rate": 30 },
+        { "item": "铝制外壳", "amount": 1, "rate": 3.75 }
       ],
-      "outputs": [{ "item": "碘注入过滤器", "amount": 1, "rate": 3.75 }]
+      "outputs": [{ "item": "碘化过滤器", "amount": 1, "rate": 3.75 }]
     },
     {
       "id": "explosive-rebar",
-      "name": "爆裂弹",
+      "name": "爆炸铁棒弹",
       "nameEn": "Explosive Rebar",
       "machine": "manufacturer",
       "cycleTime": 12,
       "powerMW": 55,
       "inputs": [
-        { "item": "铁钉弹", "amount": 2, "rate": 10 },
+        { "item": "铁棒弹", "amount": 2, "rate": 10 },
         { "item": "无烟火药", "amount": 2, "rate": 10 },
         { "item": "钢管", "amount": 2, "rate": 10 }
       ],
-      "outputs": [{ "item": "爆裂弹", "amount": 1, "rate": 5 }]
+      "outputs": [{ "item": "爆炸铁棒弹", "amount": 1, "rate": 5 }]
     },
     {
       "id": "nuke-nobelisk",
-      "name": "核弹",
+      "name": "核子诺氏雷筒",
       "nameEn": "Nuke Nobelisk",
       "machine": "manufacturer",
       "cycleTime": 120,
       "powerMW": 55,
       "inputs": [
-        { "item": "炸药", "amount": 5, "rate": 2.5 },
+        { "item": "诺氏雷筒", "amount": 5, "rate": 2.5 },
         { "item": "包裹铀电池", "amount": 20, "rate": 10 },
         { "item": "无烟火药", "amount": 10, "rate": 5 },
         { "item": "AI限制器", "amount": 6, "rate": 3 }
       ],
-      "outputs": [{ "item": "核弹", "amount": 1, "rate": 0.5 }]
+      "outputs": [{ "item": "核子诺氏雷筒", "amount": 1, "rate": 0.5 }]
     },
     {
       "id": "turbo-rifle-ammo-manufacturer",
-      "name": "涡轮步枪弹药(制造商)",
+      "name": "涡轮步枪弹(制造商)",
       "nameEn": "Turbo Rifle Ammo (Manufacturer)",
       "machine": "manufacturer",
       "cycleTime": 12,
       "powerMW": 55,
       "inputs": [
         { "item": "步枪弹药", "amount": 25, "rate": 125 },
-        { "item": "铝壳", "amount": 3, "rate": 15 },
+        { "item": "铝制外壳", "amount": 3, "rate": 15 },
         { "item": "打包涡轮燃料", "amount": 3, "rate": 15 }
       ],
-      "outputs": [{ "item": "涡轮步枪弹药", "amount": 50, "rate": 250 }]
+      "outputs": [{ "item": "涡轮步枪弹", "amount": 50, "rate": 250 }]
     },
     {
       "id": "uranium-fuel-rod",
@@ -1064,8 +1064,8 @@
       "powerMW": 55,
       "inputs": [
         { "item": "包裹铀电池", "amount": 50, "rate": 20 },
-        { "item": "包裹工业梁", "amount": 3, "rate": 1.2 },
-        { "item": "电磁控制棒", "amount": 5, "rate": 2 }
+        { "item": "钢筋混凝土梁", "amount": 3, "rate": 1.2 },
+        { "item": "电磁控制杆", "amount": 5, "rate": 2 }
       ],
       "outputs": [{ "item": "铀燃料棒", "amount": 1, "rate": 0.4 }]
     },
@@ -1079,7 +1079,7 @@
       "inputs": [
         { "item": "包裹钚电池", "amount": 30, "rate": 7.5 },
         { "item": "钢梁", "amount": 18, "rate": 4.5 },
-        { "item": "电磁控制棒", "amount": 6, "rate": 1.5 },
+        { "item": "电磁控制杆", "amount": 6, "rate": 1.5 },
         { "item": "散热器", "amount": 10, "rate": 2.5 }
       ],
       "outputs": [{ "item": "钚燃料棒", "amount": 1, "rate": 0.25 }]
@@ -1162,17 +1162,17 @@
     },
     {
       "id": "petroleum-coke",
-      "name": "石油焦",
+      "name": "油焦",
       "nameEn": "Petroleum Coke",
       "machine": "refinery",
       "cycleTime": 6,
       "powerMW": 30,
       "inputs": [{ "item": "重油残渣", "amount": 4, "rate": 40 }],
-      "outputs": [{ "item": "石油焦", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "油焦", "amount": 12, "rate": 120 }]
     },
     {
       "id": "turbofuel",
-      "name": "涡轮燃料",
+      "name": "涡轮燃油",
       "nameEn": "Turbofuel",
       "machine": "refinery",
       "cycleTime": 16,
@@ -1181,7 +1181,7 @@
         { "item": "燃料", "amount": 6, "rate": 22.5 },
         { "item": "压缩煤", "amount": 4, "rate": 15 }
       ],
-      "outputs": [{ "item": "涡轮燃料", "amount": 5, "rate": 18.75 }]
+      "outputs": [{ "item": "涡轮燃油", "amount": 5, "rate": 18.75 }]
     },
     {
       "id": "alumina-solution",
@@ -1196,12 +1196,12 @@
       ],
       "outputs": [
         { "item": "氧化铝溶液", "amount": 12, "rate": 120 },
-        { "item": "硅土", "amount": 5, "rate": 50 }
+        { "item": "二氧化硅", "amount": 5, "rate": 50 }
       ]
     },
     {
       "id": "aluminum-scrap",
-      "name": "铝碎片",
+      "name": "碎铝渣",
       "nameEn": "Aluminum Scrap",
       "machine": "refinery",
       "cycleTime": 1,
@@ -1211,7 +1211,7 @@
         { "item": "煤", "amount": 2, "rate": 120 }
       ],
       "outputs": [
-        { "item": "铝碎片", "amount": 6, "rate": 360 },
+        { "item": "碎铝渣", "amount": 6, "rate": 360 },
         { "item": "水", "amount": 2, "rate": 120 }
       ]
     },
@@ -1223,7 +1223,7 @@
       "cycleTime": 6,
       "powerMW": 30,
       "inputs": [
-        { "item": "硫", "amount": 5, "rate": 50 },
+        { "item": "硫磺", "amount": 5, "rate": 50 },
         { "item": "水", "amount": 5, "rate": 50 }
       ],
       "outputs": [{ "item": "硫酸", "amount": 5, "rate": 50 }]
@@ -1243,16 +1243,16 @@
     },
     {
       "id": "liquid-biofuel",
-      "name": "液体生物燃料",
+      "name": "液态生物燃料",
       "nameEn": "Liquid Biofuel",
       "machine": "refinery",
       "cycleTime": 4,
       "powerMW": 30,
       "inputs": [
-        { "item": "固体生物燃料", "amount": 6, "rate": 90 },
+        { "item": "固态生物燃料", "amount": 6, "rate": 90 },
         { "item": "水", "amount": 3, "rate": 45 }
       ],
-      "outputs": [{ "item": "液体生物燃料", "amount": 4, "rate": 60 }]
+      "outputs": [{ "item": "液态生物燃料", "amount": 4, "rate": 60 }]
     },
     {
       "id": "polyester-fabric",
@@ -1265,21 +1265,21 @@
         { "item": "聚合树脂", "amount": 1, "rate": 30 },
         { "item": "水", "amount": 1, "rate": 30 }
       ],
-      "outputs": [{ "item": "织物", "amount": 1, "rate": 30 }]
+      "outputs": [{ "item": "纤维织物", "amount": 1, "rate": 30 }]
     },
     {
       "id": "ionized-fuel",
-      "name": "电离燃料",
+      "name": "电离燃油",
       "nameEn": "Ionized Fuel",
       "machine": "refinery",
       "cycleTime": 24,
       "powerMW": 30,
       "inputs": [
         { "item": "火箭燃料", "amount": 16, "rate": 40 },
-        { "item": "电力碎片", "amount": 1, "rate": 2.5 }
+        { "item": "能量碎片", "amount": 1, "rate": 2.5 }
       ],
       "outputs": [
-        { "item": "电离燃料", "amount": 16, "rate": 40 },
+        { "item": "电离燃油", "amount": 16, "rate": 40 },
         { "item": "压缩煤", "amount": 2, "rate": 5 }
       ]
     },
@@ -1301,17 +1301,17 @@
     },
     {
       "id": "fused-modular-frame",
-      "name": "融合模块框架",
+      "name": "焊接模块化框架",
       "nameEn": "Fused Modular Frame",
       "machine": "blender",
       "cycleTime": 40,
       "powerMW": 75,
       "inputs": [
-        { "item": "重型模块框架", "amount": 1, "rate": 1.5 },
-        { "item": "铝壳", "amount": 50, "rate": 75 },
+        { "item": "重型模块化框架", "amount": 1, "rate": 1.5 },
+        { "item": "铝制外壳", "amount": 50, "rate": 75 },
         { "item": "氮气", "amount": 25, "rate": 37.5 }
       ],
-      "outputs": [{ "item": "融合模块框架", "amount": 1, "rate": 1.5 }]
+      "outputs": [{ "item": "焊接模块化框架", "amount": 1, "rate": 1.5 }]
     },
     {
       "id": "battery",
@@ -1323,7 +1323,7 @@
       "inputs": [
         { "item": "硫酸", "amount": 2.5, "rate": 50 },
         { "item": "氧化铝溶液", "amount": 2, "rate": 40 },
-        { "item": "铝壳", "amount": 1, "rate": 20 }
+        { "item": "铝制外壳", "amount": 1, "rate": 20 }
       ],
       "outputs": [
         { "item": "电池", "amount": 1, "rate": 20 },
@@ -1363,19 +1363,19 @@
     },
     {
       "id": "non-fissile-uranium",
-      "name": "非裂变铀",
+      "name": "非裂变贫铀",
       "nameEn": "Non-Fissile Uranium",
       "machine": "blender",
       "cycleTime": 24,
       "powerMW": 75,
       "inputs": [
         { "item": "铀废料", "amount": 15, "rate": 37.5 },
-        { "item": "硅土", "amount": 10, "rate": 25 },
+        { "item": "二氧化硅", "amount": 10, "rate": 25 },
         { "item": "硝酸", "amount": 6, "rate": 15 },
         { "item": "硫酸", "amount": 6, "rate": 15 }
       ],
       "outputs": [
-        { "item": "非裂变铀", "amount": 20, "rate": 50 },
+        { "item": "非裂变贫铀", "amount": 20, "rate": 50 },
         { "item": "水", "amount": 6, "rate": 15 }
       ]
     },
@@ -1387,7 +1387,7 @@
       "cycleTime": 6,
       "powerMW": 75,
       "inputs": [
-        { "item": "涡轮燃料", "amount": 6, "rate": 60 },
+        { "item": "涡轮燃油", "amount": 6, "rate": 60 },
         { "item": "硝酸", "amount": 1, "rate": 10 }
       ],
       "outputs": [
@@ -1397,31 +1397,31 @@
     },
     {
       "id": "turbo-rifle-ammo-blender",
-      "name": "涡轮步枪弹药(混合器)",
+      "name": "涡轮步枪弹(混合器)",
       "nameEn": "Turbo Rifle Ammo (Blender)",
       "machine": "blender",
       "cycleTime": 12,
       "powerMW": 75,
       "inputs": [
         { "item": "步枪弹药", "amount": 25, "rate": 125 },
-        { "item": "铝壳", "amount": 3, "rate": 15 },
-        { "item": "涡轮燃料", "amount": 3, "rate": 15 }
+        { "item": "铝制外壳", "amount": 3, "rate": 15 },
+        { "item": "涡轮燃油", "amount": 3, "rate": 15 }
       ],
-      "outputs": [{ "item": "涡轮步枪弹药", "amount": 50, "rate": 250 }]
+      "outputs": [{ "item": "涡轮步枪弹", "amount": 50, "rate": 250 }]
     },
     {
       "id": "biochemical-sculptor",
-      "name": "生化雕塑家",
+      "name": "生化塑造器",
       "nameEn": "Biochemical Sculptor",
       "machine": "blender",
       "cycleTime": 120,
       "powerMW": 75,
       "inputs": [
-        { "item": "装配指挥系统", "amount": 1, "rate": 0.5 },
-        { "item": "虚构三角", "amount": 80, "rate": 40 },
+        { "item": "组装编导系统", "amount": 1, "rate": 0.5 },
+        { "item": "F金三角", "amount": 80, "rate": 40 },
         { "item": "水", "amount": 20, "rate": 10 }
       ],
-      "outputs": [{ "item": "生化雕塑家", "amount": 4, "rate": 2 }]
+      "outputs": [{ "item": "生化塑造器", "amount": 4, "rate": 2 }]
     },
 
     {
@@ -1433,7 +1433,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "水", "amount": 2, "rate": 60 },
-        { "item": "空罐", "amount": 2, "rate": 60 }
+        { "item": "空桶", "amount": 2, "rate": 60 }
       ],
       "outputs": [{ "item": "打包水", "amount": 2, "rate": 60 }]
     },
@@ -1446,7 +1446,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "原油", "amount": 2, "rate": 30 },
-        { "item": "空罐", "amount": 2, "rate": 30 }
+        { "item": "空桶", "amount": 2, "rate": 30 }
       ],
       "outputs": [{ "item": "打包原油", "amount": 2, "rate": 30 }]
     },
@@ -1459,7 +1459,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "燃料", "amount": 2, "rate": 40 },
-        { "item": "空罐", "amount": 2, "rate": 40 }
+        { "item": "空桶", "amount": 2, "rate": 40 }
       ],
       "outputs": [{ "item": "打包燃料", "amount": 2, "rate": 40 }]
     },
@@ -1472,7 +1472,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "重油残渣", "amount": 2, "rate": 30 },
-        { "item": "空罐", "amount": 2, "rate": 30 }
+        { "item": "空桶", "amount": 2, "rate": 30 }
       ],
       "outputs": [{ "item": "打包重油残渣", "amount": 2, "rate": 30 }]
     },
@@ -1484,8 +1484,8 @@
       "cycleTime": 3,
       "powerMW": 10,
       "inputs": [
-        { "item": "液体生物燃料", "amount": 2, "rate": 40 },
-        { "item": "空罐", "amount": 2, "rate": 40 }
+        { "item": "液态生物燃料", "amount": 2, "rate": 40 },
+        { "item": "空桶", "amount": 2, "rate": 40 }
       ],
       "outputs": [{ "item": "打包液体生物燃料", "amount": 2, "rate": 40 }]
     },
@@ -1497,8 +1497,8 @@
       "cycleTime": 6,
       "powerMW": 10,
       "inputs": [
-        { "item": "涡轮燃料", "amount": 2, "rate": 20 },
-        { "item": "空罐", "amount": 2, "rate": 20 }
+        { "item": "涡轮燃油", "amount": 2, "rate": 20 },
+        { "item": "空桶", "amount": 2, "rate": 20 }
       ],
       "outputs": [{ "item": "打包涡轮燃料", "amount": 2, "rate": 20 }]
     },
@@ -1511,7 +1511,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "氧化铝溶液", "amount": 2, "rate": 120 },
-        { "item": "空罐", "amount": 2, "rate": 120 }
+        { "item": "空桶", "amount": 2, "rate": 120 }
       ],
       "outputs": [{ "item": "打包氧化铝溶液", "amount": 2, "rate": 120 }]
     },
@@ -1524,7 +1524,7 @@
       "powerMW": 10,
       "inputs": [
         { "item": "硫酸", "amount": 2, "rate": 40 },
-        { "item": "空罐", "amount": 2, "rate": 40 }
+        { "item": "空桶", "amount": 2, "rate": 40 }
       ],
       "outputs": [{ "item": "打包硫酸", "amount": 2, "rate": 40 }]
     },
@@ -1575,7 +1575,7 @@
       "cycleTime": 3,
       "powerMW": 10,
       "inputs": [
-        { "item": "电离燃料", "amount": 4, "rate": 80 },
+        { "item": "电离燃油", "amount": 4, "rate": 80 },
         { "item": "空液罐", "amount": 2, "rate": 40 }
       ],
       "outputs": [{ "item": "打包电离燃料", "amount": 2, "rate": 40 }]
@@ -1590,7 +1590,7 @@
       "inputs": [{ "item": "打包水", "amount": 2, "rate": 120 }],
       "outputs": [
         { "item": "水", "amount": 2, "rate": 120 },
-        { "item": "空罐", "amount": 2, "rate": 120 }
+        { "item": "空桶", "amount": 2, "rate": 120 }
       ]
     },
     {
@@ -1603,7 +1603,7 @@
       "inputs": [{ "item": "打包原油", "amount": 2, "rate": 60 }],
       "outputs": [
         { "item": "原油", "amount": 2, "rate": 60 },
-        { "item": "空罐", "amount": 2, "rate": 60 }
+        { "item": "空桶", "amount": 2, "rate": 60 }
       ]
     },
     {
@@ -1616,7 +1616,7 @@
       "inputs": [{ "item": "打包燃料", "amount": 2, "rate": 60 }],
       "outputs": [
         { "item": "燃料", "amount": 2, "rate": 60 },
-        { "item": "空罐", "amount": 2, "rate": 60 }
+        { "item": "空桶", "amount": 2, "rate": 60 }
       ]
     },
     {
@@ -1629,7 +1629,7 @@
       "inputs": [{ "item": "打包重油残渣", "amount": 2, "rate": 20 }],
       "outputs": [
         { "item": "重油残渣", "amount": 2, "rate": 20 },
-        { "item": "空罐", "amount": 2, "rate": 20 }
+        { "item": "空桶", "amount": 2, "rate": 20 }
       ]
     },
     {
@@ -1641,8 +1641,8 @@
       "powerMW": 10,
       "inputs": [{ "item": "打包液体生物燃料", "amount": 2, "rate": 60 }],
       "outputs": [
-        { "item": "液体生物燃料", "amount": 2, "rate": 60 },
-        { "item": "空罐", "amount": 2, "rate": 60 }
+        { "item": "液态生物燃料", "amount": 2, "rate": 60 },
+        { "item": "空桶", "amount": 2, "rate": 60 }
       ]
     },
     {
@@ -1654,8 +1654,8 @@
       "powerMW": 10,
       "inputs": [{ "item": "打包涡轮燃料", "amount": 2, "rate": 20 }],
       "outputs": [
-        { "item": "涡轮燃料", "amount": 2, "rate": 20 },
-        { "item": "空罐", "amount": 2, "rate": 20 }
+        { "item": "涡轮燃油", "amount": 2, "rate": 20 },
+        { "item": "空桶", "amount": 2, "rate": 20 }
       ]
     },
     {
@@ -1668,7 +1668,7 @@
       "inputs": [{ "item": "打包氧化铝溶液", "amount": 2, "rate": 120 }],
       "outputs": [
         { "item": "氧化铝溶液", "amount": 2, "rate": 120 },
-        { "item": "空罐", "amount": 2, "rate": 120 }
+        { "item": "空桶", "amount": 2, "rate": 120 }
       ]
     },
     {
@@ -1681,7 +1681,7 @@
       "inputs": [{ "item": "打包硫酸", "amount": 1, "rate": 60 }],
       "outputs": [
         { "item": "硫酸", "amount": 1, "rate": 60 },
-        { "item": "空罐", "amount": 1, "rate": 60 }
+        { "item": "空桶", "amount": 1, "rate": 60 }
       ]
     },
     {
@@ -1732,7 +1732,7 @@
       "powerMW": 10,
       "inputs": [{ "item": "打包电离燃料", "amount": 2, "rate": 40 }],
       "outputs": [
-        { "item": "电离燃料", "amount": 4, "rate": 80 },
+        { "item": "电离燃油", "amount": 4, "rate": 80 },
         { "item": "空液罐", "amount": 2, "rate": 40 }
       ]
     },
@@ -1745,7 +1745,7 @@
       "cycleTime": 60,
       "powerMW": 500,
       "inputs": [
-        { "item": "非裂变铀", "amount": 100, "rate": 100 },
+        { "item": "非裂变贫铀", "amount": 100, "rate": 100 },
         { "item": "铀废料", "amount": 25, "rate": 25 }
       ],
       "outputs": [{ "item": "钚丸", "amount": 30, "rate": 30 }]
@@ -1788,7 +1788,7 @@
     },
     {
       "id": "ficsonium",
-      "name": "虚构元素",
+      "name": "镄",
       "nameEn": "Ficsonium",
       "machine": "particle-accelerator",
       "cycleTime": 6,
@@ -1798,7 +1798,7 @@
         { "item": "奇点电池", "amount": 1, "rate": 10 },
         { "item": "暗物质残渣", "amount": 20, "rate": 200 }
       ],
-      "outputs": [{ "item": "虚构元素", "amount": 1, "rate": 10 }]
+      "outputs": [{ "item": "镄", "amount": 1, "rate": 10 }]
     },
 
     {
@@ -1808,67 +1808,67 @@
       "machine": "converter",
       "cycleTime": 6,
       "powerMW": 250,
-      "inputs": [{ "item": "重生SAM", "amount": 5, "rate": 50 }],
+      "inputs": [{ "item": "活性SAM物质", "amount": 5, "rate": 50 }],
       "outputs": [{ "item": "暗物质残渣", "amount": 10, "rate": 100 }]
     },
     {
       "id": "excited-photonic-matter",
-      "name": "激发光子物质",
+      "name": "激发态光子物质",
       "nameEn": "Excited Photonic Matter",
       "machine": "converter",
       "cycleTime": 3,
       "powerMW": 250,
       "inputs": [],
-      "outputs": [{ "item": "激发光子物质", "amount": 10, "rate": 200 }]
+      "outputs": [{ "item": "激发态光子物质", "amount": 10, "rate": 200 }]
     },
     {
       "id": "time-crystal",
-      "name": "时间晶体",
+      "name": "时间水晶",
       "nameEn": "Time Crystal",
       "machine": "converter",
       "cycleTime": 10,
       "powerMW": 250,
       "inputs": [{ "item": "钻石", "amount": 2, "rate": 12 }],
-      "outputs": [{ "item": "时间晶体", "amount": 1, "rate": 6 }]
+      "outputs": [{ "item": "时间水晶", "amount": 1, "rate": 6 }]
     },
     {
       "id": "ficsite-ingot-iron",
-      "name": "虚构锭(铁)",
+      "name": "F金锭(铁)",
       "nameEn": "Ficsite Ingot (Iron)",
       "machine": "converter",
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 4, "rate": 40 },
+        { "item": "活性SAM物质", "amount": 4, "rate": 40 },
         { "item": "铁锭", "amount": 24, "rate": 240 }
       ],
-      "outputs": [{ "item": "虚构锭", "amount": 1, "rate": 10 }]
+      "outputs": [{ "item": "F金锭", "amount": 1, "rate": 10 }]
     },
     {
       "id": "ficsite-ingot-aluminum",
-      "name": "虚构锭(铝)",
+      "name": "F金锭(铝)",
       "nameEn": "Ficsite Ingot (Aluminum)",
       "machine": "converter",
       "cycleTime": 2,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 2, "rate": 60 },
+        { "item": "活性SAM物质", "amount": 2, "rate": 60 },
         { "item": "铝锭", "amount": 4, "rate": 120 }
       ],
-      "outputs": [{ "item": "虚构锭", "amount": 1, "rate": 30 }]
+      "outputs": [{ "item": "F金锭", "amount": 1, "rate": 30 }]
     },
     {
       "id": "ficsite-ingot-caterium",
-      "name": "虚构锭(铜金)",
+      "name": "F金锭(钦金)",
       "nameEn": "Ficsite Ingot (Caterium)",
       "machine": "converter",
       "cycleTime": 4,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 3, "rate": 45 },
-        { "item": "铜金锭", "amount": 4, "rate": 60 }
+        { "item": "活性SAM物质", "amount": 3, "rate": 45 },
+        { "item": "钦金锭", "amount": 4, "rate": 60 }
       ],
-      "outputs": [{ "item": "虚构锭", "amount": 1, "rate": 15 }]
+      "outputs": [{ "item": "F金锭", "amount": 1, "rate": 15 }]
     },
     {
       "id": "conv-iron-ore-limestone",
@@ -1878,7 +1878,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "石灰石", "amount": 24, "rate": 240 }
       ],
       "outputs": [{ "item": "铁矿石", "amount": 12, "rate": 120 }]
@@ -1891,7 +1891,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铁矿石", "amount": 18, "rate": 180 }
       ],
       "outputs": [{ "item": "煤", "amount": 12, "rate": 120 }]
@@ -1904,7 +1904,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "石灰石", "amount": 36, "rate": 360 }
       ],
       "outputs": [{ "item": "煤", "amount": 12, "rate": 120 }]
@@ -1917,8 +1917,8 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "硫", "amount": 2, "rate": 20 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "硫磺", "amount": 2, "rate": 20 }
       ],
       "outputs": [{ "item": "石灰石", "amount": 12, "rate": 120 }]
     },
@@ -1930,8 +1930,8 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "原始石英", "amount": 10, "rate": 100 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "粗石英", "amount": 10, "rate": 100 }
       ],
       "outputs": [{ "item": "铜矿石", "amount": 12, "rate": 120 }]
     },
@@ -1943,8 +1943,8 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "硫", "amount": 12, "rate": 120 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "硫磺", "amount": 12, "rate": 120 }
       ],
       "outputs": [{ "item": "铜矿石", "amount": 12, "rate": 120 }]
     },
@@ -1956,10 +1956,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铜矿石", "amount": 15, "rate": 150 }
       ],
-      "outputs": [{ "item": "铜金矿石", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "钦金矿石", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-caterium-ore-quartz",
@@ -1969,10 +1969,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "原始石英", "amount": 12, "rate": 120 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "粗石英", "amount": 12, "rate": 120 }
       ],
-      "outputs": [{ "item": "铜金矿石", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "钦金矿石", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-raw-quartz-bauxite",
@@ -1982,10 +1982,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铝土矿", "amount": 10, "rate": 100 }
       ],
-      "outputs": [{ "item": "原始石英", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "粗石英", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-raw-quartz-coal",
@@ -1995,10 +1995,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "煤", "amount": 24, "rate": 240 }
       ],
-      "outputs": [{ "item": "原始石英", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "粗石英", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-sulfur-coal",
@@ -2008,10 +2008,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "煤", "amount": 20, "rate": 200 }
       ],
-      "outputs": [{ "item": "硫", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "硫磺", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-sulfur-iron",
@@ -2021,10 +2021,10 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铁矿石", "amount": 30, "rate": 300 }
       ],
-      "outputs": [{ "item": "硫", "amount": 12, "rate": 120 }]
+      "outputs": [{ "item": "硫磺", "amount": 12, "rate": 120 }]
     },
     {
       "id": "conv-bauxite-copper",
@@ -2034,7 +2034,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铜矿石", "amount": 18, "rate": 180 }
       ],
       "outputs": [{ "item": "铝土矿", "amount": 12, "rate": 120 }]
@@ -2047,8 +2047,8 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "铜金矿石", "amount": 15, "rate": 150 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "钦金矿石", "amount": 15, "rate": 150 }
       ],
       "outputs": [{ "item": "铝土矿", "amount": 12, "rate": 120 }]
     },
@@ -2060,7 +2060,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铝土矿", "amount": 10, "rate": 100 }
       ],
       "outputs": [{ "item": "氮气", "amount": 12, "rate": 120 }]
@@ -2073,8 +2073,8 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
-        { "item": "铜金矿石", "amount": 12, "rate": 120 }
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
+        { "item": "钦金矿石", "amount": 12, "rate": 120 }
       ],
       "outputs": [{ "item": "氮气", "amount": 12, "rate": 120 }]
     },
@@ -2086,7 +2086,7 @@
       "cycleTime": 6,
       "powerMW": 250,
       "inputs": [
-        { "item": "重生SAM", "amount": 1, "rate": 10 },
+        { "item": "活性SAM物质", "amount": 1, "rate": 10 },
         { "item": "铝土矿", "amount": 48, "rate": 480 }
       ],
       "outputs": [{ "item": "铀", "amount": 12, "rate": 120 }]
@@ -2102,8 +2102,8 @@
       "inputs": [
         { "item": "暗物质晶体", "amount": 6, "rate": 30 },
         { "item": "晶体振荡器", "amount": 1, "rate": 5 },
-        { "item": "铝包铝板", "amount": 9, "rate": 45 },
-        { "item": "激发光子物质", "amount": 25, "rate": 125 }
+        { "item": "复合铝板", "amount": 9, "rate": 45 },
+        { "item": "激发态光子物质", "amount": 25, "rate": 125 }
       ],
       "outputs": [
         { "item": "叠加振荡器", "amount": 1, "rate": 5 },
@@ -2118,10 +2118,10 @@
       "cycleTime": 20,
       "powerMW": 1000,
       "inputs": [
-        { "item": "时间晶体", "amount": 5, "rate": 15 },
+        { "item": "时间水晶", "amount": 5, "rate": 15 },
         { "item": "超级计算机", "amount": 1, "rate": 3 },
-        { "item": "虚构三角", "amount": 15, "rate": 45 },
-        { "item": "激发光子物质", "amount": 25, "rate": 75 }
+        { "item": "F金三角", "amount": 15, "rate": 45 },
+        { "item": "激发态光子物质", "amount": 25, "rate": 75 }
       ],
       "outputs": [
         { "item": "神经量子处理器", "amount": 1, "rate": 3 },
@@ -2130,7 +2130,7 @@
     },
     {
       "id": "ai-expansion-server",
-      "name": "AI扩展服务器",
+      "name": "AI拓展伺服器",
       "nameEn": "AI Expansion Server",
       "machine": "quantum-encoder",
       "cycleTime": 15,
@@ -2139,10 +2139,10 @@
         { "item": "磁场发生器", "amount": 1, "rate": 4 },
         { "item": "神经量子处理器", "amount": 1, "rate": 4 },
         { "item": "叠加振荡器", "amount": 1, "rate": 4 },
-        { "item": "激发光子物质", "amount": 25, "rate": 100 }
+        { "item": "激发态光子物质", "amount": 25, "rate": 100 }
       ],
       "outputs": [
-        { "item": "AI扩展服务器", "amount": 1, "rate": 4 },
+        { "item": "AI拓展伺服器", "amount": 1, "rate": 4 },
         { "item": "暗物质残渣", "amount": 25, "rate": 100 }
       ]
     },
@@ -2154,10 +2154,10 @@
       "cycleTime": 24,
       "powerMW": 1000,
       "inputs": [
-        { "item": "SAM波动器", "amount": 5, "rate": 12.5 },
-        { "item": "电力碎片", "amount": 3, "rate": 7.5 },
+        { "item": "SAM物质波波动器", "amount": 5, "rate": 12.5 },
+        { "item": "能量碎片", "amount": 3, "rate": 7.5 },
         { "item": "叠加振荡器", "amount": 3, "rate": 7.5 },
-        { "item": "激发光子物质", "amount": 24, "rate": 60 }
+        { "item": "激发态光子物质", "amount": 24, "rate": 60 }
       ],
       "outputs": [
         { "item": "外星能量矩阵", "amount": 1, "rate": 2.5 },
@@ -2166,37 +2166,37 @@
     },
     {
       "id": "ficsonium-fuel-rod",
-      "name": "虚构燃料棒",
+      "name": "镄燃料棒",
       "nameEn": "Ficsonium Fuel Rod",
       "machine": "quantum-encoder",
       "cycleTime": 24,
       "powerMW": 1000,
       "inputs": [
-        { "item": "虚构元素", "amount": 2, "rate": 5 },
-        { "item": "电磁控制棒", "amount": 2, "rate": 5 },
-        { "item": "虚构三角", "amount": 40, "rate": 100 },
-        { "item": "激发光子物质", "amount": 20, "rate": 50 }
+        { "item": "镄", "amount": 2, "rate": 5 },
+        { "item": "电磁控制杆", "amount": 2, "rate": 5 },
+        { "item": "F金三角", "amount": 40, "rate": 100 },
+        { "item": "激发态光子物质", "amount": 20, "rate": 50 }
       ],
       "outputs": [
-        { "item": "虚构燃料棒", "amount": 1, "rate": 2.5 },
+        { "item": "镄燃料棒", "amount": 1, "rate": 2.5 },
         { "item": "暗物质残渣", "amount": 20, "rate": 50 }
       ]
     },
     {
       "id": "synthetic-power-shard",
-      "name": "合成电力碎片",
+      "name": "合成能量碎片",
       "nameEn": "Synthetic Power Shard",
       "machine": "quantum-encoder",
       "cycleTime": 12,
       "powerMW": 1000,
       "inputs": [
-        { "item": "时间晶体", "amount": 2, "rate": 10 },
+        { "item": "时间水晶", "amount": 2, "rate": 10 },
         { "item": "暗物质晶体", "amount": 2, "rate": 10 },
         { "item": "石英晶体", "amount": 12, "rate": 60 },
-        { "item": "激发光子物质", "amount": 12, "rate": 60 }
+        { "item": "激发态光子物质", "amount": 12, "rate": 60 }
       ],
       "outputs": [
-        { "item": "电力碎片", "amount": 1, "rate": 5 },
+        { "item": "能量碎片", "amount": 1, "rate": 5 },
         { "item": "暗物质残渣", "amount": 12, "rate": 60 }
       ]
     }

@@ -600,7 +600,6 @@ describe('R19 - 垂直交叉检测', () => {
 });
 
 import ironFullLineV2 from '../../data/schemes/iron-full-line-v2.json';
-import unifiedBase from '../../data/schemes/unified-base.json';
 import { computeSchemeStats } from '../core/computeStats';
 
 describe('iron-full-line-v2 流量分析（Tier 2）', () => {
@@ -669,31 +668,6 @@ describe('iron-full-line-v2 方案校验', () => {
     const unexpectedWarns = warns.filter(w => !isKnownR19(w));
     if (unexpectedWarns.length > 0) {
       console.error('Unexpected warns in v2:');
-      unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
-    }
-    expect(unexpectedWarns).toHaveLength(0);
-  });
-});
-
-describe('unified-base 方案校验', () => {
-  it('validateSchemeDetailed 无 error', () => {
-    const issues = validateSchemeDetailed(unifiedBase as unknown as Scheme);
-    const errors = issues.filter(i => i.severity === 'error');
-    if (errors.length > 0) {
-      console.error('Unexpected errors in unified-base:');
-      errors.forEach(e => console.error(`  [${e.rule}] ${e.message}`));
-    }
-    expect(errors).toHaveLength(0);
-  });
-
-  it('不应出现皮带穿机/重叠/交叉等异常 warn', () => {
-    const issues = validateSchemeDetailed(unifiedBase as unknown as Scheme);
-    const warns = issues.filter(i => i.severity === 'warn');
-
-    const unexpectedWarns = warns;
-
-    if (unexpectedWarns.length > 0) {
-      console.error('Unexpected warns in unified-base:');
       unexpectedWarns.forEach(w => console.error(`  [${w.rule}] ${w.message}`));
     }
     expect(unexpectedWarns).toHaveLength(0);

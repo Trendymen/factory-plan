@@ -231,7 +231,7 @@ F1 的 machines / belts / structures / zones 全部从 v1 原样 clone，**仅�
 ### 5.3 F2 手工重建：尺度 2
 
 **约束**：
-- **生产机器保持**：4 台螺丝 constructor（`screw1`-`screw4`）、`rotor` 组装机、`store_rotor` 储存箱的数量、种类、recipe、label **不变**。
+- **生产机器保持**：4 台螺丝 constructor（`screw1`-`screw4`）、`rotor` 装配站、`store_rotor` 储存箱的数量、种类、recipe、label **不变**。
 - **物流机器可重排**：分流/合流器（splitter/merger）的数量、位置、端口走向可按新物流方向自由调整。
 - **物流方向翻转**：从原先的 **north→south** 改为 **south→north**，让接料点落在 F1 lift 同 col 的南部区域。
 

@@ -341,7 +341,7 @@ interface BuildingMetadata {
 | splitter | 4×4×3 | 3 | 1in(back) + 3out(front/left/right) | 0 |
 | merger | 4×4×3 | 3 | 3in(back/left/right) + 1out(front) | 0 |
 
-注意：制造机是唯一输入在前方的生产机器。
+注意：制造站是唯一输入在前方的生产机器。
 
 **端口精度分级策略**：
 

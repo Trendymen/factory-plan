@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, type MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useEffect, useRef, type MouseEvent as ReactMouseEvent, type WheelEvent as ReactWheelEvent } from 'react';
 import { ErrorBoundary, useErrorBoundary } from 'react-error-boundary';
 import type { Scheme } from './core/types';
 import { validateScheme, buildSchemeIndex } from './core/schema';
@@ -98,6 +98,14 @@ function AppContent() {
     }
   }, []);
 
+  // 滚轮缩放：作用于整个 <main>，光标在 canvas 任意处（含 svg 外）都能缩放。
+  // 手册视图根元素对 wheel 调了 stopPropagation，故 manual tab 不会被缩放。
+  const onWheelZoom = useCallback((e: ReactWheelEvent<HTMLElement>) => {
+    const z = useAppStore.getState().viewport.zoom;
+    const d = e.deltaY > 0 ? 0.9 : 1.1;
+    setViewport({ zoom: Math.max(0.3, Math.min(3, z * d)) });
+  }, [setViewport]);
+
   useEffect(() => {
     loadAllSchemeIndexes()
       .then(async (indexes) => {
@@ -162,6 +170,7 @@ function AppContent() {
         onMouseUp={endPan}
         onMouseLeave={endPan}
         onClickCapture={onCanvasClickCapture}
+        onWheel={onWheelZoom}
       >
         <ErrorBoundary
           FallbackComponent={ViewErrorFallback}
